@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.geungeunhanjan.mapper.board.KeywordMapper">
+    <insert id="keywordInsert" parameterType="KeywordVO">
+        <selectKey resultType="Long" keyProperty="keywordId" order="BEFORE">
+            select seq_keyword.nextval from dual
+        </selectKey>
+        insert into gghj_keyword(keyword_id, keyword_content, keyword_time_stamp)
+        values(#{keywordId}, #{keywordContent}, ${keywordTimeStamp})
+    </insert>
+
+    <select id="keywordCountSelect" resultType="KeywordDTO">
+        SELECT keyword_content, keyword_count
+        FROM (
+                 SELECT keyword_content, COUNT(*) AS keyword_count
+                 FROM gghj_keyword
+                 GROUP BY keyword_content
+             ) subquery
+        ORDER BY keyword_count DESC
+    </select>
+</mapper>

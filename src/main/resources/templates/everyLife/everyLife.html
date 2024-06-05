@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모두의 일대기</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" th:href="@{/css/notion.css}"/>
+    <link rel="stylesheet" th:href="@{/css/everyLife/everyLife.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragment/header.css}"/>
+    <link rel="stylesheet" th:href="@{/css/fragment/footer.css}"/>
+    <script defer th:src="@{/js/everyLife/everyLife.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<!-- 헤더~~!!!!!!!!!!!!!!!!!!! -->
+<div th:replace="~{/fragment/header::header}"></div>
+<!-- 헤더 끝-========================================================================== -->
+
+<!-- 모두의 일대기 전체 감싸는 div -->
+<div class="everyLife-container container">
+    <!-- 제목 감싸는 div -->
+    <div class="everyLife-wrap1">
+        모두의 일대기
+    </div>
+    <!-- 제목 제외한 밑에 모든 것 감싸는 div -->
+    <div class="everyLife-wrap2">
+        <!-- 연령대 선택 버튼 / 검색창 / 최신, 인기순-->
+        <div class="everyLife-select-wrap">
+            <div class="everyLife-select-box">
+                <div class="everyLife-select-btn">
+                        <span class="everyLife-btn-span">
+                            <button type="button" value="유아기">유아기</button>
+                        </span>
+                    <span class="everyLife-btn-span">
+                            <button type="button" value="유년기">유년기</button>
+                        </span>
+                    <span class="everyLife-btn-span">
+                            <button type="button" value="아동기">아동기</button>
+                        </span>
+                    <span class="everyLife-btn-span">
+                            <button type="button" value="청소년기">청소년기</button>
+                        </span>
+                    <span class="everyLife-btn-span">
+                            <button type="button" value="청년기">성인</button>
+                        </span>
+                    <span class="everyLife-btn-span">
+                            <button type="button" value="중년기">중년</button>
+                        </span>
+                    <span class="everyLife-btn-span">
+                            <button type="button" value="노년기">노년</button>
+                        </span>
+                </div>
+                <div class="everyLife-select-bar">
+                    <form onsubmit="filterContent(); return false;">
+                        <input type="text" name="searchKeyword" placeholder="검색어를 입력해주세요">
+                        <div id="searchResults"></div>
+                        <button type="submit" class="everyLife-magnifier">
+                            <img src="./../../img/main/돋보기.png">
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- 최신순 / 인기순 정렬  -->
+        <div class="everyLife-select-sequence">
+            <form action="#">
+                <select name="" class="box-select" onchange="document.getElementById('sortForm').submit();">
+                    <option id="latestview" value="latest">최신순</option>
+                    <option id="popularityview" value="popularity">인기순</option>
+                    <option id="viewscount" value="views">조회순</option>
+                </select>
+            </form>
+        </div>
+        <!-- 메인 컨텐츠들 감싸는 div -->
+        <div class="everyLife-content-wrap">
+            <div class="everyLife-content-box" th:each="board: ${boardLists}">
+                <a th:href="@{/myLife/detail-my(boardId=${board.boardId})}">
+                    <!--                <a href ="#">-->
+                    <div class="everyLife-contents">
+                        <div class="everyLife-content-title" th:text="${board.boardTitle}">제목</div>
+                        <div class="everyLife-content-date" th:text="|작성일 : ${#temporals.format(board.boardCreatedDate, 'yyyy년 MM월 dd일')}|">작성일</div>
+                        <div class="everyLife-content-views" th:text="|조회수 : ${board.boardViewCount}|">조회수</div>
+                        <div class="everyLife-content-writer">
+                                <span class="everyLife-writer-profile">
+                                    <img src="./../../img/everyLife/everyLife_profile.png" alt="">
+                                </span>
+                            <span class="everyLife-writer-nickname" th:text="${board.nickname}">닉네임</span>
+                        </div>
+                        <div class="everyLife-content-detail" th:text="${board.boardContent}">내용</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- 페이징 처리하는 페이지  -->
+    <div class="everyLife-paging">
+        <ul class="paging-backward">
+            <a th:href="@{/everyLife(page=${page.startPage - 1})}" class="page-a" th:if="${page.prev}">&lt;</a></ul>
+        <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
+            <a th:href="@{/everyLife(page=${i})}" class="page-a">
+                <li class="page-num" th:classappend="${i == page.criteria.page ? 'active' : ''}" th:text="${i}"></li>
+            </a>
+        </th:block>
+        <a th:href="@{/everyLife(page=${page.endPage + 1})}" class="page-a" th:if="${page.next}">
+            <li class="page-num next">&gt</li>
+        </a>
+    </div>
+    <!--            <div class="everyLife-paging">-->
+    <!--                <ul class="paging-backward">-->
+    <!--                    <li th:if="${page.prev}">-->
+    <!--                        <a th:href="@{/everyLife/everyLife(page=${page.startPage - 1})}" class="page-a">&lt;</a>-->
+    <!--                    </li>-->
+    <!--                </ul>-->
+    <!--                <ul class="paging-numbers">-->
+    <!--                    <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">-->
+    <!--                        <li>-->
+    <!--                            <a th:href="@{/everyLife/everyLife(page=${i})}" class="page-a" th:classappend="${i == page.criteria.page ? 'active' : ''}" th:text="${i}"></a>-->
+    <!--                        </li>-->
+    <!--                    </th:block>-->
+    <!--                </ul>-->
+    <!--                <ul class="paging-forward">-->
+    <!--                    <li th:if="${page.next}">-->
+    <!--                        <a th:href="@{/everyLife/everyLife(page=${page.endPage + 1})}" class="page-a">&gt;</a>-->
+    <!--                    </li>-->
+    <!--                </ul>-->
+    <!--            </div>-->
+</div>
+<div th:replace="~{/fragment/footer::footer}"></div>
+</body>
+</html>

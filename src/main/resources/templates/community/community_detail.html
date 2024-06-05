@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>커뮤니티 상세</title>
+    <link th:href="@{/css/reset.css}" rel="stylesheet">
+    <link th:href="@{/css/notion.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/community/community_detail.css}">
+    <script th:src="@{/js/fragment/footerFetch.js}" defer></script>
+    <script th:src="@{/js/fragment/headerFetch.js}" defer></script>
+</head>
+<body>
+<div th:replace="~{/fragment/header::header}"></div>
+
+    <div class="community-detail-container container">
+        <div class="back-button">
+            <button type="button" onClick="location.href='/community/notification'">
+                &lt; 메뉴로 돌아가기
+            </button>
+        </div>
+        <div class="detail-title-wrap">
+            <div class="detail-title-title" th:text="${notice.noticeTitle}">필독 공지사항 꼭 읽어주세요</div>
+            <div class="detail-title-date" th:text="${#temporals.format(notice.noticeCreatedDate, 'yyyy.MM.dd')}">2024.05.10</div>
+        </div>
+        <div class="community-deatil-content-wrap">
+<!--            <div class="community-detail-content">-->
+<!--                <div class="commnuity-detail-content-subheading">-->
+<!--                    잊혀진 고향-->
+<!--                </div>-->
+<!--                <div class="commnuity-detail-content-content">-->
+<!--                    한때 자라났던 마을로 돌아오는 여행길, 그리고 그곳에서의 일그러진 기억들. 고향은 변화했고, 그 안에 자리한 사람들도 다른 길을 걸어왔다. 주인공은 과거와 현재를 넘나들며 그 시절을 되돌아보는데, 그 속에는 새로운 깨달음과 성장이 숨어있다.-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="community-detail-content">
+<!--                <div class="commnuity-detail-content-subheading">-->
+<!--                    잊혀진 고향-->
+<!--                </div>-->
+                <div class="commnuity-detail-content-content" th:text="${notice.noticeContent}">
+                    한때 자라났던 마을로 돌아오는 여행길, 그리고 그곳에서의 일그러진 기억들. 고향은 변화했고, 그 안에 자리한 사람들도 다른 길을 걸어왔다. 주인공은 과거와 현재를 넘나들며 그 시절을 되돌아보는데, 그 속에는 새로운 깨달음과 성장이 숨어있다.
+                </div>
+            </div>
+            </div>
+            <div class="community-detail-content">
+                <div class="commnuity-detail-content-content">
+                    이용해주셔서 감사합니다
+                </div>
+
+<!--<div class="community-detail-container container">-->
+<!--    <div class="back-button">-->
+<!--        <button type="button" onClick="location.href='/community/notification'">-->
+<!--            &lt; 메뉴로 돌아가기-->
+<!--        </button>-->
+<!--    </div>-->
+<!--    <div class="detail-title-wrap">-->
+<!--        <div class="detail-title-title" th:text="${notice.noticeTitle}">필독 공지사항 꼭 읽어주세요</div>-->
+<!--        <div class="detail-title-date" th:text="${#temporals.format(notice.noticeCreatedDate, 'yyyy.MM.dd')}">2024.05.10</div>-->
+<!--    </div>-->
+<!--    <div class="community-deatil-content-wrap">-->
+<!--        &lt;!&ndash;            <div class="community-detail-content">&ndash;&gt;-->
+<!--        &lt;!&ndash;                <div class="commnuity-detail-content-subheading">&ndash;&gt;-->
+<!--        &lt;!&ndash;                    잊혀진 고향&ndash;&gt;-->
+<!--        &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                <div class="commnuity-detail-content-content">&ndash;&gt;-->
+<!--        &lt;!&ndash;                    한때 자라났던 마을로 돌아오는 여행길, 그리고 그곳에서의 일그러진 기억들. 고향은 변화했고, 그 안에 자리한 사람들도 다른 길을 걸어왔다. 주인공은 과거와 현재를 넘나들며 그 시절을 되돌아보는데, 그 속에는 새로운 깨달음과 성장이 숨어있다.&ndash;&gt;-->
+<!--        &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;            </div>&ndash;&gt;-->
+<!--        <div class="community-detail-content">-->
+<!--            &lt;!&ndash;                <div class="commnuity-detail-content-subheading">&ndash;&gt;-->
+<!--            &lt;!&ndash;                    잊혀진 고향&ndash;&gt;-->
+<!--            &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--            <div class="commnuity-detail-content-content" th:text="${notice.noticeContent}">-->
+<!--                한때 자라났던 마을로 돌아오는 여행길, 그리고 그곳에서의 일그러진 기억들. 고향은 변화했고, 그 안에 자리한 사람들도 다른 길을 걸어왔다. 주인공은 과거와 현재를 넘나들며 그 시절을 되돌아보는데, 그 속에는 새로운 깨달음과 성장이 숨어있다.-->
+<!--&gt;>>>>>> 05e079ae3e54f3ebd1d82ea125fc3b282de72288-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="community-detail-content">-->
+<!--        <div class="commnuity-detail-content-content">-->
+<!--            이용해주셔서 감사합니다-->
+<!--        </div>-->
+    </div>
+</div>
+</div>
+<div th:replace="~{/fragment/footer::footer}"></div><footer></footer>
+</div>
+</body>
+</html>

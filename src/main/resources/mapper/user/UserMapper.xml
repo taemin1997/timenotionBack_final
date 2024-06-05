@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.geungeunhanjan.mapper.user.UserMapper">
+
+    <!--1. 유저 정보 전체조회
+        userId / 닉네임 / 이메일 / 소개글 / 생일 / 회원상태 -->
+    <select id="selectAllUserInfo" resultType="UserDTO">
+        SELECT UNI.UNI_ID      UNI_ID,
+               U.USER_NICKNAME NICKNAME,
+               U.USER_EMAIL    EMAIL,
+               UNI.UNI_ABOUT   ABOUT,
+               U.USER_BIRTH    BIRTH,
+               UNI.UNI_STATUS  STATUS
+        FROM GGHJ_UNI UNI
+                 JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID
+        WHERE UNI.UNI_ID = #{userId}
+        UNION ALL
+        SELECT UNI.UNI_ID       UNI_ID,
+               K.NAME NICKNAME,
+               K.KAKAO_EMAIL    EMAIL,
+               UNI.UNI_ABOUT    ABOUT,
+               K.KAKAO_BIRTH    BIRTH,
+               UNI.UNI_STATUS   STATUS
+        FROM GGHJ_UNI UNI
+                 JOIN GGHJ_KAKAO K ON UNI.KAKAO_ID = K.KAKAO_ID
+        WHERE UNI.UNI_ID = #{userId}
+    </select>
+    <!--2. 회원 프사 / 배사 가져옴 -->
+    <select id="selectAllUserFile" resultType="UserFileVO">
+        SELECT *
+        FROM GGHJ_USER_FILE F
+                 JOIN GGHJ_UNI UNI ON F.USER_ID = UNI.UNI_ID
+        WHERE uni.UNI_ID = #{userId}
+    </select>
+    <!--3. 회원 업데이트문 추후 업뎃예정-->
+    <!--4. 회원 탈퇴 -->
+
+    <!--    main화면 게시글 userNickname 알려주는 쿼리-->
+    <select id="mainBoardByViewsNickname" resultType="string">
+        SELECT USER_NAME
+        FROM GGHJ_USER u JOIN GGHJ_BOARD b
+                              ON b.USER_ID = u.USER_ID
+        WHERE b.BOARD_ID = #{boardID}
+    </select>
+    <!--로그인 쿼리(수정예정)-->
+    <select id="userLogin" resultType="Long">
+        select user_id
+        from gghj_user
+        where user_email = #{userEmail} and user_password = #{userPassword}
+    </select>
+    <!--일반유저 다음 시퀀스-->
+    <select id="getUserSeqNext" resultType="Long">
+        SELECT SEQ_USER.nextval from dual
+    </select>
+    <!--일반 유저 현재 시퀀스-->
+    <select id="getUserSeqCurr" resultType="Long">
+        SELECT SEQ_USER.currval from dual
+    </select>
+    <!--통합 유저 다음 시퀀스-->
+    <select id="getUniSeq" resultType="Long">
+        select Seq_uni.nextval from dual
+    </select>
+    <!--두 유저 닉네임-->
+    <select id="selectUserNickname" resultType="string" parameterType="long">
+        SELECT COALESCE(U.USER_NICKNAME, K.NAME) AS USERNICKNAME
+        FROM GGHJ_UNI UNI
+                 LEFT JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID
+                 LEFT JOIN GGHJ_KAKAO K ON UNI.KAKAO_ID = K.KAKAO_ID
+        WHERE UNI.UNI_ID = #{uniId}
+    </select>
+    <!--일반, 카카오 유저 통합아이디-->
+    <select id="findUniIdByUserIdOrKakaoId" resultType="long" parameterType="long">
+        SELECT UNI_ID
+        FROM GGHJ_UNI
+        WHERE
+        <if test="userId != null">
+            USER_ID = #{userId}
+        </if>
+        <if test="kakaoId != null">
+            KAKAO_ID = #{kakaoId}
+        </if>
+    </select>
+    <!--일반회원가입(대대적인 수정 예정)-->
+    <insert id="userJoin" parameterType="UserVO">
+        INSERT INTO GGHJ_USER(USER_ID, USER_NAME, USER_PASSWORD, USER_EMAIL, USER_NICKNAME, USER_BIRTH)
+        VALUES (#{userId}, #{userName}, #{userPassword}, #{userEmail}, #{userNickname}, #{userBirth})
+    </insert>
+    <!-- 회원가입하면 통합회원id 배정-->
+    <insert id="userUniJoin" parameterType="UniVO">
+        <selectKey keyProperty="uniId" resultType="Long" order="BEFORE">
+            select seq_uni.nextval from dual
+        </selectKey>
+        INSERT INTO GGHJ_UNI (UNI_ID, UNI_STATUS, UNI_ABOUT, USER_ID, KAKAO_ID)
+        VALUES (#{uniId}, '일반', null, #{userId}, #{kakaoId})
+    </insert>
+
+    <select id="uniUserIdNickname" resultType="UserSessionDTO" parameterType="Long">
+        SELECT
+            u.UNI_ID,
+            COALESCE(ku.NAME, uu.USER_NICKNAME) AS USER_NICKNAME
+        FROM
+            GGHJ_UNI u
+                LEFT JOIN
+            GGHJ_KAKAO ku
+            ON
+                u.KAKAO_ID = ku.KAKAO_ID
+                LEFT JOIN
+            GGHJ_USER uu
+            ON
+                u.USER_ID = uu.USER_ID
+        WHERE
+            uu.USER_ID = #{userId}
+    </select>
+
+    <select id="uniKakaoIdNickName" resultType="UserSessionDTO" parameterType="string">
+        SELECT
+            u.UNI_ID,
+            COALESCE(ku.NAME, uu.USER_NICKNAME) AS USER_NICKNAME
+        FROM
+            GGHJ_UNI u
+                LEFT JOIN
+            GGHJ_KAKAO ku
+            ON
+                u.KAKAO_ID = ku.KAKAO_ID
+                LEFT JOIN
+            GGHJ_USER uu
+            ON
+                u.USER_ID = uu.USER_ID
+        WHERE
+            ku.PROVIDER_ID = #{providerId}
+    </select>
+</mapper>

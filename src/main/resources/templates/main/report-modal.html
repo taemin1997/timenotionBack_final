@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>신고 모달</title>
+    <link rel="stylesheet" href="./../../css/reset.css" />
+    <link rel="stylesheet" href="./../../css/main/report-modal.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- /* 1. 신고 모달  --------------------------------------------*/ -->
+    <article>
+        <form class="report">
+            <div class="box-report-input">
+                <div class="report-title-r">신고하기</div>
+                <label for="a"><input type="radio" name="report-reason" value="" id="a" />욕설 및 비방</label
+          >
+          <label for="b"><input type="radio" name="report-reason" value="" id="b" />스팸</label>
+                <label for="c"><input type="radio" name="report-reason" value="" id="c" />음란물</label>
+                <label for="d"><input type="radio" name="report-reason" value="" id="d" />중복 게시물 도배</label
+          >
+          <label for="e"
+            ><input type="radio" name="report-reason" value="" id="e" />부정확한 정보</label
+          >
+          <label for="f"><input type="radio" name="report-reason" value="" id="f" />도용</label>
+                <label for="g"><input type="radio" name="report-reason" value="" id="g" />기타
+            <input
+              type="text"
+              name="report-input"
+              class="report-input"
+              maxlength="100"
+              placeholder="기타 사유를 적어주세요."
+            />
+          </label>
+                <div class="report-btn-box">
+                    <button class="report-btn-report">신고하기</button>
+                    <button class="report-btn-close">닫기</button>
+                </div>
+            </div>
+        </form>
+    </article>
+    <article>
+        <div class="box-mini-report" id="box-mini-report">
+            <button id="mini-button">신고하기</button>
+        </div>
+    </article>
+    <button id="dot">점점점</button>
+</body>
+<script>
+    /* 1. 신고 모달  --------------------------------------------*/
+
+    $(document).ready(function() {
+        // 텍스트 입력창을 기본적으로 비활성화
+        $('.report-input').prop('disabled', true);
+
+        $('input[name="report-reason"]').change(function() {
+            if ($('#g').is(':checked')) {
+                $('.report-input').prop('disabled', false); // 활성화
+            } else {
+                $('.report-input').prop('disabled', true); // 비활성화
+            }
+        });
+    });
+
+    /* 2.  점점점 버튼 누르면 신고하기 뜨기 */
+    $('#dot').on('click', function() {
+
+        if ($('.report').css('display') !== 'none') { //만약 report 폼이 보이는 상태라면
+            $('.report').css('display', 'none'); // report 폼 닫기
+        }
+
+        $('#box-mini-report').toggle();
+        // toggle() : 선택한 요소가 보이면 보이지 않게, 안보이면 보이게 함 
+
+    });
+
+    /* 3. '신고하기 ' 버튼 클릭하면 신고-상세 뜨게하기 */
+    $('#mini-button').on('click', function() {
+        $('.report').css('display', 'flex');
+        $('#box-mini-report').css('display', 'none');
+    });
+
+    /* 4. '닫기' 클릭하면 닫기  */
+    $('.report-btn-close').on('click', function() {
+        $('.report').css('display', 'none');
+    });
+    /* 5. 바깥 클릭 -> 모달 숨기기 */
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('#dot, #box-mini-report, .report').length) {
+            $('#box-mini-report').css('display', 'none');
+            $('.report').css('display', 'none');
+        }
+    }); // 클릭한 html 요소가 . 얘네랑 일치하지 . length(객체에 포함된 요소 수를 반환함, 하나라도 일치하면 length가 적어도 1이 되는 것)
+</script>
+
+</html>
