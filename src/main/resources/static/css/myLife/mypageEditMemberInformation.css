@@ -1,0 +1,480 @@
+.container{
+  height: 1850px;
+}
+.edit-banner{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* 컨테이너의 높이를 기준으로 배치합니다. */
+}
+
+
+/* 회원 정보 수정 */
+.edit-member-paragraph{
+  /* background-color: lightgreen; */
+  width: 600px;
+  display: flex;
+  height: 100px;
+  font-size: 35px;
+  font-weight: bolder;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.edit-hr-top{
+  width: 600px;
+  margin-bottom: 42px;
+  border: 1.2px solid rgb(148, 146, 146);
+}
+
+
+
+
+/* 이미지 변경 */
+.edit-img-change{
+  /* background-color: lightpink; */
+  height: 272px;
+  width: 600px;
+}
+.edit-img-p1{
+  font-size: 22px;
+  font-weight: bolder;
+  margin-bottom: 20px;
+}
+.edit-img-p2{
+  font-size: 17px;
+  font-weight: 500;
+  color: rgb(49, 49, 49);
+  margin-bottom: 10px;
+}
+.edit-img-box{
+  display: flex;
+}
+.edit-img-box img{
+  border: 2px solid rgb(197, 194, 194);
+  border-radius: 6px;
+  width: 200px;
+  height: 200px;
+}
+.edit-img-button-change{
+  margin-left: 15px;
+  border-radius: 6px;
+  border: none;
+  background-color: rgb(167, 128, 77);
+  color: rgb(243, 240, 240);
+  width: 80px;
+  height: 30px;
+  cursor: pointer;
+}
+.edit-img-button-change:hover{
+  background-color: #997547;
+}
+.edit-img-button-delete{
+  margin-left: 5px;
+  border-radius: 6px;
+  border: none;
+  background-color: rgb(134, 133, 132);
+  color: rgb(243, 240, 240);
+  width: 40px;
+  height: 30px;
+  cursor: pointer;
+}
+.edit-img-button-delete:hover{
+  background-color: #787776;
+}
+.edit-hr-img-change{
+  width: 600px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  border: 1px solid rgb(211, 210, 210);
+}
+
+
+
+/* 배경 이미지 변경 */
+.edit-back-img-change{
+  /* background-color: lightseagreen; */
+  height: 300px;
+  width: 600px;
+}
+.edit-back-img-change p{
+  font-size: 17px;
+  font-weight: 500;
+  color: rgb(49, 49, 49);
+  margin-bottom: 10px;
+}
+.edit-back-img-box img{
+  border: 2px solid rgb(197, 194, 194);
+  border-radius: 6px;
+  width: 200px;
+  height: 200px;
+}
+.edit-back-img-box{
+  display: flex;
+}
+.edit-back-img-button-change{
+  margin-left: 15px;
+  border-radius: 6px;
+  border: none;
+  background-color: rgb(167, 128, 77);
+  color: rgb(243, 240, 240);
+  width: 80px;
+  height: 30px;
+  cursor: pointer;
+}
+.edit-back-img-button-change:hover{
+  background-color: #997547;
+}
+.edit-back-img-button-delete{
+  margin-left: 5px;
+  border-radius: 6px;
+  border: none;
+  background-color: rgb(134, 133, 132);
+  color: rgb(243, 240, 240);
+  width: 40px;
+  height: 30px;
+  cursor: pointer;
+}
+.edit-back-img-button-delete:hover{
+  background-color: #787776;
+}
+.edit-hr-back-img-change{
+  width: 600px;
+  margin-bottom: 30px;
+  margin-top: 20px;
+  border: 1px solid rgb(211, 210, 210);
+}
+
+
+
+/* 아이디 수정 */
+.edit-id-box{
+  /* background-color: lightseagreen; */
+  height: 60px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.edit-id-paragraph{
+  font-weight: bolder ;
+  margin-left: 20px;
+}
+.edit-hr-id{
+  width: 600px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  border: 1px solid rgb(211, 210, 210);
+}
+
+
+/* 비밀번호 변경하기  */
+.edit-password-chnage-button{
+  background-color: rgb(167, 128, 77);
+  color: rgb(243, 240, 240);
+  font-size: 16px;
+  font-weight: bolder;
+  border-radius: 6px;
+  border: none;
+  height: 43px;
+  width: 195px;
+  cursor: pointer;
+}
+#edit-ori-password-paragraph{
+  margin-bottom: 30px ;
+}
+
+
+/* 현재 비밀번호 */
+.edit-ori-password-box{
+  /* background-color: lightseagreen; */
+  display: none;
+  height: 70px;
+  width: 600px;
+}
+.edit-ori-password-box p{
+  margin-bottom: 10px;
+}
+.edit-ori-password-box input{
+  border: 1px solid grey;
+  color: rgb(187, 186, 186);
+  border-radius: 6px;
+  font-size: 14px;
+  height: 43px;
+  width: 560px;
+  padding-left: 20px;
+  padding-right: 19px;
+}
+.edit-ori-password-box input::placeholder{
+  opacity: 0.7;
+}
+.edit-ori-password-box input:hover{
+  background-color: #F2F2F2;
+}
+.edit-hr-ori-password{
+  width: 600px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  border: 1px solid rgb(211, 210, 210);
+  /* display: none; */
+}
+
+
+
+
+
+
+
+
+/* 비밀번호 */
+.edit-password-box{
+  /* background-color: lightseagreen; */
+  height: 70px;
+  width: 600px;
+  display: none;
+}
+.edit-password-box p{
+  margin-bottom: 10px;
+}
+.edit-password-box input{
+  border: 1px solid grey;
+  color: rgb(187, 186, 186);
+  border-radius: 6px;
+  font-size: 14px;
+  height: 43px;
+  width: 560px;
+  padding-left: 20px;
+  padding-right: 19px;
+}
+.edit-password-box input::placeholder{
+  opacity: 0.7;
+}
+.edit-password-box input:hover{
+  background-color: #F2F2F2;
+}
+.edit-hr-password{
+  width: 600px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  border: 1px solid rgb(211, 210, 210);
+  display: none;
+}
+
+
+/* 비밀번호 확인 */
+.edit-password-check-box{
+  /* background-color: lightseagreen; */
+  height: 70px;
+  width: 600px;
+  display: none;
+}
+.edit-password-check-box p{
+  margin-bottom: 10px;
+}
+.edit-password-check-box input{
+  border: 1px solid grey;
+  color: rgb(187, 186, 186);
+  border-radius: 6px;
+  font-size: 14px;
+  height: 43px;
+  width: 560px;
+  padding-left: 20px;
+  padding-right: 19px;
+}
+.edit-hr-password-check{
+  width: 600px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  border: 1px solid rgb(211, 210, 210);
+}
+.edit-password-check-box input::placeholder{
+  opacity: 0.7;
+}
+.edit-password-check-box input:hover{
+  background-color: #F2F2F2;
+}
+
+
+/* 닉네임 */
+.edit-nickname-box{
+  /* background-color: lightseagreen; */
+  height: 70px;
+  width: 600px;
+}
+.edit-nickname-form-div{
+  display: flex;
+  justify-content: space-between;
+}
+.edit-nickname-form-div input{
+  color: rgb(187, 186, 186);
+}
+.edit-nickname-form-div input::placeholder{
+  opacity: 0.7;
+}
+.edit-nickname-form-div input:hover{
+  background-color: #F2F2F2;
+}
+.edit-nickname-box p{
+  margin-bottom: 10px;
+}
+.edit-nickname-box input{
+  border: 1px solid grey;
+  border-radius: 6px;
+  height: 43px;
+  width: 475px;
+  padding-left: 20px; 
+}
+.edit-nickname-button{
+  background-color: rgb(167, 128, 77);
+  color: rgb(243, 240, 240);
+  font-size: 16px;
+  font-weight: bolder;
+  border-radius: 6px;
+  border: none;
+  height: 43px;
+  width: 95px;
+  cursor: pointer;
+}
+.edit-nickname-button:hover{
+  background-color: #997547;
+}
+.edit-hr-nickname{
+  width: 600px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  border: 1px solid rgb(211, 210, 210);
+}
+
+
+
+/* 이메일  */
+.edit-email-box{
+  /* background-color: lightseagreen; */
+  height: 60px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* 숨김처리  */
+  display: none;
+}
+.edit-email-paragraph{
+  font-weight: bolder ;
+  margin-left: 20px;
+}
+.edit-hr-email{
+  width: 600px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  border: 1px solid rgb(211, 210, 210);
+  /* 숨김처리 */
+  display: none;
+}
+
+
+/* 연락처 */
+.edit-phone-box{
+  /* background-color: lightseagreen; */
+  height: 60px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.edit-phone-paragraph{
+  font-weight: bolder ;
+  margin-left: 20px;
+}
+.edit-hr-phone{
+  width: 600px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  border: 1px solid rgb(211, 210, 210);
+}
+
+
+
+/* 생년월일 */
+.edit-birth-box{
+  /* background-color: lightseagreen; */
+  height: 70px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.edit-birth-year , .edit-birth-day, .edit-birth-month{
+  width: 80px;
+  height: 30px;
+  border-radius: 6px;
+  border: 1px solid gray;
+  background-color: #ffff;
+  margin-right: 10px;
+}
+.edit-birth-day, .edit-birth-month{
+  margin-left: 10px;
+  padding-left: 20px;
+}
+.edit-birth-year{
+  padding-left: 40px;
+}
+.edit-hr-birth{
+  width: 600px;
+  margin-bottom: 42px;
+  border: 1.2px solid rgb(148, 146, 146);
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+#edit-birth-result{
+  position: relative;
+  top: 5px;
+}
+
+
+
+/* 저장 나가기 */
+.edit-save-box{
+  /* background-color: aquamarine; */
+  width: 600px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+}
+.edit-save-button{
+  background-color: rgb(45, 57, 79);
+  width: 80px;
+  height: 30px;
+  border-radius: 6px;
+  border: none;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.edit-save-button:hover{
+  background-color: #3D4D6B;
+}
+.edit-save-button a{
+  font-size: 15px;
+  font-weight: bolder;
+  color: aliceblue;
+}
+.edit-back-button{
+  background-color: rgb(153, 155, 160);
+  width: 80px;
+  height: 30px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+.edit-back-button a{
+  font-size: 15px;
+  font-weight: bolder;
+  color: rgb(28, 30, 32);
+}
+.edit-save-button, .edit-back-button{
+  margin-top: 30px;
+}
+.edit-back-button:hover{
+  background-color: #86888C;
+}

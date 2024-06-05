@@ -1,0 +1,481 @@
+
+body{
+  margin: 0;
+  padding: 0;
+}
+
+main{
+  width: 920px;
+    background-color: #fcfaf7;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+}
+
+a{
+  text-decoration: none;
+}
+
+#header {
+  display: flex;
+  height: 140px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center; 
+  height: 100%;
+  width: 100%;
+  background-color: #e5f2f7;
+}
+
+/* 수정1 : 검은거 한 겹 추가 */
+.profile-background-dark{
+  background-color: #12121230;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px 6px 0 0;
+  position: absolute;
+  top: 0px;
+}
+
+.profile-background{
+  position: relative;
+  /* background-color:aqua;  */
+  
+}
+/* 수정1 : 검은거 한 겹 추가 */
+.profile-background-dark{
+  /* background-color: #12121230; */
+  width: 100%;
+  height: 100%;
+  border-radius: 6px 6px 0 0;
+  position: absolute;
+  top: 0px;
+}
+
+.profile-bg-img-box{
+  width: 100%;
+  height: 167px;
+  border-radius: 6px 6px 0 0;
+}
+
+.profile-bg-img-box > img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 37%; /* 위치 */
+  border-radius: 6px 6px 0 0;
+
+}
+
+.profile{
+  position: absolute;
+  top: 90px;
+  /* width: 100px; */
+  display: flex;
+  align-items: center;
+  margin-left: 25px;  
+}
+.profile-img-box{
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+}
+.profile-img-box > img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 30px;
+}
+
+.profile-detail{
+  display: flex;
+  align-items: center;
+  height: 36px;
+  margin-left: 34px;
+
+}
+
+.profile-detail  > p{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 15px;
+  font-size: 25px;
+  color: white;
+  height: 100%;
+}
+/* .profile-heart img{
+  width: 20px;
+  height: 20px;
+  margin-top: 10px;
+} */
+
+/* 빨간색 하트 이미지 스타일 */
+
+.detail_page_heart.red {
+  filter: brightness(100%) saturate(100%) invert(55%) sepia(96%) saturate(3286%) hue-rotate(336deg) brightness(103%) contrast(92%);
+}
+.detail_page_heart {
+  width: 25px;
+  height: 25px;
+  transition: all 0.2s linear;
+  cursor: pointer;
+  margin-top: 3px;
+}
+
+.detail_page_heart:hover {
+  transform: scale(1.2);
+}
+
+/* 수정2 : 프로필 닉네임 */
+#profile-nickname{
+  font-weight: 700;
+  text-shadow: 1px 2px 5px#14141430;
+}
+.follower{
+  font-size: 12px;
+  text-shadow: 1px 2px 5px#14141430;
+}
+
+.follower-number{
+  font-size: 18px;
+  font-weight: 700;
+  text-shadow: 1px 2px 5px#14141430;
+}
+
+.profile-text{
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+  margin-left: 120px;
+  margin-top: 10px;
+}
+.profile-introduce p{
+  font-size: 16px;
+  /* font-weight: bold; */
+
+  width: 600px; /* 원하는 너비로 설정 */
+  height: 64px; /* 두 줄 높이에 맞춰 설정 */
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* 원하는 줄 수 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 32px; /* 한 줄 높이 설정 */
+}
+
+.profile-introduce{
+  width: 600px;
+  /* margin-top: ; */
+  margin-left: 40px;
+}
+
+.profile-introduce > p{
+  margin: 0;
+  line-height: 1.7;
+  font-size: 12px;
+}
+
+
+hr{
+  margin-top: 70px;
+  opacity: 0.3
+}
+
+.third-container{
+  margin-top: 20px;
+}
+
+.third-container-category{
+  display: flex;
+  
+}
+
+.infancy{
+  background-color: rgb(206, 200, 200);
+  width: 80px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  margin-right: 6px;
+}
+
+.infancy > a{
+  color: black;
+  font-size: 12px;
+}
+
+.infancy:hover{
+  background-color: #AAB286;
+}
+
+.infancy > a:hover{ 
+  color: #E7E9DC;
+}
+
+
+.babyhood{
+  background-color: rgb(206, 200, 200);
+  width: 80px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  margin-right: 6px;
+}
+
+.babyhood > a{
+  color: black;
+  font-size: 12px;
+}
+
+.babyhood:hover{
+  background-color: #AAB286;
+}
+
+.babyhood > a:hover{ 
+  color: #E7E9DC;
+}
+
+.childhood{
+  background-color: rgb(206, 200, 200);
+  width: 80px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  margin-right: 6px;
+}
+
+.childhood > a{
+  color: black;
+  font-size: 12px;
+}
+
+.childhood:hover{
+  background-color: #AAB286;
+}
+
+.childhood > a:hover{ 
+  color: #E7E9DC;
+}
+
+.adolescence{
+  background-color: rgb(206, 200, 200);
+  width: 80px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  margin-right: 6px;
+}
+
+.adolescence > a{
+  color: black;
+  font-size: 12px;
+}
+
+.adolescence:hover{
+  background-color: #AAB286;
+}
+
+.adolescence > a:hover{ 
+  color: #E7E9DC;
+}
+
+.adult{
+  background-color: rgb(206, 200, 200);
+  width: 80px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  margin-right: 6px;
+}
+
+.adult > a{
+  color: black;
+  font-size: 12px;
+}
+
+.adult:hover{
+  background-color: #AAB286;
+}
+
+.adult > a:hover{ 
+  color: #E7E9DC;
+}
+
+.middle-age{
+  background-color: rgb(206, 200, 200);
+  width: 80px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  margin-right: 6px;
+}
+
+.middle-age > a{
+  color: black;
+  font-size: 12px;
+}
+
+.middle-age:hover{
+  background-color: #AAB286;
+}
+
+.middle-age > a:hover{ 
+  color: #E7E9DC;
+}
+
+.old-age{
+  background-color: rgb(206, 200, 200);
+  width: 80px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  margin-right: 6px;
+}
+
+.old-age > a{
+  color: black;
+  font-size: 12px;
+}
+
+.old-age:hover{
+  background-color: #AAB286;
+}
+
+.old-age > a:hover{ 
+  color: #E7E9DC;
+}
+
+.fourth-container{
+  margin-top: 60px;
+  
+}
+
+.list{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+/* 수정5 */
+.list-one{
+  border-radius: 10px;
+  background-color: #fcfaf7;
+  width: 284px;
+  height: 300px;
+  box-shadow: 2px 2px 5px 1px rgba(42, 42, 42, 0.152);
+  margin-right: 20px;
+  margin-bottom: 38px;
+}
+.list-one > a{
+  color: black;
+}
+
+.list-one-detail{
+  margin: 40px 24px 24px 24px;
+  
+}
+
+.list-one:hover{
+  background-color: #F2F1F0;
+}
+
+.title{
+  display: flex;
+  justify-content: space-between;
+}
+
+.title > h3{
+  font-size: 17px;
+  font-weight: bold;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 172px; /* 원하는 너비로 설정 */
+
+}
+
+.title > p{
+  font-size: 11px;
+  color: rgb(206, 211, 211);
+}
+
+.list-date{
+  margin-top: 20px;
+  font-size: 11px;
+}
+
+.list-text{
+  margin-top: 25px;
+  line-height: 1.8;
+  font-size: 13px;
+}
+
+.list-text p{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  width: 236px;  
+  height: 140px;
+  /* 원하는 너비로 설정 */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6; /* 원하는 줄 수 */
+
+}
+
+.fifth-container{
+  margin-top: 105px;
+  /* margin-bottom: 50px; */
+  /* background-color: aqua; */
+  padding-bottom: 50px;
+
+}
+
+.pagination{
+  display: flex;
+  /* background-color: black; */
+  width: 200px;
+  margin: 0 auto;
+  
+}
+
+.pagination > li{
+  padding-right: 14px;
+  font-size: 20px;
+  
+  
+}
+
+footer {
+  background-color: rgb(221, 222, 224);
+  width: 100%;
+  height: 335px;
+}
+
+
+
+
