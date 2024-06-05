@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./../css/reset.css" />
+    <link rel="stylesheet" href="./../../css/main/about.css" />
+
+    <link rel="stylesheet" href="./../../css/reset.css" />
+    <script defer src="./../../js/fragment/headerFetch.js"></script>
+    <script defer src="./../../js/fragment/footerFetch.js"></script>
+  </head>
+  <body>
+
+  <div th:replace="~{/fragment/header::header}"></div>
+
+
+
+    <div id="wrapper">
+
+      <main>
+        <div class="container">
+          <div class="wrapper-img">
+            <img src="./../../img/main/about2.png" alt="">
+            <span class="text1"><span>나중에 저작권 없는 이미지로 바꾸겠습니다</span></span>
+            <span class="text2"><a th:href="@{/myLife}"><span>나의 일대기 바로가기 ></span></a></span>
+            <span class="text2-2"><a th:href="@{/myLife}"><span>나의 일대기 바로가기 ></span></a></span>
+            <span class="text3"><a a th:href="@{/everyLife}"><button>모두의 일대기 바로가기</button></a></span>
+          </div>
+        </div>
+      </main>
+
+      <div th:replace="~{/fragment/footer::footer}"></div>
+    </div>
+
+
+
+
+
+
+
+
+  </body>
+</html>

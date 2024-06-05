@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./../../../css/notion.css" />
+    <link rel="stylesheet" href="./../../../css/reset.css" />
+    <link rel="stylesheet" href="./../../../css/admin/mdj/adminDashBoard.css" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <header><div>정신집중</div></header>
+      <main>
+        <div class="admin-container">
+          <!-- 네비게이션 -->
+          <div class="container-nav">
+            <!-- 관리자 계정 -->
+            <div class="admin_login_status">
+
+              <div class="admin_login_status-img">
+                <img src="./../../../img/myLife/jyg-profile_img_20240512_163410241.jpg" alt="관리자 프사">
+              </div>
+              <div class="admin_login_status-name">
+                <p class="admin-text">Admin</p>
+                <p class="admin-index">관리자 계정</p>
+              </div>
+            </div>
+
+            <!-- 대시보드~ 1:1문의  -->
+            <div class="admin-nav-box">
+              <a href="#"><button id="dashboard"><p>대시보드</p></button></a>
+              <a href="#"><button><p>게시판 관리</p></button></a>
+              <a href="#"><button><p>회원 관리</p></button></a>
+              <a href="#"><button><p>신고 관리</p></button></a>
+              <a href="#"><button><p>공지사항</p></button></a>
+              <a href="#"><button><p>1:1 문의</p></button></a>
+            </div>
+
+
+
+          </div>
+
+
+
+          <!-- 오른쪽 컨텐츠 -->
+          <div class="container-content">
+            <!-- 위쪽 컨테이너 -->
+            <div class="top-container">
+
+              <div class="top-dashboard">
+                <!-- 총 회원수  -->
+                <div class="dashboard-member-count">
+                  <div>
+                    <p class="dashboard-number">총 회원수</p>
+                    <p class="number-count">1,298</p>
+                    <hr class="dashboard-hr">
+                  </div>
+                </div>
+                <!-- 오늘 가입자  -->
+                <div class="dashboard-join-count">
+                  <div>
+                    <p class="dashboard-number">오늘 가입자</p>
+                  <p class="number-count">34</p>
+                  <hr class="dashboard-hr">
+                  </div>
+                  
+                </div>
+
+                <!-- 새로운 문의  -->
+                <div class="dashboard-inquiry-count">
+                  <div>
+                    <p class="dashboard-number">새로운 문의</p>
+                  <p class="number-count">4</p>
+                  <hr class="dashboard-hr">
+                  </div>
+                  
+                </div>
+
+              </div>
+              <!-- 날짜 디브 -->
+              <div class="top-calender">
+                
+                  <div class="calender-div">
+                    <img src="./../../../img/myLife/mdj-달력.png" alt="달력">
+                  </div>
+                  <div class="calender-p-box">
+                    <p class="calender-year">2024년</p>
+                    <p class="calender-month-day">5월 22일</p>
+                  </div>
+                
+              </div>
+
+            </div>
+
+            <!-- 아래쪽 컨테이너 -->
+            <div class="bottom-container">
+              <p>Members</p>
+              <hr>
+              <div class="members-info-box">
+                <div class="member-info">
+                  <img src="./../../../img/myLife/mdj-dashboard.png" alt="member-info-img">
+                  <p class="info-name">장윤근</p>
+                  <p class="info-email">geungeun@gmail.com</p>
+                  <p class="info-number">010-1111-2222</p>
+                </div>
+
+                <div class="member-info">
+                  <img src="./../../../img/myLife/mdj-dashboard.png" alt="member-info-img">
+                  <p class="info-name">문동주</p>
+                  <p class="info-email">geungeun@gmail.com</p>
+                  <p class="info-number">010-1111-2222</p>
+                </div>
+
+                <div class="member-info">
+                  <img src="./../../../img/myLife/mdj-dashboard.png" alt="member-info-img">
+                  <p class="info-name">송아성</p>
+                  <p class="info-email">geungeun@gmail.com</p>
+                  <p class="info-number">010-1111-2222</p>
+                </div>
+
+                <div class="member-info">
+                  <img src="./../../../img/myLife/mdj-dashboard.png" alt="member-info-img">
+                  <p class="info-name">고태민</p>
+                  <p class="info-email">geungeun@gmail.com</p>
+                  <p class="info-number">010-1111-2222</p>
+                </div>
+
+                <div class="member-info">
+                  <img src="./../../../img/myLife/mdj-dashboard.png" alt="member-info-img">
+                  <p class="info-name">윤 담</p>
+                  <p class="info-email">geungeun@gmail.com</p>
+                  <p class="info-number">010-1111-2222</p>
+                </div>
+
+              </div>
+            </div>
+
+
+            <div class="red-line-container"></div>
+
+          </div>
+        </div>
+      </main>
+
+    </div>
+  </body>
+</html>

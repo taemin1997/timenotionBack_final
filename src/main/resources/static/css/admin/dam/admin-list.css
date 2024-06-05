@@ -1,0 +1,417 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/* 폰트 자꾸 빠져서 이거넣었어요ㅡㅡ; */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+textarea,
+select,
+button,
+header,
+footer,
+span,
+main,
+a,
+select,
+option {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* #cadb36  #594096 #1c191a*/
+body {
+  width: 100%;
+  height: 100%;
+  background-color: #e8e8e8;
+}
+#wrapper {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+}
+header {
+  text-align: center; /* 내부 요소들을 가운데로 정렬 */
+  height: 140px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  font-weight: bold;
+  color: #ef6060;
+  background-color: white;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* -------------------------------------------------------------------------------------- */
+
+/* 노란 영역 부분 = 컨테이너  */
+
+.admin-container {
+  margin-top: 60px;
+  width: 1200px;
+  box-sizing: border-box;
+  min-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/*  */
+.container-nav {
+  width: 230px;
+  height: 700px;
+  background-color: white;
+  border-radius: 6px;
+}
+.container-content {
+  width: 930px;
+  background-color: white;
+  border-radius: 6px;
+  box-sizing: border-box;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 1. 게시판 이름 */
+.admin-title-box {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: left;
+}
+
+/* 2. 검색 */
+.admin-search-box {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.admin-search-left > input {
+  padding: 10px 15px;
+  width: 300px;
+  border-radius: 6px;
+  background-color: #f0f0f0;
+  border: none;
+  outline: none;
+  color: #969696;
+  margin-bottom: 20px;
+}
+.admin-box-dodbogi {
+  position: absolute;
+  top: 10px;
+  left: 300px;
+  width: 15px;
+  height: 15px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.admin-box-dodbogi img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* 공지글 작성하기 버튼  */
+.admin-search-right button{
+  cursor: pointer;
+  width: 120px;
+  height: 30px;
+  white-space: nowrap;
+  border: none;
+  background-color: #717171;
+  color: rgb(249, 251, 255);
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 6px;
+}
+.admin-search-right button:hover{
+  background-color: #3f3f3f;
+  color: white;
+
+}
+/* 3. 리스트  ====================================================================*/
+.admin-list-wrapper {
+  width: 100%;
+}
+
+/* 3-1, 3-2 스타일 맞추면 됨 ------------------- */
+
+/* 3-1. 위에 회색 리스트 */
+.box-admin-list-elemet {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 0px 20px; /* 20px 옆간격  */
+  background-color: #e3e3e3;
+  font-size: 13px;
+  font-weight: 700;
+  color: #343434;
+  border-radius: 6px 6px 0px 0px;
+}
+.box-admin-list-elemet ul {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+.box-admin-list-elemet ul li {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+/* 3-2. 밑에 하얀색 리스트 */
+.box-admin-list {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0px 20px; /* 20px 옆간격  */
+  font-size: 14px;
+  list-style: none;
+  color: #343434;
+}
+.box-admin-list ul {
+  width: 100%;
+  list-style: none;
+}
+.box-admin-list ul li {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(231, 231, 231); /* 리스트들 사이 선 (hr) */
+  padding: 20px 0;
+}
+
+.admin-list-left,
+.admin-list-right {
+  display: flex;
+}
+.admin-list-left-top,
+.admin-list-right-top {
+  display: flex;
+}
+.gap {
+  margin-right: 15px;
+}
+a {
+  text-decoration: none;
+  color: #343434;
+}
+a:hover {
+  color: #24325f;
+}
+
+/*  ----- */
+.admin-list-left-top div,
+.admin-list-right-top div {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.admin-list-left div,
+.admin-list-right div {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* 버튼 디자인 */
+.admin-five button {
+  width: 40px;
+  font-size: 12px;
+  background-color: #ef6060;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  height: 23px;
+  cursor: pointer;
+}
+.admin-five button:hover {
+  background-color: #c84c4c;
+}
+
+/*  리스트 - 회색  ---------------- */
+.admin-one-top {
+  width: 40px;
+  justify-content: center;
+}
+.admin-two-top {
+  width: 400px;
+}
+.admin-three-top {
+  width: 80px;
+  justify-content: center;
+}
+.admin-four-top {
+  width: 110px;
+  justify-content: center;
+}
+.admin-five-top {
+  width: 40px;
+  justify-content: center;
+}
+.admin-name-top {
+  width: 100px;
+}
+.admin-notice-content-top{
+  width: 400px;
+  justify-content: center;
+}
+.admin-response-top{
+  width: 40px;
+  justify-content: center;
+}
+
+/* 리스트 - 하얀색- ---------------- */
+.admin-one {
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.admin-two {
+  width: 400px;
+  letter-spacing: -1px;
+}
+.admin-two a{
+  width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-three {
+  width: 80px;
+  text-align: center;
+}
+.admin-three a {
+  width: 80px;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.admin-four {
+  width: 110px;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  justify-content: center;
+}
+.admin-five {
+  width: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-response{
+  width: 50px;
+  cursor: pointer;
+}
+
+.admin-name {
+  width: 100px;
+}
+.admin-name a{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* 답변 전 */
+.admin-response-before{
+  display: block;
+  white-space: nowrap;
+  padding: 4px 8px;
+  background-color: rgb(181, 244, 181);
+  color: #24325f;
+  font-size: 11px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+/* 답변 완료 */
+.admin-response-after{
+  display: none;
+  white-space: nowrap;
+  padding: 4px 8px;
+  background-color: rgb(177, 177, 177);
+  color: white;
+  font-size: 11px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 페이징 ----------------------------------------------------------*/
+
+.wrapper-pagination{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 40px 0;
+  font-size: 12px;
+}
+.chevron-left{
+  cursor: pointer;
+  width: 10px;
+  height: 10px;
+  overflow: hidden;
+  padding: 10px;
+  transform: rotate(90deg);
+}
+.chevron-left img{
+  width: 100%;
+  height: 100%;
+}
+.chevron-right{
+  cursor: pointer;
+  width: 10px;
+  height: 10px;
+  overflow: hidden;
+  padding: 10px;
+  transform: rotate(-90deg);
+}
+.chevron-right img{
+  width: 100%;
+  height: 100%;
+}

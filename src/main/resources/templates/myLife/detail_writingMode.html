@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>detail_writingMode</title>
+    <link rel="stylesheet" th:href="@{/css/myLife/detail_writingMode.css}"/>
+    <script defer th:src="@{/js/fragment/headerFetch.js}"></script>
+    <script defer th:src="@{/js/fragment/footerFetch.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/reset.css}"/>
+    <script defer th:src="@{/js/myLife/detail_writingMode.js}"></script>
+
+</head>
+
+<body>
+<div th:replace="~{/fragment/header::header}"></div>
+<div id="wrapper">
+    <!-- 헤더~~!!!!!!!!!!!!!!!!!!! -->
+
+    <!-- 헤더 끝-========================================================================== -->
+    <main>
+        <form th:action="@{/myLife/detail_writingMode}" method="post" enctype="multipart/form-data">
+            <!-- 메인 컨텐츠 영역 -->
+            <div class="container">
+                <!-- 1. 타이틀 -->
+                <div class="wrapper-title">
+                    제목 : <input class="title" type="text" name="boardTitle" required/>
+                </div>
+                <!-- 2. 년도 / 공개여부 셀렉트박스 -->
+                <div class="wrapper-select-box">
+
+                    <input id="select-year-detail" name="boardYear" type="text" placeholder="ex)1999"
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="4"required>년
+
+
+                    <select id="select-visibility-detail" name="boardPublic">
+                        <option th:value="'O'" th:text="공개"></option>
+                        <option th:value="'X'" th:text="비공개"></option>
+                    </select>
+
+                </div>
+                <hr>
+                <!-- 3. 파일추가 / 텍스트영역 -->
+                <div class="wrapper-add-file">
+                    <!--                     3-1. 파일추가 -->
+                    <div class="file-input-container">
+                        <label for="file" class="file-input-label">
+                            <input type="file" id="file" name="boardFile" accept="image/*" multiple />
+                        </label>
+                        <div id="file-names"></div>
+                    </div>
+                </div>
+
+                <!-- 3-2. 텍스트 영역 -->
+                <div class="wrapper-add-file">
+                    <textarea id="content-textarea" name="boardContent" placeholder="텍스트입력" required></textarea>
+                </div>
+                <hr>
+                <!-- 4. 저장 / 취소 버튼 -->
+                <div class="wrapper-button">
+                    <!--                    <a id="btn-save" href="./detail-my.html">-->
+                    <button type="submit" class="btn-save">저장</button>
+                    <!--                    </a>-->
+                    <!--                    <a id="detail_button_2" href="./mypage.html">-->
+                    <button type="button" class="btn-cancel" onclick="window.history.back();">취소</button>
+                    <!--                    </a>-->
+                </div>
+            </div>
+        </form>
+<!--        <div class="period">
+            <ul class="period_1">
+                <li class="period_1_color1"><a href="#">유아기</a></li>
+                <li class="period_1_color2"><a href="#">유년기</a></li>
+                <li class="period_1_color3"><a href="">아동기</a></li>
+                <li class="period_1_color4"><a href="">청소년</a></li>
+                <li class="period_1_color5"><a href="">성인</a></li>
+                <li class="period_1_color6"><a href="">중년</a></li>
+                <li class="period_1_color7"><a href="">노년</a></li>
+            </ul>
+        </div>-->
+    </main>
+    <div th:replace="~{/fragment/footer::footer}"></div>
+</div>
+
+</body>
+
+</html>

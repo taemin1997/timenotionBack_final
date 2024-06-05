@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.geungeunhanjan.mapper.board.BoardMapper">
+
+    <!-- 나의 일대기 게시판 정보 불러오기 -->
+    <select id="selectBoard" resultType="BoardVO">
+        SELECT *
+        FROM GGHJ_BOARD
+        WHERE USER_ID = #{userId}
+        ORDER BY BOARD_ID DESC
+    </select>
+
+    <!--    내가 쓴 게시물의 상세페이지로 들어가기-->
+    <select id="selectById" resultType="BoardVO">
+        SELECT *
+        FROM GGHJ_BOARD G
+                 JOIN GGHJ_UNI U
+                      ON G.USER_ID = U.UNI_ID
+        WHERE G.BOARD_ID = #{boardId}
+    </select>
+
+
+    <!--    메인 화면 4개 게시글-->
+    <select id="mainBoardbyViews" resultType="BoardMainDTO">
+        <![CDATA[
+        SELECT
+            board_id,
+            board_title,
+            board_content,
+            board_file_source_name,
+            board_file_name,
+            user_nickname,
+            board_rank,
+            USER_FILE_PROFILE_SOURCE,
+            board_created_date,
+            board_view_count
+        FROM (
+                 SELECT
+                     b.board_id,
+                     b.board_title,
+                     b.board_content,
+                     bf.board_file_source_name,
+                     bf.board_file_name,
+                     COALESCE(u.user_nickname, k.name) AS user_nickname,
+                     DENSE_RANK() OVER (ORDER BY b.board_view_count DESC) AS board_rank,
+                         FIRST_VALUE(COALESCE(k.PROFILE_PIC, uf.USER_FILE_PROFILE_SOURCE)) OVER (PARTITION BY b.board_id ORDER BY b.board_id) AS USER_FILE_PROFILE_SOURCE,
+                         b.board_created_date,
+                     b.board_view_count
+                 FROM
+                     gghj_board b
+                         FULL OUTER JOIN gghj_board_file bf ON b.board_id = bf.board_id
+                         FULL OUTER JOIN gghj_uni gu ON b.user_id = gu.user_id OR b.user_id = gu.kakao_id
+                         FULL OUTER JOIN gghj_user u ON gu.user_id = u.user_id
+                         LEFT JOIN gghj_kakao k ON gu.kakao_id = k.kakao_id
+                         FULL OUTER JOIN GGHJ_USER_FILE uf ON gu.uni_id = uf.USER_ID
+             ) ranked_boards
+        WHERE
+            board_rank <= 4
+        ORDER BY
+            board_rank
+        ]]>
+    </select>
+
+    <!--    메인 배너 왼쪽 배너-->
+    <select id="mainLeftBannerSelect" resultType="BoardMainDTO">
+    <![CDATA[
+        SELECT
+            board_id,
+            board_title,
+            board_content,
+            board_file_source_name,
+            board_file_name,
+            user_nickname,
+            board_rank,
+            USER_FILE_PROFILE_SOURCE,
+            board_created_date,
+            board_view_count
+        FROM (
+                 SELECT
+                     b.board_id,
+                     b.board_title,
+                     b.board_content,
+                     bf.board_file_source_name,
+                     bf.board_file_name,
+                     COALESCE(u.user_nickname, k.name) AS user_nickname,
+                     DENSE_RANK() OVER (ORDER BY b.board_view_count DESC) AS board_rank,
+                         FIRST_VALUE(COALESCE(k.PROFILE_PIC, uf.USER_FILE_PROFILE_SOURCE)) OVER (PARTITION BY b.board_id ORDER BY b.board_id) AS USER_FILE_PROFILE_SOURCE,
+                         b.board_created_date,
+                     b.board_view_count
+                 FROM
+                     gghj_board b
+                         FULL OUTER JOIN gghj_board_file bf ON b.board_id = bf.board_id
+                         FULL OUTER JOIN gghj_uni gu ON b.user_id = gu.user_id OR b.user_id = gu.kakao_id
+                         FULL OUTER JOIN gghj_user u ON gu.user_id = u.user_id
+                         LEFT JOIN gghj_kakao k ON gu.kakao_id = k.kakao_id
+                         FULL OUTER JOIN GGHJ_USER_FILE uf ON gu.uni_id = uf.USER_ID
+             ) ranked_boards
+        WHERE
+            board_rank <= 1 AND rownum = 1
+        ORDER BY
+            board_rank
+        ]]>
+</select>
+
+    <!--    메인 오른쪽 배너 2개-->
+    <select id="mainRightBannerSelect" resultType="BoardMainDTO">
+        <![CDATA[
+        SELECT
+            board_id,
+            board_title,
+            board_content,
+            board_file_source_name,
+            board_file_name,
+            user_nickname,
+            board_rank,
+            USER_FILE_PROFILE_SOURCE,
+            board_created_date,
+            board_view_count
+        FROM (
+                 SELECT
+                     board_id,
+                     board_title,
+                     board_content,
+                     board_file_source_name,
+                     board_file_name,
+                     user_nickname,
+                     board_rank,
+                     USER_FILE_PROFILE_SOURCE,
+                     board_created_date,
+                     board_view_count
+                 FROM (
+                          SELECT
+                              b.board_id,
+                              b.board_title,
+                              b.board_content,
+                              bf.board_file_source_name,
+                              bf.board_file_name,
+                              COALESCE(u.user_nickname, k.name) AS user_nickname,
+                              DENSE_RANK() OVER (ORDER BY b.board_view_count DESC) AS board_rank,
+                                  FIRST_VALUE(COALESCE(k.PROFILE_PIC, uf.USER_FILE_PROFILE_SOURCE)) OVER (PARTITION BY b.board_id ORDER BY b.board_id) AS USER_FILE_PROFILE_SOURCE,
+                                  b.board_created_date,
+                              b.board_view_count
+                          FROM
+                              gghj_board b
+                                  FULL OUTER JOIN gghj_board_file bf ON b.board_id = bf.board_id
+                                  FULL OUTER JOIN gghj_uni gu ON b.user_id = gu.user_id OR b.user_id = gu.kakao_id
+                                  FULL OUTER JOIN gghj_user u ON gu.user_id = u.user_id
+                                  LEFT JOIN gghj_kakao k ON gu.kakao_id = k.kakao_id
+                                  FULL OUTER JOIN GGHJ_USER_FILE uf ON gu.uni_id = uf.USER_ID
+                      ) ranked_boards
+                 WHERE board_rank BETWEEN 2 AND 3
+             ) final_boards
+        ]]>
+    </select>
+
+    <!-- 나의 일대기 게시판 데이터 입력하기 -->
+    <insert id="insertBoard" parameterType="BoardVO">
+        <selectKey keyProperty="boardId" resultType="Long" order="BEFORE">
+            SELECT SEQ_BOARD.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO GGHJ_BOARD (BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_PUBLIC, BOARD_CREATED_DATE,
+        BOARD_UPDATED_DATE, BOARD_VIEW_COUNT, BOARD_LIFE_CYCLE, BOARD_LIKE_COUNT, USER_ID, BOARD_YEAR)
+        VALUES (#{boardId}, #{boardTitle}, #{boardContent}, #{boardPublic}, SYSDATE, SYSDATE,
+        #{boardViewCount}, #{boardLifeCycle}, #{boardLikeCount}, #{userId}, #{boardYear})
+    </insert>
+
+    <!-- 게시판 작성자의 생일 가져오기  -->
+    <select id="selectUserBirth" resultType="java.time.LocalDateTime">
+        SELECT
+            CASE
+                WHEN u.USER_ID IS NOT NULL THEN u.USER_BIRTH
+                --                 WHEN k.KAKAO_ID IS NOT NULL THEN k.KAKAO_BIRTH
+--                 ELSE NULL -- 유저 또는 카카오 회원이 없을 경우
+                END AS BIRTHDAY
+        FROM
+            GGHJ_UNI uni
+                LEFT JOIN
+            GGHJ_USER u ON uni.USER_ID = u.USER_ID
+        --                 LEFT JOIN
+--             GGHJ_KAKAO k ON uni.KAKAO_ID = k.KAKAO_ID
+        WHERE
+            uni.UNI_ID = #{uniId}
+    </select>
+
+
+    <!-- 게시판 작성자의 생일 가져오기  -->
+<!--    <select id="selectUserBirth" resultType="java.time.LocalDateTime">-->
+<!--        SELECT-->
+<!--            CASE-->
+<!--                WHEN u.USER_ID IS NOT NULL THEN u.USER_BIRTH-->
+<!--                WHEN k.KAKAO_ID IS NOT NULL THEN k.KAKAO_BIRTH-->
+<!--                ELSE NULL &#45;&#45; 유저 또는 카카오 회원이 없을 경우-->
+<!--                END AS BIRTHDAY-->
+<!--        FROM-->
+<!--            GGHJ_UNI uni-->
+<!--                LEFT JOIN-->
+<!--            GGHJ_USER u ON uni.USER_ID = u.USER_ID-->
+<!--                LEFT JOIN-->
+<!--            GGHJ_KAKAO k ON uni.KAKAO_ID = k.KAKAO_ID-->
+<!--        WHERE-->
+<!--            uni.UNI_ID = #{uniId}-->
+<!--    </select>-->
+
+    <!-- 나의 일대기 게시글 수정 -->
+    <update id="updateBoard" parameterType="BoardVO">
+        UPDATE GGHJ_BOARD
+        SET BOARD_TITLE        = #{boardTitle},
+            BOARD_PUBLIC       = #{boardPublic},
+            BOARD_UPDATED_DATE = SYSDATE,
+            BOARD_CONTENT      = #{boardContent}
+        WHERE BOARD_ID = #{boardId}
+    </update>
+
+    <!-- 나의 일대기 게시글 삭제 -->
+    <delete id="deleteBoard" parameterType="Long">
+        DELETE
+        FROM GGHJ_BOARD
+        WHERE BOARD_ID = #{boardId}
+    </delete>
+
+    <!-- 마이 페이지 내가 쓴 게시판 라이프 사이클 별 조회 -->
+    <select id="selectBoardLifeCycle" parameterType="BoardVO" resultType="BoardVO">
+        SELECT *
+        FROM GGHJ_BOARD
+        WHERE BOARD_LIFE_CYCLE = #{boardLifeCycle}
+          AND USER_ID = #{userId}
+    </select>
+
+
+    <!--키워드 검색(안에 'a'는 임시값)-->
+    <select id="selectByKeywordMain">
+        SELECT BOARD_ID,
+               BOARD_TITLE,
+               BOARD_CONTENT,
+               BOARD_PUBLIC,
+               BOARD_CREATED_DATE,
+               BOARD_UPDATED_DATE,
+               BOARD_VIEW_COUNT,
+               BOARD_LIFE_CYCLE,
+               BOARD_LIKE_COUNT,
+               BOARD_YEAR,
+               USER_ID
+        FROM GGHJ_BOARD
+        WHERE BOARD_TITLE LIKE '%a%'
+           OR BOARD_CONTENT LIKE '%a%'
+        ORDER BY BOARD_CREATED_DATE DESC
+    </select>
+
+    <!-- 일단 냅둠 누구껀지 모르겠음 -->
+    <select id="selectbyLifeCycle" resultType="BoardVO">
+        SELECT * FROM GGHJ_BOARD WHERE BOARD_LIFE_CYCLE = #{boardLifeCycle}
+    </select>
+
+    <!-- 모두의 일대기 게시판 글 -->
+    <select id="everyLifeBoardbyViews" resultType="BoardVO">
+        SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_LIKE_COUNT, BOARD_YEAR, USER_ID
+        FROM GGHJ_BOARD
+        WHERE rownum BETWEEN 1 AND 100
+        ORDER BY BOARD_VIEW_COUNT DESC
+    </select>
+
+
+    <!--모두의 일대기 리스트 + 페이징 -->
+    <select id="everyLifeagepaging" resultType="BoardDTO" >
+    <![CDATA[
+        SELECT BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+               NICKNAME, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID,
+               BOARD_ID, USER_ID
+        FROM (
+                 SELECT RNUM, BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+                        NICKNAME, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID,
+                        BOARD_ID, USER_ID
+                 FROM (
+                          SELECT ROWNUM AS RNUM, BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+                                 NICKNAME, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID,
+                                 BOARD_ID, USER_ID
+                          FROM (
+                                   SELECT BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+                                          COALESCE(U.USER_NICKNAME, K.NAME) AS NICKNAME,
+                                          F.USER_FILE_PROFILE_NAME,
+                                          F.USER_FILE_PROFILE_SOURCE,
+                                          F.USER_FILE_PROFILE_UUID,
+                                          B.BOARD_ID,
+                                          B.USER_ID
+                                   FROM GGHJ_BOARD B
+                                            JOIN GGHJ_UNI UNI ON B.USER_ID = UNI.UNI_ID
+                                            LEFT JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID
+                                            LEFT JOIN GGHJ_KAKAO K ON UNI.KAKAO_ID = K.KAKAO_ID
+                                            LEFT JOIN GGHJ_USER_FILE F ON U.USER_ID = F.USER_ID
+                               )
+                          WHERE ROWNUM <= #{page} * #{amount}
+                      )
+                 WHERE RNUM > (#{page} - 1) * #{amount}
+             )
+        ]]>
+    </select>
+
+    <select id="everyLifeFindTotal">
+        SELECT COUNT(*)FROM GGHJ_BOARD
+    </select>
+
+
+    <!--    유아기, 유년기, 아동기, 청소년기, 성인, 중년, 노년 클릭시 페이지 이동-->
+    <select id="agePageMove" resultType="int">
+        SELECT COUNT(*) AS TOTAL_COUNT
+        FROM GGHJ_BOARD
+        WHERE BOARD_LIFE_CYCLE = #{boardLifeCycle}
+    </select>
+
+    <!--    조회수 게시판 정렬 -->
+    <select id="postarrayviews" resultType="BoardDTO">
+        SELECT
+            *
+        FROM
+            GGHJ_BOARD b JOIN GGHJ_USER u
+                              ON u.user_id = b.USER_ID
+        ORDER BY
+            b.BOARD_VIEW_COUNT DESC
+    </select>
+
+    <!--     최신 게시판 정렬 -->
+    <select id="postarrayLatest" resultType="BoardDTO">
+        SELECT
+            *
+        FROM
+            GGHJ_BOARD b JOIN GGHJ_USER u
+                              ON u.user_id = b.USER_ID
+        ORDER BY
+            b.BOARD_CREATED_DATE DESC
+    </select>
+
+    <!--     인기 게시판 정렬 -->
+    <select id="postarrayPopularity" resultType="BoardDTO">
+        SELECT
+            *
+        FROM
+            GGHJ_BOARD b JOIN GGHJ_USER u
+                              ON u.user_id = b.USER_ID
+        ORDER BY
+            b.BOARD_LIKE_COUNT DESC
+    </select>
+
+    <!-- 모두의 일대기 -> 상세페이지 이동 -->
+    <select id="everyLifeDetail" resultType="BoardVO">
+        SELECT *
+        FROM GGHJ_BOARD G
+                 JOIN GGHJ_UNI U
+                      ON G.USER_ID = U.UNI_ID
+        WHERE G.BOARD_ID = #{userId}
+    </select>
+
+
+    <!-- 특정 글 조회수 -->
+    <update id="incViewCnt" flushCache="true" >
+        UPDATE GGHJ_BOARD
+        SET BOARD_VIEW_COUNT = BOARD_VIEW_COUNT + 1
+        WHERE BOARD_ID = #{boardId}
+    </update>
+
+    <!--    게시글 작성자의 닉네임-->
+    <select id="boardUserName" >
+        SELECT USER_NICKNAME
+        FROM GGHJ_
+
+    </select>
+
+
+</mapper>
+

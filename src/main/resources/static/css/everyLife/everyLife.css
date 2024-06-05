@@ -1,0 +1,197 @@
+
+/* 전체 컨테이너 설정 */
+.everyLife-container{
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 1350px;
+    width: 100%;
+} 
+.everyLife-wrap1{
+    height: 150px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    font-weight: bold;
+}
+li, ul, ol{
+    list-style: none;
+}
+/* 최신순 / 인기순 정렬 */
+.everyLife-select-box{
+    /* border: 1px solid black; */
+    margin-bottom: 12px;
+    align-items: center;
+}
+
+.box-select{
+    background-color: rgb(245, 243, 236);
+    border-radius: 6px;
+    outline: 1px solid #ebe7e7
+}
+.everyLife-select-btn{
+    /* border: 1px solid black; */
+    width: 60%;
+    display: flex;    
+}
+.everyLife-btn-span{
+    margin-right: 6px;
+    width: 100%;
+}
+.everyLife-btn-span button{
+    border-radius: 15px;
+    border: none;
+    font-size: 12px;
+    height: 30px;
+    width: 100%;
+    white-space: nowrap;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.everyLife-btn-span button:hover{
+    cursor: pointer;
+    background-color: khaki;
+}
+
+/* 검색 */
+.everyLife-select-bar{
+    position: relative;
+    background-color: rgb(230, 230, 230);
+    border-radius: 6px;
+    width: 35%;
+    height: 30px;
+    align-items: center;
+    padding: 2px;
+    /* border: 1px solid black; */
+}
+.everyLife-select-bar input[type="text"]{
+    background-color: transparent;
+    width: 100%;
+    height: 30px;
+    padding-left: 15px;
+    border-radius: 6px;
+    border: none;
+}
+.everyLife-select-bar input::placeholder{
+    font-size: 12px;
+}
+.everyLife-magnifier{
+    border: none;
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    background-color: transparent;
+}
+.everyLife-magnifier img{
+    width: 20px;
+    height: 20px;
+}
+.everyLife-magnifier img:hover{
+    cursor: pointer;
+}
+.everyLife-select-sequence select{
+    width: 80px;
+    height: 30px;
+    border-radius: 6px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.everyLife-wrap2{
+    margin-top: 20px;
+}
+.everyLife-select-wrap{
+    margin-bottom: 25px;
+}
+.everyLife-select-box{
+    display: flex;
+    justify-content: space-between;
+}
+.everyLife-content-wrap{
+    /* 수정 */
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.everyLife-content-box{
+    /* 수정 */
+    width: 230px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.everyLife-content-box a{
+    color: black;
+}
+
+.everyLife-contents{
+    /* 수정 */
+    background-color: #f1f0ec;
+    width: 180px;
+    /* filter: brightness(0.9); */
+    height: 240px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 5px 1px rgba(42, 42, 42, 0.152);
+    border: 0.5px solid #d5c8c414;;
+    padding: 20px 20px 15px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    
+}
+.everyLife-contents:hover{
+    background-color: #e8e7e3;
+}
+.everyLife-content-title{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.everyLife-content-date{
+    font-size: 10px;
+}
+.everyLife-content-views{
+    font-size: 10px;
+}
+.everyLife-content-writer{
+    display: flex;
+    font-size: 12px;
+    line-height: 20px;
+    height: 20px;
+    margin-bottom: 10px;
+}
+.everyLife-writer-profile{
+    margin-right: 8px;
+}
+.everyLife-writer-profile img{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+.everyLife-writer-nickname{
+    font-size: 11px;
+}
+.everyLife-content-detail{
+    height: 50%;
+    font-size: 12px;
+    line-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+.everyLife-paging{
+    margin: 60px auto 0 auto;
+    display: flex;
+    width: 160px;
+    /* border: 1px solid black; */
+    justify-content: space-around;
+}
+.everyLife-paging a{
+    color: black;
+}
+.paging-backward{
+    display: none;
+}
+.paging-forward{
+    display: block;
+}
