@@ -78,7 +78,7 @@ $(document).ready(function() {
       success: function(data) {
         console.log('받은 데이터:', data);
         // 공개 여부를 확인하여 비공개이면 모달을 열지 않습니다.
-        if (data.inquiryPublic === "X" && userId !== uniId) {
+        if (data.inquiryPublic === "X" && userId !== uniId && uniId !== 1) {
           alert("비공개 문의글");
           return;
         }

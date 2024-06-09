@@ -57,7 +57,7 @@
         <p id="email-paragraph">이메일</p>
         <div class="email-text">
           <input id="email-input" name="userEmail" type="text" placeholder="아이디를 입력해주세요">
-          <button id="email-button">중복 확인</button>
+          <button id="email-button" type="button">중복 확인</button>
         </div>
         <p id="email-result"></p>
       </div>
@@ -66,7 +66,7 @@
         <p id="join-nickname-paragraph">닉네임</p>
         <div class="nickname-text">
           <input id="join-nickname-input" name="userNickname" type="text" placeholder="아이디를 입력해주세요">
-          <button id="join-nickname-button">중복 확인</button>
+          <button id="join-nickname-button" type="button">중복 확인</button>
         </div>
         <p id="join-nickname-result"></p>
       </div>
@@ -206,11 +206,11 @@
         </div>
         <hr id="hr">
         <div class="agree-container1">
-          <input type="checkbox" class="check" required ><span>이용약관 동의 (필수)</span>
+          <input type="checkbox" class="check" required ><span><a th:href="@{/main/terms}">이용약관 동의 (필수)</a></span>
         </div>
         <p class="required-message"></p>
         <div class="agree-container2">
-          <input type="checkbox"  class="check" required ><span>개인정보 수집 및 이용 동의 (필수)</span>
+          <input type="checkbox"  class="check" required ><span><a th:href="@{/main/privacy}">개인정보 수집 및 이용 동의 (필수)</a></span>
         </div>
         <p class="required-message2"></p>
         <div class="agree-container2">

@@ -87,6 +87,7 @@ public interface BoardService {
 
     List<BoardMainDTO> mainRightBannerSelect();
 
+    String boardUserName(Long boardId);
 }
 
 
