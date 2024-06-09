@@ -5,15 +5,16 @@ let hasNext = true;
 let uniId = document.querySelector('#uniId').value;
 console.log("uniId:", uniId);
 
+
 /* boardId
  <input type="hidden" id="boardId" th:value="${boards.boardId}"> 이런식으로 아무데나 갖다놔야함 */
 let boardId = document.querySelector('#boardId').value;
 let $replyListWrap = document.querySelector('.wrapper-reply');
 
-/* 댓글 삭제 */
+
+
 $replyListWrap.addEventListener('click', function (e) {
     let $target = e.target;
-    /*1. 삭제 */
     if ($target.classList.contains('real-delete-btn')) {
         /* 삭제 버튼이 클릭되었는지 확인하고, 해당 요소를 처리 */
         $target.closest('.delete-btn').classList.add('none');
@@ -29,62 +30,8 @@ $replyListWrap.addEventListener('click', function (e) {
                 displayComment(data.contentList); // displayComment 함수를 사용하여 댓글 목록을 화면에 표시
             });
         });
-    } // 삭제처리
-
-    /*2. 신고 */
-    if($target.classList.contains('dotdotdot')){ // 점점점 누르면 버튼 나오게
-        console.log("점점점 클릭됨");
-        $('.box-mini-report').css('display', 'none');
-        $(e.target).next().css('display', 'flex'); /* 누른거만 나오게  */
     }
-
-    if($target.classList.contains('box-mini-report')) { // 신고하기 누르면 신고모달 뜨게
-        console.log("미니버튼");
-        $('.box-mini-report').css('display', 'none');
-        $('.report').css('display', 'flex');
-        $('.dotdotdot').on('click', function (e) {
-            $('.report').css('display', 'none');
-        });
-
-    }
-
-
-    if($target.classList.contains('report-btn-close')) {
-        $('.report').css('display', 'none');
-    }
-    if($target.classList.contains('report-btn-report')) {
-        $('.report').css('display', 'none');
-
-    }
-/* 여기부터 --------------*/
-
-
-
-}); // 닫기
-document.querySelector('.report-btn-report').addEventListener('click', function (ee){
-    ee.preventDefault();
-    // 신고 모달에 데이터 설정
-    const reportForm = document.querySelector('.report');
-    const formData = new FormData(reportForm);
-    const commentElement = document.querySelector('.wrapper-reply .comment-id-tag');
-    const commentId = commentElement.dataset.commentId;
-    const userId = commentElement.dataset.userId;
-    reportForm.dataset.commentId = commentId;
-    reportForm.dataset.userId = userId;
-
-
-
-    fetch('/submitReport', {
-        method: 'POST',
-        body: formData
-    }).then(response => response.json())
-        .then(data => {
-            console.log('신고가 성공적으로 제출되었습니다.');
-            $('.report').css('display', 'none');
-        }).catch(error => {
-        console.error('신고 제출 중 오류 발생:', error);
-    });
-})
+});
 
 
 
@@ -161,7 +108,7 @@ function displayComment(commentList) {
     let tags = '';
     commentList.forEach(r => {
         tags += `
-<div class="wrapper-main-reply comment-id-tag" data-id="${r.uniId}">
+<div class="wrapper-main-reply comment-id-tag" data-id="${r.commentId}">
     <div class="box-main-reply-top">
         <a href="#" class="reply-top-left">
             <div class="box-profile"><img src="./../../img/main/봉준호 (8).jpg" alt=""/></div>
@@ -209,7 +156,7 @@ function appendReply(commentList) {
     console.log("댓글 추가중?");
     commentList.forEach(r => {
         tags += `
-<div class="wrapper-main-reply comment-id-tag" data-id="${r.uniId}" data-user-id="${r.userId}" data-board-id="${r.boardId}" data-comment-id="${r.commentId}">
+<div class="wrapper-main-reply comment-id-tag" data-id="${r.commentId}">
     <div class="box-main-reply-top">
         <a href="#" class="reply-top-left">
             <div class="box-profile"><img src="./../../img/main/봉준호 (8).jpg" alt=""/></div>
