@@ -78,4 +78,16 @@ public class HomeController {
         return "main/about";
     }
 
+    @GetMapping("/terms")
+    public String terms() {
+
+        return "community/terms-of-service";
+    }
+
+    @GetMapping("/privacy")
+    public String privacy() {
+
+        return "community/privacy-policy";
+    }
+
 }

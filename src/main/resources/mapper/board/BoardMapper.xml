@@ -162,6 +162,8 @@
                          FULL OUTER JOIN gghj_user u ON gu.user_id = u.user_id
                          LEFT JOIN gghj_kakao k ON gu.kakao_id = k.kakao_id
                          FULL OUTER JOIN GGHJ_USER_FILE uf ON gu.uni_id = uf.USER_ID
+                 WHERE
+                     b.board_id IS NOT NULL
              ) ranked_boards
         WHERE
             board_rank <= 1 AND rownum = 1
@@ -215,6 +217,11 @@
                                   FULL OUTER JOIN gghj_user u ON gu.user_id = u.user_id
                                   LEFT JOIN gghj_kakao k ON gu.kakao_id = k.kakao_id
                                   FULL OUTER JOIN GGHJ_USER_FILE uf ON gu.uni_id = uf.USER_ID
+                          WHERE
+                              b.board_id IS NOT NULL
+                            AND b.board_title IS NOT NULL
+                            AND b.board_content IS NOT NULL
+                            AND COALESCE(u.user_nickname, k.name) IS NOT NULL
                       ) ranked_boards
                  WHERE board_rank BETWEEN 2 AND 3
              ) final_boards
