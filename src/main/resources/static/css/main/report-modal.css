@@ -106,7 +106,9 @@
 }
 
 .wrapper-report{
-  position: absolute;
-  top: 65%;
-  left: 38%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
 }

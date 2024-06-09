@@ -6,6 +6,7 @@ import com.example.geungeunhanjan.domain.dto.board.LifeUserUpdateDTO;
 import com.example.geungeunhanjan.domain.dto.board.LikeDTO;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
+import com.example.geungeunhanjan.domain.vo.board.ReportVO;
 import com.example.geungeunhanjan.domain.vo.file.UserFileVO;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,14 +28,14 @@ public interface MyPageService {
 
     // 4. 회원정보 수정
     // 4-1. 프사 / 배사 파일 !!
-    void registProfileBackFile(UserFileVO userFileVO, List<MultipartFile> files) throws IOException;
-    UserFileVO getProfileBackFile(Long userFileId);
+    void registProfileBackFile(UserFileVO userFileVO, MultipartFile profileImage, MultipartFile backgroundImage) throws IOException;
+    UserFileVO getProfileBackFile(Long userId);
+    void deleteFile(Long userId);
     /* 4-2. 회원 텍스트 정보 수정*/
-    void updateUserInfo(LifeUserInfoDTO lifeUserInfoDTO);
     /* 업데이트 3번째 06-04 */
-    void totalUpdateInfo(LifeUserUpdateDTO lifeUserUpdateDTO, List<MultipartFile> files) throws IOException;
+    void totalUpdateInfo(LifeUserUpdateDTO lifeUserUpdateDTO) throws IOException;
 
-    /* 5. 회원 정보 셀렉트 */
+    /* 5. 회원 정보 셀렉트 : 파일, 유저, 유니, 카카오 */
     LifeUserInfoDTO selectAllInfo (Long userId);
 
     // 6. 마이페이지 페이징 - 윤근님꺼
@@ -44,4 +45,7 @@ public interface MyPageService {
     // 7. 팔로워 / 팔로잉 수
     int countFollower(Long userId);
     int countFollowing(Long userId);
+
+    // 8. 신고
+    void insertReport(ReportVO reportVO);
 }

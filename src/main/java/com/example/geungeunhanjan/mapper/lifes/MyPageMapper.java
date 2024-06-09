@@ -30,12 +30,13 @@ public interface MyPageMapper {
     // 4-1. 프사 / 배사 파일 !!
     void insertFileById(UserFileVO userFileVO);
     UserFileVO selectFileById(Long userId);
+    void deleteFile(Long userId);
     // 4-2 정보 업데이트 !
     void updateTwo(LifeUserUpdateDTO lifeUserUpdateDTO);
     void mergeToUser(Long userId);
     void mergeToKakao(Long userId);
 
-    // 5. 회원정보 전체 불러오기
+    // 5. 회원정보 전체 불러오기 !!!!!! : 회원, 카카오, 유저, 파일
     LifeUserInfoDTO selectAllInfo (Long userId);
 
     // 6. 마이페이지 페이징 - 윤근님꺼

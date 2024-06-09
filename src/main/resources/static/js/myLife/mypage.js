@@ -47,3 +47,29 @@ $(document).ready(function() {
         });
     }
 });
+
+
+/* --------------------------------------- 프사 / 배사 */
+
+// let boardId = document.querySelector('#boardId').value;
+
+function displayImgAjax() {
+fetch(`/v1/mylife/${uniId}/files`, {method: 'GET'})
+    .then(res => res.json())//응답을 JSON으로 변환
+    .then(list => { //변환된 데이터를 list 변수에 저장
+        let tags = ''; //HTML 태그를 저장할 변수 초기화
+
+        for (let i = 0; i < list.length; i++) {
+            let backFileName = list[i].uploadPath + '/' + list[i].uuid + '_' + list[i].name;
+            //파일 경로 조합
+
+            tags += `<a href="/download?fileName=${fileName}">
+                         <img src="/v1/files?fileName=${fileName}" data-id="${list[i].fileId}" data-name="${fileName}"/>
+                        </a>`;
+        }
+
+        let $postImgs = document.querySelector('.post-images'); //이미지가 삽입될 요소
+
+        $postImgs.innerHTML = tags; //생성된 html 태그를 삽입
+    });
+}
