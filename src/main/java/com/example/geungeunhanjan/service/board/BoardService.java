@@ -32,8 +32,15 @@ public interface BoardService {
     //일대기별 게시글 조회
     List<BoardVO> selectLifeCycle(String boardLifeCycle, Long userId);
 
+    //모두의 일대기 검색 결과
+    List<BoardDTO> everySearchBoards(String keyword);
+
     //모두의 일대기 별 게시판 조회
     List<BoardDTO> everyLifeCycle(String boardLifeCycle);
+
+    //조회수 순으로 정렬
+    List<BoardDTO> everyViewsDescending(String boardViewCount);
+
 
     //특정 게시긓 조회수 +1
     void boardIntViewCnt(Long boardId);

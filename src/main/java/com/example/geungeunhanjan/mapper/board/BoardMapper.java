@@ -31,6 +31,12 @@ public interface BoardMapper {
     //모두의 일대기 별 게시판 조회
     List<BoardDTO> selectEveryLifeCycle(String boardLifeCycle);
 
+    //모두의 일대기 검색 결과 조회
+    List<BoardDTO> searchBoards(@Param("keyword") String keyword);
+
+    //조회수 순으로 정렬
+    List<BoardDTO> selectByViewsDescending(String boardViewCount);
+
     //특정 게시판 조회수 +1
     int incViewCnt(Long boardId);
 
