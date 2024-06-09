@@ -11,6 +11,7 @@ import com.example.geungeunhanjan.domain.vo.file.BoardFileVO;
 import com.example.geungeunhanjan.mapper.board.BoardFileMapper;
 import com.example.geungeunhanjan.mapper.board.BoardMapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -120,13 +121,20 @@ public class BoardServiceImpl implements BoardService {
             }
         }
     }
-    /* ---------------------------------------- */
 
-    //일대기별 생활 주기 설정
+    //일대기별 생활 주기 설정 ==================> 나의 일대기
     @Override
     public List<BoardVO> selectLifeCycle(String boardLifeCycle, Long userId) {
         return boardMapper.selectBoardLifeCycle(boardLifeCycle, userId);
     }
+
+    //일대기별 생활 주기 설정 =================>모두의 일대기
+    @Override
+    public List<BoardDTO> everyLifeCycle(String boardLifeCycle) {
+        return boardMapper.selectEveryLifeCycle(boardLifeCycle);
+    }
+    /* ---------------------------------------- */
+
 
     @Override
     public void boardIntViewCnt(Long boardId) {

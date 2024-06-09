@@ -29,27 +29,27 @@
         <div class="everyLife-select-wrap">
             <div class="everyLife-select-box">
                 <div class="everyLife-select-btn">
-                        <span class="everyLife-btn-span">
-                            <button type="button" value="유아기">유아기</button>
-                        </span>
+    <span class="everyLife-btn-span">
+        <button id="infancyBtn" type="button" value="유아기">유아기</button>
+    </span>
                     <span class="everyLife-btn-span">
-                            <button type="button" value="유년기">유년기</button>
-                        </span>
+        <button id="childhoodBtn" type="button" value="유년기">유년기</button>
+    </span>
                     <span class="everyLife-btn-span">
-                            <button type="button" value="아동기">아동기</button>
-                        </span>
+        <button id="juvenileBtn" type="button" value="아동기">아동기</button>
+    </span>
                     <span class="everyLife-btn-span">
-                            <button type="button" value="청소년기">청소년기</button>
-                        </span>
+        <button id="teenBtn" type="button" value="청소년기">청소년기</button>
+    </span>
                     <span class="everyLife-btn-span">
-                            <button type="button" value="청년기">성인</button>
-                        </span>
+        <button id="adultBtn" type="button" value="청년기">청년기</button>
+    </span>
                     <span class="everyLife-btn-span">
-                            <button type="button" value="중년기">중년</button>
-                        </span>
+        <button id="middleAgeBtn" type="button" value="중년기">중년기</button>
+    </span>
                     <span class="everyLife-btn-span">
-                            <button type="button" value="노년기">노년</button>
-                        </span>
+        <button id="oldAgeBtn" type="button" value="노년기">노년기</button>
+    </span>
                 </div>
                 <div class="everyLife-select-bar">
                     <form onsubmit="filterContent(); return false;">
@@ -79,7 +79,9 @@
                     <!--                <a href ="#">-->
                     <div class="everyLife-contents">
                         <div class="everyLife-content-title" th:text="${board.boardTitle}">제목</div>
-                        <div class="everyLife-content-date" th:text="|작성일 : ${#temporals.format(board.boardCreatedDate, 'yyyy년 MM월 dd일')}|">작성일</div>
+                        <div class="everyLife-content-date"
+                             th:text="|작성일 : ${#temporals.format(board.boardCreatedDate, 'yyyy년 MM월 dd일')}|">작성일
+                        </div>
                         <div class="everyLife-content-views" th:text="|조회수 : ${board.boardViewCount}|">조회수</div>
                         <div class="everyLife-content-writer">
                                 <span class="everyLife-writer-profile">

@@ -8,6 +8,7 @@ import com.example.geungeunhanjan.domain.dto.board.BoardMainDTO;
 
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
 import com.example.geungeunhanjan.domain.vo.file.BoardFileVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +31,9 @@ public interface BoardService {
 
     //일대기별 게시글 조회
     List<BoardVO> selectLifeCycle(String boardLifeCycle, Long userId);
+
+    //모두의 일대기 별 게시판 조회
+    List<BoardDTO> everyLifeCycle(String boardLifeCycle);
 
     //특정 게시긓 조회수 +1
     void boardIntViewCnt(Long boardId);
