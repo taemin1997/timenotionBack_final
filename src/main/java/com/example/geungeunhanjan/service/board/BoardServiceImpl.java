@@ -84,7 +84,7 @@ public class BoardServiceImpl implements BoardService {
         BoardFileVO boardFileVO = new BoardFileVO();
         boardFileVO.setBoardFileUuid(uuid.toString());
         boardFileVO.setBoardFileName(originalFilename);
-        boardFileVO.setBoardFileSourceName(getUploadPath());
+        boardFileVO.setBoardFileSourceName(systemName);
 
         return boardFileVO;
     }
@@ -250,6 +250,11 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<BoardMainDTO> mainRightBannerSelect() {
         return boardMapper.mainRightBannerSelect();
+    }
+
+    @Override
+    public String boardUserName(Long boardId) {
+        return boardMapper.boardUserName(boardId);
     }
 
 }

@@ -153,10 +153,12 @@ public class MyPageController {
         }
         BoardVO boards = boardService.selectById(boardId);
         boardService.boardIntViewCnt(boardId);
+        String userNickname = boardService.boardUserName(boardId);
         // 유저 정보 모두
         LifeUserInfoDTO userInfo = myPageService.selectAllInfo(uniId);
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("boards", boards);
+        model.addAttribute("userNickname", userNickname);
         return "myLife/detail-my";
     }
 //    @GetMapping("/detail-my")
