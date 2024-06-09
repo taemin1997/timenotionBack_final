@@ -356,6 +356,7 @@
                                             LEFT JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID
                                             LEFT JOIN GGHJ_KAKAO K ON UNI.KAKAO_ID = K.KAKAO_ID
                                             LEFT JOIN GGHJ_USER_FILE F ON U.USER_ID = F.USER_ID
+                                   ORDER BY B.BOARD_CREATED_DATE DESC
                                )
                           WHERE ROWNUM <= #{page} * #{amount}
                       )
@@ -427,10 +428,16 @@
     </update>
 
     <!--    게시글 작성자의 닉네임-->
-    <select id="boardUserName" >
-        SELECT USER_NICKNAME
-        FROM GGHJ_
-
+    <select id="boardUserName" parameterType="Long" resultType="String">
+        SELECT
+            COALESCE(u.USER_NICKNAME, k.NAME) AS user_nickname
+        FROM
+            GGHJ_BOARD b
+                LEFT JOIN GGHJ_UNI gu ON b.USER_ID = gu.UNI_ID
+                LEFT JOIN GGHJ_USER u ON gu.USER_ID = u.USER_ID
+                LEFT JOIN GGHJ_KAKAO k ON gu.KAKAO_ID = k.KAKAO_ID
+        WHERE
+            b.BOARD_ID = #{boardId}
     </select>
 
 
