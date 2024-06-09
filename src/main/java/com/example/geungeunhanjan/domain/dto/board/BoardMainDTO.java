@@ -21,7 +21,7 @@ public class BoardMainDTO {
     private Long userId;
     private String userFileProfileSource;
     private String boardFileSourceName;
+    private String boardFileName;
     private String userNickname;
     private int boardRank;
-    private String boardFileName;
 }

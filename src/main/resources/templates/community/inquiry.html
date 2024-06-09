@@ -73,7 +73,8 @@
             <div class="contents-prev-content">
                 <span class="contents-number" th:text="${inquiry.inquiryId}">7</span>
                 <span class="contents-title">
-            <button type="button" class="inquiry-content-button" th:data-inquiryid="${inquiry.inquiryId}" th:data-userid="${inquiry.userId}" th:data-public="${inquiry.inquiryPublic}"   th:text="${inquiry.inquiryTitle}">
+            <button type="button" class="inquiry-content-button" th:data-inquiryid="${inquiry.inquiryId}" th:data-userid="${inquiry.userId}" th:data-public="${inquiry.inquiryPublic}"
+                    th:data-uniid="${session.uniId}" th:text="${inquiry.inquiryTitle}">
 
             </button>
         </span>
@@ -217,7 +218,7 @@
     <!--    </div>-->
     <!--    <div class="inquiry-prev prev">&lt;</div>-->
     <!--    <div class="inquiry-next next">&gt;</div>-->
-    <div id="inquiry-modal-answer" data-userid="${inquiry.userId}" th:each="inquiriy : ${inquiries}" >
+    <div id="inquiry-modal-answer" data-userid="${inquiry.userId}" th:each="inquiry : ${inquiries}" >
         <div class="modal-main-img">
             <img src="./../../img/main/timenotion.png" alt="">
         </div>
@@ -235,7 +236,7 @@
             </div>
         </div>
         <div class="inquiry-modal-answer-btns">
-            <button type="button" class="inquiry-modal-answer-delete" th:if="${session.uniId} == ${inquiriy.userId}">삭제</button>
+            <button type="button" class="inquiry-modal-answer-delete">삭제</button>
             <button type="button" class="inquiry-modal-answer-exit">닫기</button>
         </div>
     </div>

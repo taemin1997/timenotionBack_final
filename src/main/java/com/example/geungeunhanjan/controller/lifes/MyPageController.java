@@ -146,15 +146,32 @@ public class MyPageController {
 
     //글쓰기(나의 일대기) 상세페이지로 이동
     @GetMapping("/detail-my")
-    public String detailMy(Model model, Long boardId,@SessionAttribute("uniId") Long uniId){
+    public String detailMy(Model model, Long boardId, HttpSession session) {
+        Long uniId = (Long) session.getAttribute("uniId");
+        if (uniId == null) {
+            return "redirect:/user/login";
+        }
         BoardVO boards = boardService.selectById(boardId);
         boardService.boardIntViewCnt(boardId);
         // 유저 정보 모두
         LifeUserInfoDTO userInfo = myPageService.selectAllInfo(uniId);
         model.addAttribute("userInfo", userInfo);
-        model.addAttribute("boards",boards);
+        model.addAttribute("boards", boards);
         return "myLife/detail-my";
     }
+//    @GetMapping("/detail-my")
+//    public String detailMy(Model model, Long boardId, @SessionAttribute("uniId") Long uniId){
+//        if (uniId == null) {
+//            return "redirect:/user/login";
+//        }
+//        BoardVO boards = boardService.selectById(boardId);
+//        boardService.boardIntViewCnt(boardId);
+//        // 유저 정보 모두
+//        LifeUserInfoDTO userInfo = myPageService.selectAllInfo(uniId);
+//        model.addAttribute("userInfo", userInfo);
+//        model.addAttribute("boards",boards);
+//        return "myLife/detail-my";
+//    }
 
     //글쓰기(나의 일대기) 업데이트
     @GetMapping("/update_writingMode")
