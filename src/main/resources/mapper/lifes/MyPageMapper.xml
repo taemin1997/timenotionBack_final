@@ -24,7 +24,7 @@
                            B.BOARD_TITLE,
                            B.BOARD_ID,
                            COALESCE(U.USER_NICKNAME, K.NAME) AS NICKNAME,
-                           UNI.UNI_ID                                  AS USER_ID,
+                           UNI.UNI_ID                        AS USER_ID,
                            L.LIKE_CREATED_DATE
                     FROM GGHJ_LIKE L
                              JOIN
@@ -39,7 +39,7 @@
                     ORDER BY L.LIKE_CREATED_DATE DESC)
               WHERE ROWNUM <= #{criteria.page} * #{criteria.amount})
         WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
-]]>
+        ]]>
     </select>
 
     <select id="myLikeTotal" resultType="int">
@@ -55,31 +55,6 @@
              GGHJ_KAKAO K ON K.KAKAO_ID = UNI.KAKAO_ID
         WHERE L.USER_ID = #{userId}
     </select>
-
-    <!--2. 내가 쓴 댓글 목록-->
-    <!--댓글 내용 / 댓글 쓴 날 / 게시글 제목 / 댓글 작성자 id-->
-    <!-- <select id="selectMyComment" resultType="CommentDTO">
-         SELECT C.COMMENT_CONTENT      AS COMMENTS_CONTENT,
-                C.COMMENT_CREATED_DATE AS CREATED_DATE,
-                B.BOARD_TITLE          AS BOARD_TITLE,
-                C.USER_ID              AS USER_ID
-         FROM GGHJ_COMMENT C
-                  JOIN GGHJ_BOARD B
-                       ON C.BOARD_ID = B.BOARD_ID
-         WHERE C.USER_ID = #{userId}
-         UNION ALL
-         SELECT R.REPLY_CONTENT      AS COMMENTS_CONTENT,
-                R.REPLY_CREATED_DATE AS CREATED_DATE,
-                B.BOARD_TITLE        AS BOARD_TITLE,
-                R.USER_ID            AS USER_ID
-         FROM GGHJ_REPLY R
-                  JOIN GGHJ_COMMENT C
-                       ON R.COMMENT_ID = C.COMMENT_ID
-                  JOIN GGHJ_BOARD B
-                       ON C.BOARD_ID = B.BOARD_ID
-         WHERE R.USER_ID = #{userId}
-         ORDER BY CREATED_DATE DESC
-     </select>-->
 
     <!--2. 내가 쓴 댓글 목록 페이징 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  -->
     <select id="selectPageMyComment" resultType="CommentDTO">
@@ -148,38 +123,46 @@
         #{userFileBackName}, #{userFileBackSource}, #{userFileBackUuid}, #{userId})
     </insert>
     <select id="selectFileById" resultType="UserFileVO">
-        SELECT USER_FILE_ID,
-               USER_FILE_PROFILE_NAME,
-               USER_FILE_PROFILE_SOURCE,
-               USER_FILE_PROFILE_UUID,
-               USER_FILE_BACK_NAME,
-               USER_FILE_BACK_SOURCE,
-               USER_FILE_BACK_UUID,
-               USER_ID
-        FROM GGHJ_USER_FILE
-        WHERE USER_ID = #{userId}
+        SELECT *
+        FROM (
+                 SELECT USER_FILE_ID,
+                        USER_FILE_PROFILE_NAME,
+                        USER_FILE_PROFILE_SOURCE,
+                        USER_FILE_PROFILE_UUID,
+                        USER_FILE_BACK_NAME,
+                        USER_FILE_BACK_SOURCE,
+                        USER_FILE_BACK_UUID,
+                        USER_ID
+                 FROM GGHJ_USER_FILE
+                 WHERE USER_ID = #{userId}
+                 ORDER BY USER_FILE_ID DESC
+             )
+        WHERE ROWNUM = 1
     </select>
+    <delete id="deleteFile">
+        DELETE FROM GGHJ_USER_FILE WHERE USER_ID = #{userId}
+    </delete>
     <!--4-2. 회원정보 수정 -->
-    <!--회원정보 수정 2트 -->
-    <update id="updateTwo" >
+    <!--회원정보 수정 3트 -->
+    <update id="updateTwo">
         UPDATE GGHJ_UNI
-        SET UNI_ABOUT = #{uniAbout}, BIRTH = SYSDATE, NICKNAME = #{nickname}
+        SET UNI_ABOUT = #{uniAbout},
+            BIRTH     = SYSDATE,
+            NICKNAME  = #{nickname}
         WHERE UNI_ID = #{userId}
     </update>
     <update id="mergeToUser">
         MERGE INTO GGHJ_USER U
-            USING (
-                SELECT UN.UNI_ID,
-                       U.USER_NICKNAME,
-                       U.USER_PASSWORD AS PASSWORD,
-                       U.USER_BIRTH AS BIRTH,
-                       UN.UNI_ABOUT AS ABOUT,
-                       U.USER_ID AS USER_ID,
-                       UN.NICKNAME AS NICKNAME
-                FROM GGHJ_UNI UN
-                         LEFT JOIN GGHJ_USER U
-                                   ON U.USER_ID = UN.USER_ID AND UN.UNI_ID = #{userId}
-            ) MEM
+            USING (SELECT UN.UNI_ID,
+                          U.USER_NICKNAME,
+                          U.USER_PASSWORD AS PASSWORD,
+                          U.USER_BIRTH    AS BIRTH,
+                          UN.UNI_ABOUT    AS ABOUT,
+                          U.USER_ID       AS USER_ID,
+                          UN.NICKNAME     AS NICKNAME
+                   FROM GGHJ_UNI UN
+                            LEFT JOIN GGHJ_USER U
+                                      ON U.USER_ID = UN.USER_ID AND UN.UNI_ID = #{userId}) MEM
             ON (U.USER_ID = MEM.USER_ID)
             WHEN MATCHED THEN
                 UPDATE SET
@@ -188,12 +171,10 @@
     </update>
     <update id="mergeToKakao">
         MERGE INTO GGHJ_KAKAO K
-            USING (
-                SELECT UN.KAKAO_ID,
-                       UN.NICKNAME AS NICKNAME
-                FROM GGHJ_UNI UN
-                WHERE UN.UNI_ID = #{userId}
-            ) KOO
+            USING (SELECT UN.KAKAO_ID,
+                          UN.NICKNAME AS NICKNAME
+                   FROM GGHJ_UNI UN
+                   WHERE UN.UNI_ID = #{userId}) KOO
             ON (K.KAKAO_ID = KOO.KAKAO_ID)
             WHEN MATCHED THEN
                 UPDATE SET
@@ -201,15 +182,27 @@
     </update>
     <!-- 회원정보 전체 셀렉 -->
     <select id="selectAllInfo" resultType="LifeUserInfoDTO">
-        SELECT UN.UNI_ID AS UNI_ID, COALESCE(K.NAME, U.USER_NICKNAME) NICKNAME,
-               COALESCE (K.PROVIDER_ID, U.USER_EMAIL) EMAIL, U.USER_PASSWORD, U.USER_BIRTH , UN.UNI_ABOUT ,
-               F.USER_FILE_PROFILE_SOURCE , F.USER_FILE_BACK_SOURCE, U.USER_ID , K.KAKAO_ID
-        FROM GGHJ_UNI UN
-                 LEFT JOIN GGHJ_USER U ON U.USER_ID = UN.USER_ID
-                 LEFT JOIN GGHJ_KAKAO K ON K.KAKAO_ID = UN.KAKAO_ID
-                 LEFT JOIN GGHJ_USER_FILE F ON F.USER_ID = UN.UNI_ID
-        WHERE UN.UNI_ID = #{userId}
-        ORDER BY UNI_ID
+        SELECT * FROM (
+                          SELECT
+                              ROWNUM,
+                              UN.UNI_ID AS UNI_ID,
+                              COALESCE(K.NAME, U.USER_NICKNAME) AS NICKNAME,
+                              COALESCE(K.PROVIDER_ID, U.USER_EMAIL) AS EMAIL,
+                              U.USER_PASSWORD,
+                              U.USER_BIRTH,
+                              UN.UNI_ABOUT,
+                              F.USER_FILE_PROFILE_SOURCE,
+                              F.USER_FILE_BACK_SOURCE,
+                              U.USER_ID,
+                              K.KAKAO_ID
+                          FROM GGHJ_UNI UN
+                                   LEFT JOIN GGHJ_USER U ON U.USER_ID = UN.USER_ID
+                                   LEFT JOIN GGHJ_KAKAO K ON K.KAKAO_ID = UN.KAKAO_ID
+                                   LEFT JOIN GGHJ_USER_FILE F ON F.USER_ID = UN.UNI_ID
+                          WHERE UN.UNI_ID = #{userId}
+                          ORDER BY UNI_ID
+                      ) TEMP
+        WHERE ROWNUM = 1
     </select>
 
     <!--마이 페이지 페이징 (윤근님꺼) -->
@@ -226,15 +219,21 @@
         ]]>
     </select>
     <select id="selectMypageTotalCount" resultType="int">
-        SELECT COUNT(*) FROM GGHJ_BOARD WHERE USER_ID = #{userId}
+        SELECT COUNT(*)
+        FROM GGHJ_BOARD
+        WHERE USER_ID = #{userId}
     </select>
 
     <!-- 순서대로 팔로워 팔로잉 인원 수 -->
     <select id="countFollower" resultType="int">
-    SELECT COUNT(*) FROM GGHJ_FOLLOW WHERE FOLLOW_TO_USER = #{userId}
+        SELECT COUNT(*)
+        FROM GGHJ_FOLLOW
+        WHERE FOLLOW_TO_USER = #{userId}
 
     </select>
     <select id="countFollowing" resultType="int">
-    SELECT COUNT(*) FROM GGHJ_FOLLOW WHERE FOLLOW_FROM_USER = #{userId}
+        SELECT COUNT(*)
+        FROM GGHJ_FOLLOW
+        WHERE FOLLOW_FROM_USER = #{userId}
     </select>
 </mapper>

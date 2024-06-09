@@ -2,15 +2,18 @@ import * as reply from "./module.js";
 
 let page = 1;
 let hasNext = true;
-
+let uniId = document.querySelector('#uniId').value;
+console.log("uniId:", uniId);
 
 /* boardId
  <input type="hidden" id="boardId" th:value="${boards.boardId}"> 이런식으로 아무데나 갖다놔야함 */
 let boardId = document.querySelector('#boardId').value;
 let $replyListWrap = document.querySelector('.wrapper-reply');
 
+/* 댓글 삭제 */
 $replyListWrap.addEventListener('click', function (e) {
     let $target = e.target;
+    /*1. 삭제 */
     if ($target.classList.contains('real-delete-btn')) {
         /* 삭제 버튼이 클릭되었는지 확인하고, 해당 요소를 처리 */
         $target.closest('.delete-btn').classList.add('none');
@@ -26,8 +29,65 @@ $replyListWrap.addEventListener('click', function (e) {
                 displayComment(data.contentList); // displayComment 함수를 사용하여 댓글 목록을 화면에 표시
             });
         });
+    } // 삭제처리
+
+    /*2. 신고 */
+    if($target.classList.contains('dotdotdot')){ // 점점점 누르면 버튼 나오게
+        console.log("점점점 클릭됨");
+        $('.box-mini-report').css('display', 'none');
+        $(e.target).next().css('display', 'flex'); /* 누른거만 나오게  */
     }
-});
+
+    if($target.classList.contains('box-mini-report')) { // 신고하기 누르면 신고모달 뜨게
+        console.log("미니버튼");
+        $('.box-mini-report').css('display', 'none');
+        $('.report').css('display', 'flex');
+        $('.dotdotdot').on('click', function (e) {
+            $('.report').css('display', 'none');
+        });
+
+    }
+
+
+    if($target.classList.contains('report-btn-close')) {
+        $('.report').css('display', 'none');
+    }
+    if($target.classList.contains('report-btn-report')) {
+        $('.report').css('display', 'none');
+
+    }
+/* 여기부터 --------------*/
+
+
+
+}); // 닫기
+document.querySelector('.report-btn-report').addEventListener('click', function (ee){
+    ee.preventDefault();
+    // 신고 모달에 데이터 설정
+    const reportForm = document.querySelector('.report');
+    const formData = new FormData(reportForm);
+    const commentElement = document.querySelector('.wrapper-reply .comment-id-tag');
+    const commentId = commentElement.dataset.commentId;
+    const userId = commentElement.dataset.userId;
+    reportForm.dataset.commentId = commentId;
+    reportForm.dataset.userId = userId;
+
+
+
+    fetch('/submitReport', {
+        method: 'POST',
+        body: formData
+    }).then(response => response.json())
+        .then(data => {
+            console.log('신고가 성공적으로 제출되었습니다.');
+            $('.report').css('display', 'none');
+        }).catch(error => {
+        console.error('신고 제출 중 오류 발생:', error);
+    });
+})
+
+
+
 
 
 /* 2. 댓글 등록 ----------------------------------------*/
@@ -101,15 +161,23 @@ function displayComment(commentList) {
     let tags = '';
     commentList.forEach(r => {
         tags += `
-  <div class="wrapper-main-reply comment-id-tag" data-id="${r.commentId}">
+<div class="wrapper-main-reply comment-id-tag" data-id="${r.uniId}">
     <div class="box-main-reply-top">
         <a href="#" class="reply-top-left">
-            <div class="box-profile"><img src="./../../img/main/봉준호 (8).jpg" alt=""></div>
+            <div class="box-profile"><img src="./../../img/main/봉준호 (8).jpg" alt=""/></div>
             <div><span class="nickname">${r.nickname}</span></div>
+            <div class="tag">일기주인</div>
+            <div ${r.uniId}>나오냐</div>
         </a>
         <div class="reply-top-right">
-            <div class="delete-btn"><button id="delete" class="real-delete-btn">삭제</button></div>
+            <div class="delete-btn">
+                <button id="delete" class="real-delete-btn">삭제</button>
+            </div>
             <div class="date">${reply.timeForToday(r.commentCreatedDate)}</div>
+            <div class="dotdotdot">...</div>
+            <div class="box-mini-report">
+                <button class="mini-button">신고하기</button>
+            </div>
         </div>
     </div>
     <div class="box-main-reply-bottom">
@@ -117,8 +185,17 @@ function displayComment(commentList) {
             <p>${r.commentContent}</p>
         </div>
     </div>
+    <div class="wrapper-re-comment">
+        <div class="box-re-comment">
+            <button class="reply-btn" onClick="toggleReplyInput(this)">답글쓰기</button>
+            <div class="box-re-comment-btn" style="display: none;">
+                <textarea class="re-textarea" placeholder="댓글을 남겨보세요"></textarea>
+                <button class="re-submit-btn" onClick="submitReply(this)">완료</button>
+            </div>
+        </div>
+    </div>
 </div>
-<hr>
+<hr/>
         `;
     }); // 댓글목록 순회
     $commentWrap.innerHTML = tags;
@@ -132,15 +209,23 @@ function appendReply(commentList) {
     console.log("댓글 추가중?");
     commentList.forEach(r => {
         tags += `
- <div class="wrapper-main-reply comment-id-tag" data-id="${r.commentId}">
+<div class="wrapper-main-reply comment-id-tag" data-id="${r.uniId}" data-user-id="${r.userId}" data-board-id="${r.boardId}" data-comment-id="${r.commentId}">
     <div class="box-main-reply-top">
         <a href="#" class="reply-top-left">
-            <div class="box-profile"><img src="./../../img/main/봉준호 (8).jpg" alt=""></div>
+            <div class="box-profile"><img src="./../../img/main/봉준호 (8).jpg" alt=""/></div>
             <div><span class="nickname">${r.nickname}</span></div>
+            <div class="tag">일기주인</div>
+            <div ${r.uniId}>나오냐</div>
         </a>
         <div class="reply-top-right">
-            <div class="delete-btn"><button id="delete" class="real-delete-btn">삭제</button></div>
+            <div class="delete-btn">
+                <button id="delete" class="real-delete-btn">삭제</button>
+            </div>
             <div class="date">${reply.timeForToday(r.commentCreatedDate)}</div>
+            <div class="dotdotdot">...</div>
+            <div class="box-mini-report">
+                <button class="mini-button">신고하기</button>
+            </div>
         </div>
     </div>
     <div class="box-main-reply-bottom">
@@ -148,8 +233,17 @@ function appendReply(commentList) {
             <p>${r.commentContent}</p>
         </div>
     </div>
+    <div class="wrapper-re-comment">
+        <div class="box-re-comment">
+            <button class="reply-btn" onClick="toggleReplyInput(this)">답글쓰기</button>
+            <div class="box-re-comment-btn" style="display: none;">
+                <textarea class="re-textarea" placeholder="댓글을 남겨보세요"></textarea>
+                <button class="re-submit-btn" onClick="submitReply(this)">완료</button>
+            </div>
+        </div>
+    </div>
 </div>
-<hr>
+<hr/>
         `;
     }); // 댓글 목록 순회
     $commentWrap.insertAdjacentHTML("beforeend", tags);

@@ -38,6 +38,7 @@ public class MyPageController {
     private final LifeUserUpdateDTO lifeUserUpdateDTO;
     private final FollowService followService;
     private final LifeUserInfoDTO lifeUserInfoDTO;
+    private final UserFileVO userFileVO;
     BoardVO boardVO;
 
     // 마이페이지에서 내가 쓴 게시글 리스트 뽑기
@@ -75,6 +76,8 @@ public class MyPageController {
         int followingCnt = myPageService.countFollowing(uniId);
         model.addAttribute("followerCnt", followerCnt);
         model.addAttribute("followingCnt", followingCnt);
+        UserFileVO userFileVO = myPageService.getProfileBackFile(uniId);
+        model.addAttribute("userFileVO", userFileVO);
 
         return "myLife/mypage";
     }
@@ -281,7 +284,7 @@ public class MyPageController {
 
         return "/myLife/mypageLike";
     }
-    // 회원정보 수정으로
+    // 회원정보 수정으로 -------------------------
     @GetMapping("/mypageEditMemberInformation")
     public String mypageEditMemberInformation(HttpSession session, Model model,
                                               @SessionAttribute("uniId") Long uniId){
@@ -301,39 +304,58 @@ public class MyPageController {
     // 회원정보 수정으로 post
     @PostMapping("/mypageEditMemberInformation")
     public String mypageEditMemberInformation(UserFileVO userFileVO, RedirectAttributes redirectAttributes,
-                                              @RequestParam(value = "boardFile", required = false) List<MultipartFile> file,
+                                              @RequestParam(value = "profileImage", required = false) MultipartFile profileImage,
+                                              @RequestParam(value = "backgroundImage", required = false) MultipartFile backgroundImage,
                                               @SessionAttribute("uniId") Long uniId,
-                                              LifeUserInfoDTO lifeUserInfoDTO){
+                                              LifeUserInfoDTO infoDTO, LifeUserUpdateDTO lifeUserUpdateDTO) {
         // 로그인 여부 확인
         if (uniId == null) {
             return "redirect:/login";
         }
 
+        // 누구껀지 아이디
+        lifeUserInfoDTO.setUserId(uniId);
         userFileVO.setUserId(uniId);
+        lifeUserUpdateDTO.setUserId(uniId);
+
+        /* 입력된 값이 없으면 기존 값으로 사용 */
+        if(infoDTO.getNickname() == null || lifeUserUpdateDTO.getNickname().isEmpty()){
+            lifeUserUpdateDTO.setNickname(infoDTO.getNickname());
+        }
+        if(infoDTO.getUniAbout() == null || lifeUserUpdateDTO.getUniAbout().isEmpty()){
+            lifeUserUpdateDTO.setUniAbout(infoDTO.getUniAbout());
+        }
+        if(infoDTO.getUserBirth() == null){
+            lifeUserUpdateDTO.setUserBirth(infoDTO.getUserBirth());
+        }
+        if(infoDTO.getUniAbout() == null || lifeUserUpdateDTO.getUniAbout().isEmpty()){
+            lifeUserUpdateDTO.setUniAbout(infoDTO.getUniAbout());
+        }
+
         // files가 null인 경우 빈 리스트로 초기화
+/*
         if (file == null) {
             file = Collections.emptyList();
         }
-        userFileVO.setUserId(uniId);
-
-
+*/
+// 하.. 프사 배사 나눠서 내일 다시하자...
         try {
-            myPageService.registProfileBackFile(userFileVO, file);
+            myPageService.registProfileBackFile(userFileVO, profileImage, backgroundImage);
         } catch (IOException e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("errorMessage", "파일 업로드 실패");
             return "redirect:/myLife/mypageEditMemberInformation"; // 파일 업로드 실패 시 리다이렉트
         }
-        lifeUserUpdateDTO.setUserId(uniId);
+        System.out.println(userFileVO.getUserFileProfileName());
+
         try {
-            myPageService.updateUserInfo(lifeUserInfoDTO);
+            myPageService.totalUpdateInfo(lifeUserUpdateDTO);
         } catch (Exception e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("errorMessage", "회원 정보 업데이트 실패");
             return "redirect:/myLife/mypageEditMemberInformation"; // 업데이트 실패 시 리다이렉트
         }
         redirectAttributes.addFlashAttribute("uniId", userFileVO.getUserId());
-
         // 폼 제출 후 리다이렉트
         return "redirect:/myLife";
     }

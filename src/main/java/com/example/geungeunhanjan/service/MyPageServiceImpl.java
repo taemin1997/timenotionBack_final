@@ -6,9 +6,11 @@ import com.example.geungeunhanjan.domain.dto.board.LifeUserUpdateDTO;
 import com.example.geungeunhanjan.domain.dto.board.LikeDTO;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
+import com.example.geungeunhanjan.domain.vo.board.ReportVO;
 import com.example.geungeunhanjan.domain.vo.file.UserFileVO;
 import com.example.geungeunhanjan.domain.vo.user.UserVO;
 import com.example.geungeunhanjan.mapper.lifes.MyPageMapper;
+import com.example.geungeunhanjan.mapper.lifes.ReportMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,7 @@ import java.util.UUID;
 public class MyPageServiceImpl implements MyPageService {
     // 마이페이지
     private final MyPageMapper myPageMapper;
+    private final ReportMapper reportMapper;
     private final UserFileVO userFileVO;
     private final UserVO userVO;
 
@@ -71,19 +74,38 @@ public class MyPageServiceImpl implements MyPageService {
     private String fileDir;
 
     @Override
-    public void registProfileBackFile(UserFileVO userFileVO, List<MultipartFile> files) throws IOException {  // 프사 / 배사 등록
+    public void registProfileBackFile(UserFileVO userFileVO, MultipartFile profileImage, MultipartFile backgroundImage) throws IOException {  // 프사 / 배사 등록
         /* 파일 이름 경로 재설정한 객체를 받아서 저장함
          *  유저 아이디 넣어줌
          *  파일 정보를 DB에 저장 */
 
-        for (MultipartFile file : files) {
+   /*     for (MultipartFile file : files) {
             if (file.isEmpty()) {
                 break;
-            }
-//            fileVO.setUserId(userVO.getUserId());
-            UserFileVO renameUserFileVO = renameResourceFile(file);
-            myPageMapper.insertFileById(renameUserFileVO);
+            }*/
+        // 기존 파일 삭제
+        myPageMapper.deleteFile(userFileVO.getUserId());
+
+        if (profileImage != null && !profileImage.isEmpty()) {
+            UserFileVO profile = renameResourceFile(profileImage);
+            profile.setUserId(userFileVO.getUserId()); // 사용자 ID 설정
+            profile.setUserFileProfileName(profileImage.getOriginalFilename()); // 프로필 이미지 이름 설정
+            myPageMapper.insertFileById(profile);
         }
+
+        // 배경 이미지 처리
+        if (backgroundImage != null && !backgroundImage.isEmpty()) {
+            UserFileVO back = renameResourceFile(backgroundImage);
+            back.setUserId(userFileVO.getUserId()); // 사용자 ID 설정
+            back.setUserFileBackName(backgroundImage.getOriginalFilename()); // 배경 이미지 이름 설정
+            myPageMapper.insertFileById(back);
+        }
+         /*  fileVO.setUserId(userVO.getUserId());
+            UserFileVO renameUserFileVO = renameResourceFile(file);
+            myPageMapper.insertFileById(renameUserFileVO);*/
+
+
+
     }
 
     private String getUploadPath() {
@@ -98,7 +120,7 @@ public class MyPageServiceImpl implements MyPageService {
 
         // files : 업로드된 파일 객체
 
-        // 파일이름 생성
+        // 파일이름 생성 : 오리지널 _ uuid
         String originalFilename = files.getOriginalFilename(); // getOriginalFilename() : 객체에 저장된 원본 파일이름을 반환함!
         UUID uuid = UUID.randomUUID();
         String nameAddUuid = uuid.toString() + "_" + originalFilename;
@@ -107,14 +129,14 @@ public class MyPageServiceImpl implements MyPageService {
         // 경로지정
         File uploadPath = new File(fileDir, getUploadPath());
         /*fileDir, getUploadPath 합쳐서 File객체를 생성함, 기본디렉터리 / 추가경로 <--- 이 구성임
-         * 결합된 경로 = C:/upload/yyyy/MM/dd 이런식임 !*/
+         * fileDir는 "C:/upload/"이고  getUploadPath()는 yyyy/MM/dd */
 
         if (!uploadPath.exists()) {
             uploadPath.mkdirs();
         } // 경로 없으면 갖다 만들어라~
 
 
-        // 경로 + 파일이름
+        // 경로 + 파일이름 : C:/upload/yyyy/MM/dd/오리지널 _ uuid
         File uploadFile = new File(uploadPath, nameAddUuid); // C:/upload/yyyy/MM/dd/파일이름.jpg
 
 
@@ -124,12 +146,13 @@ public class MyPageServiceImpl implements MyPageService {
         // 새 객체를 만들어서 우리가 만든 이름을 넣고 걔를 반환할 것
         UserFileVO finalUserFileVO = new UserFileVO();
 
+
         finalUserFileVO.setUserFileProfileUuid(uuid.toString());
         finalUserFileVO.setUserFileProfileName(originalFilename);
-        finalUserFileVO.setUserFileProfileSource(getUploadPath()); // /yyyy/MM/dd 이걸 넣어줌
+        finalUserFileVO.setUserFileProfileSource(uploadPath.getPath()); // /yyyy/MM/dd 이걸 넣어줌
         finalUserFileVO.setUserFileBackUuid(uuid.toString());
         finalUserFileVO.setUserFileBackName(originalFilename);
-        finalUserFileVO.setUserFileBackSource(getUploadPath()); // /yyyy/MM/dd 이걸 넣어줌
+        finalUserFileVO.setUserFileBackSource(uploadPath.getPath()); // /yyyy/MM/dd 이걸 넣어줌
 
         return finalUserFileVO;
 
@@ -137,18 +160,24 @@ public class MyPageServiceImpl implements MyPageService {
 
 
     @Override
-    public UserFileVO getProfileBackFile(Long userFileId) {   // 프사 / 배사 셀렉
-        return null;
+    public UserFileVO getProfileBackFile(Long userId) {   // 프사 / 배사 셀렉
+        return myPageMapper.selectFileById(userId);
     }
 
-    @Override    /* 유저 정보 업데이트 */
-    public void updateUserInfo(LifeUserInfoDTO lifeUserInfoDTO) {
-        Long userId = lifeUserInfoDTO.getUserId();
-        String uniAbout = lifeUserInfoDTO.getUniAbout();
-        String nickname = lifeUserInfoDTO.getNickname();
-//        myPageMapper.updateTwo(userId, uniAbout, nickname);
-        myPageMapper.mergeToKakao(userId);
+    @Override
+    public void deleteFile(Long userId) {}
+
+    /* 4. 업데이트 3번째 06-04 */
+    /* 여기서 회원 정보 업데이트*/
+    @Override
+    public void totalUpdateInfo(LifeUserUpdateDTO lifeUserUpdateDTO) throws IOException {
+        myPageMapper.updateTwo(lifeUserUpdateDTO);
+        Long userId = lifeUserUpdateDTO.getUserId();
+
+
+        // 유저 정보 업데이트
         myPageMapper.mergeToUser(userId);
+        myPageMapper.mergeToKakao(userId);
     }
 
 
@@ -180,21 +209,11 @@ public class MyPageServiceImpl implements MyPageService {
         return myPageMapper.countFollowing(userId);
     }
 
-    /* 업데이트 3번째 06-04 */
-    /* 여기서 회원 정보 업데이트랑, 회원 파일 업데이트 가져와서 넣어줘야함
-     */
+    // 8. 신고
     @Override
-    public void totalUpdateInfo(LifeUserUpdateDTO lifeUserUpdateDTO, List<MultipartFile> files) throws IOException {
-
-        myPageMapper.updateTwo(lifeUserUpdateDTO);
-        Long userId = lifeUserUpdateDTO.getUserId();
-        for (MultipartFile file : files) {
-            if (file.isEmpty()) {
-                break;
-            }
-        }
-       //  여기서부터
-
-
+    public void insertReport(ReportVO reportVO) {
+        reportMapper.insertReport(reportVO);
     }
+
+
 }
