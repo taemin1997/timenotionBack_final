@@ -6,6 +6,7 @@ import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.dto.board.BoardMainDTO;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 
 import java.time.LocalDateTime;
@@ -26,6 +27,9 @@ public interface BoardMapper {
 
     //일대기 별 게시판 조회하기
     List<BoardVO> selectBoardLifeCycle(String boardLifeCycle, Long userId);
+
+    //모두의 일대기 별 게시판 조회
+    List<BoardDTO> selectEveryLifeCycle(String boardLifeCycle);
 
     //특정 게시판 조회수 +1
     int incViewCnt(Long boardId);

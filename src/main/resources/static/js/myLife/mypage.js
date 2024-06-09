@@ -1,60 +1,49 @@
-const infancy = document.querySelector('#infancy');
-const babyhood = document.querySelector('#babyhood');
-const childhood = document.querySelector('#childhood');
-const adolescence = document.querySelector('#adolescence');
-const adult = document.querySelector('#adult');
-const middleAge = document.querySelector('#middle-age');
-const oldAge = document.querySelector('#old-age');
-const boardListContainer = document.querySelector('#board-list-container');
-
-async function fetchFilteredBoards(cycle) {
-    console.log("사이클:", cycle);
-    try {
-        const response = await fetch(`/myLife/filter?cycle=${encodeURIComponent(cycle)}`);
-        if (!response.ok) {
-            throw new Error("생애 주기별 게시글 필터링 실패");
-        }
-        const boards = await response.json();
-        console.log("Filtered boards:", boards);
-        displayBoards(boards);
-    } catch (error) {
-        console.error(error.message);
-    }
-}
-
-function displayBoards(boards) {
-    boardListContainer.innerHTML = ''; // 기존 게시글 리스트 초기화
-    boards.forEach(board => {
-        const boardElement = document.createElement('div');
-        boardElement.textContent = board.boardTitle; // 예시로 제목만 추가
-        boardListContainer.appendChild(boardElement);
+$(document).ready(function() {
+    // 버튼 클릭 이벤트 리스너
+    $('.everyLife-btn-span button').click(function() {
+        let boardLifeCycle = $(this).attr('id'); // 버튼의 id를 boardLifeCycle로 사용
+        fetchPostsByLifeStage(boardLifeCycle);
+        console.log("Clicked button ID:", boardLifeCycle);
     });
-}
 
-infancy.addEventListener('click', () => {
-    fetchFilteredBoards("유아기");
-});
+    function fetchPostsByLifeStage(boardLifeCycle) {
+        // lifeStage에 따라 게시글을 가져오는 AJAX 호출
+        $.ajax({
+            url: `/myLife/${boardLifeCycle}`, // 실제 엔드포인트 URL로 변경
+            type: 'GET',
+            success: function(response) {
+                console.log("Response data:", response); // 응답 데이터 확인
+                updatePosts(response);
+            },
+            error: function(error) {
+                console.error("Error fetching posts:", error);
+            }
+        });
+    }
 
-babyhood.addEventListener('click', () => {
-    fetchFilteredBoards("유년기");
-});
+    function updatePosts(posts) {
+        var contentWrap = $('.list'); // .list 클래스를 선택하여 내용 업데이트
+        contentWrap.empty(); // 현재 내용을 비움
 
-childhood.addEventListener('click', () => {
-    fetchFilteredBoards("아동기");
-});
-
-adolescence.addEventListener('click', () => {
-    fetchFilteredBoards("청소년기");
-});
-
-adult.addEventListener('click', () => {
-    fetchFilteredBoards("성인기");
-});
-
-middleAge.addEventListener('click', () => {
-    fetchFilteredBoards("중년기");
-});
-
-oldAge.addEventListener('click', () => {
-    fetchFilteredBoards("노년기");
+        posts.forEach(function(board) {
+            var postHtml = `
+                <div class="list-one">
+                    <a href="/myLife/detail-my?boardId=${board.boardId}">
+                        <div class="list-one-detail">
+                            <div class="title">
+                                <h3>${board.boardTitle}</h3>
+                                <p>조회수 : ${board.boardViewCount}</p>
+                            </div>
+                            <div class="list-date">
+                                <p>작성일 : ${new Date(board.boardCreatedDate).toLocaleDateString('ko-KR')}</p>
+                            </div>
+                            <div class="list-text">
+                                <p>${board.boardContent}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>`;
+            contentWrap.append(postHtml);
+        });
+    }
 });
