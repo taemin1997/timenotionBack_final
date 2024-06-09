@@ -26,15 +26,14 @@
         UNION ALL
         SELECT
             k.KAKAO_ID AS followerId,
-            k.name AS userNickname,
+            k.NAME AS userNickname,
             (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_FROM_USER = k.KAKAO_ID) AS followingCount,
             (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_TO_USER = k.KAKAO_ID) AS followerCount,
-            ff.USER_FILE_PROFILE_SOURCE
+            k.PROFILE_PIC AS USER_FILE_PROFILE_SOURCE
         FROM
             GGHJ_KAKAO k
-                JOIN GGHJ_UNI uni ON k.kakao_id = uni.KAKAO_ID
+                JOIN GGHJ_UNI uni ON k.KAKAO_ID = uni.KAKAO_ID
                 JOIN GGHJ_FOLLOW fo ON uni.UNI_ID = fo.FOLLOW_FROM_USER
-                LEFT JOIN GGHJ_USER_FILE ff ON k.KAKAO_ID = ff.USER_ID
         WHERE
             fo.FOLLOW_TO_USER = #{userId}
     </select>

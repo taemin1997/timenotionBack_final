@@ -1,6 +1,9 @@
 body{
   background-color: #fcfcfc !important;
 }
+a{
+  color: black;
+}
 .join-real-container{
   background-color: #fcfcfc;
   display: flex;

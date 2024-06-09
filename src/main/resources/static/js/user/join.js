@@ -442,6 +442,7 @@ joinNicknameButton.addEventListener('click', joinNicknameDuplicationClickFunctio
 function joinNicknameDuplicationClickFunction() {
   // 여기서 실제 중복 확인 로직을 구현해야 합니다.
   // 지금은 무조건 중복된 닉네임으로 처리하는 가짜 로직을 사용합니다.
+  console.log("나와라");
   const isDuplicated = true; // 중복되었다고 가정
 
   if (joinNicknameInput.value === '') {
