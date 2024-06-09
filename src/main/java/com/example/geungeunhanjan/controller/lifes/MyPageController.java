@@ -55,15 +55,12 @@ public class MyPageController {
         // 유저 정보 모두
         LifeUserInfoDTO userInfo = myPageService.selectAllInfo(uniId);
         model.addAttribute("userInfo", userInfo);
+
         // 게시판 정보
         System.out.println(lifeUserUpdateDTO);
         List<BoardVO> boards = boardService.selectBoard(uniId);
         model.addAttribute("boards", boards);
         System.out.println(boards);
-//        // 초기 생애 주기 데이터 로드 (예: 전체 목록)
-//        List<BoardVO> lifeCycle = boardService.selectLifeCycle(boardVO.getBoardLifeCycle(), boardVO.getUserId());
-//        model.addAttribute("lifeCycle", lifeCycle);
-//        System.out.println("GetMapping ");
 
         /* 페이징 윤근님꺼  */
         List<BoardVO> boardPaging = myPageService.selectMypagePaging(criteria, uniId);
@@ -82,40 +79,8 @@ public class MyPageController {
         return "myLife/mypage";
     }
 
-//    @GetMapping("/filter")
-//    @ResponseBody
-//    public List<BoardVO> filterBoardsByCycle(HttpSession session, @RequestParam String boardLifecycle) {
-//        // 로그인 여부 확인
-//        Long uniId = (Long) session.getAttribute("uniId");
-//        if (uniId == null) {
-//            return Collections.emptyList(); // 로그인이 안 되어 있으면 빈 리스트 반환
-//        }
-//        // 생애 주기에 해당하는 게시글 목록 가져오기
-//        List<BoardVO> filteredBoards = boardService.selectLifeCycle(boardLifecycle, uniId);
-//        return filteredBoards;
-//    }
 
-//    @PostMapping()
-//    @ResponseBody
-//    public Map<String, Object> mypage(HttpSession session, @RequestBody Map<String, Object> requestBody) {
-//        Long userId = (Long) session.getAttribute("userId");
-//
-//        // 라이프사이클 상태 가져오기
-//        String cycle = (String) requestBody.get("cycle");
-//        System.out.println("cycle : " + cycle);
-//        List<BoardVO> lifeCycles = boardService.selectLifeCycle(cycle, userId);
-//        System.out.println("lifeCycles : " + lifeCycles);
-//
-//        // 응답 데이터를 담을 맵 생성
-//        Map<String, Object> response = new HashMap<>();
-//        response.put("lifeCycles", lifeCycles);
-//        response.put("cycle", cycle);
-//
-//        System.out.println(cycle);
-//        System.out.println(lifeCycles);
-//
-//        return response;
-//    }
+
 
 
 

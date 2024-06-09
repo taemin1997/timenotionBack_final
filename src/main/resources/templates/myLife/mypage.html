@@ -7,7 +7,13 @@
   <title>나의 일대기</title>
   <link rel="stylesheet" th:href="@{/css/myLife/mypage.css}">
   <link rel="stylesheet" th:href="@{/css/reset.css}">
+<<<<<<< HEAD
   <!--  <script defer th:src="@{/js/myLife/mypage.js}"></script>-->
+=======
+  <script defer th:src="@{/js/fragment/headerFetch.js}"></script>
+  <script defer th:src="@{/js/fragment/footerFetch.js}"></script>
+    <script defer th:src="@{/js/myLife/mypage.js}"></script>
+>>>>>>> 430a5152f28a29aa22986db6495c96851c3c6535
 </head>
 
 <body>
@@ -72,25 +78,25 @@
     <hr>
     <div class="third-container">
       <div class="third-container-category">
-        <div class="infancy">
+        <div class="everyLife-btn-span">
           <button id="infancy">유아기</button>
         </div>
-        <div class="babyhood">
+        <div class="everyLife-btn-span">
           <button id="babyhood">유년기</button>
         </div>
-        <div class="childhood">
+        <div class="everyLife-btn-span">
           <button id="childhood">아동기</button>
         </div>
-        <div class="adolescence">
+        <div class="everyLife-btn-span">
           <button id="adolescence">청소년기</button>
         </div>
-        <div class="adult">
+        <div class="everyLife-btn-span">
           <button id="adult">성인기</button>
         </div>
-        <div class="middle-age">
+        <div class="everyLife-btn-span">
           <button id="middle-age">중년기</button>
         </div>
-        <div class="old-age">
+        <div class="everyLife-btn-span">
           <button id="old-age">노년기</button>
         </div>
       </div>
@@ -130,7 +136,7 @@
                     타임리프 문법을 사용하기 위해 만들어 쓴다.
         -->
         <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
-          <a th:href="@{/myLife/mypageCommentList(page=${i})}" class="page-a">
+          <a th:href="@{/myLife(page=${i})}" class="page-a">
             <li class="page-num" th:classappend="${i == page.criteria.page ? 'active' : ''}" th:text="${i}"></li>
           </a>
         </th:block>
