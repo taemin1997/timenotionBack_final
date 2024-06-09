@@ -6,12 +6,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>회원가입</title>
+<<<<<<< HEAD
   <link rel="stylesheet" href="./../../css/user/join.css" />
   <link rel="stylesheet" href="./../../css/reset.css" />
   <link rel="stylesheet" href="./../../css/notion.css">
   <script defer src="/js/user/join.js"></script>
   <script defer src="./../../js/fragment/headerFetch.js"></script>
   <script defer src="./../../js/fragment/footerFetch.js"></script>
+=======
+  <link rel="stylesheet" th:href="@{/css/user/join.css}" />
+  <link rel="stylesheet" th:href="@{/css/reset.css}" />
+  <link rel="stylesheet" th:href="@{/css/notion.css}">
+  <script defer th:src="@{/js/user/join.js}"></script>
+>>>>>>> 963bc53d6d1cf0197ff9344220b93216cd4fce74
 </head>
 
 <body>
@@ -205,14 +212,18 @@
           <p>(전체 동의는 필수 및 선택 정보에 대한 동의가 포함되어 있습니다)</p>
         </div>
         <hr id="hr">
+
         <div class="agree-container1">
           <input type="checkbox" class="check" required ><span><a th:href="@{/main/terms}">이용약관 동의 (필수)</a></span>
         </div>
         <p class="required-message"></p>
+
+
         <div class="agree-container2">
           <input type="checkbox"  class="check" required ><span><a th:href="@{/main/privacy}">개인정보 수집 및 이용 동의 (필수)</a></span>
         </div>
         <p class="required-message2"></p>
+
         <div class="agree-container2">
           <input type="checkbox"  class="check"><span>광고 수신 동의 (선택)</span>
         </div>
