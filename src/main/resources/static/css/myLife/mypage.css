@@ -277,10 +277,15 @@ hr {
 
 }
 /*button style */
-.third-container button{
-  background-color: transparent;
-  border:none;
+.everyLife-btn-span button{
+  border-radius: 15px;
+  border: none;
+  font-size: 12px;
+  padding: 5px 12px;
+  white-space: nowrap;
+  background-color: rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  margin-right: 6px;
 }
 .third-container-category{
   cursor: pointer;

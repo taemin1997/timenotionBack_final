@@ -18,14 +18,14 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class FileApi {
-    public final MyPageService myPageService;
+    public final BoardFileService boardFileService;
 
     @Value("C:/upload/")
     private String fileDir;
 
-    @GetMapping("/v1/mylife/{uniId}/files")
-    public UserFileVO fileList(@PathVariable("uniId") Long uniId){
-        return myPageService.getProfileBackFile(uniId);
+    @GetMapping("/v1/boards/{boardId}/files")
+    public List<BoardFileVO> fileList(@PathVariable("boardId") Long boardId){
+        return  boardFileService.findFileList(boardId);
     }
 
     @GetMapping("/v1/files")
