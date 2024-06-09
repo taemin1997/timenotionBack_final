@@ -65,16 +65,16 @@ function joinFunction() {
   nameParagraph.style.color = rgb(255, 119, 119);
   }
 
-  if (!joinIdInput.value) {
-    joinIdResult.innerText = "필수 입력 항목입니다.";
-    joinIdResult.style.color = 'rgb(255, 119, 119)';
-    joinIdResult.style.fontSize = '12px';
-    joinIdInput.style.borderColor = 'rgb(255, 119, 119)';
-    joinIdInput.style.borderWidth = '1px';
-    joinIdParagraph.style.color = 'rgb(255, 119, 119)';
-  } else{
-    joinIdButton.addEventListener('click',joinIdDuplicationClickFunction);
-  }
+  // if (!joinIdInput.value) {
+  //   joinIdResult.innerText = "필수 입력 항목입니다.";
+  //   joinIdResult.style.color = 'rgb(255, 119, 119)';
+  //   joinIdResult.style.fontSize = '12px';
+  //   joinIdInput.style.borderColor = 'rgb(255, 119, 119)';
+  //   joinIdInput.style.borderWidth = '1px';
+  //   joinIdParagraph.style.color = 'rgb(255, 119, 119)';
+  // } else{
+  //   joinIdButton.addEventListener('click',joinIdDuplicationClickFunction);
+  // }
 
   if (EmailInput.value === '') {
     EmailResult.innerText = "필수 입력 항목입니다.";
@@ -333,170 +333,6 @@ function nameInputBlurFunction() {
   }
 
 };
-
-//아이디
-// const joinIdInput = document.getElementById('join-id-input');
-// const joinIdResult = document.getElementById('join-id-result');
-// const joinIdParagraph = document.getElementById('join-id-paragraph');
-// const joinIdDuplication = document.getElementsById('join-id-button');
-
-// function joinIdDuplicationClickFunction(){
-//   if(true){
-//     joinIdResult.innerText = "중복된 아이디 입니다.";
-//     joinIdResult.style.color = rgb(255, 119, 119);
-//     joinIdResult.style.fontSize = "12px";
-//     joinIdInput.style.borderColor = rgb(255, 119, 119);
-//     joinIdInput.style.borderWidth = "1px";
-//     joinIdParagraph.style.color = rgb(255, 119, 119);
-//   }else {
-//       joinIdInput.style.opacity = 0.7;
-//       joinIdInput.style.borderWidth = "1px";
-//       joinIdInput.style.borderColor = 'gray';
-//       joinIdParagraph.style.color = 'black';
-//       joinIdResult.innerText = " ";
-//     }
-//   }
-
-
-// // 변수생성
-// let joinIdCount = 0;
-// //패스워드박스 focus blur 처리 
-// joinIdInput.addEventListener('focus', joinIdInputFocusFunction);
-// joinIdInput.addEventListener('blur', joinIdInputBlurFunction);
-// joinIdInput.addEventListener('keydown', joinIdInputKeydownFunction);
-// joinIdDuplication.addEventListener('click', joinIdDuplicationClickFunction);
-
-// //패스워드 박스 함수 처리 
-// function joinIdInputFocusFunction() {
-//   if (joinIdCount === 0) {
-//     joinIdInput.style.outline = "none";
-//     joinIdInput.style.borderWidth = "3px";
-//     joinIdInput.style.borderColor = '#B2E8F7';
-//     joinIdInput.style.opacity = 0.7;
-//   } else {
-//     joinIdInput.style.outline = "none";
-//     joinIdInput.style.borderWidth = "3px";
-//     joinIdInput.style.borderColor = "#FEB7B1";
-//     joinIdInput.style.borderWidth = "3px";
-//   }
-//   if (this.value !== '') {
-//     joinIdInput.style.outline = "none";
-//     joinIdInput.style.opacity = 0.7;
-//     joinIdInput.style.borderWidth = "3px";
-//     joinIdInput.style.borderColor = '#B2E8F7';
-//   }
-//   joinIdCount++;
-// }
-
-// function joinIdInputBlurFunction() {
-
-//   joinIdResult.innerText = "필수 입력 항목입니다.";
-//   joinIdResult.style.color = rgb(255, 119, 119);
-//   joinIdResult.style.fontSize = "12px";
-//   joinIdInput.style.borderColor = rgb(255, 119, 119);
-//   joinIdInput.style.borderWidth = "1px";
-//   joinIdParagraph.style.color = rgb(255, 119, 119);
-
-//   if (this.value !== '') {
-//     joinIdInput.style.opacity = 0.7;
-//     joinIdInput.style.borderWidth = "1px";
-//     joinIdInput.style.borderColor = 'gray';
-//     joinIdParagraph.style.color = 'black';
-//     joinIdResult.innerText = " ";
-
-//   }
-
-// }
-
-// 아이디
-const joinIdInput = document.getElementById('join-id-input');
-const joinIdResult = document.getElementById('join-id-result');
-const joinIdParagraph = document.getElementById('join-id-paragraph');
-const joinIdButton = document.getElementById('join-id-button');
-
-// 변수생성
-let joinIdCount = 0;
-
-// 중복확인 버튼 클릭 이벤트 처리
-joinIdButton.addEventListener('click', joinIdDuplicationClickFunction);
-
-// 아이디 중복 확인 함수
-function joinIdDuplicationClickFunction() {
-
-  const isDuplicated = true; // 중복되었다고 가정
-
-  if (joinIdInput.value === '') {
-    joinIdResult.innerText = "필수 입력 항목입니다.";
-    joinIdResult.style.color = 'rgb(255, 119, 119)';
-    joinIdResult.style.fontSize = '12px';
-    joinIdInput.style.borderColor = 'rgb(255, 119, 119)';
-    joinIdInput.style.borderWidth = '1px';
-    joinIdParagraph.style.color = 'rgb(255, 119, 119)';
-  } else {
-    joinIdInput.style.opacity = 0.7;
-    joinIdInput.style.borderWidth = '1px';
-    joinIdInput.style.borderColor = 'gray';
-    joinIdParagraph.style.color = 'black';
-    joinIdResult.innerText = "사용가능한 닉네임입니다.";
-    joinIdResult.style.color = '#9CE1F7';
-  }
-}
-
-// 아이디 박스 함수 처리 
-function joinIdInputFocusFunction() {
-  if (joinIdCount === 0) {
-    joinIdInput.style.outline = "none";
-    joinIdInput.style.borderWidth = "3px";
-    joinIdInput.style.borderColor = '#B2E8F7';
-    joinIdInput.style.opacity = 0.7;
-  } else {
-    joinIdInput.style.outline = "none";
-    joinIdInput.style.borderWidth = "3px";
-    joinIdInput.style.borderColor = "#FEB7B1";
-    joinIdInput.style.borderWidth = "3px";
-  }
-  if (this.value !== '') {
-    joinIdInput.style.outline = "none";
-    joinIdInput.style.opacity = 0.7;
-    joinIdInput.style.borderWidth = "3px";
-    joinIdInput.style.borderColor = '#B2E8F7';
-  }
-  joinIdCount++;
-}
-
-function joinIdInputBlurFunction() {
-  // 아이디 입력란이 비어있을 때만 메시지를 표시합니다.
-  if (!joinIdInput.value) {
-    joinIdResult.innerText = "필수 입력 항목입니다.";
-    joinIdResult.style.color = 'rgb(255, 119, 119)';
-    joinIdResult.style.fontSize = '12px';
-    joinIdInput.style.borderColor = 'rgb(255, 119, 119)';
-    joinIdInput.style.borderWidth = '1px';
-    joinIdParagraph.style.color = 'rgb(255, 119, 119)';
-  } else {
-    // 입력이 되어 있으면 에러 메시지를 숨깁니다.
-    joinIdResult.innerText = "";
-    joinIdInput.style.opacity = 0.7;
-    joinIdInput.style.borderWidth = "1px";
-    joinIdInput.style.borderColor = 'gray';
-    joinIdParagraph.style.color = 'black';
-
-  }
-}
-
-function joinIdInputKeydownFunction() {
-  joinIdInput.style.outline = "none";
-  joinIdInput.style.opacity = 0.7;
-  joinIdInput.style.borderWidth = "3px";
-  joinIdInput.style.borderColor = '#B2E8F7';
-  joinIdResult.innerText = "";
-  joinIdParagraph.style.color = 'black';
-}
-
-//패스워드박스 focus blur 처리 
-joinIdInput.addEventListener('focus', joinIdInputFocusFunction);
-joinIdInput.addEventListener('blur', joinIdInputBlurFunction);
-joinIdInput.addEventListener('keydown', joinIdInputKeydownFunction);
 
 
 // 이메일
@@ -781,4 +617,32 @@ function checkPasswordMatch() {
   } else {
     joinPasswordCheckResult.innerText = "";
   }
+}
+
+
+//회원가입 유효성 검사
+//0609 추후 수정하는 것으로
+const checkJoin = document.getElementsByClassName("join");
+
+
+checkJoin.addEventListener('click', checkJoinClickFunction);
+
+function checkJoinClickFunction() {
+  alert("입력창");
+  const checkJoinNameValue = EmailInput.value === '' ? 0 : 1;
+  const checkJoinPasswordValue = joinPasswordInput.value === '' ? 0 : 1;
+  const checkJoinRePasswordValue = joinPasswordCheckInput.value  === '' ? 0 : 1;
+  const checkJoinEmailValue = EmailInput.value === '' ? 0 : 1;
+  const checkNickNameValue = joinNicknameInput.value === '' ? 0 : 1;
+  const checkJoinBirthValue = [];
+  for (let i = 0; i < editBirthInput.length; i++) {
+    checkJoinBirthValue.push(editBirthInput[i].value === '' ? 0 : 1);
+  }
+
+  const joinResult = checkJoinNameValue + checkJoinPasswordValue + checkJoinRePasswordValue
+        + checkJoinEmailValue  + checkNickNameValue ;
+  if(joinResult != 6){
+    alert("입력창을 채워주세요");
+  }
+
 }

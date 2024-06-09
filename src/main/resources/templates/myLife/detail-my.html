@@ -92,7 +92,8 @@
                 <div class="box-profile-img"><a th:href="@{/myLife/userpage.html}"><img
                         th:src="@{/img/myLife/sas detail_comment1.jpg}" alt=""></a></div>
                 <div class="box-profile-nickname"><a th:text="${userInfo.nickname}">닉네임</a></div>
-                <p style="display: none" th:text="${boards.boardLifeCycle}"></p>
+                <!--생애주기 불러오기위한 p태그 -->
+                <p id="user-lifecycle-check" style="display: none" th:text="${boards.boardLifeCycle}"></p>
                 <div><img th:src="@{/img/myLife/sas detail_heart.png}" alt="하트" class="box-profile-heart"
                           id="heartImage"></div>
             </div>

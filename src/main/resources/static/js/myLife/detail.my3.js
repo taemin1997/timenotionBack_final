@@ -141,34 +141,62 @@ function displayImgAjax() {
       });
 }
 
-//제목 배경 색 변경
-// document.addEventListener("DOMContentLoaded", function() {
-//   const boardTitleDiv = document.getElementsByClassName('wrapper-title');
-//   const boardLifeCycle = [[${boards.boardLifeCycle}]]; // 서버에서 전달된 값을 여기에 할당
-//
-//   switch(boardLifeCycle) {
-//     case '유아기':
-//       boardTitleDiv.classList.add('infant');
-//       break;
-//     case '유년기':
-//       boardTitleDiv.classList.add('childhood');
-//       break;
-//     case '아동기':
-//       boardTitleDiv.classList.add('schoolage');
-//       break;
-//     case '청소년기':
-//       boardTitleDiv.classList.add('adolescence');
-//       break;
-//     case '청년기':
-//       boardTitleDiv.classList.add('youngadult');
-//       break;
-//     case '중년기':
-//       boardTitleDiv.classList.add('midlife');
-//       break;
-//     case '노년기':
-//       boardTitleDiv.classList.add('senior');
-//       break;
-//     default:
-//       break;
-//   }
-// });
+
+
+// ※※※※※※※※※※※※※※※※※※※※※※※※글의 생애주기에 맞춰 제목 배경 바꾸기 ※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※
+const checkLifeCycle = document.getElementById("user-lifecycle-check").textContent.trim();
+//배경 범위 변수 wrapper-title
+let lifeCycleBG = document.getElementsByClassName("wrapper-title");
+
+window.addEventListener("DOMContentLoaded", function() {
+  console.log("checkLifeCycle"+ checkLifeCycle);
+
+
+
+  switch(checkLifeCycle) {
+    case '유아기':
+      // 모든 요소에 대해 배경색을 흰색으로 설정
+      for (let i = 0; i < lifeCycleBG.length; i++) {
+        lifeCycleBG[i].style.backgroundColor = "#E99A9A";
+      }
+      break;
+    case '유년기':
+      // 모든 요소에 대해 배경색을 흰색으로 설정
+      for (let i = 0; i < lifeCycleBG.length; i++) {
+        lifeCycleBG[i].style.backgroundColor = "#F8CB9F";
+      }
+      break;
+    case '아동기':
+      // 모든 요소에 대해 배경색을 흰색으로 설정
+      for (let i = 0; i < lifeCycleBG.length; i++) {
+        lifeCycleBG[i].style.backgroundColor = "#FEE49E";
+      }
+      break;
+    case '청소년기':
+      // 모든 요소에 대해 배경색을 흰색으로 설정
+      for (let i = 0; i < lifeCycleBG.length; i++) {
+        lifeCycleBG[i].style.backgroundColor = "#B7D6AA";
+      }
+      break;
+    case '청년기':
+      // 모든 요소에 대해 배경색을 흰색으로 설정
+      for (let i = 0; i < lifeCycleBG.length; i++) {
+        lifeCycleBG[i].style.backgroundColor = "#A5C3F2";
+      }
+      break;
+    case '중년기':
+      // 모든 요소에 대해 배경색을 흰색으로 설정
+      for (let i = 0; i < lifeCycleBG.length; i++) {
+        lifeCycleBG[i].style.backgroundColor = "#B4A8D5";
+      }
+      break;
+    case '노년기':
+      // 모든 요소에 대해 배경색을 흰색으로 설정
+      for (let i = 0; i < lifeCycleBG.length; i++) {
+        lifeCycleBG[i].style.backgroundColor = "#D4A7BD";
+      }
+      break;
+    default:
+      break;
+  }
+});
