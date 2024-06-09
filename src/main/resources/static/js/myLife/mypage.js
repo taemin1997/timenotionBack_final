@@ -11,8 +11,9 @@ $(document).ready(function() {
         $.ajax({
             url: `/myLife/${boardLifeCycle}`, // 실제 엔드포인트 URL로 변경
             type: 'GET',
+            data: { stage: boardLifeCycle },
             success: function(response) {
-                console.log("Response data:", response); // 응답 데이터 확인
+
                 updatePosts(response);
             },
             error: function(error) {
@@ -22,7 +23,7 @@ $(document).ready(function() {
     }
 
     function updatePosts(posts) {
-        var contentWrap = $('.list'); // .list 클래스를 선택하여 내용 업데이트
+        var contentWrap = $('.fourth-container'); // .list 클래스를 선택하여 내용 업데이트
         contentWrap.empty(); // 현재 내용을 비움
 
         posts.forEach(function(board) {
