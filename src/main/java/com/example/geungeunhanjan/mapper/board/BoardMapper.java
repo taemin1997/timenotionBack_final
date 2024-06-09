@@ -79,6 +79,8 @@ public interface BoardMapper {
     // 모두의 일대기 -> 상세페이지 넘어가기
 //    Optional<BoardVO> everyLifeDetail(Long UserId);
 
+    String boardUserName(Long boardId);
+
 }
 
 
