@@ -434,31 +434,10 @@ INSERT INTO GGHJ_FOLLOW (
        ON G.USER_ID = U.UNI_ID
  WHERE G.BOARD_ID = #{userId};
 
-   
-<<<<<<< HEAD
-
 
 SELECT * FROM gghj_kakao;
-=======
-   
 
-
-
-
-
-
-
-
->>>>>>> main
-
-
-
-
-
-
-
-<<<<<<< HEAD
-            SELECT BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+   SELECT BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
                    COALESCE(U.USER_NICKNAME, K.NAME) AS NICKNAME,
                    F.USER_FILE_PROFILE_NAME,
                    F.USER_FILE_PROFILE_SOURCE,
@@ -472,8 +451,5 @@ SELECT * FROM gghj_kakao;
             LEFT JOIN GGHJ_USER_FILE F ON U.USER_ID = F.USER_ID;
 
            
-           SELECT COUNT(*)FROM GGHJ_BOARD; 
-=======
->>>>>>> main
 
 
