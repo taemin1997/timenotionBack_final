@@ -1,9 +1,9 @@
 $(document).ready(function() {
     // 버튼 클릭 이벤트 리스너
     $('.everyLife-btn-span button').click(function() {
-        let boardLifeCycle = $(this).attr('id'); // 버튼의 id를 boardLifeCycle로 사용
+        let boardLifeCycle = $(this).val(); // 버튼의 value를 boardLifeCycle로 사용
         fetchPostsByLifeStage(boardLifeCycle);
-        console.log("Clicked button ID:", boardLifeCycle);
+        console.log("Clicked button Value:", boardLifeCycle);
     });
 
     function fetchPostsByLifeStage(boardLifeCycle) {
@@ -11,9 +11,7 @@ $(document).ready(function() {
         $.ajax({
             url: `/myLife/${boardLifeCycle}`, // 실제 엔드포인트 URL로 변경
             type: 'GET',
-            data: { stage: boardLifeCycle },
             success: function(response) {
-
                 updatePosts(response);
             },
             error: function(error) {
@@ -23,7 +21,7 @@ $(document).ready(function() {
     }
 
     function updatePosts(posts) {
-        var contentWrap = $('.fourth-container'); // .list 클래스를 선택하여 내용 업데이트
+        var contentWrap = $('.fourth-container .list'); // .list 클래스를 선택하여 내용 업데이트
         contentWrap.empty(); // 현재 내용을 비움
 
         posts.forEach(function(board) {

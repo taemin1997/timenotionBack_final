@@ -84,7 +84,7 @@ public class BoardServiceImpl implements BoardService {
         BoardFileVO boardFileVO = new BoardFileVO();
         boardFileVO.setBoardFileUuid(uuid.toString());
         boardFileVO.setBoardFileName(originalFilename);
-        boardFileVO.setBoardFileSourceName(systemName);
+        boardFileVO.setBoardFileSourceName(getUploadPath());
 
         return boardFileVO;
     }
@@ -127,11 +127,22 @@ public class BoardServiceImpl implements BoardService {
     public List<BoardVO> selectLifeCycle(String boardLifeCycle, Long userId) {
         return boardMapper.selectBoardLifeCycle(boardLifeCycle, userId);
     }
+    //모두의 일대기 검색 결과
+    @Override
+    public List<BoardDTO> everySearchBoards(String keyword) {
+        return boardMapper.searchBoards(keyword);
+    }
 
     //일대기별 생활 주기 설정 =================>모두의 일대기
     @Override
     public List<BoardDTO> everyLifeCycle(String boardLifeCycle) {
         return boardMapper.selectEveryLifeCycle(boardLifeCycle);
+    }
+
+    //조회수 순으로 정렬
+    @Override
+    public List<BoardDTO> everyViewsDescending(String boardViewCount) {
+        return boardMapper.selectByViewsDescending(boardViewCount);
     }
     /* ---------------------------------------- */
 

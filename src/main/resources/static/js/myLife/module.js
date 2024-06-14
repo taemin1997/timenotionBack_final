@@ -58,15 +58,20 @@ export function modify(updateInfo, callback){
 
 //댓글 삭제하는 함수
 export function remove(commentId, callback){
-    fetch(`/v1/replies/${commentId}`, {
-        method: 'DELETE'
-    }).then(resp => {
-        if(resp.status === 200){
-            callback();
-        }
-    });
-    console.log("삭제 모듈 실행");
+    // 확인 대화 상자 표시
+    if (confirm("이 댓글을 삭제하시겠습니까?")) {
+        fetch(`/v1/replies/${commentId}`, {
+            method: 'DELETE'
+        }).then(resp => {
+            if(resp.status === 200){
+                callback();
+                location.reload();
+            }
+        });
+        console.log("삭제 모듈 실행");
+    }
 }
+
 
 //주어진 날짜와 현재 날짜사이의 시간을 계산하여 상대적인 시간 문자열로 반환하는 함수
 export function timeForToday(value){

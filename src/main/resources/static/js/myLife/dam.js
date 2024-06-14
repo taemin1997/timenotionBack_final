@@ -113,8 +113,7 @@ function displayComment(commentList) {
         <a href="#" class="reply-top-left">
             <div class="box-profile"><img src="./../../img/main/봉준호 (8).jpg" alt=""/></div>
             <div><span class="nickname">${r.nickname}</span></div>
-            <div class="tag">일기주인</div>
-            <div ${r.uniId}>나오냐</div>
+ 
         </a>
         <div class="reply-top-right">
             <div class="delete-btn">
@@ -132,15 +131,7 @@ function displayComment(commentList) {
             <p>${r.commentContent}</p>
         </div>
     </div>
-    <div class="wrapper-re-comment">
-        <div class="box-re-comment">
-            <button class="reply-btn" onClick="toggleReplyInput(this)">답글쓰기</button>
-            <div class="box-re-comment-btn" style="display: none;">
-                <textarea class="re-textarea" placeholder="댓글을 남겨보세요"></textarea>
-                <button class="re-submit-btn" onClick="submitReply(this)">완료</button>
-            </div>
-        </div>
-    </div>
+  
 </div>
 <hr/>
         `;
@@ -161,8 +152,7 @@ function appendReply(commentList) {
         <a href="#" class="reply-top-left">
             <div class="box-profile"><img src="./../../img/main/봉준호 (8).jpg" alt=""/></div>
             <div><span class="nickname">${r.nickname}</span></div>
-            <div class="tag">일기주인</div>
-            <div ${r.uniId}>나오냐</div>
+ 
         </a>
         <div class="reply-top-right">
             <div class="delete-btn">
@@ -180,15 +170,7 @@ function appendReply(commentList) {
             <p>${r.commentContent}</p>
         </div>
     </div>
-    <div class="wrapper-re-comment">
-        <div class="box-re-comment">
-            <button class="reply-btn" onClick="toggleReplyInput(this)">답글쓰기</button>
-            <div class="box-re-comment-btn" style="display: none;">
-                <textarea class="re-textarea" placeholder="댓글을 남겨보세요"></textarea>
-                <button class="re-submit-btn" onClick="submitReply(this)">완료</button>
-            </div>
-        </div>
-    </div>
+  
 </div>
 <hr/>
         `;
