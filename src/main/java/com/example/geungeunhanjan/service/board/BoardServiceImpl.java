@@ -84,7 +84,7 @@ public class BoardServiceImpl implements BoardService {
         BoardFileVO boardFileVO = new BoardFileVO();
         boardFileVO.setBoardFileUuid(uuid.toString());
         boardFileVO.setBoardFileName(originalFilename);
-        boardFileVO.setBoardFileSourceName(systemName);
+        boardFileVO.setBoardFileSourceName(getUploadPath());
 
         return boardFileVO;
     }
