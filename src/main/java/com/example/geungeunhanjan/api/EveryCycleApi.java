@@ -5,10 +5,7 @@ import com.example.geungeunhanjan.domain.vo.board.BoardVO;
 import com.example.geungeunhanjan.service.board.BoardService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,12 +20,18 @@ public class EveryCycleApi {
         return boardService.everyLifeCycle(boardLifeCycle);
     }
 
-//    @GetMapping("/myLife/{boardLifeCycle}")
-//    public List<BoardVO> mylifeCycle(@PathVariable("boardLifeCycle") String boardLifeCycle ,  HttpSession session ,BoardVO boardVO){
-//        Long uniId = (Long) session.getAttribute("uniId");
-//        return boardService.selectLifeCycle(boardLifeCycle,uniId);
+    @GetMapping("/everyLife/search")
+    public List<BoardDTO> searchEveryLife(@RequestParam("keyword") String keyword) {
+        return boardService.everySearchBoards(keyword);
+    }
+
+//    @GetMapping("/everyLife/viewsDescending")
+//    public List<BoardDTO> everyViewsDescending(String boardViewCount) {
+//        return boardService.everyViewsDescending(boardViewCount);
 //    }
-@GetMapping("/myLife/{boardLifeCycle}")
+
+
+    @GetMapping("/myLife/{boardLifeCycle}")
 public List<BoardVO> mylifeCycle(@PathVariable("boardLifeCycle") String boardLifeCycle, HttpSession session) {
     Long uniId = (Long) session.getAttribute("uniId");
     System.out.println("Session uniId: " + uniId);
