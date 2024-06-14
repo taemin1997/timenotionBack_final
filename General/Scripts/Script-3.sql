@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 DROP TABLE GGHJ_KAKAO CASCADE CONSTRAINTS;
 
 /*카카오 유저 ---------------------------------------- */
@@ -58,5 +58,3 @@ DELETE FROM GGHJ_UNI;
 SELECT * FROM GGHJ_KAKAO;
 
 
->>>>>>> ba7783b6573a0df4537eea9c4fe0af6ba8e183d7
-D
