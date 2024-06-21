@@ -52,8 +52,8 @@
             b.BOARD_LIFE_CYCLE = #{boardLifeCycle}
     </select>
 
-    <!--    검색기능 구현-->
-    <select id="searchBoards" resultType="BoardDTO" parameterType="String">
+<!--    검색기능 구현-->
+    <select id="searchBoards" resultType="BoardDTO" parameterType="string">
         SELECT
             b.BOARD_ID,
             b.BOARD_TITLE,
@@ -82,9 +82,6 @@
             (b.BOARD_TITLE LIKE '%' || #{keyword} || '%'
                 OR b.BOARD_CONTENT LIKE '%' || #{keyword} || '%')
     </select>
-
-
-
 
     <!-- 조회수순으로 정렬된 게시물 목록 조회 -->
     <select id="selectByViewsDescending" resultType="BoardDTO">
@@ -348,8 +345,8 @@
         SET BOARD_TITLE        = #{boardTitle},
             BOARD_PUBLIC       = #{boardPublic},
             BOARD_UPDATED_DATE = SYSDATE,
-        WHERE BOARD_ID = #{boardId}            BOARD_CONTENT      = #{boardContent}
-
+            BOARD_CONTENT      = #{boardContent}
+        WHERE BOARD_ID = #{boardId}
     </update>
 
     <!-- 나의 일대기 게시글 삭제 -->
@@ -507,22 +504,5 @@
     </select>
 
 
-<!-- 프사 가져오는 매퍼 - 윤 . 담 -->
-    <select id="getProfile" resultType="BoardDTO">
-        SELECT BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
-               COALESCE(U.USER_NICKNAME, K.NAME) AS NICKNAME,
-               F.USER_FILE_PROFILE_NAME,
-               F.USER_FILE_PROFILE_SOURCE,
-               F.USER_FILE_PROFILE_UUID,
-               B.BOARD_ID,
-               B.USER_ID
-        FROM GGHJ_BOARD B
-                 JOIN GGHJ_UNI UNI ON B.USER_ID = UNI.UNI_ID
-                 LEFT JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID
-                 LEFT JOIN GGHJ_KAKAO K ON UNI.KAKAO_ID = K.KAKAO_ID
-                 LEFT JOIN GGHJ_USER_FILE F ON U.USER_ID = F.USER_ID
-        WHERE B.USER_ID = #{userId}
-        ORDER BY B.BOARD_CREATED_DATE DESC
-    </select>
 </mapper>
 
