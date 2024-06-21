@@ -52,8 +52,8 @@
             b.BOARD_LIFE_CYCLE = #{boardLifeCycle}
     </select>
 
-<!--    검색기능 구현-->
-    <select id="searchBoards" resultType="BoardDTO" parameterType="string">
+    <!--    검색기능 구현-->
+    <select id="searchBoards" resultType="BoardDTO" parameterType="String">
         SELECT
             b.BOARD_ID,
             b.BOARD_TITLE,
@@ -82,6 +82,9 @@
             (b.BOARD_TITLE LIKE '%' || #{keyword} || '%'
                 OR b.BOARD_CONTENT LIKE '%' || #{keyword} || '%')
     </select>
+
+
+
 
     <!-- 조회수순으로 정렬된 게시물 목록 조회 -->
     <select id="selectByViewsDescending" resultType="BoardDTO">
