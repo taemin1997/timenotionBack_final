@@ -40,4 +40,10 @@ public interface UserService {
     UserSessionDTO uniUserIdNickname(Long uniId);
 
     UserSessionDTO uniKakaoIdNickName(String providerId);
+
+    String emailDuplicateCheck(String userEmail);
+
+    String nicknameDuplicateCheck(String userNickname);
+
+    String findKakaoBirth(Long uniId);
 }

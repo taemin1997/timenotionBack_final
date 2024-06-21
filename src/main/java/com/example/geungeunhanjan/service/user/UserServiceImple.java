@@ -85,6 +85,21 @@ public class UserServiceImple implements UserService{
     public UserSessionDTO uniKakaoIdNickName(String providerId) {
         return userMapper.uniKakaoIdNickName(providerId);
     }
+
+    @Override
+    public String emailDuplicateCheck(String userEmail) {
+        return userMapper.emailDuplicateCheck(userEmail);
+    }
+
+    @Override
+    public String nicknameDuplicateCheck(String userNickname) {
+        return userMapper.nicknameDuplicateCheck(userNickname);
+    }
+
+    @Override
+    public String findKakaoBirth(Long uniId) {
+        return userMapper.findKakaoBirth(uniId);
+    }
 }
 
 

@@ -2,7 +2,9 @@ package com.example.geungeunhanjan.api;
 
 import com.example.geungeunhanjan.domain.dto.board.BoardDTO;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
+import com.example.geungeunhanjan.domain.vo.board.KeywordVO;
 import com.example.geungeunhanjan.service.board.BoardService;
+import com.example.geungeunhanjan.service.board.KeywordService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.util.List;
 public class EveryCycleApi {
 
     private final BoardService boardService;
+    private final KeywordService keywordService;
 
     @GetMapping("/everyLife/{boardLifeCycle}")
     public List<BoardDTO> lifeCycle(@PathVariable("boardLifeCycle") String boardLifeCycle){
@@ -21,7 +24,10 @@ public class EveryCycleApi {
     }
 
     @GetMapping("/everyLife/search")
-    public List<BoardDTO> searchEveryLife(@RequestParam("keyword") String keyword) {
+    public List<BoardDTO> searchEveryLife(@RequestParam("keyword") String keyword, KeywordVO keywordVO) {
+        keywordVO.setKeywordContent(keyword);
+        keywordService.keywordInsert(keywordVO);
+
         return boardService.everySearchBoards(keyword);
     }
 

@@ -7,7 +7,7 @@
             select seq_keyword.nextval from dual
         </selectKey>
         insert into gghj_keyword(keyword_id, keyword_content, keyword_time_stamp)
-        values(#{keywordId}, #{keywordContent}, ${keywordTimeStamp})
+        values(#{keywordId}, #{keywordContent}, #{keywordTimeStamp})
     </insert>
 
     <select id="keywordCountSelect" resultType="KeywordDTO">
