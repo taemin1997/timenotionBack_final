@@ -1,17 +1,18 @@
 package com.example.geungeunhanjan.controller.lifes;
 
 
-import com.example.geungeunhanjan.domain.dto.board.CommentDTO;
-import com.example.geungeunhanjan.domain.dto.board.LifeUserInfoDTO;
-import com.example.geungeunhanjan.domain.dto.board.LifeUserUpdateDTO;
-import com.example.geungeunhanjan.domain.dto.board.LikeDTO;
+import com.example.geungeunhanjan.domain.dto.board.*;
+import com.example.geungeunhanjan.domain.dto.file.FollowHeartDTO;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.dto.lifePage.Page;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
+import com.example.geungeunhanjan.domain.vo.board.LikeVO;
 import com.example.geungeunhanjan.domain.vo.file.UserFileVO;
+import com.example.geungeunhanjan.domain.vo.lifes.FollowVO;
 import com.example.geungeunhanjan.service.MyPageService;
 import com.example.geungeunhanjan.service.board.BoardService;
 import com.example.geungeunhanjan.service.lifes.FollowService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 
 // myLife로 가는 컨트롤러
@@ -159,8 +161,55 @@ public class MyPageController {
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("boards", boards);
         model.addAttribute("userNickname", userNickname);
+
+        //좋아요 상태 0617 추가
+        LikeHeartDTO likeHeartDTO = new LikeHeartDTO();
+        likeHeartDTO.setUserId(uniId); //해당 로그인한 유저의 id가지고 오기
+        likeHeartDTO.setBoardId(boardId); //해당 보드id 가지고오기
+        int likeStatus = myPageService.selectLikeStatus(likeHeartDTO);
+        model.addAttribute("likeStatus", likeStatus);
+
+
         return "myLife/detail-my";
     }
+
+    //해당 게시물 페이지 좋아요 기능 구현 컨트롤러 - 하트 클릭시
+    @PostMapping("/detail-my")
+    public String detailMy(HttpServletRequest request, @RequestParam Long boardId, @RequestBody Map<String, Object> requestBody) {
+        Long uniId = (Long) request.getSession().getAttribute("uniId"); // session.getAttribute 사용
+        if (uniId == null) {
+            return "redirect:/user/login";
+        }
+        System.out.println("Post에 들어옴 ");
+
+        // 좋아요 상태와 게시물 ID 받아오기
+        Integer getLikeStatusBoolean = (Integer) requestBody.get("getLikeStatusBoolean"); // Integer로 변경
+        Long getBoardId = Long.parseLong((String) requestBody.get("boardId"));
+        // 좋아요 로직 LikeVO 설정
+        LikeVO likeVO = new LikeVO();
+        likeVO.setLikeId(myPageService.getLIkeSeqNext());
+        likeVO.setUserId(uniId);
+        likeVO.setBoardId(getBoardId);
+
+        // 좋아요 취소 로직 LikeHeartDTO 설정
+        LikeHeartDTO likeHeartDTO = new LikeHeartDTO();
+        likeHeartDTO.setUserId(uniId);
+        likeHeartDTO.setBoardId(getBoardId);
+
+        // 좋아요 상태에 따라 처리
+        if (getLikeStatusBoolean == 1) {
+            myPageService.insertLike(likeVO);
+        } else {
+            myPageService.deleteLike(likeHeartDTO);
+        }
+
+        // redirect 시에 boardId를 함께 전달하려면 쿼리 파라미터로 붙여야 함
+        return "redirect:/myLife/detail-my?boardId=" + getBoardId;
+    }
+
+
+
+
 //    @GetMapping("/detail-my")
 //    public String detailMy(Model model, Long boardId, @SessionAttribute("uniId") Long uniId){
 //        if (uniId == null) {
