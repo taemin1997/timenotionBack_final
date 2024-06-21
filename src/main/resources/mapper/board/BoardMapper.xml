@@ -348,8 +348,8 @@
         SET BOARD_TITLE        = #{boardTitle},
             BOARD_PUBLIC       = #{boardPublic},
             BOARD_UPDATED_DATE = SYSDATE,
-            BOARD_CONTENT      = #{boardContent}
-        WHERE BOARD_ID = #{boardId}
+        WHERE BOARD_ID = #{boardId}            BOARD_CONTENT      = #{boardContent}
+
     </update>
 
     <!-- 나의 일대기 게시글 삭제 -->

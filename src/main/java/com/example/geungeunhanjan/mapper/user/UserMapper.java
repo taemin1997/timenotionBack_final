@@ -51,5 +51,11 @@ public interface UserMapper {
 
     UserCertiVO selectCerti(String userEmail);
 
+    String emailDuplicateCheck(String userEmail);
+
+    String nicknameDuplicateCheck(String userNickname);
+
+    String findKakaoBirth(Long uniId);
+
     void updatePassword(String userPassword, String userEmail);
 }
