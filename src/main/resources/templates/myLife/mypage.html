@@ -17,6 +17,7 @@
 <!-- 헤더 끝 -->
 
 <main>
+  <input type="hidden" id="uniId" th:value="${userInfo.uniId}">
   <div class="container">
 
     <div class="first-container">
@@ -24,14 +25,14 @@
         <div class="profile-background-dark"></div>
         <div class="profile-bg-img-box">
           <!-- 배경 이미지 조건부 렌더링 -->
-          <img th:if="${userFileVO != null and userFileVO.userFileBackSource != null}" alt="배경사진" class="img-back-img">
-          <img th:if="${userFileVO == null or userFileVO.userFileBackSource == null}" src="/img/main/basic-background3.png" alt="기본 배경사진" class="img-back-img">
+<!--          <img th:if="${userFileVO != null and userFileVO.userFileBackSource != null}" alt="배경사진" class="img-back-img">-->
+<!--          <img th:if="${userFileVO == null or userFileVO.userFileBackSource == null}" src="/img/main/basic-background3.png" alt="기본 배경사진" class="img-back-img">-->
         </div>
         <div class="profile">
           <div class="profile-img-box">
             <!-- 프로필 이미지 조건부 렌더링 -->
-            <img th:if="${userInfo.userFileProfileSource != null}" th:src="${userInfo.userFileProfileSource}" alt="프로필사진" class="img-profile-img">
-            <img th:unless="${userInfo.userFileProfileSource != null}" src="/img/main/basic-profile.png" alt="기본 프로필 사진" class="img-profile-img">
+<!--            <img th:if="${userInfo.userFileProfileSource != null}" th:src="${userInfo.userFileProfileSource}" alt="프로필사진" class="img-profile-img">-->
+<!--            <img th:unless="${userInfo.userFileProfileSource != null}" src="/img/main/basic-profile.png" alt="기본 프로필 사진" class="img-profile-img">-->
           </div>
           <div class="profile-detail">
             <p id="profile-nickname" th:text="${userInfo.nickname}">장윤근</p>
@@ -63,12 +64,12 @@
       <a class="btn-second second-etc" th:href="@{/myLife/mypageLike}">
         <p>좋아요</p>
       </a>
-<!--      <a class="btn-second second-etc" th:href="@{/myLife/mypageEditMemberInformation}">-->
-<!--        <p>회원 정보 수정</p>-->
-<!--      </a>-->
-<!--      <a class="btn-second second-etc" th:href="@{/myLife/mypageNotification}">-->
-<!--        <p>알림</p>-->
-<!--      </a>-->
+      <a class="btn-second second-etc" th:href="@{/myLife/mypageEditMemberInformation}">
+        <p>회원 정보 수정</p>
+      </a>
+      <a class="btn-second second-etc" th:href="@{/myLife/mypageNotification}">
+        <p>알림</p>
+      </a>
     </div>
     <hr>
     <div class="third-container">

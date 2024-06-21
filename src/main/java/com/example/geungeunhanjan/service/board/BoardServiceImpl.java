@@ -10,6 +10,8 @@ import com.example.geungeunhanjan.domain.vo.board.BoardVO;
 import com.example.geungeunhanjan.domain.vo.file.BoardFileVO;
 import com.example.geungeunhanjan.mapper.board.BoardFileMapper;
 import com.example.geungeunhanjan.mapper.board.BoardMapper;
+import com.example.geungeunhanjan.mapper.lifes.MyPageMapper;
+import com.example.geungeunhanjan.service.MyPageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -264,6 +266,14 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public String boardUserName(Long boardId) {
         return boardMapper.boardUserName(boardId);
+    }
+
+
+    // 모두의 일대기 프사 불러오기 ------ 담.
+
+    @Override
+    public List<BoardDTO> getProfile(Long userId) {
+        return boardMapper.getProfile(userId);
     }
 
 }

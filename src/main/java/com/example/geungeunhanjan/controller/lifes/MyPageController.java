@@ -56,6 +56,7 @@ public class MyPageController {
 //        model.addAttribute("follow", follow);
         // 유저 정보 모두
         LifeUserInfoDTO userInfo = myPageService.selectAllInfo(uniId);
+        userInfo.setUniId(uniId);
         model.addAttribute("userInfo", userInfo);
 
         // 게시판 정보
