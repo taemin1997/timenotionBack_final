@@ -100,7 +100,7 @@ $replyListWrap.addEventListener('click', function (e) {
 
 } // 2.close
 
-/* 3. 기존 댓글 지우고 새로운 댓글 목록 씌우는 함수
+/* 3. 기존 댓글 지우고 새로운 댓글 목록 씌우는 함수 -----------------------------------------------------
    innserHTML : 기존 내용 유지 x, 새롭게 덮어 씌임
     onclick="del();" <=- 삭제버튼에 잇던거 빼둠 */
 function displayComment(commentList) {
