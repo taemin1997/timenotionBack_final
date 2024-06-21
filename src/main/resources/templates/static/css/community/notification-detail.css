@@ -1,0 +1,184 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+
+/* #cadb36  #594096 #1c191a*/
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+#wrapper {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    /* 내부 요소들을 가운데로 정렬 */
+    height: 140px;
+    width: 100%;
+    background-color: #e5f2f7;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+footer {
+    background-color: rgb(221, 222, 224);
+    width: 100%;
+    height: 335px;
+}
+
+
+/* -------------------------------------------------------------------------------------- */
+
+.container {
+    max-width: 1000px;
+    width: 1000px;
+    background-color: #fcfaf7;
+    /* 다 해보고 지저분해보이면 뺄 예정 */
+    box-sizing: border-box;
+    padding: 40px;
+    min-width: 1000px;
+}
+
+
+/* 컨텐츠영역 보느라 넣어둔것 지우고 알아서 쓰세욤 */
+
+.banner {
+    background-color: rgb(224, 224, 224);
+    border-radius: 6px;
+}
+
+
+/* ----------------------------메인 컨텐츠 영역---------------------------------- */
+
+a {
+    color: black;
+}
+
+/* #detail_button_1 {
+  color: white;
+  font-weight: border;
+  border-radius: 6px;
+}
+
+.detail_button1:hover {
+  transform: scale(1.2);
+  transition-duration: 0.5s;
+} */
+
+input::placeholder {
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 25px;
+}
+
+
+
+textarea {
+    resize: none;
+    padding-left: 20px;
+}
+
+
+
+/*1. 타이틀*/
+
+.notification-title {
+    height: 50px;
+    background-color: rgb(230, 227, 227);
+    border-radius: 6px;
+    font-size: 25px;
+    font-weight: bolder;
+    line-height: 50px;
+    /*padding-left: 30px;*/
+    padding: 8px 30px 8px 30px;
+    margin: 20px 0px;
+    border: none;
+    width: 860px;
+
+}
+.container-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+
+    /*3. 파일추가 / 텍스트영역 ---- */
+
+
+/*3-1. 파일추가*/
+
+.wrapper-add-text {
+    width: 100%;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    line-height: 25px;
+    margin: 20px 0;
+}
+
+
+/*3-2. 텍스트 영역 */
+
+#textarea {
+    width: 100%;
+    height: 300px;
+    resize: none;
+    background-color: rgb(224, 224, 224);
+    border-radius: 6px;
+    padding-bottom: 16px;
+    padding-left: 20px;
+    outline: none;
+    border: none;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+/*4. 저장 / 취소 버튼*/
+
+.save-cancel-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.save {
+    height: 30px;
+    width: 60px;
+    border: none;
+    background-color: #ac8d71;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.cancel {
+    height: 30px;
+    width: 60px;
+    border: none;
+    background-color: rgb(221, 222, 224);
+    border-radius: 6px;
+    font-size: 15px;
+    margin-left: 6px;
+}

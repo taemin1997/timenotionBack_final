@@ -1,0 +1,445 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
+#wrapper {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+
+header {
+  text-align: center;
+  height: 140px;
+  width: 100%;
+  background-color: #e5f2f7;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+footer {
+  background-color: rgb(221, 222, 224);
+  width: 100%;
+  height: 335px;
+}
+hr {
+  border: none;
+  height: 1px;
+  background-color: rgb(235, 232, 230);
+}
+
+
+.bold-underline {
+  border-bottom: 1px solid rgb(213, 213, 213);
+  margin-bottom: 15px;
+}
+
+/* -------------------------------------------------------------------------------------- */
+
+/* 노란 영역 부분 = 컨테이너  */
+
+.container {
+  max-width: 1000px;
+  width: 1000px;
+  background-color: #fcfaf7;
+  box-sizing: border-box;
+  padding: 40px;
+  min-width: 1000px;
+  margin: auto;
+}
+
+/* 컨텐츠영역 보느라 넣어둔것 지우고 알아서 쓰세욤 */
+
+/* 배너 부분은 윤근님한테 받을 div 박스  */
+
+/*1. 상단 날짜 / 수정 삭제 버튼 ----------------------*/
+
+.wrapper-date-etc {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60px;
+}
+
+.box-date-right button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.box-date-right button:first-child {
+  margin-right: 10px;
+}
+
+/*2. 타이틀 ----------------------*/
+
+.wrapper-title {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+
+  font-size: 20px;
+  font-weight: bold;
+  padding-left: 30px;
+  width: 40%;
+}
+
+.wrapper-title h3 {
+  margin-left: 10px;
+}
+
+/*3. 프로필 영역 / 하트 / 공개 ----------------------*/
+
+.wrapper-profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.box-profile-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  overflow: hidden;
+  margin-right: 10px;
+  transition: all 0.2s linear;
+}
+.box-profile-img:hover {
+  transform: scale(1.2);
+}
+.box-profile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.box-profile-nickname {
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.box-profile-nickname a,
+.box-profile-nickname a:visited {
+  color: rgb(42, 41, 41);
+}
+.box-profile-heart {
+  margin-right: 10px;
+}
+
+.box-profile-view {
+  font-size: 12px;
+}
+
+.box-profile-heart.red {
+  filter: brightness(100%) saturate(100%) invert(55%) sepia(96%) saturate(3286%) hue-rotate(336deg)
+  brightness(103%) contrast(92%);
+}
+
+.box-profile-heart {
+  width: 25px;
+  height: 25px;
+  transition: all 0.2s linear;
+  cursor: pointer;
+}
+
+.box-profile-heart:hover {
+  transform: scale(1.2);
+}
+
+/*4. 컨텐츠 영역 ----------------------*/
+
+.post-content{
+  width: 100%;
+  height: 300px;
+  resize: none;
+  border-radius: 6px;
+  padding-bottom: 16px;
+  padding-left: 20px;
+  outline: none;
+  border: none;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+
+.post-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.post-images img {
+  max-width: 100%;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.post-images a{
+  max-width: 23%;
+  display: inline;
+}
+
+/* 00. 댓글영역 (까먹고 나중에 추가함;;)  ----------------*/
+.box-count-reply {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-size: 20px;
+  font-weight: bolder;
+}
+.box-reply-write textarea {
+  background-color: rgb(224, 224, 224);
+  width: 960px;
+  height: 98px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  padding: 20px;
+  resize: none;
+  color: rgb(24, 23, 23);
+  border: 1px solid #a4a4a4;
+  outline: none;
+}
+.box-btn-reply-btn {
+  padding-top: 6px;
+  margin-left: auto;
+  text-align: right;
+  font-weight: bolder;
+  margin-bottom: 10px;
+}
+.btn-reply-btn {
+  font-size: 15px;
+  border-radius: 6px;
+  border: none;
+  width: 90px;
+  text-align: center;
+  font-weight: 700;
+  height: 40px;
+  cursor: pointer;
+  background-color: #3b487f;
+  color: white;
+}
+.btn-reply-btn:hover {
+  background-color: #476488;
+}
+/*5. 댓글영역 ----------------------*/
+
+.wrapper-reply {
+  width: 100%;
+}
+
+.wrapper-main-reply {
+  width: 100%;
+}
+.dotdotdot {
+  cursor: pointer;
+}
+/* [대댓글] */
+.wrapper--re-reply {
+  width: 100%;
+  padding-left: 35px;
+  box-sizing: border-box;
+}
+
+/* ---------------------- */
+
+/* 1. 위 */
+
+.box-main-reply-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0px 10px 0px;
+}
+
+/* 위 왼쪽 */
+
+.reply-top-left {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+}
+
+.box-profile {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  overflow: hidden;
+  margin-right: 8px;
+  transition: all 0.2s linear;
+}
+.box-profile:hover {
+  transform: scale(1.2);
+}
+.box-profile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nickname {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  width: 65px;
+  height: 23px;
+  border: 1px solid lightseagreen;
+  font-size: 13px;
+  color: lightseagreen;
+  font-weight: bold;
+}
+
+/* 위 오른쪽 */
+
+.reply-top-right {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  position: relative;
+}
+
+.delete-btn {
+  margin-right: 8px;
+}
+
+.delete-btn button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.date {
+  font-size: 12px;
+  margin-right: 8px;
+}
+
+/* 2. 아래 */
+
+.box-main-reply-bottom {
+  padding: 10px 0px;
+  display: flex;
+  align-items: center;
+}
+
+.box-main-reply-bottom p {
+  margin-left: 35px;
+}
+
+/* 3. 댓글 내용 */
+
+.reply-content {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* 대댓글 -------------------------------------------------*/
+
+/*   */
+
+.wrapper-re-comment {
+  margin: 10px auto;
+}
+
+/*   */
+
+.box-re-comment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 30px;
+}
+
+/* 대댓글 버튼  */
+
+.reply-btn {
+  border-radius: 6px;
+  border: none;
+  color: #979797;
+  cursor: pointer;
+  font-weight: bold;
+  width: 60px;
+  height: 25px;
+  font-size: 11px;
+}
+.reply-btn:hover {
+  color: #757575;
+  transition: 0.5s;
+}
+
+/* 대댓글 입력 필드 (초기에는 숨겨짐)  */
+
+.re-textarea {
+  width: 91%;
+  height: 43px;
+  color: gray;
+  margin-top: 10px;
+  border-radius: 6px;
+  margin-right: 8px;
+  padding: 20px;
+  outline: none;
+  border: 1px solid rgb(215, 215, 215);
+}
+
+.re-submit-btn {
+  border-radius: 6px;
+  border: none;
+  color: #515050;
+  cursor: pointer;
+  font-weight: bold;
+  width: 60px;
+  height: 30px;
+  margin-top: 10px;
+}
+
+/* 6. 페이징 */
+.wrapper-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 40px 0;
+  font-size: 12px;
+}
+.chevron-left {
+  width: 10px;
+  height: 10px;
+  overflow: hidden;
+  padding: 10px;
+  transform: rotate(90deg);
+}
+.chevron-left img {
+  width: 100%;
+  height: 100%;
+}
+.chevron-right {
+  width: 10px;
+  height: 10px;
+  overflow: hidden;
+  padding: 10px;
+  transform: rotate(-90deg);
+}
+.chevron-right img {
+  width: 100%;
+  height: 100%;
+}

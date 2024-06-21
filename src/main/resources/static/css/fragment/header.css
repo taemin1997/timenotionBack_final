@@ -24,12 +24,12 @@ header {
 }
 .logo-box {
   width: 130px;
-  height: 55px;
-  margin-top: 35px;
+  height: 70px;
+  margin-top: 55px;
 }
 .logo-box img {
-  width: 70%;
-  height: 70%;
+  width: 50%;
+  height: 50%;
   object-fit: cover;
 }
 /* 카테고리 ---------------------------------------- */

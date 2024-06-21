@@ -56,6 +56,29 @@
         WHERE L.USER_ID = #{userId}
     </select>
 
+    <!--   좋아요 기능 추가 2024-06-17  -->
+
+    <!-- 0.  좋아요 다음 시퀀스    -->
+    <select id="getLIkeSeqNext" resultType="Long">
+        SELECT SEQ_LIKE.nextval from dual
+    </select>
+    <!--  1. 해당 게시물 좋아요 상태  -->
+    <select id="selectLikeStatus" parameterType="LikeHeartDTO" resultType="int">
+        SELECT count(*) FROM GGHJ_LIKE
+        WHERE BOARD_ID = #{boardId} AND USER_ID = #{userId}
+    </select>
+    <!--  2. 해당 글의 좋아요하기   -->
+    <insert id="insertLike" parameterType="LikeVO">
+        INSERT INTO GGHJ_LIKE (LIKE_ID , BOARD_ID, USER_ID,LIKE_CREATED_DATE)
+        VALUES(#{likeId},#{boardId},#{userId},SYSDATE)
+    </insert>
+    <!--  3. 해당 글의 좋아요 취소하기   -->
+    <delete id="deleteLike" parameterType="LikeHeartDTO">
+        DELETE FROM GGHJ_LIKE
+        WHERE BOARD_ID = #{boardId} AND USER_ID = #{userId}
+    </delete>
+
+
     <!--2. 내가 쓴 댓글 목록 페이징 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  -->
     <select id="selectPageMyComment" resultType="CommentDTO">
         <![CDATA[
@@ -147,7 +170,7 @@
     <update id="updateTwo">
         UPDATE GGHJ_UNI
         SET UNI_ABOUT = #{uniAbout},
-            BIRTH     = SYSDATE,
+            BIRTH     = #{userBirth},
             NICKNAME  = #{nickname}
         WHERE UNI_ID = #{userId}
     </update>

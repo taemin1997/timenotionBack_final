@@ -1,0 +1,264 @@
+       <!DOCTYPE html>
+       <html lang="en" xmlns:th="http://www.thymeleaf.org">
+            <head>
+              <meta charset="UTF-8" />
+              <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <title>Document</title>
+              <link rel="stylesheet" th:href="@{/css/notion.css}" />
+              <link rel="stylesheet" th:href="@{/css/reset.css}"/>
+              <link rel="stylesheet" th:href="@{/css/myLife/mypageNotification.css}">
+
+            </head>
+            <body>
+
+
+
+            <div th:replace="~{/fragment/header::header}"></div>
+              <div id="wrapper">
+
+                <main>
+                  <div class="container">
+                    <!-- 상단배너  -->
+                    <div class="banner">
+                      <div class="first-container">
+                        <div class="profile-background">
+                          <div class="profile-background-dark"></div>
+                          <div class="profile-bg-img-box"> <img src="./../../img/myLife/jyg-background.png" alt=""></div>
+                          <div class="profile">
+                            <img src="./../../img/myLife/jyg-profile_img_20240512_163410241.jpg" alt="">
+                            <div class="profile-detail">
+                              <p>수지배</p>
+                              <p>
+                                <span class="follower-number" th:text="${followerCnt}">36</span>
+                                <span class="follower">팔로워</span>
+                              </p>
+                              <p>
+                                <span class="follower-number" th:text="${followingCnt}">128</span>
+                                <span class="follower">팔로잉</span>
+                              </p>
+                              <!-- <p class="profile-heart"><img src="./../../img/myLife/mdj-heart_negative.png" alt="하투"></p> -->
+                            </div>
+                          </div>
+                        </div>
+                        <div class="profile-text">
+                          <div class="profile-introduce">
+                            <p>안녕하세요! 저는 창의적인 해결책을 찾는 열정을 가진 디자이저 장윤근입니다.
+                              예술과 미술이 만나는 곳에서 영감을 받아 사용자 친화적인 디자인을 만드는 것을 사랑합니다.ㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+                            </p>
+                          </div>
+                          <div class="write-button">
+                            <button><a href="/main/detail_writingMode">글쓰기</a></button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="second-container">
+                        <div class="second-container-comment">
+                          <a href="/myLife/mypageCommentList">내가 쓴 댓글</a>
+                        </div>
+                        <div class="second-container-like">
+                          <a href="/myLife/mypageLike">좋아요</a>
+                        </div>
+                        <div class="second-container-user">
+                          <a href="/myLife/mypageEditMemberInformation">회원 정보 수정</a>
+                        </div>
+                        <div class="second-container-alarm">
+                          <a href="/myLife/mypageNotification">알림</a>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+          
+          
+                            
+                  <!-- 내 알림 목록 DIV 박스  -->
+          <div class="notification-list-box">
+
+            <!-- 내 알림 목록 글자  -->
+            <div class="notification-paragraph">
+              <p>내 알림 목록</p>
+            </div>
+            <!-- 내 알림 리스트 목록  10개 -->
+            <article class="notification-list-article">
+              <ul class="notification-contents">
+                <li class="notification-lists-complaint">
+                  <div class="notification-list-left">
+                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
+                    <p>회원님의 댓글은 다음의 사유로 신고/삭제 되었습니다.</p>
+                    <p class="notification-list-left-why">욕설 및 모욕적인 말투</p>
+                  </div>
+                  <div class="notification-list-right">
+                    <p>2024.05.12</p>
+                  </div>
+                </li>
+
+                <hr>
+
+                <li class="notification-lists-follow">
+                  <div class="notification-list-left">
+                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
+                    <span class="notification-follow-nickname"><a href="/yourLife/userpage">닉네임</a></span>
+                    <span>님이 회원님을 팔로우했습니다.</span>
+                  </div>
+                  <div class="notification-list-right">
+                    <p>2024.05.12</p>
+                  </div>
+                </li>
+
+                <hr>
+
+                <li class="notification-lists-complaint">
+                  <div class="notification-list-left">
+                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
+                    <p>회원님의 댓글은 다음의 사유로 신고/삭제 되었습니다.</p>
+                    <p class="notification-list-left-why">욕설 및 모욕적인 말투</p>
+                  </div>
+                  <div class="notification-list-right">
+                    <p>2024.05.12</p>
+                  </div>
+                </li>
+
+                <hr>
+
+                <li class="notification-lists-follow">
+                  <div class="notification-list-left">
+                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
+                    <span class="notification-follow-nickname"><a href="/yourLife/userpage">닉네임</a></span>
+                    <span>님이 회원님을 팔로우했습니다.</span>
+                  </div>
+                  <div class="notification-list-right">
+                    <p>2024.05.12</p>
+                  </div>
+                </li>
+
+                <hr>
+
+                <li class="notification-lists-complaint">
+                  <div class="notification-list-left">
+                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
+                    <p>회원님의 댓글은 다음의 사유로 신고/삭제 되었습니다.</p>
+                    <p class="notification-list-left-why">욕설 및 모욕적인 말투</p>
+                  </div>
+                  <div class="notification-list-right">
+                    <p>2024.05.12</p>
+                  </div>
+                </li>
+
+                <hr>
+
+                <li class="notification-lists-follow">
+                  <div class="notification-list-left">
+                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
+                    <span class="notification-follow-nickname"><a href="/yourLife/userpage">닉네임</a></span>
+                    <span>님이 회원님을 팔로우했습니다.</span>
+                  </div>
+                  <div class="notification-list-right">
+                    <p>2024.05.12</p>
+                  </div>
+                </li>
+
+                <hr>
+
+                <li class="notification-lists-complaint">
+                  <div class="notification-list-left">
+                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
+                    <p>회원님의 댓글은 다음의 사유로 신고/삭제 되었습니다.</p>
+                    <p class="notification-list-left-why">욕설 및 모욕적인 말투</p>
+                  </div>
+                  <div class="notification-list-right">
+                    <p>2024.05.12</p>
+                  </div>
+                </li>
+
+                <hr>
+
+                <li class="notification-lists-follow">
+                  <div class="notification-list-left">
+                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
+                    <span class="notification-follow-nickname"><a href="/yourLife/userpage">닉네임</a></span>
+                    <span>님이 회원님을 팔로우했습니다.</span>
+                  </div>
+                  <div class="notification-list-right">
+                    <p>2024.05.12</p>
+                  </div>
+                </li>
+
+                <hr>
+
+                <li class="notification-lists-complaint">
+                  <div class="notification-list-left">
+                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
+                    <p>회원님의 댓글은 다음의 사유로 신고/삭제 되었습니다.</p>
+                    <p class="notification-list-left-why">욕설 및 모욕적인 말투</p>
+                  </div>
+                  <div class="notification-list-right">
+                    <p>2024.05.12</p>
+                  </div>
+                </li>
+
+                <hr>
+
+                <li class="notification-lists-follow">
+                  <div class="notification-list-left">
+                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
+                    <span class="notification-follow-nickname"><a href="/yourLife/userpage">닉네임</a></span>
+                    <span>님이 회원님을 팔로우했습니다.</span>
+                  </div>
+                  <div class="notification-list-right">
+                    <p>2024.05.12</p>
+                  </div>
+                </li>
+
+                
+              </ul>
+
+
+              <!-- 페이지 네이션  -->
+              <div class="notification-pagination-buttons">
+                <img class="notification-pagination-button-left" src="./../../img/myLife/mdj-arrowRight.png">
+                <p>1</p>
+                <p>2</p>
+                <p>3</p>
+                <p>4</p>
+                <p>5</p>
+                <img src="./../../img/myLife/mdj-arrowRight.png">
+              </div>
+            </article>
+
+
+          </div>
+
+
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+                  </div>
+                </main>
+
+                <div th:replace="~{/fragment/footer::footer}"></div>
+
+              </div>
+          
+            </body>
+          </html>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          

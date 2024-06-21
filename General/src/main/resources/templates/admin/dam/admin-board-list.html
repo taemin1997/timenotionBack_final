@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시글 / 댓글 관리</title>
+    <link rel="stylesheet" href="/css/notion.css" />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/admin/dam/admin-list.css" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+        <div class="logo-boxContainer">
+          <div class="logo-box">
+            <a th:href="@{/main}">
+              <img th:src="@{/img/main/timeNotion3.png}"/>
+            </a>
+          </div>
+
+          <div class="logo-boxTitle">관리자 페이지</div>
+        </div>
+      </header>
+      <main>
+        <div class="admin-container">
+          <!-- 왼쪽 카테고링 -->
+          <div class="container-nav">
+            <!-- 관리자 계정 -->
+            <div class="admin_login_status">
+
+              <div class="admin_login_status-img">
+                <img src="/img/myLife/jyg-profile_img_20240512_163410241.jpg" alt="관리자 프사">
+              </div>
+              <div class="admin_login_status-name">
+                <p class="admin-text">Admin</p>
+                <p class="admin-index">관리자 계정</p>
+              </div>
+            </div>
+
+            <!-- 대시보드~ 1:1문의  -->
+            <div class="admin-nav-box">
+              <a th:href="@{/admin}"><button id="dashboard"><p>대시보드</p></button></a>
+              <a th:href="@{/admin/boardList}"><button id="post"><p>게시판 관리</p></button></a>
+              <a th:href="@{/admin/memberList}"><button id="user"><p>회원 관리</p></button></a>
+              <a th:href="@{/admin/reportList}"><button id="declaration"><p>신고 관리</p></button></a>
+              <a th:href="@{/admin/noticeList}"><button id="notification"><p>공지사항</p></button></a>
+              <a th:href="@{/admin/inquiryList}"><button id="inquiry"><p>1:1 문의</p></button></a>
+            </div>
+          </div>
+          <!-- 오른쪽 -->
+          <div class="container-content">
+            <!-- 1. 게시판 이름 -->
+            <div class="admin-title-box"><span>게시글 / 댓글 관리</span></div>
+            <!-- 2. 검색 -->
+            <div class="admin-search-box">
+              <div class="admin-search-left">
+                <input type="text" name="" id="" placeholder="검색어를 입력하세요" />
+                <div class="admin-box-dodbogi">
+                  <img src="/img/main/돋보기.png" alt="" />
+                </div>
+              </div>
+              <div class="admin-search-right" style="display: none;"><button>공지글 작성하기</button></div>
+            </div>
+            <!-- 3. 리스트 -->
+            <div class="admin-list-wrapper">
+              <!-- 3-1. 리스트 요소 뭔지 써있는 맨 위 회색 , 제목라인 -->
+              <div class="box-admin-list-elemet">
+                <ul>
+                  <li>
+                    <!-- 왼쪽 -->
+                    <div class="admin-list-left-top">
+                      <div class="admin-one-top gap">번호</div>
+                      <div class="admin-two-top gap">제목</div>
+                    </div>
+                    <!-- 오른쪽 -->
+                    <div class="admin-list-right-top">
+                      <div class="admin-three-top gap">작성자</div>
+                      <div class="admin-four-top gap">작성일시</div>
+                      <div class="admin-five-top">삭제</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <!-- 3-2. 리스트들 -->
+              <div class="box-admin-list" th:each="boardList: ${adminBoardLists}">
+                <ul>
+                  <!--☆☆☆☆☆☆☆-->
+                  <li>
+                    <!-- 왼쪽 -->
+                    <div class="admin-list-left">
+                      <div class="admin-one gap" th:text="${boardList.boardId}">1</div>
+                      <div class="admin-two gap"><a th:text="${boardList.boardTitle}" th:href="@{/admin/detail}">게시글 제목</a></div>
+                    </div>
+                    <!-- 오른쪽 -->
+                    <div class="admin-list-right">
+                      <div class="admin-three gap"><a th:text="${boardList.nickname}" th:href="@{/admin/detail}">닉네임</a></div>
+                      <div class="admin-four gap"><span th:text="${#temporals.format(boardList.boardCreatedDate, 'yyyy년 MM월 dd일')}">작성일</span></div>
+                      <div class="admin-five"><button>삭제</button></div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <!-- 페이징 처리하는 페이지  -->
+              <div class="boardList-paging">
+                <ul class="paging-backward">
+                  <a th:href="@{/boardList(page=${page.startPage - 1})}" class="page-a" th:if="${page.prev}">&lt;</a></ul>
+                <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
+                  <a th:href="@{/boardList(page=${i})}" class="page-a">
+                    <li class="page-num" th:classappend="${i == page.criteria.page ? 'active' : ''}" th:text="${i}"></li>
+                  </a>
+                </th:block>
+                <a th:href="@{/boardList(page=${page.endPage + 1})}" class="page-a" th:if="${page.next}">
+                  <li class="page-num next">&gt</li>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

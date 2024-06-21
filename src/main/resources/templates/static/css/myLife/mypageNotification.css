@@ -1,0 +1,363 @@
+
+.profile-background{
+  position: relative;
+}
+
+.profile-background > img{
+  width: 100%;
+  margin-left: 0;
+  border-radius: 6px 6px 0 0;
+  height: 165.5px;
+}
+
+.profile{
+  position: absolute;
+  top: 90px;
+  /* width: 100px; */
+  display: flex;
+  align-items: center;
+  margin-left: 25px;  
+}
+
+.profile > img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 30px;
+}
+
+.profile-detail{
+  display: flex;
+  align-items: center;
+  height: 36px;
+}
+
+.profile-detail  > p{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 15px;
+  font-size: 25px;
+  font-weight: 700;
+  text-shadow: 1px 2px 5px #14141430;
+  color: white;
+  height: 100%;
+  
+}
+
+.follower{
+  font-size: 12px;
+}
+
+.follower-number{
+  font-size: 18px;
+}
+.profile-text p{
+  font-size: 16px;
+  /* font-weight: bold; */
+
+  width: 600px; /* 원하는 너비로 설정 */
+  height: 64px; /* 두 줄 높이에 맞춰 설정 */
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* 원하는 줄 수 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 32px; /* 한 줄 높이 설정 */
+}
+.profile-bg-img-box{
+  width: 100%;
+  height: 167px;
+  border-radius: 6px 6px 0 0;
+}
+.profile-bg-img-box > img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px 6px 0 0;
+
+}
+.profile-background-dark{
+  background-color: #12121230;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px 6px 0 0;
+  position: absolute;
+  top: 0px;
+}
+.profile-text{
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+  margin-left: 120px;
+  margin-top: 10px;
+}
+
+.profile-introduce{
+  width: 600px;
+  /* margin-top: ; */
+  margin-left: 40px;
+}
+
+.profile-introduce > p{
+  margin: 0;
+  line-height: 2;
+}
+
+.write-button{
+  
+}
+.write-button > button a{
+  color : #D9E9F8;
+}
+.write-button > button{
+  width: 90px;
+  height: 35px;
+  color: #D9E9F8;
+  font-weight: bolder;
+  background-color: #4c6791;
+  border: none;
+  border-radius: 10px;
+}
+.write-button > button:hover{
+  background-color: #D9E9F8;
+  color:#4c6791; ;
+  cursor: pointer;
+}
+
+
+
+/* 페이징 */
+.page-box{
+  display: flex;
+  justify-content: center;
+}
+.page-a{
+  color: black;
+  padding: 10px 18px;
+  font-size: 14px;
+}
+.page-a:link {
+  color: pink;
+}
+
+.page-a:visited {
+  color: black;
+}
+
+.page-a:hover {
+  color: #343434;
+}
+
+.page-a:active {
+  color: green;
+}
+
+
+.for-hr{
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  width: 100%;
+}
+
+
+/* ===========================================================  */
+
+.second-container{
+  display: flex;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.second-container-comment{
+  background-color: #e5f2f7;
+  height: 30px;
+  width: 120px;
+  border-radius: 5px;
+  margin-right: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.second-container-comment > a{
+  font-weight: 700;
+  font-size: 12px;
+  color: black;
+}
+.second-container-comment:hover{
+  cursor: pointer;
+  background-color: #D4E6EC;
+}
+.second-container-like{
+  background-color: #e5f2f7;
+  height: 30px;
+  width: 100px;
+  border-radius: 5px;
+  margin-right: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.second-container-like > a{
+  font-weight: 700;
+  font-size: 12px;
+  color: black;
+  
+}
+.second-container-like:hover{
+  cursor: pointer;
+  background-color: #D4E6EC;
+}
+.second-container-user{
+  background-color: #e5f2f7;
+  height: 30px;
+  width: 120px;
+  border-radius: 5px;
+  margin-right: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.second-container-user > a{
+  font-weight: 700;
+  font-size: 12px;
+  color: black;
+  
+}
+.second-container-user:hover{
+  cursor: pointer;
+  background-color: #D4E6EC;
+}
+.second-container-alarm{
+  background-color: #e5f2f7;
+  height: 30px;
+  width: 80px;
+  border-radius: 5px;
+  margin-right: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.second-container-alarm > a{
+  font-weight: 700;
+  font-size: 12px;
+  color: black;
+  
+}
+.second-container-alarm:hover{
+  cursor: pointer;
+  background-color: #D4E6EC;
+}
+hr{
+  opacity: 0.3
+}
+
+
+
+
+
+.notification-list-box{
+  /* background-color: aquamarine; */
+  height: 760px;
+}
+.notification-paragraph{
+  /* background-color: lightblue; */
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+.notification-paragraph p{
+  font-size: 25px;
+  font-weight: bolder;
+}
+.notification-list-article{
+  /* background-color: lightcyan; */
+  /* display: flex; */
+  justify-content: space-between;
+  height: 660px;
+}
+.notification-contents{
+  background-color: #F2F3F2;
+  border-radius: 6px;
+  width: 920px;
+  height: 580px;
+}
+.notification-lists-complaint {
+  display: flex;
+  /* background-color: rgb(218, 246, 177); */
+  height: 56px;
+  justify-content: space-between;
+  align-items: center;
+}
+.notification-lists-complaint img{
+  height: 30px;
+  width: 30px;
+}
+.notification-lists-follow{
+  display: flex;
+  /* background-color: rgb(233, 246, 199); */
+  height: 56px;
+  justify-content: space-between;
+  align-items: center;
+}
+.notification-lists-follow img{
+  height: 30px;
+  width: 30px;
+}
+.notification-follow-nickname{
+  font-weight: bolder;
+  white-space: pre-wrap;
+}
+.notification-follow-nickname a{
+  color:black;
+}
+.notification-list-left{
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+.notification-list-left p , .notification-list-left img{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.notification-list-left span{
+  margin-left: 10px;
+  margin-right: 5px;
+}
+.notification-list-left-why{
+  font-weight: bolder;
+}
+.notification-list-left img{
+  width: 20px;
+  height: 20px;
+}
+.notification-list-right{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.notification-pagination-buttons{
+  /* background-color: lightcoral; */
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.notification-pagination-buttons p{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.notification-pagination-buttons img{
+  width: 30px;
+  height: 30px;
+}
+.notification-pagination-button-left{
+  transform: scaleX(-1);
+}
