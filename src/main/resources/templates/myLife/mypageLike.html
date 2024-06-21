@@ -82,6 +82,8 @@
           <p>좋아요 목록</p>
         </div>
         <!-- 좋아요 누른 리스트 목록  -->
+    <!--  로그인한 계정이 좋아요 누른 리스트가 뜨게하는것
+      ~님의 ~게시물을 좋아합니다 로 보이게 작성 -->
         <article class="like-list">
           <ul class="like-contents-left">
             <!-- list 10개 -->
@@ -92,8 +94,9 @@
                   <p   class="like-content-left-nickname">
                     <a th:text="${like.nickname}" th:href="@{/yourLife/userpage/{userId}(userId=${like.userId})}"></a>
                   <p>님의</p>
-                  <p  class="like-content-left-title"><a th:text="${like.boardTitle}"  href="./../../HTML/myLife/detail-my.html"></a></p>
-                  <p>을 좋아합니다.</p>
+                  <p  class="like-content-left-title"><a th:text="${like.boardTitle}" th:href="@{/myLife/detail-my(boardId=${like.boardId})}"></a>
+                  </p>
+                  <p> 게시물을 좋아합니다.</p>
                 </div>
                 <div class="like-content-right-list">
                   <p th:text="${#temporals.format(like.likeCreatedDate, 'yyyy.MM.dd')}"></p>
