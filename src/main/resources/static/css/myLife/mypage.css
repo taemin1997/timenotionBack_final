@@ -281,14 +281,11 @@ hr {
   border-radius: 15px;
   border: none;
   font-size: 12px;
-  padding: 8px 20px;
+  padding: 5px 12px;
   white-space: nowrap;
   background-color: rgba(0, 0, 0, 0.1);
   cursor: pointer;
   margin-right: 6px;
-}
-.everyLife-btn-span button:hover{
-  background-color: #c4e1ec;
 }
 .third-container-category{
   cursor: pointer;
@@ -592,7 +589,7 @@ footer {
   right: 100px;
   width: 55px;
   height: 55px;
-  background-color: #afdaea;
+  background-color: #95b95c;
   border-radius: 100%;
   color: white;
   font-weight: bold;

@@ -84,7 +84,7 @@ EmailButton.addEventListener('click', function() {
     EmailInput.style.borderColor = 'rgb(255, 119, 119)';
     EmailInput.style.borderWidth = '1px';
     EmailParagraph.style.color = 'rgb(255, 119, 119)';
-  } else{startCountdown(180); // 3분(180초)으로 초기화한 카운트다운 시작}
+  } else{startCountdown(10); // 3분(180초)으로 초기화한 카운트다운 시작}
 }
 });
 
@@ -109,7 +109,7 @@ function startCountdown(seconds) {
 }
 
 
-//아이디확인
+//이름확인
 const nameInput = document.getElementById('name-input');
 const nameResult = document.getElementById('name-result');
 const nameParagraph = document.getElementById('name-paragraph');
@@ -144,6 +144,7 @@ function nameInputFocusFunction() {
     nameInput.style.borderColor = '#B2E8F7';
   }
   nameCount++;
+
 };
 
 function nameInputBlurFunction() {
@@ -161,7 +162,9 @@ function nameInputBlurFunction() {
     nameInput.style.borderColor = 'gray';
     nameParagraph.style.color = 'black';
     nameResult.innerText = " ";
+
   }
+
 };
 
 
@@ -198,45 +201,3 @@ function functionSubmit() {
     nameResult.innerText = " ";
   }
 }
-
-
-//----------------문자인증---------------------
-const Vertification = document.getElementById('vertification');
-const certiButton = document.querySelector('.submit');
-
-let phoneNum = "";
-let userEmail = "";
-
-EmailButton.addEventListener("click", function (){
-
-  if(EmailInput.value.length == 11) {
-    phoneNum = EmailInput.value;
-    userEmail = nameInput.value;
-    console.log(phoneNum);
-    console.log(userEmail);
-
-    $.ajax({
-      url: `/sms/send-one`,
-      type: 'post',
-      data: {
-        phoneNum: phoneNum,
-        userEmail: userEmail,
-      },
-      success: function(response) {
-        // 성공 응답 처리
-        console.log('메시지 전송 성공:', response);
-        alert("메시지가 발송되었습니다.");
-        Vertification.style.display = 'block';
-        certiButton.style.display = 'block';
-      },
-      error: function(xhr, status, error) {
-        // 오류 응답 처리
-        console.error('메시지 전송 오류:', status, error);
-        alert("아이디와 전화번호를 다시 입력해주세요");
-      }
-    });
-  } else{
-    alert("아이디와 전화번호를 다시 입력해주세요");
-  }
-
-});

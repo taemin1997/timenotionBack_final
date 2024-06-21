@@ -20,7 +20,6 @@ public class FollowServiceImpe implements FollowService {
     public FollowServiceImpe(FollowMapper followMapper) {
         this.followMapper = followMapper;
     }
-
     //팔로우의 다음 시퀀스
     @Override
     public Long getFollowSeqNext() {
@@ -33,22 +32,20 @@ public class FollowServiceImpe implements FollowService {
         return followMapper.selectFollower(userId);
     }
 
-    //팔로우 리스트에 디테일로 들어가기
     @Override
     public FollowDTO selectFollowDetail(Long userId) {
         return followMapper.selectFollowDetail(userId);
     }
 
-    //팔로잉 리스트 조회하기
-    @Override
-    public List<FollowDTO> selectFollowing(Long userId) { return followMapper.selectFollowing(userId); }
-
-    //팔로우 유저 about 조회하기
     @Override
     public UniVO selectFollowAbout(Long userId) {
         return followMapper.selectFollowAbout(userId);
     }
-
+    //팔로잉 리스트 조회하기
+//    @Override
+//    public List<FollowDTO> selectFollowing() {
+//        return followMapper.selectFollowing();
+//    }
 
 
     @Override
@@ -61,7 +58,7 @@ public class FollowServiceImpe implements FollowService {
     public void insertFollow(FollowVO followVO) {
         followMapper.insertFollow(followVO);
     }
-
+    //팔로우 리스트 유저 클릭시 ; 언팔로우 하기
     //팔로우 리스트 유저 클릭시 ; 언팔로우 하기
     @Override
     public void deleteFollow(FollowHeartDTO followHeartDTO) {
@@ -72,7 +69,6 @@ public class FollowServiceImpe implements FollowService {
     public int selectFollowStatus(FollowHeartDTO followHeartDTO) {
         return followMapper.selectFollowStatus(followHeartDTO);
     }
-
     //페이징 처리
     @Override
     public List<FollowDTO> selectAllPageFollow(FollowCriteria followCriteria) {

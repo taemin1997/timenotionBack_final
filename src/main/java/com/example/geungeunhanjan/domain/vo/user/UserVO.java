@@ -11,7 +11,6 @@ public class UserVO {
     private Long userId;
     private String userName;
     private String userPassword;
-    private String userPhone;
     private String userEmail;
     private String userNickname;
     private LocalDateTime userBirth;
