@@ -86,7 +86,7 @@ $(document).ready(function() {
         data.forEach(function(board) {
             var contentHtml = `
                 <div class="everyLife-content-box">
-                    <a href="/myLife/detail-my(boardId=${board.boardId})">
+                    <a href="/myLife/detail-my?boardId=${board.boardId}">
                         <div class="everyLife-contents">
                             <div class="everyLife-content-title">${board.boardTitle}</div>
                             <div class="everyLife-content-date">작성일: ${formatDate(board.boardCreatedDate)}</div>
