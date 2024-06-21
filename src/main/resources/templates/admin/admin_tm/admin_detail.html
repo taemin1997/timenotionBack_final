@@ -1,69 +1,193 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin_detatil</title>
-    <link rel="stylesheet" th:href="@{/css/admin/admin_tm/admin_detail.css}">
-    <link rel="stylesheet" th:href="@{/css/notion.css}">
-    <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script defer th:src="@{/js/myLife/detail.my3.js}"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>admin_detatil</title>
+  <link rel="stylesheet" th:href="@{/css/admin/admin_tm/admin_detail.css}">
+
+  <link rel="stylesheet" th:href="@{/css/notion.css}">
+
+
+  <link rel="stylesheet" th:href="@{/css/reset.css}">
+
+
+  <script defer th:src="@{/js/admin/admin_tm/admin_detail.js}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
-    <div class="container">
-<!--        <input type="hidden" id="uniId" th:value="${session.uniId}">-->
-
-<!--        &lt;!&ndash;1. 상단 날짜 / 수정 삭제 버튼 -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-<!--        <div class="wrapper-date-etc">-->
-<!--            <div class="box-date-left" th:text="${boards.boardCreatedDate != null ? '작성일 :  ' + #temporals.format(boards.boardCreatedDate, 'yy년 MM월 dd일') : '날짜 없음'}">-->
-<!--            </div>-->
-<!--            <input type="hidden" id="boardId" th:value="${boards.boardId}">-->
-<!--            <div class="box-date-right">-->
-<!--                <th:block th:if="${boards.userId == session.uniId}">-->
-<!--                    <button class="btn-modify" th:data-id="${boards.boardId}">수정</button>-->
-<!--                    <button type="button" class="btn-remove" th:data-id="${boards.boardId}">삭제</button>-->
-<!--                </th:block>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash;2. 타이틀 -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-<!--        <div class="wrapper-title" th:text="${boards.boardTitle}"></div>-->
-
-<!--        &lt;!&ndash;3. 프로필 영역 / 하트 / 공개  -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-<!--        <div class="wrapper-profile">-->
-<!--            <div class="box-profile-img"><a th:href="@{/yourLife/userpage/{userId}(userId=${boards.userId})}"><img-->
-<!--                    th:src="@{/img/myLife/sas detail_comment1.jpg}" alt=""></a></div>-->
-<!--            <div class="box-profile-nickname"><a th:text="${userNickname}">닉네임</a></div>-->
-<!--            <p id="user-lifecycle-check" style="display: none" th:text="${boards.boardLifeCycle}"></p>-->
-
-<!--            <div><img th:src="@{/img/myLife/sas detail_heart.png}" alt="하트" class="box-profile-heart"-->
-<!--                      id="heartImage"></div>-->
-<!--        </div>-->
-<!--        <div class="bold-underline"></div>-->
-
-<!--        &lt;!&ndash;4. 컨텐츠 영역  -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-<!--        <div class="wrapper-content">-->
-<!--            <div class="post-content" th:text="${boards.boardContent}"></div>-->
-<!--            <div class="post-images">-->
-<!--                &lt;!&ndash; 이미지 예시 &ndash;&gt;-->
-<!--                &lt;!&ndash; /이미지 예시 &ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="bold-underline"></div>-->
-
-        <!-- 00. 댓글영역 (까먹고 나중에 추가함;;) -->
-        <div class="wrapper-reply-write">
-            <div class="box-count-reply"><span>댓글</span><!--<span id="count-reply">(00)</span>-->
+    <div class="admin-detail-container container">
+        <div class="ad-detail-back">
+            <a href="">&lt; 목록으로 돌아가기</a>
+        </div>
+        <div class="ad-detail-title-banner">
+            <p class="ad-detail-title-date">
+                2024.05.21
+            </p>
+            <div class="ad-detail-title">
+                즐거운 여름날 나의 하루
             </div>
-            <div class="box-reply-write">
-                <textarea name="" id="comment-content" cols="30" rows="10" placeholder="댓글을 입력하세요"></textarea>
-                <div class="box-btn-reply-btn"><button class="btn-reply-btn">입력</button></div>
+            <div class="ad-detail-modify">
+                <div class="ad-detail-userinfo">
+                    <span class="ad-detail-user-profile">
+                        <img src="./../../../img/everyLife/everyLife_profile.png" alt="">
+                    </span>
+                    <span class="ad-detail-user-nickname">에몽가</span>
+                </div>
+                <div class="ad-detail-modify-btns">
+                    <span><button type="button">수정하기</button></span>
+                    <span>
+                        <select name="detail-modify" id="">
+                            <option value="v">공개</option>
+                            <option value="v">비공개</option>
+                        </select>
+                    </span>
+                </div>
             </div>
         </div>
+        <div class="ad-detail-content">
+            <div class="ad-detail-img">
+                <img src="./../../../img/admin/admin_tm/admin1.png" alt="">
+            </div>
+            <div class="ad-detail-written">
+                <textarea name="ad-detail-first-text" cols="100" rows="8" readonly>밤하늘의 별을 바라보며 나는 아무 생각이 없다. 그저 조용히 빛나는 별들처럼, 마음속도 고요하다. 하루의 소란스러움이 사라지고, 오직 평온함만이 나를 감싼다. 생각의 소용돌이도, 감정의 파도도 잠시 멈춘 이 순간, 나는 오롯이 나 자신으로 존재한다. 아무 생각이 없다는 것은 때로 가장 큰 위안이 될 수 있다.
+                </textarea>
+            </div>
+            <div class="ad-detail-img">
+                <img src="./../../../img/admin/admin_tm/admin2.png" alt="">
+            </div>
+            <div class="ad-detail-written">
+                <textarea name="ad-detail-second-text" cols="100" rows="12" readonly>고요한 밤, 별빛조차 흐릿하게 반짝이는 하늘 아래 나는 앉아 있었다. 깊은 생각에 잠기려 했지만, 머릿속은 여전히 공허했다. 아무리 생각해보아도, 떠오르는 건 단 하나, '생각이 없어'. 마치 마음 속 어딘가가 굳어버린 듯, 감정도, 기억도, 아무런 울림 없이 잔잔했다. 
 
-        <!--5. 댓글영역   ----------------->
-        <div class="wrapper-reply"></div>
+이런 무념무상의 상태가 어쩌면 나에게 필요한 시간일지도 모른다. 생각 없는 시간 속에서 비로소 나는 나 자신을 찾아갈 수 있을 테니까. 단순히 존재함에 집중하며, 나는 이 순간의 고요를 마음껏 느끼기로 했다.
+                </textarea>
+            </div>
+        </div>
+        <!-- <div class="ad-detail-hr">
+            <hr>
+        </div> -->
+        <div class="ad-detail-comment-banner">
+            <p>댓글 (00)</p>
+            <div class="ad-detail-comment">
+                <div class="ad-detail-comment-user">
+                    <div class="ad-detail-comment-userinfo">
+                        <span class="ad-detail-comment-profile">
+                            <img src="./../../../img/everyLife/everyLife_profile.png" alt="">
+                        </span>
+                        <span class="ad-detail-comment-nickname">에몽가</span>
+                        <span>
+                            <button type="button">삭제</button>
+                        </span>
+                    </div>
+                    <div class="ad-detail-comment-date">
+                        2024.05.21
+                    </div>
+                </div>
+                <div class="ad-detail-comment-text">
+                    나는 아무 생각이 없다
+                </div>
+                <div class="ad-detail-reply">
+                    <div class="ad-detail-reply-user">
+                        <div class="ad-detail-reply-userinfo">
+                            <span class="ad-detail-reply-profile">
+                                <img src="./../../../img/everyLife/everyLife_profile.png" alt="">
+                            </span>
+                            <span class="ad-detail-reply-nickname">에몽가</span>
+                            <span>
+                                <button type="button">삭제</button>
+                            </span>
+                        </div>
+                        <div class="ad-detail-reply-date">
+                            2024.05.21
+                        </div>
+                    </div>
+                    <div class="ad-detail-reply-text">
+                        나도 아무 생각이 없다
+                    </div>
+                </div>
+                <div class="ad-detail-reply">
+                    <div class="ad-detail-reply-user">
+                        <div class="ad-detail-reply-userinfo">
+                            <span class="ad-detail-reply-profile">
+                                <img src="./../../../img/everyLife/everyLife_profile.png" alt="">
+                            </span>
+                            <span class="ad-detail-reply-nickname">에몽가</span>
+                            <span>
+                                <button type="button">삭제</button>
+                            </span>
+                        </div>
+                        <div class="ad-detail-reply-date">
+                            2024.05.21
+                        </div>
+                    </div>
+                    <div class="ad-detail-reply-text">
+                        나도 아무 생각이 없다
+                    </div>
+                </div>
+            </div>
+            <div class="ad-detail-comment-hr"><hr></div>
+            <div class="ad-detail-comment">
+                <div class="ad-detail-comment-user">
+                    <div class="ad-detail-comment-userinfo">
+                        <span class="ad-detail-comment-profile">
+                            <img src="./../../../img/everyLife/everyLife_profile.png" alt="">
+                        </span>
+                        <span class="ad-detail-comment-nickname">에몽가</span>
+                        <span>
+                            <button type="button">삭제</button>
+                        </span>
+                    </div>
+                    <div class="ad-detail-comment-date">
+                        2024.05.21
+                    </div>
+                </div>
+                <div class="ad-detail-comment-text">
+                    나는 아무 생각이 없다
+                </div>
+                <div class="ad-detail-reply">
+                    <div class="ad-detail-reply-user">
+                        <div class="ad-detail-reply-userinfo">
+                            <span class="ad-detail-reply-profile">
+                                <img src="./../../../img/everyLife/everyLife_profile.png" alt="">
+                            </span>
+                            <span class="ad-detail-reply-nickname">에몽가</span>
+                            <span>
+                                <button type="button">삭제</button>
+                            </span>
+                        </div>
+                        <div class="ad-detail-reply-date">
+                            2024.05.21
+                        </div>
+                    </div>
+                    <div class="ad-detail-reply-text">
+                        나도 아무 생각이 없다
+                    </div>
+                </div>
+                <div class="ad-detail-reply">
+                    <div class="ad-detail-reply-user">
+                        <div class="ad-detail-reply-userinfo">
+                            <span class="ad-detail-reply-profile">
+                                <img src="./../../../img/everyLife/everyLife_profile.png" alt="">
+                            </span>
+                            <span class="ad-detail-reply-nickname">에몽가</span>
+                            <span>
+                                <button type="button">삭제</button>
+                            </span>
+                        </div>
+                        <div class="ad-detail-reply-date">
+                            2024.05.21
+                        </div>
+                    </div>
+                    <div class="ad-detail-reply-text">
+                        나도 아무 생각이 없다
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ad-detail-btns">
+            <button type="button">닫기</button>
+            <button type="submit">수정</button>
+        </div>
     </div>
 </body>
 </html>

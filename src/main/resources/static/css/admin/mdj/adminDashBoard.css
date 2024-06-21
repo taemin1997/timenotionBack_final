@@ -18,29 +18,16 @@ body {
   margin: 0 auto;
 }
 header {
+  text-align: center; /* 내부 요소들을 가운데로 정렬 */
   height: 140px;
   width: 100%;
-  background-color: white;
-}
-
-.logo-boxContainer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 1200px;
-  height: 140px;
-  margin: auto;
-}
-
-.logo-box a {
-  height: 140px;
-}
-
-.logo-boxTitle {
-  color: #EF6060;
-  font-size: 30px;
+  justify-content: center;
+  font-size: 50px;
   font-weight: bold;
-  padding-right: 400px;
+  color: #ef6060;
+  background-color: white;
 }
 
 main {
@@ -139,7 +126,7 @@ main {
 
 .bottom-container{
   width: 890px;
-  height: 520px;
+  height: 380px;
   background-color: white;
   padding: 20px;
   border-radius: 6px;
@@ -162,26 +149,15 @@ main {
 }
 .bottom-container hr{
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 70px;
 }
-
-.members-info-container1 {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.members-info-container2 {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
 .members-info-box{
   /* background-color: pink; */
-  width: 890px;
-  height: 500px;
+  width: 930px;
+  height: 240px;
+
+  
+  display: flex;
 }
 .member-info{
   /* background-color: wheat; */
@@ -308,7 +284,7 @@ main {
   font-weight: bolder;
 
   margin-top: 20px;
-  /*margin-left: 30px;*/
+  margin-left: 30px;
 }
 
 /* 오른쪽 대시보드 페이지  */
@@ -349,7 +325,7 @@ main {
 }
 
 .dashboard-number{
-  font-size: 14px;
+  font-size: 15px;
   font-weight: bolder;
   
   margin-bottom: 25px;
