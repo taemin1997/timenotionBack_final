@@ -45,5 +45,5 @@ public interface FollowMapper {
     List<FollowDTO> selectAllPageFollow(FollowCriteria followCriteria);
     //페이지 총 수 조회하기
     int selectTotalFollow();
-
+    List<FollowDTO> getFollowFile(Long uniId);
 }

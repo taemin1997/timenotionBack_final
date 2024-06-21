@@ -54,7 +54,7 @@ public class FileApi {
     }
 
 
-    // 프사 / 배사 목록을 가져오는 메소드 - everyLife
+    // 프사 가져오는 메소드 - everyLife
     @GetMapping("/v1/everyLife/{uniId}/files")
     public List<BoardDTO> getProfileEveryLife(@PathVariable("uniId") Long uniId) {
         System.out.println(uniId + "ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ");

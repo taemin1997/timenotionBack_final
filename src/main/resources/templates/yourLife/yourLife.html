@@ -40,6 +40,7 @@
                             <div class="flwers-left">
 
                                 <a th:href="@{/yourLife/userpage/{userId}(userId=${follow.followerId})}">
+                                    <input type="hidden" id="followerId" name="followerId" th:text="follow.followers">
                                     <div class="flwers-img-box">
                                         <img th:src="${follow.userFileProfileSource}" alt=""/>
 

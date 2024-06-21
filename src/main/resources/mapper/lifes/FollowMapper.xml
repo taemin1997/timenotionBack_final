@@ -14,8 +14,8 @@
                NVL(gu.USER_NICKNAME, gk.name)                                           AS userNickname,
                (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_FROM_USER = u.UNI_ID) AS followingCount,
                (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_TO_USER = u.UNI_ID)   AS followerCount,
-               uf.USER_FILE_PROFILE_SOURCE,
-               uf.USER_FILE_BACK_SOURCE
+               uf.USER_FILE_PROFILE_SOURCE, uf.USER_FILE_PROFILE_NAME , uf.USER_FILE_PROFILE_UUID,
+               uf.USER_FILE_BACK_SOURCE, uf.USER_FILE_BACK_NAME , uf.USER_FILE_BACK_UUID
         FROM GGHJ_UNI u
                  LEFT JOIN GGHJ_USER gu ON u.USER_ID = gu.USER_ID
                  LEFT JOIN GGHJ_KAKAO gk ON u.KAKAO_ID = gk.KAKAO_ID
@@ -63,7 +63,7 @@
                    u.USER_NICKNAME                                                           AS userNickname,
                    (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_FROM_USER = u.USER_ID) AS followingCount,
                    (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_TO_USER = u.USER_ID)   AS followerCount,
-                   f.USER_FILE_PROFILE_SOURCE
+                   f.USER_FILE_PROFILE_SOURCE, f.USER_FILE_PROFILE_NAME , f.USER_FILE_PROFILE_UUID
             FROM GGHJ_USER u
                      JOIN GGHJ_FOLLOW fo ON u.USER_ID = fo.FOLLOW_FROM_USER
                      LEFT JOIN GGHJ_USER_FILE f ON u.USER_ID = f.USER_ID
@@ -73,7 +73,9 @@
                    k.NAME                                                                     AS userNickname,
                    (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_FROM_USER = k.KAKAO_ID) AS followingCount,
                    (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_TO_USER = k.KAKAO_ID)   AS followerCount,
-                   k.PROFILE_PIC                                                              AS USER_FILE_PROFILE_SOURCE
+                   k.PROFILE_PIC                                                              AS USER_FILE_PROFILE_SOURCE,
+                   k.PROFILE_PIC															  AS USER_FILE_PROFILE_NAME,
+                   k.PROFILE_PIC      														  AS USER_FILE_PROFILE_UUID
             FROM GGHJ_KAKAO k
                      JOIN GGHJ_UNI uni ON k.KAKAO_ID = uni.KAKAO_ID
                      JOIN GGHJ_FOLLOW fo ON uni.UNI_ID = fo.FOLLOW_FROM_USER
