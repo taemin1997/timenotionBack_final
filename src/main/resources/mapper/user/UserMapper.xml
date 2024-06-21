@@ -82,8 +82,8 @@
     </select>
     <!--일반회원가입(대대적인 수정 예정)-->
     <insert id="userJoin" parameterType="UserVO">
-        INSERT INTO GGHJ_USER(USER_ID, USER_NAME, USER_PASSWORD, USER_EMAIL, USER_NICKNAME, USER_BIRTH)
-        VALUES (#{userId}, #{userName}, #{userPassword}, #{userEmail}, #{userNickname}, #{userBirth})
+        INSERT INTO GGHJ_USER(USER_ID, USER_NAME, USER_PASSWORD, USER_PHONE, USER_EMAIL, USER_NICKNAME, USER_BIRTH)
+        VALUES (#{userId}, #{userName}, #{userPassword}, #{userPhone}, #{userEmail}, #{userNickname}, #{userBirth})
     </insert>
     <!-- 회원가입하면 통합회원id 배정-->
     <insert id="userUniJoin" parameterType="UniVO">
@@ -130,18 +130,34 @@
             ku.PROVIDER_ID = #{providerId}
     </select>
 
-    <select id="emailDuplicateCheck" parameterType="String" resultType="String">
-        select user_email from gghj_user where user_email = #{userEmail}
+    <!--  문자 인증 쿼리  -->
+    <insert id="insertCerti" parameterType="UserCertiVO">
+        INSERT INTO GGHJ_CERTI (USER_PHONE, USER_EMAIL, CERTI_NUMBER)
+        VALUES (#{userPhone}, #{userEmail}, #{certiNumber})
+    </insert>
+
+    <update id="updateCerti" parameterType="string">
+        UPDATE GGHJ_CERTI
+        SET CERTI_NUMBER = #{certiNumber}
+        WHERE USER_EMAIL = #{userEmail}
+    </update>
+
+    <select id="selectEmail" parameterType="string" resultType="UserCertiDTO">
+        SELECT USER_PHONE, USER_EMAIL
+        FROM GGHJ_USER
+        WHERE USER_EMAIL = #{userEmail}
     </select>
 
-    <select id="nicknameDuplicateCheck" parameterType="String" resultType="String">
-        select user_nickname from gghj_user where user_nickname = #{userNickname}
+    <select id="selectCerti" parameterType="string" resultType="UserCertiVO">
+        SELECT USER_PHONE, USER_EMAIL, CERTI_NUMBER
+        FROM GGHJ_CERTI
+        WHERE USER_EMAIL = #{userEmail}
     </select>
 
-    <select id="findKakaoBirth" parameterType="Long" resultType="String">
-        SELECT KAKAO_BIRTH
-        FROM GGHJ_KAKAO k JOIN GGHJ_UNI u
-            ON k.KAKAO_ID = u.KAKAO_ID
-        WHERE u.UNI_ID = #{uniId}
-    </select>
+    <!-- 비밀번호 변경  -->
+    <update id="updatePassword" parameterType="string">
+        UPDATE GGHJ_USER
+        SET USER_PASSWORD = #{userPassword}
+        WHERE USER_EMAIL = #{userEmail}
+    </update>
 </mapper>
