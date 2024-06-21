@@ -1,5 +1,8 @@
 
 /* 전체 컨테이너 설정 */
+*{
+    color: #251F1F;
+}
 .everyLife-container{
     margin: 0 auto;
     padding: 0 40px;
@@ -49,7 +52,7 @@ li, ul, ol{
 }
 .everyLife-btn-span button:hover{
     cursor: pointer;
-    background-color: khaki;
+    background-color: #c4e1ec; /*하늘색*/
 }
 
 /* 검색 */
@@ -94,6 +97,7 @@ li, ul, ol{
     border-radius: 6px;
     text-align: center;
     border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 35px;
 }
 .everyLife-wrap2{
     margin-top: 20px;
@@ -113,7 +117,7 @@ li, ul, ol{
 }
 .everyLife-content-box{
     /* 수정 */
-    width: 230px;
+    width: 240px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
@@ -129,7 +133,7 @@ li, ul, ol{
     /* filter: brightness(0.9); */
     height: 240px;
     border-radius: 6px;
-    box-shadow: 2px 2px 5px 1px rgba(42, 42, 42, 0.152);
+    box-shadow: 2px 2px 5px 1px rgb(115 115 115 / 15%);
     border: 0.5px solid #d5c8c414;;
     padding: 20px 20px 15px 20px;
     display: flex;
@@ -172,9 +176,9 @@ li, ul, ol{
     font-size: 11px;
 }
 .everyLife-content-detail{
-    height: 50%;
-    font-size: 12px;
-    line-height: 24px;
+    height: 45%;
+    font-size: 13px;
+    line-height: 26px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;

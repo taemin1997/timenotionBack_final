@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.geungeunhanjan.mapper.lifes.ReportMapper">
+
+<insert id="insertReport" parameterType="ReportVO">
+    <selectKey keyProperty="reportId" resultType="long" order="BEFORE">
+        SELECT SEQ_REPORT.NEXTVAL FROM DUAL
+    </selectKey>
+    INSERT INTO GGHJ_REPORT (REPORT_ID, REPORT_REASON, REPORT_CREATED_DATE, REPORT_COUNT, USER_ID, REPLY_ID, COMMENT_ID)
+    VALUES (#{reportId}, #{reportReason}, SYSDATE, #{reportCount}, #{userId}, #{replyId}, #{commentId})
+</insert>
+
+</mapper>

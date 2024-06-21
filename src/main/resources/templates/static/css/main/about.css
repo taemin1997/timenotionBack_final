@@ -1,0 +1,109 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+/* #cadb36  #594096 #1c191a*/
+body {
+  width: 100%;
+  height: 100%;
+  background-color: #fcfaf7; /* 다 해보고 지저분해보이면 뺄 예정 */
+}
+#wrapper {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+}
+header {
+  text-align: center; /* 내부 요소들을 가운데로 정렬 */
+  height: 140px;
+  width: 100%;
+  background-color: #e5f2f7;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+footer {
+  background-color: rgb(221, 222, 224);
+  width: 100%;
+  height: 335px;
+}
+.container {
+  max-width: 1000px;
+  width: 1000px;
+  min-width: 1000px;
+  background-color: #fcfaf7; /* 다 해보고 지저분해보이면 뺄 예정 */
+  box-sizing: border-box;
+  padding: 40px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wrapper-img {
+  position: relative;
+}
+
+.text1 {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: 17px;
+  color: #097bcb;
+}
+.text2 {
+  position: absolute;
+  top: 1040px;
+  left: 280px;
+  font-weight: bold;
+}
+.text2 span{
+  color: #097bcb;
+}
+
+.text2-2{
+  position: absolute;
+  top: 1820px;
+  left: 375px;
+  font-weight: bold;
+}
+.text2-2 span{
+  color: #097bcb;
+}
+
+.text3 {
+  position: absolute;
+  bottom: 200px;
+  left: 300px;
+  width: 300px;
+  height: 60px;
+  background-color: rgb(13, 179, 191);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.text3:hover{
+  background-color: rgb(112, 228, 254);
+}
+.text3 button{
+  background-color: transparent;
+  font-weight: bold;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}

@@ -124,13 +124,13 @@ main {
   box-shadow: 0px 2px 4px 1px rgb(194, 193, 193);
 }
 .top-calender{
-    background-color: white;
-    width: 410px;
-    height: 100%;
-  
-    border-radius: 6px;
+  background-color: white;
+  width: 410px;
+  height: 100%;
 
-    box-shadow: 0px 2px 4px 1px rgb(194, 193, 193);
+  border-radius: 6px;
+
+  box-shadow: 0px 2px 4px 1px rgb(194, 193, 193);
 }
 .top-calender{
   display: flex;
@@ -146,13 +146,13 @@ main {
   margin-bottom: 20px;
 
   box-shadow: 0px 2px 4px 1px rgb(194, 193, 193);
-  
+
 }
 .red-line-container{
   width: 930px;
   height: 30px;
   background-color: #CE5858;
-  
+
   box-shadow: 0px 2px 4px 1px rgb(194, 193, 193);
 }
 .bottom-container p{
@@ -228,7 +228,7 @@ main {
 .admin_login_status-img img{
   height: 40px;
   width: 40px;
-  
+
   margin: 5px 0 0 5px;
   border-radius: 6px;
 }
@@ -296,7 +296,7 @@ main {
 .calender-p-box{
   height: 190px;
   width: 220px;
-  
+
   margin: 50px 0 0 70px;
 }
 .calender-year{
@@ -351,7 +351,7 @@ main {
 .dashboard-number{
   font-size: 14px;
   font-weight: bolder;
-  
+
   margin-bottom: 25px;
 }
 .number-count{
@@ -362,6 +362,6 @@ main {
 }
 .dashboard-hr{
   border: 1.5px solid red;
- 
+
 }
 /* 아래 대시보드 */

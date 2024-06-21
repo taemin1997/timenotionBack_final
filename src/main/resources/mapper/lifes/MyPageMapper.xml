@@ -56,7 +56,10 @@
         WHERE L.USER_ID = #{userId}
     </select>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f91050bd1b6d5b155d453031ce27bf75aca3d7d8
     <!--   좋아요 기능 추가 2024-06-17  -->
 
     <!-- 0.  좋아요 다음 시퀀스    -->
@@ -80,7 +83,10 @@
     </delete>
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f91050bd1b6d5b155d453031ce27bf75aca3d7d8
     <!--2. 내가 쓴 댓글 목록 페이징 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  -->
     <select id="selectPageMyComment" resultType="CommentDTO">
         <![CDATA[
@@ -172,7 +178,7 @@
     <update id="updateTwo">
         UPDATE GGHJ_UNI
         SET UNI_ABOUT = #{uniAbout},
-            BIRTH     = SYSDATE,
+            BIRTH     = #{userBirth},
             NICKNAME  = #{nickname}
         WHERE UNI_ID = #{userId}
     </update>
