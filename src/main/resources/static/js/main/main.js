@@ -33,21 +33,39 @@ function moveFirst(){
 }
 
 
-//키워드 클릭시 구현중입니다 alert창
-document.addEventListener("DOMContentLoaded", function() {
-  // keyword 클래스를 가진 모든 요소 선택
-  const keywords = document.getElementsByClassName("keyword");
-  const keywords2 = document.getElementsByClassName("keyword2");
+// //키워드 클릭시 구현중입니다 alert창
+// document.addEventListener("DOMContentLoaded", function() {
+//   // keyword 클래스를 가진 모든 요소 선택
+//   const keywords = document.getElementsByClassName("keyword");
+//   const keywords2 = document.getElementsByClassName("keyword2");
+//
+//   // 모든 요소에 대해 클릭 이벤트 리스너 추가
+//   for (let i = 0; i < keywords.length; i++) {
+//     keywords[i].addEventListener('click', () => {
+//       alert("서비스 구현중입니다.");
+//     });
+//   }
+//   for (let i = 0; i < keywords2.length; i++) {
+//     keywords2[i].addEventListener('click', () => {
+//       alert("서비스 구현중입니다.");
+//     });
+//   }
+// });
 
-  // 모든 요소에 대해 클릭 이벤트 리스너 추가
+  const keywords = document.getElementsByClassName("keyword");
   for (let i = 0; i < keywords.length; i++) {
     keywords[i].addEventListener('click', () => {
-      alert("서비스 구현중입니다.");
+      let keyword = keywords[i].innerText;
+      location.href = '/everyLife?keyword=' + encodeURIComponent(keyword);
     });
   }
+
+
+  const keywords2 = document.getElementsByClassName("keyword2");
+
   for (let i = 0; i < keywords2.length; i++) {
     keywords2[i].addEventListener('click', () => {
-      alert("서비스 구현중입니다.");
+      let keyword = keywords2[i].innerText;
+      location.href = '/everyLife?keyword=' + encodeURIComponent(keyword);
     });
   }
-});
