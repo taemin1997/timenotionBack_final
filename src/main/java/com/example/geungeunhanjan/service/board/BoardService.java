@@ -95,6 +95,10 @@ public interface BoardService {
     List<BoardMainDTO> mainRightBannerSelect();
 
     String boardUserName(Long boardId);
+
+
+    // 모두의 일대기 프사 불러오기 ------ 담.
+    List<BoardDTO> getProfile(Long userId);
 }
 
 
