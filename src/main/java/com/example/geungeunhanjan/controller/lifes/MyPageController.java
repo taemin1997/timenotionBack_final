@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -341,6 +342,9 @@ public class MyPageController {
                                               @RequestParam(value = "profileImage", required = false) MultipartFile profileImage,
                                               @RequestParam(value = "backgroundImage", required = false) MultipartFile backgroundImage,
                                               @SessionAttribute("uniId") Long uniId,
+                                              @RequestParam("year") String year,
+                                              @RequestParam("month") String month,
+                                              @RequestParam("day") String day,
                                               LifeUserInfoDTO infoDTO, LifeUserUpdateDTO lifeUserUpdateDTO) {
         // 로그인 여부 확인
         if (uniId == null) {
@@ -359,12 +363,18 @@ public class MyPageController {
         if(infoDTO.getUniAbout() == null || lifeUserUpdateDTO.getUniAbout().isEmpty()){
             lifeUserUpdateDTO.setUniAbout(infoDTO.getUniAbout());
         }
-        if(infoDTO.getUserBirth() == null){
-            lifeUserUpdateDTO.setUserBirth(infoDTO.getUserBirth());
-        }
-        if(infoDTO.getUniAbout() == null || lifeUserUpdateDTO.getUniAbout().isEmpty()){
-            lifeUserUpdateDTO.setUniAbout(infoDTO.getUniAbout());
-        }
+        String formattedDate = String.format("%s-%02d-%02d", year, Integer.parseInt(month), Integer.parseInt(day));
+        LocalDate birthDate = LocalDate.parse(formattedDate);
+        infoDTO.setUserBirth(birthDate.atStartOfDay());
+        lifeUserUpdateDTO.setUserBirth(LocalDate.from(infoDTO.getUserBirth()));
+        System.out.println("birthDate = " + birthDate);
+        System.out.println(infoDTO);
+        System.out.println(lifeUserUpdateDTO);
+//        if(infoDTO.getUserBirth() == null){
+//
+//        }
+
+
 
         // files가 null인 경우 빈 리스트로 초기화
 /*
@@ -384,6 +394,7 @@ public class MyPageController {
 
         try {
             myPageService.totalUpdateInfo(lifeUserUpdateDTO);
+            System.out.println(lifeUserUpdateDTO);
         } catch (Exception e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("errorMessage", "회원 정보 업데이트 실패");
