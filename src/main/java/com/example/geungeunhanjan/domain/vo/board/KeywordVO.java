@@ -12,4 +12,3 @@ public class KeywordVO {
     private String keywordContent;
     private LocalDateTime keywordTimeStamp;
 }
-

@@ -33,7 +33,7 @@ button[type="button"]:hover{
 }
 .notification-title button{
     margin-right: 15px;
-    color: #95b95c;
+    color: rgb(72, 100, 226);
 }
 .inquiry-title{
     opacity: 0.5;

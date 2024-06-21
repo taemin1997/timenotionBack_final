@@ -1,20 +1,18 @@
 input[type="text"]{
-    font-family: pretendard;
+    font-family: 'Noto Sans KR';
 }
 textarea{
-    font-family: pretendard;
+    font-family: 'Noto Sans KR';
 }
 select{
-    font-family: pretendard;
+    font-family: 'Noto Sans KR';
 }
 button[type="button"]{
     border: none;
-    background-color: transparent;
-    font-size: 13px;
+    background-color: #fcfaf7;
 }
 button[type="button"]:hover{
     cursor: pointer;
-
 }
 .inquiry-container{
     margin: 0 auto;
@@ -45,20 +43,20 @@ button[type="button"]:hover{
     font-size: 13px;
     /* border: 1px solid black; */
     width: 130%;
+    height: 40px;
     padding: 10px;
     border-radius: 6px;
-    background-color:#bdda91;
-    color: #3e3e3e;
+    background-color: rgba(0, 0, 0, 0.1);
     border: none;
     position: relative;
-    bottom: 22px;
+    bottom: 20px;
     right: 20px;
 }
 
 .inquiry-modal{
     box-shadow: 1px 1px 10px 2px gray;
     width: 680px;
-    height: 370px;
+    height: 360px;
     /* display: none; */
     /* border: 1px solid black; */
     position: absolute;
@@ -74,9 +72,10 @@ button[type="button"]:hover{
 .modal-main-img{
     position: absolute;
     top: 20px;
-    left: 55px;
+    left: 30px;
 }
 .modal-main-img img{
+    width: 120px;
     height: 60px;
 }
 .inquiry-modal-nickname{
@@ -84,11 +83,9 @@ button[type="button"]:hover{
     float: left;
     width: 58%;
     margin-bottom: 10px;
-    margin-top: 35px;
+    margin-top: 10px;
     font-size: 12px;
-    margin-left: 58px;
-    font-family: pretendard;
-    font-weight: bold;
+    margin-left: 20px;
 }
 .inquiry-modal-title input[type="text"]{
     width: 180px;
@@ -104,7 +101,16 @@ button[type="button"]:hover{
     float: right;
     /* border: 1px solid black; */
 }
-
+.inquiry-modal-content textarea{
+    padding-left: 10px;
+    padding-top: 2px;
+    background-color: #f5f7ff;
+    border: none;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+    width: 80%;
+}
 .inquiry-modal-title select{
     height: 35px;
     padding-left: 10px;
@@ -117,16 +123,16 @@ button[type="button"]:hover{
     font-weight: 600;
 }
 .inquiry-modal-btns{
-    margin: 15px auto 0 271px;
-    width: 130px;
+    margin: 30px auto 0 auto;
+    width: 160px;
     /* border: 1px solid black; */
     display: flex;
     justify-content: space-around ;
 }
 .inquiry-modal-btns button[type="button"]{
-    font-size: 13px;
+    font-size: 15px;
     text-align: center;
-    background-color: rgb(231 231 231);
+    background-color: rgba(0, 0, 0, 0.1 );
     /* border: 1px solid black; */
     border-radius: 6px;
     height: 25px;
@@ -134,10 +140,9 @@ button[type="button"]:hover{
     font-weight: 600;
 }
 .inquiry-modal-btns button[type="submit"]{
-    font-size: 13px;
+    font-size: 15px;
     border: none;
-    background-color: #858880;
-    color: white;
+    background-color: rgba(0, 0, 0, 0.1);
     /* border: 1px solid black; */
     border-radius: 6px;
     height: 25px;
@@ -156,37 +161,7 @@ button[type="button"]:hover{
     margin-top: 30px;
     display: flex;
     justify-content: center;
-    width: 100%;
-    margin-left: 48px;
 }
-
-.inquiry-modal-content textarea{
-    padding-left: 10px;
-    padding-top: 2px;
-    background-color: #f5f7ff;
-    border: none;
-    border-radius: 6px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    font-weight: 600;
-    width: 90%;
-}
-
-/*모달 정렬 */
-.inquiry-modal-title{
-    margin-left: 50px;
-    display: flex;
-    justify-content: space-between;
-    width: 92%;
-}
-.inquiry-modal-form{
-    width: 630px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-
 .inquiry-selector button{
     height: 100%;
     font-size: 25px;
@@ -194,7 +169,7 @@ button[type="button"]:hover{
 }
 .inquiry-title button{
     margin-left: 15px;
-    color: #95b95c;
+    color: rgb(72, 100, 226);
 }
 .notification-title{
     opacity: 0.5;
@@ -213,12 +188,16 @@ button[type="button"]:hover{
     justify-content: space-between;
     height: 64px;
     line-height: 64px;
-    background-color: transparent;
+    background-color: white;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 .contents-title button[type="button"]{
+    /* border: 1px solid black; */
+    background-color: white;
+    /* color: black; */
     font-size: 16px;
-    font-family: pretendard;
+    /* font-weight: 550; */
+    font-family: 'Noto Sans KR';
 }
 .contents-form{
     height: 48px;
@@ -343,7 +322,8 @@ button[type="button"]:hover{
     line-height: 20px;
 }
 .inquiry-modal-answer-content{
-    margin-top: 50px;
+    margin-top: 20px;
+    background-color: #f5f7ff;
     width: 100%;
     height: 120%;
 }
@@ -358,8 +338,8 @@ button[type="button"]:hover{
     margin-bottom: 20px;
 }
 .inquiry-modal-answer-btns{
-    margin: 200px auto 0 auto;
-    width: 140px;
+    margin: 80px auto 0 auto;
+    width: 160px;
     /* border: 1px solid black; */
     display: flex;
     justify-content: space-around ;

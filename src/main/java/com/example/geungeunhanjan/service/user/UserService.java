@@ -1,9 +1,7 @@
 package com.example.geungeunhanjan.service.user;
 
-import com.example.geungeunhanjan.domain.dto.user.UserCertiDTO;
 import com.example.geungeunhanjan.domain.dto.user.UserSessionDTO;
 import com.example.geungeunhanjan.domain.vo.user.UniVO;
-import com.example.geungeunhanjan.domain.vo.user.UserCertiVO;
 import com.example.geungeunhanjan.domain.vo.user.UserVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
@@ -15,7 +13,6 @@ public interface UserService {
 
     // main 4칸짜리 게시물 닉네임알아내기
     String mainBoardByViewsNickname(long boardId);
-
     // 일반 로그인
     Long userLogin(@Param("userEmail") String userEmail, @Param("userPassword") String userPassword);
 
@@ -43,24 +40,4 @@ public interface UserService {
     UserSessionDTO uniUserIdNickname(Long uniId);
 
     UserSessionDTO uniKakaoIdNickName(String providerId);
-
-    //문자 인증
-    void insertCerti(UserCertiVO userCertiVO);
-
-    void updateCerti(String certiNumber, String userEmail);
-
-    UserCertiDTO selectEmail(String userEmail);
-
-    UserCertiVO selectCerti(String userEmail);
-
-    void updatePassword(String userPassword, String userEmail);
-
-    String emailDuplicateCheck(String userEmail);
-
-    String nicknameDuplicateCheck(String userNickname);
-
-    String findKakaoBirth(Long uniId);
-
-    void insertOrUpdateCerti(String userEmail, String phoneNum, String certiNumber);
-
 }
