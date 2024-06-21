@@ -1,10 +1,11 @@
 package com.example.geungeunhanjan.mapper.lifes;
 
-import com.example.geungeunhanjan.domain.dto.board.*;
-import com.example.geungeunhanjan.domain.dto.file.FollowHeartDTO;
+import com.example.geungeunhanjan.domain.dto.board.CommentDTO;
+import com.example.geungeunhanjan.domain.dto.board.LifeUserInfoDTO;
+import com.example.geungeunhanjan.domain.dto.board.LifeUserUpdateDTO;
+import com.example.geungeunhanjan.domain.dto.board.LikeDTO;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
-import com.example.geungeunhanjan.domain.vo.board.LikeVO;
 import com.example.geungeunhanjan.domain.vo.file.UserFileVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,19 +16,6 @@ import java.util.List;
 public interface MyPageMapper {
     // 1. 좋아요 목록 select
     List<LikeDTO>selectMyLike(Long userId);
-
-    //좋아요 기능 추가 0617
-    //좋아요의 다음 시퀀스
-    Long getLIkeSeqNext();
-    //좋아요 상태 확인 select
-    int selectLikeStatus(LikeHeartDTO likeHeartDTO);
-    //해당 게시글 좋아요 클릭시 ; 좋아요 눌르기
-    void insertLike(LikeVO likeVO);
-    //해당 게시글 좋아요 클릭시 ; 좋아요 취소하기
-    void deleteLike(LikeHeartDTO likeHeartDTO);
-
-
-
     // 페이징
     List<LikeDTO> selectPageMyLike(@Param("criteria") Criteria criteria, @Param("userId") Long userId);
     int myLikeTotal(Long userId);

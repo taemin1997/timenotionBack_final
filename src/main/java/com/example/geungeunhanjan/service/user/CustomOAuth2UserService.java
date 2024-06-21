@@ -55,7 +55,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         user.setProvider(userRequest.getClientRegistration().getRegistrationId());
         // OAuth2 제공자의 이름 (예: "google")
 
-
         // DB에 사용자 정보 저장 또는 업데이트
         KakaoVO existingUser = kakaoUserMapper.findByProviderId(providerId);
         if (existingUser == null) {
