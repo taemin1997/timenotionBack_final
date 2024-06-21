@@ -5,17 +5,94 @@
 
 // ---- 좋아요 하트 구현 ---- //
 
+// 클릭한 이미지의 부모 요소인 p 태그를 선택합니다.
 const heartImage = document.getElementById('heartImage');
 
-heartImage.addEventListener('click', changeHeartColor);
+// 클릭한 이미지의 부모 요소인 p 태그를 선택합니다.
+const getLikeUser = document.getElementById("get-user-like-id").textContent.trim();
+console.log("getLikeUser: ", getLikeUser);
 
-function changeHeartColor() {
+let getLikeStatusBoolean = parseInt(document.getElementById("get-user-like-status").textContent.trim());
+console.log("getLikeStatusBoolean:", getLikeStatusBoolean);
+
+const getboardId = document.getElementById('boardId').value;
+console.log('boardId:', getboardId);
+
+// heart-image를 클릭했을 때 실행할 함수를 정의합니다.
+heartImage.addEventListener("click", async function(event) {
+  event.preventDefault(); // 기본 클릭 이벤트 방지
+
   if (heartImage.classList.contains('red')) {
     heartImage.classList.remove('red');
+    getLikeStatusBoolean = 0; // 좋아요 취소 상태로 변경
+    alert("확인용 : 좋아요를 취소했습니다.");
   } else {
     heartImage.classList.add('red');
+    getLikeStatusBoolean = 1; // 좋아요 상태로 변경
+    alert("확인용 : 해당 게시글을 좋아합니다.");
   }
-}
+
+  try {
+    const response = await fetch(`/myLife/detail-my?boardId=${getboardId}`, { // boardId를 쿼리 파라미터로 전송
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        getLikeStatusBoolean: getLikeStatusBoolean,
+        boardId : getboardId
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error("getLikeStatusBoolean 전송 실패");
+    }
+
+    // 페이지 리로드 대신 좋아요 상태에 따라 UI 업데이트를 원한다면 여기에서 처리
+  } catch (error) {
+    console.error(error.message);
+  }
+
+
+  // 페이지를 새로고침합니다.
+  location.reload();
+});
+
+
+// 페이지 로딩시 로컬 스토리지에서 팔로우 상태를 가져와서 이미지 색상 설정
+window.addEventListener("DOMContentLoaded", function (){
+  if(getLikeStatusBoolean === 1){
+    heartImage.classList.add('red');
+  } else {
+    heartImage.classList.remove('red');
+  }
+
+
+});
+
+
+
+
+
+//페이지 로딩시 로컬 스토리지에서 팔로우 상태를 가져와서 이미지 색상 설정
+window.addEventListener("DOMContentLoaded", function (){
+  if(getLikeStatusBoolean == 1){
+    heartImage.classList.add('red');
+  }else{
+    heartImage.classList.remove('red');
+  }
+
+});
+
+
+
+
+
+
+
+
+
+
 
 // ---- 댓글 구현 ---- //
 

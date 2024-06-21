@@ -1,11 +1,9 @@
 package com.example.geungeunhanjan.service;
 
-import com.example.geungeunhanjan.domain.dto.board.CommentDTO;
-import com.example.geungeunhanjan.domain.dto.board.LifeUserInfoDTO;
-import com.example.geungeunhanjan.domain.dto.board.LifeUserUpdateDTO;
-import com.example.geungeunhanjan.domain.dto.board.LikeDTO;
+import com.example.geungeunhanjan.domain.dto.board.*;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
+import com.example.geungeunhanjan.domain.vo.board.LikeVO;
 import com.example.geungeunhanjan.domain.vo.board.ReportVO;
 import com.example.geungeunhanjan.domain.vo.file.UserFileVO;
 import com.example.geungeunhanjan.domain.vo.user.UserVO;
@@ -38,6 +36,28 @@ public class MyPageServiceImpl implements MyPageService {
     @Override
     public List<LikeDTO> selectMyLike(Long userId) {
         return myPageMapper.selectMyLike(userId);
+    }
+
+    //좋아요 기능 추가하기 0617
+    //1. 좋아요 다음 시퀀스
+    @Override
+    public Long getLIkeSeqNext() {
+        return myPageMapper.getLIkeSeqNext();
+    }
+    //2.좋아요 상태 확인하기
+    @Override
+    public int selectLikeStatus(LikeHeartDTO likeHeartDTO) {
+        return myPageMapper.selectLikeStatus(likeHeartDTO);
+    }
+    //3.좋아요 누르기
+    @Override
+    public void insertLike(LikeVO likeVO) {
+        myPageMapper.insertLike(likeVO);
+    }
+    //4.좋아요 취소하기
+    @Override
+    public void deleteLike(LikeHeartDTO likeHeartDTO) {
+        myPageMapper.deleteLike(likeHeartDTO);
     }
 
     //페이징
