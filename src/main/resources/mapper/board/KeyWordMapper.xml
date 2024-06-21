@@ -7,17 +7,14 @@
             select seq_keyword.nextval from dual
         </selectKey>
         insert into gghj_keyword(keyword_id, keyword_content, keyword_time_stamp)
-        values(#{keywordId}, #{keywordContent}, ${keywordTimeStamp})
+        values(#{keywordId}, #{keywordContent}, SYSDATE)
     </insert>
 
-    <select id="keywordCountSelect" resultType="KeywordDTO">
-        SELECT keyword_content, keyword_count
-        FROM (
-                 SELECT keyword_content, COUNT(*) AS keyword_count
-                 FROM gghj_keyword
-                 GROUP BY keyword_content
-             ) subquery
-        ORDER BY keyword_count DESC
+
+    <select id="selectKeywordContent" resultType="KeywordVO" parameterType="string">
+        SELECT keyword_content
+        FROM GGHJ_KEYWORD
+        WHERE keyword_content = #{keywordContent}
     </select>
 
     <update id="increamentSearchCount" parameterType="string">
