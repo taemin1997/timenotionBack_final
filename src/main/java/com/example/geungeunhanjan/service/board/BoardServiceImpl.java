@@ -13,7 +13,6 @@ import com.example.geungeunhanjan.mapper.board.BoardMapper;
 import com.example.geungeunhanjan.mapper.lifes.MyPageMapper;
 import com.example.geungeunhanjan.service.MyPageService;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,7 +54,6 @@ public class BoardServiceImpl implements BoardService {
             if (file.isEmpty()) {
                 break;
             }
-
             BoardFileVO boardFileVO = saveFile(file);
             boardFileVO.setBoardId(boardId);
             boardFileMapper.insertFile(boardFileVO);
