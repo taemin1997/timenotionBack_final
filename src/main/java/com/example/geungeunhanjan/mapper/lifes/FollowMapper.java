@@ -23,8 +23,8 @@ public interface FollowMapper {
     // 팔로우 리스트 클릭시 상세 남의 페이지 조회하기
     FollowDTO selectFollowDetail(Long userId);
 
-////    팔로잉 리스트 조회하기
-//    List<FollowDTO> selectFollowing();
+//    팔로잉 리스트 조회하기
+    List<FollowDTO> selectFollowing(Long uniId);
 
     //상세페이지 about 글 불러오기
     UniVO selectFollowAbout(Long userId);
@@ -38,6 +38,7 @@ public interface FollowMapper {
     //팔로우 리스트 유저 클릭시 ; 언팔로우 하기
     void deleteFollow(FollowHeartDTO followHeartDTO);
 
+    //팔로우 상태 확인
     int selectFollowStatus(FollowHeartDTO followHeartDTO);
 
     //페이징 처리

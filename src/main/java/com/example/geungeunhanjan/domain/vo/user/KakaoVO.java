@@ -20,4 +20,5 @@ public class KakaoVO {
     private String providerId; // 제공자의 사용자 고유id
     private LocalDateTime createAt; //생성 시간
     private LocalDateTime updateAt; //수정 시간
+    private LocalDateTime kakaoBirth;
 }

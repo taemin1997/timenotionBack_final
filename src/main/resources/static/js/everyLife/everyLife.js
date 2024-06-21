@@ -86,7 +86,7 @@ $(document).ready(function() {
         data.forEach(function(board) {
             var contentHtml = `
                 <div class="everyLife-content-box">
-                    <a href="/myLife/detail-my(boardId=${board.boardId})">
+                    <a href="/myLife/detail-my?boardId=${board.boardId}">
                         <div class="everyLife-contents">
                             <div class="everyLife-content-title">${board.boardTitle}</div>
                             <div class="everyLife-content-date">작성일: ${formatDate(board.boardCreatedDate)}</div>
@@ -113,6 +113,78 @@ $(document).ready(function() {
         return date.toLocaleDateString('ko-KR', options);
     }
 });
+
+// -------------------------------------------------
+function getQueryParam(param) {
+    let urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    let keyword = getQueryParam('keyword');
+    searchContent(keyword);
+
+    function searchContent(keyword) {
+        $.ajax({
+            url: `/everyLife/search`,
+            type: 'GET',
+            data: { keyword: keyword },
+            success: function(data) {
+                renderContent(data);
+            },
+            error: function(error) {
+                console.error('Error fetching search results:', error);
+            }
+        });
+
+        function renderContent(data) {
+            var contentWrap = $(".everyLife-content-wrap");
+            contentWrap.empty(); // 기존 컨텐츠를 지움
+
+            if (data.length === 0) {
+                contentWrap.append('<div class="no-results">검색 결과가 없습니다.</div>');
+                return;
+            }
+
+            data.forEach(function(board) {
+                var contentHtml = `
+                <div class="everyLife-content-box">
+                    <a href="/myLife/detail-my?boardId=${board.boardId}">
+                        <div class="everyLife-contents">
+                            <div class="everyLife-content-title">${board.boardTitle}</div>
+                            <div class="everyLife-content-date">작성일: ${formatDate(board.boardCreatedDate)}</div>
+                            <div class="everyLife-content-views">조회수: ${board.boardViewCount}</div>
+                            <div class="everyLife-content-writer">
+                                <span class="everyLife-writer-profile">
+                                    <img src="./../../img/everyLife/everyLife_profile.png" alt="">
+                                </span>
+                                <span class="everyLife-writer-nickname">${board.nickname}</span>
+                            </div>
+                            <div class="everyLife-content-detail">${board.boardContent}</div>
+                        </div>
+                    </a>
+                </div>
+            `;
+                contentWrap.append(contentHtml);
+            });
+        }
+
+        // 날짜 포맷팅 함수 =====> 이 함수가 있어야 날짜가 똑바로 뜸 ===> js91번쨰줄
+        function formatDate(dateString) {
+            var date = new Date(dateString);
+            var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+            return date.toLocaleDateString('ko-KR', options);
+        }
+    }
+});
+
+
+
+
+
+
+
+
 
 //
 // // 조회순 정렬을 위한 함수
@@ -145,3 +217,48 @@ $(document).ready(function() {
 //     // select 요소의 변경을 감지하여 함수 호출
 //     document.querySelector('.box-select').addEventListener('change', sortByViews);
 // });
+
+
+/* ---------- 프로필사진 파일 처리 ---------------------------------------------------- */
+/*
+        1. 파일 경로 조합
+        2. 조합한 경로 이미지태그에 넣고
+        3. innerHTML로 안에 넣어주기
+*/
+
+/*
+        1. 유저 아이디 가져오기
+        2. 이미지 태그 넣을 부모태그 가져오기
+*/
+
+document.querySelectorAll('.everyLife-content-box').forEach(box => {
+    let uniId = box.querySelector('#uniId').value; // ★ 각 박스의 숨겨진 입력 필드에서 uniId 값을 가져옵니다
+    console.log(uniId);
+    fetchFiles(uniId, box.querySelector('.everyLife-writer-profile'));
+});
+
+function fetchFiles(uniId, profileBox) {
+    console.log("2222222" + uniId);
+    fetch(`/v1/everyLife/${uniId}/files`, { method: 'GET' })
+        .then(res => res.json())
+        .then(data => {
+            let profileTags = '';
+
+            data.forEach(item => {
+                let profileFileName = encodeURIComponent(item.userFileProfileSource + '/' + item.userFileProfileUuid + '_' + item.userFileProfileName);
+                console.log("파일 이름 : " + profileFileName)
+                if (item.userFileProfileSource) {
+                    profileTags = `
+                        <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진">
+                    `;
+                } else {
+                    profileTags = `
+                        <img src="/img/main/basic-profile.png" alt="기본 이미지">
+                    `;
+                }
+            });
+
+            profileBox.innerHTML = profileTags;
+        })
+        .catch(error => console.error('Error:', error));
+}

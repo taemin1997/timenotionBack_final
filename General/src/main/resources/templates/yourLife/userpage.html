@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>사용자의 일대기</title>
+  <link rel="stylesheet" th:href="@{/css/myLife/userpage.css}">
+  <link rel="stylesheet" th:href="@{/css/reset.css}">
+  <script defer th:src="@{/js/myLife/userpage.js}"></script>
+</head>
+
+<body>
+<!-- 헤더 -->
+<div th:replace="~{/fragment/header :: header}"></div>
+<!-- 헤더 끝 -->
+
+<main>
+  <div class="container">
+    <div class="first-container">
+      <div class="profile-background">
+        <div class="profile-background-dark"></div>
+        <!-- 배경 이미지 -->
+        <div class="profile-bg-img-box">
+          <img th:if="${follow != null && follow.userFileBackSource != null}" th:src="${follow.userFileBackSource}" alt="배경사진" class="img-back-img">
+          <img th:unless="${follow != null && follow.userFileBackSource != null}" src="/img/main/basic-background3.png" alt="기본 배경사진" class="img-back-img">
+        </div>
+        <div class="profile">
+          <!-- 프로필 이미지 -->
+          <div class="profile-img-box">
+            <img th:if="${follow != null && follow.userFileProfileSource != null}" th:src="${follow.userFileProfileSource}" alt="프로필사진" class="img-profile-img">
+            <img th:unless="${follow != null && follow.userFileProfileSource != null}" src="/img/main/basic-profile.png" alt="기본 프로필 사진" class="img-profile-img">
+          </div>
+          <div class="profile-detail">
+
+            <p style="display: none" id="get-user-id" th:text="${follow != null ? follow.followerId : ''}">ㄹㄹㄹ</p>
+            <p style="display: none" id="get-user-status" th:text="${followStatus}"></p>
+            <p id="profile-nickname" th:text="${follow != null ? follow.userNickname : ''}">장윤근</p>
+            <p>
+              <span class="follower-number" th:text="${follow != null ? follow.followingCount : '0'}">36</span>
+              <span class="follower">팔로워</span>
+            </p>
+            <p>
+              <span class="follower-number" th:text="${follow != null ? follow.followerCount : '0'}">128</span>
+
+              <span class="follower">팔로잉</span>
+            </p>
+            <p class="profile-heart">
+              <img src="/img/myLife/mdj-heart_negative.png" alt="하투" class="detail_page_heart" id="heart-image">
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="profile-text">
+        <div class="profile-introduce">
+          <p th:text="${about != null ? about.uniAbout : '-'}"></p>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <!-- 유아기 유년기 아동기 청소년기 성인 중년 노년 -->
+    <div class="third-container">
+      <div class="third-container-category">
+        <div class="infancy">
+          <a href="">유아기</a>
+        </div>
+        <div class="babyhood">
+          <a href="">유년기</a>
+        </div>
+        <div class="childhood">
+          <a href="">아동기</a>
+        </div>
+        <div class="adolescence">
+          <a href="">청소년기</a>
+        </div>
+        <div class="adult">
+          <a href="">성인</a>
+        </div>
+        <div class="middle-age">
+          <a href="">중년</a>
+        </div>
+        <div class="old-age">
+          <a href="">노년</a>
+        </div>
+      </div>
+    </div>
+    <div class="fourth-container">
+      <div class="list">
+        <div th:each="board : ${boards}" class="list-one">
+          <a th:href="@{/myLife/detail-my(boardId=${board.boardId})}">
+            <div class="list-one-detail">
+              <div class="title">
+                <h3 th:text="${board.boardTitle}"></h3>
+                <p th:text="|조회수 : ${board.boardViewCount}|"></p>
+              </div>
+              <div class="list-date">
+                <p th:text="|작성일 : ${#temporals.format(board.boardCreatedDate, 'yy년 M월 d일 ')}|"></p>
+              </div>
+              <div class="list-text">
+                <p th:text="${board.boardContent}"></p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="fifth-container">
+      <ul class="pagination">
+        <li><a href=""> &lt; </a></li>
+        <li><a href="">1</a></li>
+        <li><a href="">2</a></li>
+        <li><a href="">3</a></li>
+        <li><a href="">4</a></li>
+        <li><a href="">5</a></li>
+        <li><a href="">&gt;</a></li>
+      </ul>
+    </div>
+  </div>
+</main>
+<div th:replace="~{/fragment/footer::footer}"></div>
+</body>
+
+</html>
