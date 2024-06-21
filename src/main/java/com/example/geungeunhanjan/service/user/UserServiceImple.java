@@ -1,7 +1,9 @@
 package com.example.geungeunhanjan.service.user;
 
+import com.example.geungeunhanjan.domain.dto.user.UserCertiDTO;
 import com.example.geungeunhanjan.domain.dto.user.UserSessionDTO;
 import com.example.geungeunhanjan.domain.vo.user.UniVO;
+import com.example.geungeunhanjan.domain.vo.user.UserCertiVO;
 import com.example.geungeunhanjan.domain.vo.user.UserVO;
 import com.example.geungeunhanjan.mapper.board.BoardMapper;
 import com.example.geungeunhanjan.mapper.user.UserMapper;
@@ -85,6 +87,52 @@ public class UserServiceImple implements UserService{
     public UserSessionDTO uniKakaoIdNickName(String providerId) {
         return userMapper.uniKakaoIdNickName(providerId);
     }
+
+
+    //문자인증
+
+    @Override
+    public void insertCerti(UserCertiVO userCertiVO) {
+        userMapper.insertCerti(userCertiVO);
+    }
+
+    @Override
+    public void updateCerti(String certiNumber, String userEmail) {
+        userMapper.updateCerti(certiNumber, userEmail);
+    }
+
+    @Override
+    public UserCertiDTO selectEmail(String userEmail) {
+        return userMapper.selectEmail(userEmail);
+    }
+
+    @Override
+    public UserCertiVO selectCerti(String userEmail) {
+        return userMapper.selectCerti(userEmail);
+    }
+
+    @Override
+    public void updatePassword(String userPassword, String userEmail) {
+        userMapper.updatePassword(userPassword, userEmail);
+    }
+
+    @Override
+    public void insertOrUpdateCerti(String userEmail, String phoneNum, String certiNumber) {
+        UserCertiVO existCerti = selectCerti(userEmail);
+
+        if (existCerti == null){
+            UserCertiVO userCertiVO = new UserCertiVO();
+            userCertiVO.setUserEmail(userEmail);
+            userCertiVO.setUserPhone(phoneNum);
+            userCertiVO.setCertiNumber(certiNumber);
+
+            userMapper.insertCerti(userCertiVO);
+        } else{
+            userMapper.updateCerti(certiNumber, userEmail);
+        }
+    }
+
+
 }
 
 

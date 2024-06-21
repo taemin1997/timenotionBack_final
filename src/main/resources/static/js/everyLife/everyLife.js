@@ -114,6 +114,78 @@ $(document).ready(function() {
     }
 });
 
+// -------------------------------------------------
+function getQueryParam(param) {
+    let urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    let keyword = getQueryParam('keyword');
+    searchContent(keyword);
+
+    function searchContent(keyword) {
+        $.ajax({
+            url: `/everyLife/search`,
+            type: 'GET',
+            data: { keyword: keyword },
+            success: function(data) {
+                renderContent(data);
+            },
+            error: function(error) {
+                console.error('Error fetching search results:', error);
+            }
+        });
+
+        function renderContent(data) {
+            var contentWrap = $(".everyLife-content-wrap");
+            contentWrap.empty(); // 기존 컨텐츠를 지움
+
+            if (data.length === 0) {
+                contentWrap.append('<div class="no-results">검색 결과가 없습니다.</div>');
+                return;
+            }
+
+            data.forEach(function(board) {
+                var contentHtml = `
+                <div class="everyLife-content-box">
+                    <a href="/myLife/detail-my?boardId=${board.boardId}">
+                        <div class="everyLife-contents">
+                            <div class="everyLife-content-title">${board.boardTitle}</div>
+                            <div class="everyLife-content-date">작성일: ${formatDate(board.boardCreatedDate)}</div>
+                            <div class="everyLife-content-views">조회수: ${board.boardViewCount}</div>
+                            <div class="everyLife-content-writer">
+                                <span class="everyLife-writer-profile">
+                                    <img src="./../../img/everyLife/everyLife_profile.png" alt="">
+                                </span>
+                                <span class="everyLife-writer-nickname">${board.nickname}</span>
+                            </div>
+                            <div class="everyLife-content-detail">${board.boardContent}</div>
+                        </div>
+                    </a>
+                </div>
+            `;
+                contentWrap.append(contentHtml);
+            });
+        }
+
+        // 날짜 포맷팅 함수 =====> 이 함수가 있어야 날짜가 똑바로 뜸 ===> js91번쨰줄
+        function formatDate(dateString) {
+            var date = new Date(dateString);
+            var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+            return date.toLocaleDateString('ko-KR', options);
+        }
+    }
+});
+
+
+
+
+
+
+
+
+
 //
 // // 조회순 정렬을 위한 함수
 // function sortByViews() {
