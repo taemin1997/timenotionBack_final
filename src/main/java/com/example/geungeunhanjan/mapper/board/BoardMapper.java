@@ -87,8 +87,6 @@ public interface BoardMapper {
 
     String boardUserName(Long boardId);
 
-    List<BoardDTO> getProfile(Long userId);
-
 }
 
 

@@ -66,16 +66,8 @@ public class SecurityConfig {
             UserSessionDTO userSessionDTO = userService.uniKakaoIdNickName(((CustomOAuth2User)(authentication.getPrincipal())).getProviderId());
             session.setAttribute("uniId", userSessionDTO.getUniId());
             session.setAttribute("userNickname", userSessionDTO.getUserNickname());
-
-            String kakaoBirth = userService.findKakaoBirth(userSessionDTO.getUniId());
-
-            if (kakaoBirth == null) {
-                // 생년월일이 없는 경우, 정보 수정 페이지로 리다이렉트
-                response.sendRedirect("/myLife/mypageEditMemberInformation");
-            } else {
-                // 생년월일이 있는 경우, 메인 페이지로 리다이렉트
-                response.sendRedirect("/main");
-            }
+            System.out.println("userSessionDTO = " + userSessionDTO);
+            response.sendRedirect("/main");
         };
     }
 

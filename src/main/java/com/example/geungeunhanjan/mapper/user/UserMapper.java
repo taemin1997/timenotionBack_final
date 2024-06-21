@@ -1,9 +1,7 @@
 package com.example.geungeunhanjan.mapper.user;
 
-import com.example.geungeunhanjan.domain.dto.user.UserCertiDTO;
 import com.example.geungeunhanjan.domain.dto.user.UserSessionDTO;
 import com.example.geungeunhanjan.domain.vo.user.UniVO;
-import com.example.geungeunhanjan.domain.vo.user.UserCertiVO;
 import com.example.geungeunhanjan.domain.vo.user.UserVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -41,21 +39,4 @@ public interface UserMapper {
     UserSessionDTO uniUserIdNickname(Long uniId);
 
     UserSessionDTO uniKakaoIdNickName(String providerId);
-
-    // 문자 인증
-    void insertCerti(UserCertiVO userCertiVO);
-
-    void updateCerti(String certiNumber, String userEmail);
-
-    UserCertiDTO selectEmail(String userEmail);
-
-    UserCertiVO selectCerti(String userEmail);
-
-    String emailDuplicateCheck(String userEmail);
-
-    String nicknameDuplicateCheck(String userNickname);
-
-    String findKakaoBirth(Long uniId);
-
-    void updatePassword(String userPassword, String userEmail);
 }
