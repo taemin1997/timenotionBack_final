@@ -145,3 +145,48 @@ $(document).ready(function() {
 //     // select 요소의 변경을 감지하여 함수 호출
 //     document.querySelector('.box-select').addEventListener('change', sortByViews);
 // });
+
+
+/* ---------- 프로필사진 파일 처리 ---------------------------------------------------- */
+/*
+        1. 파일 경로 조합
+        2. 조합한 경로 이미지태그에 넣고
+        3. innerHTML로 안에 넣어주기
+*/
+
+/*
+        1. 유저 아이디 가져오기
+        2. 이미지 태그 넣을 부모태그 가져오기
+*/
+
+document.querySelectorAll('.everyLife-content-box').forEach(box => {
+    let uniId = box.querySelector('#uniId').value; // ★ 각 박스의 숨겨진 입력 필드에서 uniId 값을 가져옵니다
+    console.log(uniId);
+    fetchFiles(uniId, box.querySelector('.everyLife-writer-profile'));
+});
+
+function fetchFiles(uniId, profileBox) {
+    console.log("2222222" + uniId);
+    fetch(`/v1/everyLife/${uniId}/files`, { method: 'GET' })
+        .then(res => res.json())
+        .then(data => {
+            let profileTags = '';
+
+            data.forEach(item => {
+                let profileFileName = encodeURIComponent(item.userFileProfileSource + '/' + item.userFileProfileUuid + '_' + item.userFileProfileName);
+                console.log("파일 이름 : " + profileFileName)
+                if (item.userFileProfileSource) {
+                    profileTags = `
+                        <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진">
+                    `;
+                } else {
+                    profileTags = `
+                        <img src="/img/main/basic-profile.png" alt="기본 이미지">
+                    `;
+                }
+            });
+
+            profileBox.innerHTML = profileTags;
+        })
+        .catch(error => console.error('Error:', error));
+}

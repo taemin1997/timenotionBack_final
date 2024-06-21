@@ -504,5 +504,22 @@
     </select>
 
 
+<!-- 프사 가져오는 매퍼 - 윤 . 담 -->
+    <select id="getProfile" resultType="BoardDTO">
+        SELECT BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+               COALESCE(U.USER_NICKNAME, K.NAME) AS NICKNAME,
+               F.USER_FILE_PROFILE_NAME,
+               F.USER_FILE_PROFILE_SOURCE,
+               F.USER_FILE_PROFILE_UUID,
+               B.BOARD_ID,
+               B.USER_ID
+        FROM GGHJ_BOARD B
+                 JOIN GGHJ_UNI UNI ON B.USER_ID = UNI.UNI_ID
+                 LEFT JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID
+                 LEFT JOIN GGHJ_KAKAO K ON UNI.KAKAO_ID = K.KAKAO_ID
+                 LEFT JOIN GGHJ_USER_FILE F ON U.USER_ID = F.USER_ID
+        WHERE B.USER_ID = #{userId}
+        ORDER BY B.BOARD_CREATED_DATE DESC
+    </select>
 </mapper>
 
