@@ -43,13 +43,13 @@ public class YourLifeController {
         model.addAttribute("followers", followers);
         System.out.println(followers);
         //팔로잉 리스트 조회
-//        List<FollowDTO> followings = followService.selectFollowing();
-//        model.addAttribute("followings", followings);
-//        System.out.println(followings);
-//        System.out.println(model);
-        //팔로우의 일기수 조회
-//        List<FollowDTO> boards = followService.selectBoardCount(userId);
-//        model.addAttribute("boards", boards);
+        List<FollowDTO> followings = followService.selectFollowing(uniId);
+        model.addAttribute("followings", followings);
+        System.out.println(followings);
+        System.out.println(model);
+        //팔로우의 일기수 조회 - 삭제 할수도있음
+        List<FollowDTO> boards = followService.selectBoardCount(uniId);
+        model.addAttribute("boards", boards);
 
         //페이지 처리
 //        List<FollowDTO> followLists = followService.selectAllPageFollow((followCriteria));
