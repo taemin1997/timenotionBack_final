@@ -1,5 +1,8 @@
 
 /* 전체 컨테이너 설정 */
+*{
+    color: #251F1F;
+}
 .everyLife-container{
     margin: 0 auto;
     padding: 0 40px;
@@ -111,11 +114,10 @@ li, ul, ol{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content:space-between;
 }
 .everyLife-content-box{
     /* 수정 */
-    width: 230px;
+    width: 240px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
