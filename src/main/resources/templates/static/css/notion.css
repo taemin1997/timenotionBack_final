@@ -1,0 +1,58 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+/* #cadb36  #594096 #1c191a*/
+body {
+  width: 100%;
+  height: 100%;
+}
+#wrapper {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+}
+/*header {
+  text-align: center; !* 내부 요소들을 가운데로 정렬 *!
+  height: 140px;
+  width: 100%;
+  background-color: #e5f2f7;
+}*/
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+footer {
+  background-color: rgb(221, 222, 224);
+  width: 100%;
+  height: 335px;
+}
+
+/* -------------------------------------------------------------------------------------- */
+
+/* 노란 영역 부분 = 컨테이너  */
+
+
+
+.container {
+  max-width: 1000px;
+  width: 1000px;
+  background-color: #fcfaf7; /* 다 해보고 지저분해보이면 뺄 예정 */
+  box-sizing: border-box;
+  padding: 50px 20px;
+  min-width: 1000px;
+}
+
+.banner {
+  /* background-color: rgb(224, 224, 224); */
+  height: 339px;
+  border-radius: 6px;
+}
