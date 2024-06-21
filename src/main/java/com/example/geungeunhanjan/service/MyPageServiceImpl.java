@@ -1,11 +1,9 @@
 package com.example.geungeunhanjan.service;
 
-import com.example.geungeunhanjan.domain.dto.board.CommentDTO;
-import com.example.geungeunhanjan.domain.dto.board.LifeUserInfoDTO;
-import com.example.geungeunhanjan.domain.dto.board.LifeUserUpdateDTO;
-import com.example.geungeunhanjan.domain.dto.board.LikeDTO;
+import com.example.geungeunhanjan.domain.dto.board.*;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
+import com.example.geungeunhanjan.domain.vo.board.LikeVO;
 import com.example.geungeunhanjan.domain.vo.board.ReportVO;
 import com.example.geungeunhanjan.domain.vo.file.UserFileVO;
 import com.example.geungeunhanjan.domain.vo.user.UserVO;
@@ -38,6 +36,28 @@ public class MyPageServiceImpl implements MyPageService {
     @Override
     public List<LikeDTO> selectMyLike(Long userId) {
         return myPageMapper.selectMyLike(userId);
+    }
+
+    //좋아요 기능 추가하기 0617
+    //1. 좋아요 다음 시퀀스
+    @Override
+    public Long getLIkeSeqNext() {
+        return myPageMapper.getLIkeSeqNext();
+    }
+    //2.좋아요 상태 확인하기
+    @Override
+    public int selectLikeStatus(LikeHeartDTO likeHeartDTO) {
+        return myPageMapper.selectLikeStatus(likeHeartDTO);
+    }
+    //3.좋아요 누르기
+    @Override
+    public void insertLike(LikeVO likeVO) {
+        myPageMapper.insertLike(likeVO);
+    }
+    //4.좋아요 취소하기
+    @Override
+    public void deleteLike(LikeHeartDTO likeHeartDTO) {
+        myPageMapper.deleteLike(likeHeartDTO);
     }
 
     //페이징
@@ -79,33 +99,27 @@ public class MyPageServiceImpl implements MyPageService {
          *  유저 아이디 넣어줌
          *  파일 정보를 DB에 저장 */
 
-   /*     for (MultipartFile file : files) {
-            if (file.isEmpty()) {
-                break;
-            }*/
         // 기존 파일 삭제
         myPageMapper.deleteFile(userFileVO.getUserId());
 
+        // 프사
         if (profileImage != null && !profileImage.isEmpty()) {
-            UserFileVO profile = renameResourceFile(profileImage);
+            UserFileVO profile = renameResourceFile(profileImage); // ☆★☆★☆★ 프로필 이미지 파일 재설정 및 저장
             profile.setUserId(userFileVO.getUserId()); // 사용자 ID 설정
-            profile.setUserFileProfileName(profileImage.getOriginalFilename()); // 프로필 이미지 이름 설정
-            myPageMapper.insertFileById(profile);
+            userFileVO.setUserFileProfileName(profileImage.getOriginalFilename()); // ☆★☆★☆★ 프로필 이미지 이름 설정
+            userFileVO.setUserFileProfileSource(profile.getUserFileProfileSource()); // ☆★☆★☆★ 프로필 이미지 경로 설정
+            userFileVO.setUserFileProfileUuid(profile.getUserFileProfileUuid()); // ☆★☆★☆★ 프로필 이미지 UUID 설정
         }
 
         // 배경 이미지 처리
         if (backgroundImage != null && !backgroundImage.isEmpty()) {
-            UserFileVO back = renameResourceFile(backgroundImage);
+            UserFileVO back = renameResourceFile(backgroundImage); // ☆★☆★☆★ 배경 이미지 파일 재설정 및 저장
             back.setUserId(userFileVO.getUserId()); // 사용자 ID 설정
-            back.setUserFileBackName(backgroundImage.getOriginalFilename()); // 배경 이미지 이름 설정
-            myPageMapper.insertFileById(back);
+            userFileVO.setUserFileBackName(backgroundImage.getOriginalFilename()); // ☆★☆★☆★ 배경 이미지 이름 설정
+            userFileVO.setUserFileBackSource(back.getUserFileBackSource()); // ☆★☆★☆★ 배경 이미지 경로 설정
+            userFileVO.setUserFileBackUuid(back.getUserFileBackUuid()); // ☆★☆★☆★ 배경 이미지 UUID 설정
         }
-         /*  fileVO.setUserId(userVO.getUserId());
-            UserFileVO renameUserFileVO = renameResourceFile(file);
-            myPageMapper.insertFileById(renameUserFileVO);*/
-
-
-
+        myPageMapper.insertFileById(userFileVO); // 디비에 저장
     }
 
     private String getUploadPath() {
@@ -149,10 +163,10 @@ public class MyPageServiceImpl implements MyPageService {
 
         finalUserFileVO.setUserFileProfileUuid(uuid.toString());
         finalUserFileVO.setUserFileProfileName(originalFilename);
-        finalUserFileVO.setUserFileProfileSource(uploadPath.getPath()); // /yyyy/MM/dd 이걸 넣어줌
+        finalUserFileVO.setUserFileProfileSource(getUploadPath()); // /yyyy/MM/dd 이걸 넣어줌
         finalUserFileVO.setUserFileBackUuid(uuid.toString());
         finalUserFileVO.setUserFileBackName(originalFilename);
-        finalUserFileVO.setUserFileBackSource(uploadPath.getPath()); // /yyyy/MM/dd 이걸 넣어줌
+        finalUserFileVO.setUserFileBackSource(getUploadPath()); // /yyyy/MM/dd 이걸 넣어줌
 
         return finalUserFileVO;
 

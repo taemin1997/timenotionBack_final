@@ -9,10 +9,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 
@@ -46,6 +48,7 @@ public class UserController {
         userVO.setUserId(userMapper.getUserSeqNext());
         userVO.setUserName(request.getParameter("userName"));
         userVO.setUserPassword(request.getParameter("userPassword"));
+        userVO.setUserPhone(request.getParameter("userPhone"));
         userVO.setUserEmail(request.getParameter("userEmail"));
         userVO.setUserNickname(request.getParameter("userNickname"));
         userVO.setUserBirth(birthDate.atStartOfDay());
@@ -104,10 +107,45 @@ public class UserController {
         return "user/passwordFind";
     }
 
+
+    //인증페이지
+
     @GetMapping("/login/passwordFind/passwordFind2")
     public String findPassword2() {
         return "user/passwordFind2";
     }
+
+    @PostMapping("/login/passwordFind/passwordFind2")
+    public String findPassword2(@RequestParam("userEmail") String userEmail,
+                                @RequestParam("certiNumber") String certiNumber,
+                                RedirectAttributes redirectAttributes,
+                                Model model){
+        System.out.println(userEmail);
+        System.out.println(certiNumber);
+
+        if(userService.selectCerti(userEmail).getCertiNumber().equals(certiNumber)){
+            redirectAttributes.addAttribute("userEmail", userEmail);
+            return "redirect:/user/login/changePassword";
+        }
+        model.addAttribute("errorMessage", "인증번호가 틀렸습니다.");
+        return "user/passwordFind2";
+    }
+
+
+    //비밀번호 변경페이지
+
+    @GetMapping("/login/changePassword")
+    public String changePassword(@RequestParam("userEmail") String userEmail, Model model){
+        model.addAttribute("userEmail", userEmail);
+        return "user/changePassword";
+    }
+
+    @PostMapping("/login/changePassword")
+    public String changePassword(@RequestParam("userEmail") String userEmail, @RequestParam("userPassword") String userPassword){
+        userService.updatePassword(userPassword, userEmail);
+        return "redirect:/user/login";
+    }
+
 
 
 //    private final OAuth2AuthorizedClientService authorizedClientService;
@@ -142,6 +180,5 @@ public class UserController {
 //
 //        return "redirect:/main"; // 로그인 후 리디렉션할 경로
 //    }
-
 
 }

@@ -41,7 +41,33 @@ a{
   padding-left: 10px;
 }
 
-#name-inputinput::placeholder {
+#name-input::placeholder {
+  color: rgb(192, 190, 187);
+}
+
+
+/* 전화번호 */
+.phone{
+  margin-top: 35px
+}
+.phone>p {
+  font-weight: 500;
+  font-size: 16px;
+  color: rgb(73, 72, 71);
+}
+
+#phone-input{
+  border: 1px solid grey;
+  margin-top: 10px;
+  width: 96%;
+  height: 40px;
+  /* border: none; */
+  border-radius: 5px;
+  background-color: rgb(242, 242, 246);
+  padding-left: 10px;
+}
+
+#phone-input::placeholder{
   color: rgb(192, 190, 187);
 }
 

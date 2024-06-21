@@ -44,7 +44,7 @@ footer {
   max-width: 1000px;
   width: 1000px;
   background-color: #fcfaf7; /* 다 해보고 지저분해보이면 뺄 예정 */
-  /* height: 1200px; 임의로 준 것, 실제론 지우세요  */
+  height: 1200px;
 
   box-sizing: border-box;
   padding: 40px;
@@ -80,6 +80,7 @@ footer {
 .wrapper-follows {
   display: flex;
   justify-content: center;
+  gap: 20px;
 }
 
 .title {

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인</title>
+  <link rel="stylesheet" th:href="@{/css/user/login.css}">
+  <link rel="stylesheet" th:href="@{/css/reset.css}"/>
+  <script defer th:src="@{/js/user/login.js}"></script>
+</head>
+
+<body>
+ <!-- ===================header==================== -->
+ <div th:replace="~{/fragment/header::header}"></div>
+  <!-- ===================main==================== -->
+  <main>
+    <div class="top">
+      <h1>로그인</h1>
+    </div>
+    <!-- 로그인 제외하고 감싸기 -->
+    <form action="/user/login" method="post" class="form-yundam">
+    <div class="wrapper-yundam">
+      <!-- ======================id,pw============== -->
+      <div class="textId">
+        <p id="login-id-paragraph">아이디</p>
+          <input id="login-id-input" type="input" name="userEmail" placeholder="영문,숫자포함 8자 이상으로 입력해주세요">
+        <p id="login-id-result"></p>
+      </div>
+      <div>
+        <div class="textPassword">
+          <p id="login-password-paragraph">비밀번호</p>
+            <input id="login-password-input" type="password" name="userPassword" placeholder="영문,숫자포함 8자 이상으로 입력해주세요">
+          <p id="login-password-result"></p>
+        </div>
+      </div>
+      <!-- ============비밀번호 찾기============== -->
+<!--      <div class="password-find">-->
+<!--        <a th:href="@{/user/login/passwordFind}">비밀번호 찾기</a>-->
+<!--      </div>-->
+      <!-- =================버튼================= -->
+      <div class="login">
+
+        <button id="gomain" type="submit">로그인</button>
+
+      </div>
+      <div class="kakao-login">
+        <button type="button" onclick="location.href='/oauth2/authorization/kakao'">카카오 로그인</button>
+      </div>
+      <!-- ================회원가입 이동================ -->
+      <div class="move-join">
+        <span>아직 회원이 아니신가요?</span>
+        <a th:href="@{/user/join}">회원가입</a>
+      </div>
+    </div>
+    </form>
+  </main>
+
+</body>
+<!-- =====================footer======================== -->
+<div th:replace="~{/fragment/footer::footer}"></div>
+</html>

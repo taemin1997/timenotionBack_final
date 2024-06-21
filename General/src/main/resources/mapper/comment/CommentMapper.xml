@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.geungeunhanjan.mapper.comment.CommentMapper">
+    <insert id="insertComment" parameterType="CommentWriteDTO">
+        <selectKey keyProperty="commentId" resultType="Long" order="BEFORE">
+            SELECT SEQ_COMMENT.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO GGHJ_COMMENT (COMMENT_ID, COMMENT_CONTENT, COMMENT_CREATED_DATE, BOARD_ID, USER_ID)
+        VALUES (#{commentId}, #{commentContent}, SYSDATE, #{boardId}, #{userId})
+    </insert>
+
+    <select id="selectCommentList" parameterType="Long" resultType="CommentListDTO">
+        SELECT B.BOARD_ID, F.USER_FILE_ID, UN.UNI_ID AS USER_ID, C.COMMENT_ID,
+               COALESCE(K.NAME, U.USER_NICKNAME) AS NICKNAME,
+               C.COMMENT_CONTENT,
+               C.COMMENT_CREATED_DATE,
+               F.USER_FILE_PROFILE_NAME, F.USER_FILE_PROFILE_SOURCE, F.USER_FILE_PROFILE_UUID
+        FROM GGHJ_COMMENT C
+                 JOIN GGHJ_BOARD B ON C.BOARD_ID = B.BOARD_ID AND B.BOARD_ID = #{boardId}
+                 JOIN GGHJ_UNI UN ON C.USER_ID = UN.UNI_ID
+                 LEFT JOIN GGHJ_USER U ON UN.USER_ID = U.USER_ID
+                 LEFT JOIN GGHJ_KAKAO K ON UN.KAKAO_ID = K.KAKAO_ID
+                 LEFT JOIN GGHJ_USER_FILE F ON F.USER_ID = UN.UNI_ID
+        ORDER BY C.COMMENT_ID
+    </select>
+
+    <select id="selectCommentSlice" resultType="CommentListDTO">
+    <![CDATA[
+        SELECT BOARD_ID, USER_FILE_ID, USER_ID, COMMENT_ID, NICKNAME, COMMENT_CONTENT, COMMENT_CREATED_DATE,
+               USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID
+        FROM (
+                 SELECT ROWNUM AS RNUM, BOARD_ID, USER_FILE_ID, USER_ID, COMMENT_ID, NICKNAME, COMMENT_CONTENT, COMMENT_CREATED_DATE,
+                        USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID
+                 FROM (
+                          SELECT B.BOARD_ID, F.USER_FILE_ID, UN.UNI_ID AS USER_ID, C.COMMENT_ID,
+                                 COALESCE(K.NAME, U.USER_NICKNAME) AS NICKNAME,
+                                 C.COMMENT_CONTENT, C.COMMENT_CREATED_DATE,
+                                 F.USER_FILE_PROFILE_NAME, F.USER_FILE_PROFILE_SOURCE, F.USER_FILE_PROFILE_UUID
+                          FROM GGHJ_COMMENT C
+                                   JOIN GGHJ_BOARD B ON C.BOARD_ID = B.BOARD_ID AND B.BOARD_ID = #{boardId}
+                                   JOIN GGHJ_UNI UN ON C.USER_ID = UN.UNI_ID
+                                   LEFT JOIN GGHJ_USER U ON UN.USER_ID = U.USER_ID
+                                   LEFT JOIN GGHJ_KAKAO K ON UN.KAKAO_ID = K.KAKAO_ID
+                                   LEFT JOIN GGHJ_USER_FILE F ON F.USER_ID = UN.UNI_ID
+                          ORDER BY C.COMMENT_ID DESC
+                      ) WHERE ROWNUM <= #{criteria.page} * #{criteria.amount} + 1
+             ) WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+        ]]>
+</select>
+<!--댓글 삭제 -->
+    <delete id="deleteComment" parameterType="Long">
+        DELETE FROM GGHJ_COMMENT
+               WHERE COMMENT_ID = #{commentId}
+    </delete>
+
+</mapper>
