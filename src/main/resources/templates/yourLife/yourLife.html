@@ -2,11 +2,11 @@
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>너의일대기</title>
-    <link rel="stylesheet" th:href="@{/css/yourLife/yourLife.css}"/>
+    <link rel="stylesheet" th:href="@{/css/yourLife/yourLife.css}" />
     <link rel="stylesheet" th:href="@{/css/reset.css}"/>
 
 
@@ -30,34 +30,31 @@
                 <div class="wrapper-follows">
                     <!-- 2-1. 팔로워 followers ====================================-->
                     <div class="flwers-wrapper">
-                        <div class="title">팔로워</div>
+                        <div class="title">팔로우 목록</div>
 
 
                         <!--☆★☆★☆★☆★ 이 박스가 한 개 ☆★☆★☆★☆★-->
-                        <div class="flwers-box" th:each=" follow : ${followers}">
+                        <div class="flwers-box" th:each=" follow : ${followers}" >
                             <!-- 2-1-1. 왼쪽 -->
-                            <!-- 팔로워는 나를 누군가가 팔로우한 상태를 뜻한다 -->
+                            <!--                팔로워는 나를 누군가가 팔로우한 상태를 뜻한다 -->
                             <div class="flwers-left">
 
                                 <a th:href="@{/yourLife/userpage/{userId}(userId=${follow.followerId})}">
-                                    <div class="flwers-img-box">
-                                        <img th:src="${follow.userFileProfileSource}" alt=""/>
+                                    <div class="flwers-img-box" >
+                                        <img  th:src="${follow.userFileProfileSource}" alt="" />
 
 
                                     </div>
                                     <div class="flwers-nick-count-box">
                                         <div>
-                                            <span class="nickname" th:text="${follow.userNickname}">nickname</span>
+                                            <span class="nickname"  th:text="${follow.userNickname}">nickname</span>
                                         </div>
-                                        <div class="count-box">
-                                            <span class="life-count bold"></span><span>팔로워</span>
+                                        <div class="count-box" >
+                                            <span class="life-count bold"></span><span>팔로워</span
 
-                                            <span class="follower-count bold"
-                                                  th:text="${follow.followingCount}">105</span>
+                                        ><span class="follower-count bold"  th:text="${follow.followingCount}">105</span>
 
-                                            <span class="life-count bold"></span><span>팔로잉</span>
-                                            <span class="follower-count bold"
-                                                  th:text="${follow.followerCount}">105</span>
+                                            <!--                                        ><span class="follower-count bold"  th:text="${follow.followerCount}">105</span>-->
 
                                         </div>
                                     </div>
@@ -73,61 +70,43 @@
                     </div>
 
                     <!-- 2-2. 팔로잉 following ====================================-->
-                    <div class="flwers-wrapper">
-                        <div class="title">팔로잉</div>
-                        <!--  ☆★☆★☆★☆★ 이 박스가 한 개 ☆★☆★☆★☆★-->
-                        <!--  팔로잉은 내가 그사람을 팔로우 했을때 값이 증가한다-->
-                        <div class="flwers-box" th:each=" following : ${followings}">
-<!--                            2-1-1. 왼쪽-->
-                            <div class="flwers-left">
+                    <!--            <div class="flwers-wrapper">-->
+                    <!--              <div class="title">팔로잉</div>-->
+                    <!--              &lt;!&ndash;☆★☆★☆★☆★ 이 박스가 한 개 ☆★☆★☆★☆★&ndash;&gt;-->
+                    <!--&lt;!&ndash;              팔로잉은 내가 그사람을 팔로우 했을때 값이 증가한다 &ndash;&gt;-->
+                    <!--              <div class="flwers-box"  th:each=" following : ${followings}">-->
+                    <!--                &lt;!&ndash; 2-1-1. 왼쪽 &ndash;&gt;-->
+                    <!--                <div class="flwers-left">-->
 
-                                <a th:href="@{/yourLife/userpage/{userId}(userId=${following.followerId})}">
+                    <!--                  <a th:href="@{/yourLife/userpage/{userId}(userId=${following.followerId})}">-->
 
-                                    <div class="flwers-img-box">
-                                        <img th:src="@{${following.userFileProfileSource}}" alt=""/>
+                    <!--                  <div class="flwers-img-box">-->
+                    <!--                      <img  th:src="@{${following.userFileProfileSource}}" alt="" />-->
 
-                                    </div>
-                                    <div class="flwers-nick-count-box">
-<!--                                        <span class="nickname" th:text="${following.userNickname}">nickname</span>-->
-<!--                                        <div class="count-box" th:each=" board : ${boards}">-->
-<!--&lt;!&ndash;                                            <span>일기</span><span class="life-count bold" th:text="${board.boardCount}">25</span><span>팔로워</span>&ndash;&gt;-->
-<!--                                        <span class="follower-count bold"-->
-<!--                                               th:text="${following.followerCount}">105</span>-->
-<!--                                        </div>-->
-                                        <div>
-                                            <span class="nickname" th:text="${following.userNickname}">nickname</span>
-                                        </div>
-                                        <div class="count-box">
-                                            <span class="life-count bold"></span><span>팔로워</span>
-
-                                            <span class="follower-count bold"
-                                                  th:text="${following.followingCount}">105</span>
-
-                                            <span class="life-count bold"></span><span>팔로잉</span>
-                                            <span class="follower-count bold"
-                                                  th:text="${following.followerCount}">105</span>
-
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <!-- 2-1-2. 오른쪽 : 채팅버튼-->
-                            <!--                <div class="followers-right">-->
-                            <!--                  <div class="chat-box"><button>채팅</button></div>-->
-                            <!--                </div>-->
-                        </div>
-                        <!-- ☆★☆★☆★☆★☆★☆★ -->
-
-                    </div>
-                    </div>
-
-
+                    <!--                    </div>-->
+                    <!--                    <div class="flwers-nick-count-box">-->
+                    <!--                      <span class="nickname" th:text="${following.userNickname}">nickname</span>-->
+                    <!--                      <div class="count-box"  th:each=" board : ${boards}">-->
+                    <!--                        <span>일기</span><span class="life-count bold" th:text="${board.boardCount}">25</span><span>팔로워</span-->
+                    <!--                        ><span class="follower-count bold" th:text="${following.followerCount}">105</span>-->
+                    <!--                      </div>-->
+                    <!--                    </div>-->
+                    <!--                  </a>-->
+                    <!--                </div>-->
+                    <!-- 2-1-2. 오른쪽 : 채팅버튼-->
+                    <!--                <div class="followers-right">-->
+                    <!--                  <div class="chat-box"><button>채팅</button></div>-->
+                    <!--                </div>-->
                 </div>
-                <!-- ======================================================= -->
-                <!--           3. 페이지네이션-->
+                <!-- ☆★☆★☆★☆★☆★☆★ -->
 
-                <!--          -->
             </div>
+        </div>
+        <!-- ======================================================= -->
+        <!--           3. 페이지네이션-->
+
+        <!--          -->
+        <!--        </div>-->
     </main>
     <!--      <div class="page-container">-->
     <!--        <ul class="page-box">-->

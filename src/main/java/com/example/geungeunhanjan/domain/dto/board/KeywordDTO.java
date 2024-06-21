@@ -11,5 +11,5 @@ public class KeywordDTO {
     private Long keywordId;
     private String keywordContent;
     private LocalDateTime keywordTimeStamp;
-    private int searchCount;
+    private int count;
 }

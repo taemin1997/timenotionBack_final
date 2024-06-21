@@ -73,7 +73,6 @@
         <!-- 메인 컨텐츠들 감싸는 div -->
         <div class="everyLife-content-wrap">
             <div class="everyLife-content-box" th:each="board: ${boardLists}">
-                <input type="hidden" name="uniId" th:value="${board.userId}" id="uniId">
                 <a th:href="@{/myLife/detail-my(boardId=${board.boardId})}">
                     <!--                <a href ="#">-->
                     <div class="everyLife-contents">
@@ -83,9 +82,9 @@
                         </div>
                         <div class="everyLife-content-views" th:text="|조회수 : ${board.boardViewCount}|">조회수</div>
                         <div class="everyLife-content-writer">
-                                <div class="everyLife-writer-profile">
-<!--                                    <img src="./../../img/everyLife/everyLife_profile.png" alt="">-->
-                                </div>
+                                <span class="everyLife-writer-profile">
+                                    <img src="./../../img/everyLife/everyLife_profile.png" alt="">
+                                </span>
                             <span class="everyLife-writer-nickname" th:text="${board.nickname}">닉네임</span>
                         </div>
                         <div class="everyLife-content-detail" th:text="${board.boardContent}">내용</div>
