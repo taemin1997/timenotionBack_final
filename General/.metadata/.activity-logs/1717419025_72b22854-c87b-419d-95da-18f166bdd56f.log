@@ -1,0 +1,10 @@
+2754:APP_OPEN:startTime=1717419020717
+9127:GENERAL_SHOW_PERSPECTIVE:perspective=org.jkiss.dbeaver.core.perspective
+9127:GENERAL_VIEW_OPEN:view=org.jkiss.dbeaver.core.databaseNavigator
+9139:GENERAL_SHOW_PERSPECTIVE:perspective=org.jkiss.dbeaver.core.perspective
+9139:GENERAL_VIEW_OPEN:view=org.jkiss.dbeaver.core.databaseNavigator
+9541:CONNECTION_OPEN:driver=oracle:oracle_thin
+9772:SQL_EDITOR_OPEN:driver=oracle:oracle_thin
+22168:SQL_EDITOR_EXECUTE_QUERY
+22168:SQL_EDITOR_EXECUTE_QUERY
+125811:CONNECTION_OPEN:driver=oracle:oracle_thin
