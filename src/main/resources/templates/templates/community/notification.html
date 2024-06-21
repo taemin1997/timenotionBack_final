@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/notion.css}">
+    <link rel="stylesheet" th:href="@{/css/community/notification.css}">
+    <!-- <link rel="stylesheet" href="./../../css/community/inquiry.css"> -->
+    <script defer th:src="@{/js/community/notification.js}"></script>
+
+</head>
+<body>
+<div th:replace="~{/fragment/header::header}"></div>
+<!-- 공지 전체 감싸는 div -->
+<div class="notification-container container">
+    <!-- 공지/문의 선택 버튼 감싸는 div -->
+    <div class="notification-wrap1">
+        <div class="notification-selector">
+            <div>
+                    <span class="notification-title">
+                    <button type="button">공지</button>
+                    </span>
+                <span class="inquiry-title">
+                <button type="button" th:onclick="|location.href='@{/community/inquiry}'|">문의</button>
+
+                    </span>
+            </div>
+
+
+            <!--                관리자만 들어갈 수 있는 작성버튼 -->
+            <div>
+                    <span class="insert-notice"  th:if="${loggedInUserId == 1}">
+                        <button type="button" th:onclick="|location.href='@{/community/notification/notification-detail}'|">작성</button>
+                    </span>
+            </div>
+
+        </div>
+        <div class="notification-title-hr"><hr></div>
+    </div>
+    <!-- 공지글 리스트 감싸는 div -->
+    <div class="notification-wrap2">
+        <div class="notification-contents contents-form">
+            <div class="contents-prev-content">
+                <span class="contents-number">No</span>
+                <span class="contents-title">제목</span>
+            </div>
+            <div class="contents-next-content">
+                <span class="contents-writer">작성자</span>
+                <span class="contents-date">작성일</span>
+            </div>
+        </div>
+        <!--            리스트  -->
+        <div class="notification-contents" th:each="notice : ${noticeLists}" >
+            <div class="contents-prev-content">
+                <span class="contents-number" th:text="${notice.noticeId}"></span>
+                <span class="contents-title">
+                        <a th:href="@{/community/notification/community_detail/{noticeId}(noticeId=${notice.noticeId})}" th:text="${notice.noticeTitle}"></a>
+                    </span>
+                <!--                    <span>-->
+                <!--                        <button type="button">삭제</button>-->
+                <!--                    </span>-->
+            </div>
+            <div class="contents-next-content">
+                <!--                    관리자만 사용가능한 삭제버튼 -->
+                <form  id="deleteForm" th:action="@{/community/notification/{noticeId}(noticeId=${notice.noticeId})}" method="post">
+                    <button th:if="${loggedInUserId == 1}">삭제</button>
+                </form>
+
+
+                <span class="contents-writer" th:text="${notice.userNickname}">닉네임</span>
+                <span class="contents-date" th:text="${#temporals.format(notice.noticeCreatedDate, 'yyyy.MM.dd')}"></span>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- 페이징 처리위한 숫자와 기호 -->
+
+    <div class="page-container">
+        <ul class="page-box">
+            <a th:href="@{/community/notification(page=${page.startPage - 1})}" class="page-a" th:if="${page.prev}">
+                <li class="page-num prev"> < </li>
+            </a>
+
+            <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
+                <a th:href="@{/community/notification(page=${i})}" class="page-a">
+                    <li class="page-num" th:classappend="${i == page.noticeCriteria.page ? 'active' : ''}" th:text="${i}"></li>
+                </a>
+            </th:block>
+
+            <a th:href="@{/community/notification(page=${page.endPage + 1})}" class="page-a" th:if="${page.next}">
+                <li class="page-num next"> > </li>
+            </a>
+        </ul>
+    </div>
+
+
+
+
+    <!-- 배너 페이지         -->
+<!--    <div class="notification-banner banner">-->
+<!--        <div class="notification-banner-img">-->
+<!--            <a href="#"><img src="./../../img/community/community_banner1.png" alt="배너이미지"></a>-->
+<!--        </div>-->
+
+<!--    </div>-->
+<!--    <div class="notification-prev ">&lt;</div><div class="notification-next ">&gt;</div>-->
+
+</div>
+
+<div th:replace="~{/fragment/footer::footer}"></div></div>
+</body>
+</html>

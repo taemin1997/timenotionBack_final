@@ -170,7 +170,7 @@
     <update id="updateTwo">
         UPDATE GGHJ_UNI
         SET UNI_ABOUT = #{uniAbout},
-            BIRTH     = SYSDATE,
+            BIRTH     = #{userBirth},
             NICKNAME  = #{nickname}
         WHERE UNI_ID = #{userId}
     </update>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.geungeunhanjan.mapper.board.BoardCommentMapper">
+    <!--1. 내가 쓴 댓글이 해당 위치에 들어가는 select문 -->
+    <!--댓글 내용 / 댓글 쓴 날 / 게시글 제목 / 댓글 작성자 id / 작성자 닉네임 / 작성자 프사 같이불러서 다시짜야해요..-->
+    <!--2. 댓글 작성-->
+    <insert id="writeComment">
+        INSERT INTO GGHJ_COMMENT VALUES(SEQ_COMMENT.NEXTVAL, '댓글 내용 GGG', SYSDATE, #{boardId}, #{userId})
+    </insert>
+    <!--3. 댓글 신고 insert -->
+    <!--4. 댓글 신고 update count -->
+    <!--5. 댓글 삭제 -->
+
+</mapper>
