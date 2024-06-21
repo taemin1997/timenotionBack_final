@@ -341,57 +341,57 @@ const EmailResult = document.getElementById('email-result');
 const EmailParagraph = document.getElementById('email-paragraph');
 const EmailButton = document.getElementById('email-button');
 
-// 변수생성
-let EmailCount = 0;
-
-// 중복확인 버튼 클릭 이벤트 처리
-EmailButton.addEventListener('click', EmailDuplicationClickFunction);
-
-// 이메일 중복 확인 함수
-function EmailDuplicationClickFunction() {
-  // 여기서 실제 중복 확인 로직을 구현해야 합니다.
-  // 지금은 무조건 중복된 이메일로 처리하는 가짜 로직을 사용합니다.
-  const isDuplicated = true; // 중복되었다고 가정
-
-  if (EmailInput.value === '') {
-    EmailResult.innerText = "필수 입력 항목입니다.";
-    EmailResult.style.color = 'rgb(255, 119, 119)';
-    EmailResult.style.fontSize = '12px';
-    EmailInput.style.borderColor = 'rgb(255, 119, 119)';
-    EmailInput.style.borderWidth = '1px';
-    EmailParagraph.style.color = 'rgb(255, 119, 119)';
-  } else {
-    EmailInput.style.opacity = 0.7;
-    EmailInput.style.borderWidth = '1px';
-    EmailInput.style.borderColor = 'gray';
-    EmailParagraph.style.color = 'black';
-    EmailResult.innerText = "사용가능한 닉네임입니다.";
-    EmailResult.style.color = '#9CE1F7';
-  }
-}
-
-// 이메일 박스 함수 처리 
-function EmailInputFocusFunction() {
-  if (EmailCount === 0) {
-    EmailInput.style.outline = "none";
-    EmailInput.style.borderWidth = "3px";
-    EmailInput.style.borderColor = '#B2E8F7';
-    EmailInput.style.opacity = 0.7;
-  } else {
-    EmailInput.style.outline = "none";
-    EmailInput.style.borderWidth = "3px";
-    EmailInput.style.borderColor = "#FEB7B1";
-    EmailInput.style.borderWidth = "3px";
-  }
-  if (this.value !== '') {
-    EmailInput.style.outline = "none";
-    EmailInput.style.opacity = 0.7;
-    EmailInput.style.borderWidth = "3px";
-    EmailInput.style.borderColor = '#B2E8F7';
-  }
-  EmailCount++;
-}
-
+// // 변수생성
+// let EmailCount = 0;
+//
+// // 중복확인 버튼 클릭 이벤트 처리
+// EmailButton.addEventListener('click', EmailDuplicationClickFunction);
+//
+// // 이메일 중복 확인 함수
+// function EmailDuplicationClickFunction() {
+//   // 여기서 실제 중복 확인 로직을 구현해야 합니다.
+//   // 지금은 무조건 중복된 이메일로 처리하는 가짜 로직을 사용합니다.
+//   const isDuplicated = true; // 중복되었다고 가정
+//
+//   if (EmailInput.value === '') {
+//     EmailResult.innerText = "필수 입력 항목입니다.";
+//     EmailResult.style.color = 'rgb(255, 119, 119)';
+//     EmailResult.style.fontSize = '12px';
+//     EmailInput.style.borderColor = 'rgb(255, 119, 119)';
+//     EmailInput.style.borderWidth = '1px';
+//     EmailParagraph.style.color = 'rgb(255, 119, 119)';
+//   } else {
+//     EmailInput.style.opacity = 0.7;
+//     EmailInput.style.borderWidth = '1px';
+//     EmailInput.style.borderColor = 'gray';
+//     EmailParagraph.style.color = 'black';
+//     EmailResult.innerText = "사용가능한 닉네임입니다.";
+//     EmailResult.style.color = '#9CE1F7';
+//   }
+// }
+//
+// // 이메일 박스 함수 처리
+// function EmailInputFocusFunction() {
+//   if (EmailCount === 0) {
+//     EmailInput.style.outline = "none";
+//     EmailInput.style.borderWidth = "3px";
+//     EmailInput.style.borderColor = '#B2E8F7';
+//     EmailInput.style.opacity = 0.7;
+//   } else {
+//     EmailInput.style.outline = "none";
+//     EmailInput.style.borderWidth = "3px";
+//     EmailInput.style.borderColor = "#FEB7B1";
+//     EmailInput.style.borderWidth = "3px";
+//   }
+//   if (this.value !== '') {
+//     EmailInput.style.outline = "none";
+//     EmailInput.style.opacity = 0.7;
+//     EmailInput.style.borderWidth = "3px";
+//     EmailInput.style.borderColor = '#B2E8F7';
+//   }
+//   EmailCount++;
+// }
+//
 function EmailInputBlurFunction() {
   // 이메일 입력란이 비어있을 때만 메시지를 표시합니다.
   if (!EmailInput.value) {
@@ -422,7 +422,7 @@ function EmailInputKeydownFunction() {
 }
 
 //이미지박스 focus blur 처리 
-EmailInput.addEventListener('focus', EmailInputFocusFunction);
+// EmailInput.addEventListener('focus', EmailInputFocusFunction);
 EmailInput.addEventListener('blur', EmailInputBlurFunction);
 EmailInput.addEventListener('keydown', EmailInputKeydownFunction);
 
@@ -433,56 +433,56 @@ const joinNicknameParagraph = document.getElementById('join-nickname-paragraph')
 const joinNicknameButton = document.getElementById('join-nickname-button');
 
 // 변수생성
-let joinNicknameCount = 0;
+// let joinNicknameCount = 0;
+//
+// // 중복확인 버튼 클릭 이벤트 처리
+// joinNicknameButton.addEventListener('click', joinNicknameDuplicationClickFunction);
+//
+// // 닉네임 중복 확인 함수
+// function joinNicknameDuplicationClickFunction() {
+//   // 여기서 실제 중복 확인 로직을 구현해야 합니다.
+//   // 지금은 무조건 중복된 닉네임으로 처리하는 가짜 로직을 사용합니다.
+//   console.log("나와라");
+//   const isDuplicated = true; // 중복되었다고 가정
+//
+//   if (joinNicknameInput.value === '') {
+//     joinNicknameResult.innerText = "필수 입력 항목입니다.";
+//     joinNicknameResult.style.color = 'rgb(255, 119, 119)';
+//     joinNicknameResult.style.fontSize = '12px';
+//     joinNicknameInput.style.borderColor = 'rgb(255, 119, 119)';
+//     joinNicknameInput.style.borderWidth = '1px';
+//     joinNicknameParagraph.style.color = 'rgb(255, 119, 119)';
+//   } else {
+//     joinNicknameInput.style.opacity = 0.7;
+//     joinNicknameInput.style.borderWidth = '1px';
+//     joinNicknameInput.style.borderColor = 'gray';
+//     joinNicknameParagraph.style.color = 'black';
+//     joinNicknameResult.innerText = "사용가능한 닉네임입니다";
+//     joinNicknameResult.style.color = '#9CE1F7';
+//   }
+// }
 
-// 중복확인 버튼 클릭 이벤트 처리
-joinNicknameButton.addEventListener('click', joinNicknameDuplicationClickFunction);
-
-// 닉네임 중복 확인 함수
-function joinNicknameDuplicationClickFunction() {
-  // 여기서 실제 중복 확인 로직을 구현해야 합니다.
-  // 지금은 무조건 중복된 닉네임으로 처리하는 가짜 로직을 사용합니다.
-  console.log("나와라");
-  const isDuplicated = true; // 중복되었다고 가정
-
-  if (joinNicknameInput.value === '') {
-    joinNicknameResult.innerText = "필수 입력 항목입니다.";
-    joinNicknameResult.style.color = 'rgb(255, 119, 119)';
-    joinNicknameResult.style.fontSize = '12px';
-    joinNicknameInput.style.borderColor = 'rgb(255, 119, 119)';
-    joinNicknameInput.style.borderWidth = '1px';
-    joinNicknameParagraph.style.color = 'rgb(255, 119, 119)';
-  } else {
-    joinNicknameInput.style.opacity = 0.7;
-    joinNicknameInput.style.borderWidth = '1px';
-    joinNicknameInput.style.borderColor = 'gray';
-    joinNicknameParagraph.style.color = 'black';
-    joinNicknameResult.innerText = "사용가능한 닉네임입니다";
-    joinNicknameResult.style.color = '#9CE1F7';
-  }
-}
-
-// 닉네임 박스 함수 처리 
-function joinNicknameInputFocusFunction() {
-  if (joinNicknameCount === 0) {
-    joinNicknameInput.style.outline = "none";
-    joinNicknameInput.style.borderWidth = "3px";
-    joinNicknameInput.style.borderColor = '#B2E8F7';
-    joinNicknameInput.style.opacity = 0.7;
-  } else {
-    joinNicknameInput.style.outline = "none";
-    joinNicknameInput.style.borderWidth = "3px";
-    joinNicknameInput.style.borderColor = "#FEB7B1";
-    joinNicknameInput.style.borderWidth = "3px";
-  }
-  if (this.value !== '') {
-    joinNicknameInput.style.outline = "none";
-    joinNicknameInput.style.opacity = 0.7;
-    joinNicknameInput.style.borderWidth = "3px";
-    joinNicknameInput.style.borderColor = '#B2E8F7';
-  }
-  joinNicknameCount++;
-}
+// // 닉네임 박스 함수 처리
+// function joinNicknameInputFocusFunction() {
+//   if (joinNicknameCount === 0) {
+//     joinNicknameInput.style.outline = "none";
+//     joinNicknameInput.style.borderWidth = "3px";
+//     joinNicknameInput.style.borderColor = '#B2E8F7';
+//     joinNicknameInput.style.opacity = 0.7;
+//   } else {
+//     joinNicknameInput.style.outline = "none";
+//     joinNicknameInput.style.borderWidth = "3px";
+//     joinNicknameInput.style.borderColor = "#FEB7B1";
+//     joinNicknameInput.style.borderWidth = "3px";
+//   }
+//   if (this.value !== '') {
+//     joinNicknameInput.style.outline = "none";
+//     joinNicknameInput.style.opacity = 0.7;
+//     joinNicknameInput.style.borderWidth = "3px";
+//     joinNicknameInput.style.borderColor = '#B2E8F7';
+//   }
+//   joinNicknameCount++;
+// }
 
 function joinNicknameInputBlurFunction() {
   // 닉네임 입력란이 비어있을 때만 메시지를 표시합니다.
@@ -513,7 +513,7 @@ function joinNicknameInputKeydownFunction() {
 }
 
 //패스워드박스 focus blur 처리 
-joinNicknameInput.addEventListener('focus', joinNicknameInputFocusFunction);
+// joinNicknameInput.addEventListener('focus', joinNicknameInputFocusFunction);
 joinNicknameInput.addEventListener('blur', joinNicknameInputBlurFunction);
 joinNicknameInput.addEventListener('keydown', joinNicknameInputKeydownFunction);
 
@@ -623,27 +623,112 @@ function checkPasswordMatch() {
 
 //회원가입 유효성 검사
 //0609 추후 수정하는 것으로
-const checkJoin = document.getElementsByClassName("join");
+// const checkJoin = document.getElementsByClassName("join");
+//
+//
+// checkJoin.addEventListener('click', checkJoinClickFunction);
+//
+// function checkJoinClickFunction() {
+//   alert("입력창");
+//   const checkJoinNameValue = EmailInput.value === '' ? 0 : 1;
+//   const checkJoinPasswordValue = joinPasswordInput.value === '' ? 0 : 1;
+//   const checkJoinRePasswordValue = joinPasswordCheckInput.value  === '' ? 0 : 1;
+//   const checkJoinEmailValue = EmailInput.value === '' ? 0 : 1;
+//   const checkNickNameValue = joinNicknameInput.value === '' ? 0 : 1;
+//   const checkJoinBirthValue = [];
+//   for (let i = 0; i < editBirthInput.length; i++) {
+//     checkJoinBirthValue.push(editBirthInput[i].value === '' ? 0 : 1);
+//   }
+//
+//   const joinResult = checkJoinNameValue + checkJoinPasswordValue + checkJoinRePasswordValue
+//         + checkJoinEmailValue  + checkNickNameValue ;
+//   if(joinResult != 6){
+//     alert("입력창을 채워주세요");
+//   }
+// }
 
 
-checkJoin.addEventListener('click', checkJoinClickFunction);
+document.getElementById('email-button').addEventListener('click', function() {
+  console.log('test');
+  const email = document.getElementById('email-input').value;
+  const resultParagraph = document.getElementById('email-result');
 
-function checkJoinClickFunction() {
-  alert("입력창");
-  const checkJoinNameValue = EmailInput.value === '' ? 0 : 1;
-  const checkJoinPasswordValue = joinPasswordInput.value === '' ? 0 : 1;
-  const checkJoinRePasswordValue = joinPasswordCheckInput.value  === '' ? 0 : 1;
-  const checkJoinEmailValue = EmailInput.value === '' ? 0 : 1;
-  const checkNickNameValue = joinNicknameInput.value === '' ? 0 : 1;
-  const checkJoinBirthValue = [];
-  for (let i = 0; i < editBirthInput.length; i++) {
-    checkJoinBirthValue.push(editBirthInput[i].value === '' ? 0 : 1);
+  if (!email) {
+    resultParagraph.textContent = '이메일을 입력해주세요.';
+    resultParagraph.style.color = 'rgb(255, 119, 119)';
+    return;
   }
 
-  const joinResult = checkJoinNameValue + checkJoinPasswordValue + checkJoinRePasswordValue
-        + checkJoinEmailValue  + checkNickNameValue ;
-  if(joinResult != 6){
-    alert("입력창을 채워주세요");
+  fetch('/api/checkEmail', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email: email })
+  })
+      .then(response => response.json())
+      .then(data => {
+        if (data.exists) {
+          resultParagraph.textContent = '중복된 이메일입니다.';
+          resultParagraph.style.color = 'rgb(255, 119, 119)';
+        } else {
+          resultParagraph.textContent = '사용 가능한 이메일입니다.';
+          resultParagraph.style.color = '#9CE1F7'; //
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+});
+
+
+document.getElementById('join-nickname-button').addEventListener('click', function() {
+  const nickname = document.getElementById('join-nickname-input').value;
+  const resultParagraph = document.getElementById('join-nickname-result');
+
+  if (!nickname) {
+    resultParagraph.textContent = '닉네임을 입력해주세요.';
+    resultParagraph.style.color = 'rgb(255, 119, 119)';
+    return;
   }
 
-}
+  fetch('/api/checkNickname', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ nickname: nickname })
+  })
+      .then(response => response.json())
+      .then(data => {
+        if (data.exists) {
+          resultParagraph.textContent = '중복된 닉네임입니다.';
+          resultParagraph.style.color = 'rgb(255, 119, 119)';
+        } else {
+          resultParagraph.textContent = '사용 가능한 닉네임입니다.';
+          resultParagraph.style.color = '#9CE1F7'; // 예: 초록색으로 변경
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
