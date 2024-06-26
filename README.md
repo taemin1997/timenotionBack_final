@@ -37,35 +37,37 @@
 <details open>
 <summary>ERD</summary>
   
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img src='https://github.com/jang1234567/timenotionBack_final/assets/120088675/aab927f4-58cd-4040-945d-d78688755824'></a>
+<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src='https://github.com/jang1234567/timenotionBack_final/assets/120088675/aab927f4-58cd-4040-945d-d78688755824'></a>
 
 </details>
 
 **메인화면**
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/73ea0508-944f-436e-b7e4-62b4e3eda60c></a>
+<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="500" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/73ea0508-944f-436e-b7e4-62b4e3eda60c></a>
 
 **로그인**
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/a28d2e60-f0f5-4918-a3b0-4192572259c0></a>
+<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img  width="500" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/a28d2e60-f0f5-4918-a3b0-4192572259c0></a>
 
 
 **회원가입**
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/4b02463d-ed48-4fc5-bf9c-e2d84ba683e3></a>
+<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img height="500" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/4b02463d-ed48-4fc5-bf9c-e2d84ba683e3></a>
 
 
 **나의 일대기**
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/df6e89de-048a-477a-9008-d0d052b5b7c8></a>
+<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="500" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/df6e89de-048a-477a-9008-d0d052b5b7c8></a>
 
 
 **모두의 일대기**
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/4f3f5cf0-0d8c-4fb1-9a1c-7bd0bbc0b283></a>
+<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="500" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/4f3f5cf0-0d8c-4fb1-9a1c-7bd0bbc0b283></a>
 
 
 **상세페이지**
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/ff2644c3-714d-443b-80f3-934b6941dcf6></a>
+<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="500" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/ff2644c3-714d-443b-80f3-934b6941dcf6></a>
 
+**좋아요**
+<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="500" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/0899dfaf-be50-4c21-8137-253aa2aed810></a>
 
 **팔로우**
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/1db2b380-ae39-40d9-94b9-c3785b5ec89d></a>
+<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="500" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/1db2b380-ae39-40d9-94b9-c3785b5ec89d></a>
 
 
 
