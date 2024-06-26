@@ -1,7 +1,12 @@
-# 근근한잔💪 (타임노션)
+# 근근한잔 (타임노션)
+<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/d9c6e0d6-f1af-403a-83a6-8c26445c0c51></a>
 
-## 프로젝트 소개
+
+## 📁 프로젝트 소개
 **근근한잔💪 (타임노션)**은 개인의 생애주기별 경험과 추억을 기록하고, 이를 공유함으로써 공감을 형성할 수 있는 플랫폼입니다. 사용자는 자신의 삶을 일기 형식으로 기록하며, 이를 통해 유대감을 형성하고, 자기 표현의 장을 제공받아 일기 쓰기 습관을 형성할 수 있습니다.
+
+## ⏱ 개발 기간
+24.05.03 - 24.05.31
 
 ## 주요 기능
 
@@ -40,6 +45,8 @@
 <a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src='https://github.com/jang1234567/timenotionBack_final/assets/120088675/aab927f4-58cd-4040-945d-d78688755824'></a>
 
 </details>
+
+## 💻 기능 및 화면 소개
 
 **<메인화면>**<br>
 <a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="500" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/73ea0508-944f-436e-b7e4-62b4e3eda60c></a>
