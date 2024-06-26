@@ -107,7 +107,7 @@
 **<좋아요>**<br>
 <a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/0899dfaf-be50-4c21-8137-253aa2aed810></a>
 
--게시물에 하트가 있는데 그 하트를 누르면 하트가 빨간색으로 바뀌고 게시물 좋아요 카운트하는 컬럼도 1씩 증가한다.
+- 게시물에 하트가 있는데 그 하트를 누르면 하트가 빨간색으로 바뀌고 게시물 좋아요 카운트하는 컬럼도 1씩 증가한다.
 
 **<팔로우,언팔로우>**<br>
 <a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/1db2b380-ae39-40d9-94b9-c3785b5ec89d></a>
@@ -122,8 +122,8 @@
 <a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/ce615f9d-4c12-4e0c-bdda-70190b312668></a>
 
 
--공지는 관리자만 가능하며 관리자가 아닌사람이 로그인하면 작성하기 버튼이 보이지 않는다.<br>
--문의는 모든 회원들이 문의 할 수 있고 문의에 대한 답변은 관리자만 할 수 있다.
+- 공지는 관리자만 가능하며 관리자가 아닌사람이 로그인하면 작성하기 버튼이 보이지 않는다.<br>
+- 문의는 모든 회원들이 문의 할 수 있고 문의에 대한 답변은 관리자만 할 수 있다.
 
 
 
