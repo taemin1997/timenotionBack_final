@@ -2,62 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.geungeunhanjan.mapper.admin.admin_boardListMapper">
 
-    <!-- 나의 일대기 게시판 정보 불러오기 -->
-    <select id="selectBoard" resultType="BoardVO">
-        SELECT *
-        FROM GGHJ_BOARD
-        WHERE USER_ID = #{userId}
-        ORDER BY BOARD_ID DESC
-    </select>
-
-    <!--    검색기능 구현-->
-    <select id="searchBoards" resultType="BoardDTO" parameterType="string">
-        SELECT
-            b.BOARD_ID,
-            b.BOARD_TITLE,
-            b.BOARD_CONTENT,
-            b.BOARD_PUBLIC,
-            b.BOARD_CREATED_DATE,
-            b.BOARD_UPDATED_DATE,
-            b.BOARD_VIEW_COUNT,
-            b.BOARD_LIFE_CYCLE,
-            b.BOARD_LIKE_COUNT,
-            b.BOARD_YEAR,
-            b.USER_ID,
-            COALESCE(u2.USER_NICKNAME, k.NAME) AS NICKNAME,  -- 사용자 닉네임 (우선순위: GGHJ_USER -> GGHJ_KAKAO)
-            k.PROFILE_PIC,
-            k.PROVIDER,
-            f.USER_FILE_PROFILE_NAME,
-            f.USER_FILE_PROFILE_SOURCE,
-            f.USER_FILE_PROFILE_UUID
-        FROM
-            GGHJ_BOARD b
-                JOIN GGHJ_UNI u ON b.USER_ID = u.UNI_ID
-                LEFT JOIN GGHJ_USER u2 ON u.USER_ID = u2.USER_ID
-                LEFT JOIN GGHJ_KAKAO k ON u.KAKAO_ID = k.KAKAO_ID
-                LEFT JOIN GGHJ_USER_FILE f ON u2.USER_ID = f.USER_ID
-        WHERE
-            (b.BOARD_TITLE LIKE '%' || #{keyword} || '%'
-                OR b.BOARD_CONTENT LIKE '%' || #{keyword} || '%')
-    </select>
-
-    <!-- 게시판 작성자의 생일 가져오기  -->
-    <select id="selectUserBirth" resultType="java.time.LocalDateTime">
-        SELECT
-            CASE
-                WHEN u.USER_ID IS NOT NULL THEN u.USER_BIRTH
-                --                 WHEN k.KAKAO_ID IS NOT NULL THEN k.KAKAO_BIRTH
---                 ELSE NULL -- 유저 또는 카카오 회원이 없을 경우
-                END AS BIRTHDAY
-        FROM
-            GGHJ_UNI uni
-                LEFT JOIN
-            GGHJ_USER u ON uni.USER_ID = u.USER_ID
-        --                 LEFT JOIN
---             GGHJ_KAKAO k ON uni.KAKAO_ID = k.KAKAO_ID
-        WHERE
-            uni.UNI_ID = #{uniId}
-    </select>
+    <!--  update  -->
 
     <!-- 나의 일대기 게시글 수정 -->
     <update id="updateBoard" parameterType="BoardVO">
@@ -69,6 +14,15 @@
         WHERE BOARD_ID = #{boardId}
     </update>
 
+    <!-- 특정 글 조회수 -->
+    <update id="incViewCnt" flushCache="true" >
+        UPDATE GGHJ_BOARD
+        SET BOARD_VIEW_COUNT = BOARD_VIEW_COUNT + 1
+        WHERE BOARD_ID = #{boardId}
+    </update>
+
+    <!--  delete  -->
+
     <!-- 나의 일대기 게시글 삭제 -->
     <delete id="deleteBoard" parameterType="Long">
         DELETE
@@ -76,24 +30,7 @@
         WHERE BOARD_ID = #{boardId}
     </delete>
 
-    <!--키워드 검색(안에 'a'는 임시값)-->
-    <select id="selectByKeywordMain">
-        SELECT BOARD_ID,
-               BOARD_TITLE,
-               BOARD_CONTENT,
-               BOARD_PUBLIC,
-               BOARD_CREATED_DATE,
-               BOARD_UPDATED_DATE,
-               BOARD_VIEW_COUNT,
-               BOARD_LIFE_CYCLE,
-               BOARD_LIKE_COUNT,
-               BOARD_YEAR,
-               USER_ID
-        FROM GGHJ_BOARD
-        WHERE BOARD_TITLE LIKE '%a%'
-           OR BOARD_CONTENT LIKE '%a%'
-        ORDER BY BOARD_CREATED_DATE DESC
-    </select>
+    <!--  select  -->
 
     <!-- 모두의 일대기 게시판 글 -->
     <select id="everyLifeBoardbyViews" resultType="BoardVO">
@@ -144,16 +81,35 @@
         SELECT COUNT(*)FROM GGHJ_BOARD
     </select>
 
-    <!-- 모두의 일대기 -> 상세페이지 이동 -->
-    <select id="everyLifeDetail" resultType="BoardVO">
+    <!--     최신 게시판 정렬 -->
+    <select id="postarrayLatest" resultType="BoardDTO">
+        SELECT
+            *
+        FROM
+            GGHJ_BOARD b JOIN GGHJ_USER u
+                              ON u.user_id = b.USER_ID
+        ORDER BY
+            b.BOARD_CREATED_DATE DESC
+    </select>
+
+    <!--    내가 쓴 게시물의 상세페이지로 들어가기-->
+    <select id="selectById" resultType="BoardVO">
         SELECT *
         FROM GGHJ_BOARD G
                  JOIN GGHJ_UNI U
                       ON G.USER_ID = U.UNI_ID
-        WHERE G.BOARD_ID = #{userId}
+        WHERE G.BOARD_ID = #{boardId}
     </select>
 
-    <!--    게시글 작성자의 닉네임-->
+    <!-- 나의 일대기 게시판 정보 불러오기 -->
+    <select id="selectBoard" resultType="BoardVO">
+        SELECT *
+        FROM GGHJ_BOARD
+        WHERE USER_ID = #{userId}
+        ORDER BY BOARD_ID DESC
+    </select>
+
+    <!--  게시글 작성자의 닉네임  -->
     <select id="boardUserName" parameterType="Long" resultType="String">
         SELECT
             COALESCE(u.USER_NICKNAME, k.NAME) AS user_nickname
@@ -166,12 +122,39 @@
             b.BOARD_ID = #{boardId}
     </select>
 
-    <!--    내가 쓴 게시물의 상세페이지로 들어가기-->
-    <select id="selectById" resultType="BoardVO">
-        SELECT *
-        FROM GGHJ_BOARD G
-                 JOIN GGHJ_UNI U
-                      ON G.USER_ID = U.UNI_ID
-        WHERE G.BOARD_ID = #{boardId}
+    <!--  프로필 가져오기  -->
+    <select id="getProfile" resultType="BoardDTO">
+        SELECT BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+               COALESCE(U.USER_NICKNAME, K.NAME) AS NICKNAME,
+               F.USER_FILE_PROFILE_NAME,
+               F.USER_FILE_PROFILE_SOURCE,
+               F.USER_FILE_PROFILE_UUID,
+               B.BOARD_ID,
+               B.USER_ID
+        FROM GGHJ_BOARD B
+                 JOIN GGHJ_UNI UNI ON B.USER_ID = UNI.UNI_ID
+                 LEFT JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID
+                 LEFT JOIN GGHJ_KAKAO K ON UNI.KAKAO_ID = K.KAKAO_ID
+                 LEFT JOIN GGHJ_USER_FILE F ON U.USER_ID = F.USER_ID
+        WHERE B.USER_ID = #{userId}
+        ORDER BY B.BOARD_CREATED_DATE DESC
+    </select>
+
+    <!-- 게시판 작성자의 생일 가져오기  -->
+    <select id="selectUserBirth" resultType="java.time.LocalDateTime">
+        SELECT
+            CASE
+                WHEN u.USER_ID IS NOT NULL THEN u.USER_BIRTH
+                --                 WHEN k.KAKAO_ID IS NOT NULL THEN k.KAKAO_BIRTH
+--                 ELSE NULL -- 유저 또는 카카오 회원이 없을 경우
+                END AS BIRTHDAY
+        FROM
+            GGHJ_UNI uni
+                LEFT JOIN
+            GGHJ_USER u ON uni.USER_ID = u.USER_ID
+        --                 LEFT JOIN
+--             GGHJ_KAKAO k ON uni.KAKAO_ID = k.KAKAO_ID
+        WHERE
+            uni.UNI_ID = #{uniId}
     </select>
 </mapper>

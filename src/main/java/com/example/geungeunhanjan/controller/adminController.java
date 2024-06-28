@@ -25,13 +25,14 @@ import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,7 @@ public class adminController {
     private final NoticeService noticeService;
     private final admin_noticeListService adminNoticeListService;
     private final admin_memberListService adminMemberListService;
+    private final MyPageService myPageService;
 
     // 메인 페이지
     @GetMapping()
@@ -70,6 +72,54 @@ public class adminController {
         model.addAttribute("sort", sort);
 
         return "admin/dam/admin-board-list"; // 페이지 이름 반환
+    }
+
+    // 관리자 디테일
+    @GetMapping("/detail")
+    public String detail(Model model, Long boardId, HttpSession session) {
+        Long uniId = (Long)session.getAttribute("uniId");
+        if (uniId == null) {
+            return "redirect:/user/login";
+        }
+        BoardVO boards = adminBoardListService.selectById(boardId);
+        adminBoardListService.boardIntViewCnt(boardId);
+        String userNickname = adminBoardListService.boardUserName(boardId);
+        // 유저 정보 모두
+        LifeUserInfoDTO userInfo = myPageService.selectAllInfo(uniId);
+        model.addAttribute("userInfo", userInfo);
+        model.addAttribute("boards", boards);
+        model.addAttribute("userNickname", userNickname);
+
+        return "admin/admin_tm/admin_detail";
+    }
+
+    // 게시글 수정
+    @GetMapping("/update")
+    public String update(Long boardId, Model model) {
+        BoardVO boards = adminBoardListService.selectById(boardId);
+        model.addAttribute("boards",boards);
+
+        return "admin/admin_tm/admin_update";
+    }
+
+    // 게시글 수정
+    @PostMapping("/update")
+    public String update(BoardVO boardVO, @RequestParam("boardFile") List<MultipartFile> files, RedirectAttributes redirectAttributes){
+        try{
+            adminBoardListService.modifyBoard(boardVO, files);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+
+        redirectAttributes.addAttribute("boardId", boardVO.getBoardId());
+        return "redirect:/admin/boardList";
+    }
+
+    //게시글 삭제
+    @GetMapping("/remove")
+    public RedirectView removeBoard(Long boardId){
+        adminBoardListService.removeBoard(boardId);
+        return new RedirectView("/admin/boardList");
     }
 
     // 회원 관리
