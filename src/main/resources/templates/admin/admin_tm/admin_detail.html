@@ -1,68 +1,118 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin_detatil</title>
-    <link rel="stylesheet" th:href="@{/css/admin/admin_tm/admin_detail.css}">
-    <link rel="stylesheet" th:href="@{/css/notion.css}">
-    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>관리자 게시글 관리</title>
+    <link rel="stylesheet" th:href="@{/css/myLife/detail-my3.css}">
+    <link rel="stylesheet" th:href="@{/css/main/report-modal.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script defer th:src="@{/js/myLife/detail.my3.js}"></script>
+    <script defer type="module" th:src="@{/js/myLife/dam.js}" ></script>
+
+    <style>
+        .infant {
+            background-color: #FFDDC1;
+        }
+
+        /* 유아기 */
+        .childhood {
+            background-color: #FFD1DC;
+        }
+
+        /* 유년기 */
+        .schoolage {
+            background-color: #C1FFD7;
+        }
+
+        /* 아동기 */
+        .adolescence {
+            background-color: #C1C1FF;
+        }
+
+        /* 청소년기 */
+        .youngadult {
+            background-color: #D1FFC1;
+        }
+
+        /* 청년기 */
+        .midlife {
+            background-color: #FFD7C1;
+        }
+
+        /* 중년기 */
+        .senior {
+            background-color: #E1C1FF;
+        }
+
+        /* 노년기 */
+    </style>
+
 </head>
 <body>
-<div class="container">
-<!--            <input type="hidden" id="uniId" th:value="${session.uniId}">-->
-            <!--1. 상단 날짜 / 수정 삭제 버튼 ----------------->
-            <div class="wrapper-date-etc">
-                <div class="box-date-left" th:text="${boards.boardCreatedDate != null ? '작성일 :  ' + #temporals.format(boards.boardCreatedDate, 'yy년 MM월 dd일') : '날짜 없음'}">
+    <div id="wrapper">
+        <main>
+            <div class="container">
+                <input type="hidden" id="uniId" th:value="${session.uniId}">
+                <!--1. 상단 날짜 / 수정 삭제 버튼 ----------------->
+                <div class="wrapper-date-etc">
+                    <div class="box-date-left" th:text="${boards.boardCreatedDate != null ? '작성일 :  ' + #temporals.format(boards.boardCreatedDate, 'yy년 MM월 dd일') : '날짜 없음'}"></div>
+                    <input type="hidden" id="boardId" th:value="${boards.boardId}">
+                    <div class="box-date-right">
+                        <button class="admin-modify" th:data-id="${boards.boardId}">수정</button>
+                        <button type="button" class="admin-remove" th:data-id="${boards.boardId}">삭제</button>
+                        <button type="button" class="btn-cancel" onclick="window.history.back();">뒤로가기</button>
+                    </div>
                 </div>
-                <input type="hidden" id="boardId" th:value="${boards.boardId}">
-                <div class="box-date-right">
-                    <th:block th:if="${boards.userId == session.uniId}">
-                        <button class="btn-modify" th:data-id="${boards.boardId}">수정</button>
-                        <button type="button" class="btn-remove" th:data-id="${boards.boardId}">삭제</button>
-                    </th:block>
+                <!--2. 타이틀 ----------------->
+                <div class="wrapper-title" th:text="${boards.boardTitle}">
+
                 </div>
-            </div>
-
-            <!--2. 타이틀 ----------------->
-            <div class="wrapper-title" th:text="${boards.boardTitle}"></div>
-
-            <!--3. 프로필 영역 / 하트 / 공개  ----------------->
-            <div class="wrapper-profile">
-                <div class="box-profile-img"><a th:href="@{/yourLife/userpage/{userId}(userId=${boards.userId})}"><img
-                        th:src="@{/img/myLife/sas detail_comment1.jpg}" alt=""></a></div>
-                <div class="box-profile-nickname"><a th:text="${userNickname}">닉네임</a></div>
-                <p id="user-lifecycle-check" style="display: none" th:text="${boards.boardLifeCycle}"></p>
-
-                <div><img th:src="@{/img/myLife/sas detail_heart.png}" alt="하트" class="box-profile-heart"
-                          id="heartImage"></div>
-            </div>
-            <div class="bold-underline"></div>
-
-            <!--4. 컨텐츠 영역  ----------------->
-            <div class="wrapper-content">
-                <div class="post-content" th:text="${boards.boardContent}"></div>
-                <div class="post-images">
-                    <!-- 이미지 예시 -->
-                    <!-- /이미지 예시 -->
+                <!--3. 프로필 영역 / 하트 / 공개  ----------------->
+                <div class="wrapper-profile">
+                    <div class="box-profile-img">
+                        <a th:href="@{/yourLife/userpage/{userId}(userId=${boards.userId})}">
+                            <img th:src="@{/img/myLife/sas detail_comment1.jpg}" alt="">
+                        </a>
+                    </div>
+                    <div class="box-profile-nickname">
+                        <a id="get-user-like-id" th:text="${userNickname}">닉네임</a>
+                    </div>
+                    <p id="user-lifecycle-check" style="display: none" th:text="${boards.boardLifeCycle}"></p>
+                    <div>
+                        <img th:src="@{/img/myLife/sas detail_heart.png}" alt="하트" class="box-profile-heart" id="heartImage">
+                    </div>
+                    <!--    좋아요 상태 체크하는 p태그 -->
+                    <p id="get-user-like-status" th:text="${likeStatus}"></p>
                 </div>
+                <div class="bold-underline"></div>
+                <!--4. 컨텐츠 영역  ----------------->
+                <div class="wrapper-content">
+                    <div class="post-content" th:text="${boards.boardContent}"></div>
+                    <div class="post-images">
+                        <!-- 이미지 예시 -->
+                        <!-- /이미지 예시 -->
+                    </div>
+                </div>
+                <div class="bold-underline"></div>
+                <!-- 00. 댓글영역 (까먹고 나중에 추가함;;) -->
+                <div class="wrapper-reply-write">
+                    <div class="box-count-reply">
+                        <span>댓글</span>
+                    </div>
+                    <div class="box-reply-write">
+                        <textarea name="" id="comment-content" cols="30" rows="10" placeholder="댓글을 입력하세요"></textarea>
+                        <div class="box-btn-reply-btn">
+                            <button class="btn-reply-btn">입력</button>
+                        </div>
+                    </div>
+                </div>
+                <!--5. 댓글영역   ----------------->
+                <div class="wrapper-reply"></div>
             </div>
-            <div class="bold-underline"></div>
-
-    <!-- 00. 댓글영역 (까먹고 나중에 추가함;;) -->
-    <div class="wrapper-reply-write">
-        <div class="box-count-reply"><span>댓글</span><!--<span id="count-reply">(00)</span>-->
-        </div>
-        <div class="box-reply-write">
-            <textarea name="" id="comment-content" cols="30" rows="10" placeholder="댓글을 입력하세요"></textarea>
-            <div class="box-btn-reply-btn"><button class="btn-reply-btn">입력</button></div>
-        </div>
+        </main>
     </div>
-
-    <!--5. 댓글영역   ----------------->
-    <div class="wrapper-reply"></div>
-</div>
 </body>
 </html>
