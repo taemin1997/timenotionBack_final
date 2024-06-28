@@ -145,6 +145,23 @@ header {
   margin-top: 10px;
 }
 
+/* 빨간색 하트 이미지 스타일 */
+
+.detail_page_heart.red {
+  filter: brightness(100%) saturate(100%) invert(55%) sepia(96%) saturate(3286%) hue-rotate(336deg) brightness(103%) contrast(92%);
+}
+.detail_page_heart {
+  width: 25px;
+  height: 25px;
+  transition: all 0.2s linear;
+  cursor: pointer;
+  margin-top: 3px;
+}
+
+.detail_page_heart:hover {
+  transform: scale(1.2);
+}
+
 .follower {
   font-size: 12px;
 
