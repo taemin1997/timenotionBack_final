@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.geungeunhanjan.mapper.admin.admin_noticeListMapper">
+    <!-- 검색한 공지 전체 리스트를 조회하는 쿼리문 -->
+    <select id="adminSelectNotice" resultType="NoticePageDTO" parameterType="map">
+        <![CDATA[
+        SELECT NOTICE_ID, NOTICE_TITLE, USER_NICKNAME, NOTICE_CREATED_DATE, USER_ID
+        FROM (
+        SELECT ROWNUM AS RNUM, NOTICE_ID, NOTICE_TITLE, USER_NICKNAME, NOTICE_CREATED_DATE, USER_ID
+        FROM (
+        SELECT N.NOTICE_ID, NOTICE_TITLE, U.USER_NICKNAME, NOTICE_CREATED_DATE, U.USER_ID
+        FROM GGHJ_NOTICE N
+        JOIN GGHJ_UNI UNI ON N.USER_ID = UNI.USER_ID
+        JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID
+        WHERE U.USER_NICKNAME LIKE '%' || #{keyword} || '%'
+        OR N.NOTICE_TITLE LIKE '%' || #{keyword} || '%'
+        ORDER BY NOTICE_ID DESC
+        )
+        WHERE ROWNUM <= #{page} * #{amount}
+        )
+        WHERE RNUM > (#{page} - 1) * #{amount}
+        ]]>
+    </select>
+</mapper>
