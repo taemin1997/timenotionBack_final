@@ -24,15 +24,11 @@
       <div class="profile-background">
         <div class="profile-background-dark"></div>
         <div class="profile-bg-img-box">
-          <!-- 배경 이미지 조건부 렌더링 -->
-<!--          <img th:if="${userFileVO != null and userFileVO.userFileBackSource != null}" alt="배경사진" class="img-back-img">-->
-<!--          <img th:if="${userFileVO == null or userFileVO.userFileBackSource == null}" src="/img/main/basic-background3.png" alt="기본 배경사진" class="img-back-img">-->
+          <!-- 이미지 들어가는 곳 -->
         </div>
         <div class="profile">
           <div class="profile-img-box">
-            <!-- 프로필 이미지 조건부 렌더링 -->
-<!--            <img th:if="${userInfo.userFileProfileSource != null}" th:src="${userInfo.userFileProfileSource}" alt="프로필사진" class="img-profile-img">-->
-<!--            <img th:unless="${userInfo.userFileProfileSource != null}" src="/img/main/basic-profile.png" alt="기본 프로필 사진" class="img-profile-img">-->
+          <!-- 이미지 들어가는 곳 -->
           </div>
           <div class="profile-detail">
             <p id="profile-nickname" th:text="${userInfo.nickname}">장윤근</p>
@@ -72,6 +68,7 @@
       </a>
     </div>
     <hr>
+
     <div class="third-container">
       <div class="third-container-category">
         <div class="everyLife-btn-span">
@@ -149,6 +146,7 @@
         <img th:src="@{/img/main/write-white.png}" alt="">
       </a>
     </div>
+
   </div>
 </main>
 
