@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>admin_update</title>
+    <link rel="stylesheet" th:href="@{/css/myLife/detail_writingMode.css}"/>
+    <link rel="stylesheet" th:href="@{/css/reset.css}"/>
+    <script defer th:src="@{/js/myLife/detail_writingMode.js}"></script>
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <main>
+            <form th:action="@{/admin/update(boardId=${boards.boardId})}" method="post" enctype="multipart/form-data">
+                <!-- 메인 컨텐츠 영역 -->
+                <div class="container">
+                    <!-- 1. 타이틀 -->
+                    <div class="wrapper-title">
+                        제목 : <input class="title" type="text" name="boardTitle" th:value="${boards.boardTitle}"/>
+                    </div>
+                    <!-- 2. 년도 / 공개여부 셀렉트박스 -->
+                    <div class="wrapper-select-box">
+
+                        <input id="select-year-detail"  th:value="${boards.boardYear}" type="text" placeholder="ex)1999" readonly
+                               oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="4">년
+
+
+                        <select id="select-visibility-detail" name="boardPublic">
+                            <option th:value="'O'" th:text="공개"></option>
+                            <option th:value="'X'" th:text="비공개"></option>
+                        </select>
+
+                    </div>
+                    <hr>
+                    <!-- 3. 파일추가 / 텍스트영역 -->
+                    <div class="wrapper-add-file">
+                        <!--                     3-1. 파일추가 -->
+                        <div class="file-input-container">
+                            <label for="file" class="file-input-label">
+                                <input type="file" id="file" name="boardFile" accept="image/*" multiple />
+                            </label>
+                            <div id="file-names"></div>
+                        </div>
+                    </div>
+
+                    <!-- 3-2. 텍스트 영역 -->
+                    <div class="wrapper-add-file">
+                        <textarea id="content-textarea" name="boardContent" placeholder="텍스트입력" th:text="${boards.boardContent}"></textarea>
+                    </div>
+                    <hr>
+                    <!-- 4. 저장 / 취소 버튼 -->
+                    <div class="wrapper-button">
+                        <button type="submit" class="btn-save">저장</button>
+                        <button type="button" class="btn-cancel" onclick="window.history.back();">취소</button>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </div>
+</body>
+</html>
