@@ -15,6 +15,7 @@ public class ReportController {
 
     /* 신고 작성 */
 
+/*
     @PostMapping("/submitReport")
     public void submitReport(@ModelAttribute ReportVO reportVO) {
         myPageService.insertReport(reportVO);
@@ -22,6 +23,7 @@ public class ReportController {
         System.out.println("신고신고");
         System.out.println("신고 : ==================================" + reportVO);
     }
+*/
 
 
 

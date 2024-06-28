@@ -2,6 +2,7 @@ package com.example.geungeunhanjan.mapper.lifes;
 
 
 import com.example.geungeunhanjan.domain.dto.FollowPage.FollowCriteria;
+import com.example.geungeunhanjan.domain.dto.FollowPage.FollowFileList;
 import com.example.geungeunhanjan.domain.dto.file.FollowDTO;
 import com.example.geungeunhanjan.domain.dto.file.FollowHeartDTO;
 import com.example.geungeunhanjan.domain.vo.file.UserFileVO;
@@ -45,5 +46,8 @@ public interface FollowMapper {
     List<FollowDTO> selectAllPageFollow(FollowCriteria followCriteria);
     //페이지 총 수 조회하기
     int selectTotalFollow();
+    List<FollowDTO> getFollowFile(Long uniId);
 
+    // 팔로워 프사 가져오기 : 담
+    List<FollowFileList> getFollowFileList(Long followId);
 }
