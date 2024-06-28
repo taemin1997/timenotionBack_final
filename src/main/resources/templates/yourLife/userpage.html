@@ -34,7 +34,8 @@
 
             <p style="display: none" id="get-user-id" th:text="${follow != null ? follow.followerId : ''}">ㄹㄹㄹ</p>
             <p style="display: none" id="get-user-status" th:text="${followStatus}"></p>
-            <p id="profile-nickname" th:text="${follow != null ? follow.userNickname : ''}">장윤근</p>
+            <p id="profile-nickname" th:text="${userInfo.nickname}">장윤근</p>
+<!--            <p id="profile-nickname" th:text="${follow != null ? follow.userNickname : ''}">장윤근</p>-->
             <p>
               <span class="follower-number" th:text="${follow != null ? follow.followingCount : '0'}">36</span>
               <span class="follower">팔로워</span>
@@ -52,7 +53,8 @@
       </div>
       <div class="profile-text">
         <div class="profile-introduce">
-          <p th:text="${about != null ? about.uniAbout : '-'}"></p>
+          <p th:text="${userInfo.uniAbout}"></p>
+<!--          <p th:text="${about != null ? about.uniAbout : '-'}"></p>-->
         </div>
       </div>
     </div>
