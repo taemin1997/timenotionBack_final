@@ -1,21 +1,29 @@
-
-body{
+body {
   margin: 0;
   padding: 0;
+  background-color: #fcfaf7;
 }
 
-main{
+main {
   width: 920px;
-    background-color: #fcfaf7;
+  background-color: #fcfaf7;
   margin: 0 auto;
+
   flex-direction: column;
   align-items: center;
 }
 
-a{
+a {
   text-decoration: none;
 }
-
+.container {
+  max-width: 1000px;
+  width: 1000px;
+  background-color: #fcfaf7;
+  box-sizing: border-box;
+  padding: 50px 10px;
+  min-width: 1000px;
+}
 #header {
   display: flex;
   height: 140px;
@@ -27,81 +35,88 @@ a{
 }
 
 header {
-  text-align: center; 
+  text-align: center;
   height: 100%;
   width: 100%;
   background-color: #e5f2f7;
 }
-
-/* 수정1 : 검은거 한 겹 추가 */
-.profile-background-dark{
-  background-color: #12121230;
-  width: 100%;
-  height: 100%;
-  border-radius: 6px 6px 0 0;
-  position: absolute;
-  top: 0px;
+.first-container{
+  margin-bottom: 50px;
 }
 
-.profile-background{
+.profile-background {
   position: relative;
-  /* background-color:aqua;  */
-  
 }
+
 /* 수정1 : 검은거 한 겹 추가 */
-.profile-background-dark{
-  /* background-color: #12121230; */
+.profile-background-dark {
+  background-color: #12121280;
   width: 100%;
   height: 100%;
-  border-radius: 6px 6px 0 0;
+  border-radius: 5px;
   position: absolute;
   top: 0px;
 }
 
-.profile-bg-img-box{
+.profile-bg-img-box {
   width: 100%;
-  height: 167px;
-  border-radius: 6px 6px 0 0;
+  height: 190px;
+  border-radius: 5px;
 }
-
-.profile-bg-img-box > img{
+.profile-bg-img-box img{
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 37%; /* 위치 */
-  border-radius: 6px 6px 0 0;
+  border-radius: 5px;
+}
+.img-back-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
 
 }
 
-.profile{
+/* 수정4 : 프로필 동그라미 */
+.profile {
   position: absolute;
   top: 90px;
   /* width: 100px; */
   display: flex;
   align-items: center;
-  margin-left: 25px;  
+  margin-left: 20px;
 }
-.profile-img-box{
-  width: 100px;
-  height: 100px;
+/*[[[1*/
+.profile-img-box {
+  width: 130px;
+  height: 135px;
   overflow: hidden;
+  border-radius: 12%;
+  margin-top: 15px;
 }
-.profile-img-box > img {
-  width: 100%; height: 100%;
+.profile-img-box img{
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 50%;
-  margin-right: 30px;
+
+}
+.img-profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
 }
 
-.profile-detail{
+
+.profile-detail {
   display: flex;
   align-items: center;
   height: 36px;
-  margin-left: 34px;
-
+  margin-left: 22px;
+  margin-bottom: 16px;
 }
 
-.profile-detail  > p{
+.profile-detail>p {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -111,80 +126,99 @@ header {
   color: white;
   height: 100%;
 }
-/* .profile-heart img{
+
+
+#profile-nickname {
+  font-weight: 700;
+  margin-top: 10px;
+
+}
+
+.follower-number {
+  font-weight: 700;
+
+}
+
+.profile-heart img {
   width: 20px;
   height: 20px;
   margin-top: 10px;
-} */
-
-/* 빨간색 하트 이미지 스타일 */
-
-.detail_page_heart.red {
-  filter: brightness(100%) saturate(100%) invert(55%) sepia(96%) saturate(3286%) hue-rotate(336deg) brightness(103%) contrast(92%);
-}
-.detail_page_heart {
-  width: 25px;
-  height: 25px;
-  transition: all 0.2s linear;
-  cursor: pointer;
-  margin-top: 3px;
 }
 
-.detail_page_heart:hover {
-  transform: scale(1.2);
-}
-
-/* 수정2 : 프로필 닉네임 */
-#profile-nickname{
-  font-weight: 700;
-  text-shadow: 1px 2px 5px#14141430;
-}
-.follower{
+.follower {
   font-size: 12px;
-  text-shadow: 1px 2px 5px#14141430;
+
 }
 
-.follower-number{
+.follower-number {
   font-size: 18px;
-  font-weight: 700;
-  text-shadow: 1px 2px 5px#14141430;
 }
 
-.profile-text{
+.profile-text {
   display: flex;
   justify-content: space-between;
-  align-items: top;
   margin-left: 120px;
   margin-top: 10px;
 }
-.profile-introduce p{
-  font-size: 16px;
+
+.profile-introduce {
+  width: 500px;
+  margin-left: 53px;
+  margin-top: 1px;
+}
+
+.profile-introduce p {
+  margin: 0;
+
+  font-size: 13px;
   /* font-weight: bold; */
 
-  width: 600px; /* 원하는 너비로 설정 */
-  height: 64px; /* 두 줄 높이에 맞춰 설정 */
+  width: 600px;
+  /* 원하는 너비로 설정 */
+  height: 64px;
+  /* 두 줄 높이에 맞춰 설정 */
 
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3; /* 원하는 줄 수 */
+  -webkit-line-clamp: 2;
+  /* 원하는 줄 수 */
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 32px; /* 한 줄 높이 설정 */
+  line-height: 28px;
+  /* 한 줄 높이 설정 */
 }
 
-.profile-introduce{
-  width: 600px;
-  /* margin-top: ; */
-  margin-left: 40px;
-}
-
-.profile-introduce > p{
-  margin: 0;
-  line-height: 1.7;
+/* 페이징 */
+.page-box{
+  margin: 60px auto 30px auto;
+  display: flex;
+  width: 160px;
+  justify-content: center;
+  align-items: center;
   font-size: 12px;
 }
+.page-a:link {
+  color: #2f2b2b;
+}
+
+.page-a:visited {
+  color: black;
+}
+
+.page-a:active {
+  color: #93c5d8;
+}
 
 
+.for-hr{
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  width: 100%;
+}
+
+
+/* =================================================================  */
 hr{
   margin-top: 70px;
   opacity: 0.3

@@ -8,6 +8,8 @@
     <title>너의일대기</title>
     <link rel="stylesheet" th:href="@{/css/yourLife/yourLife.css}"/>
     <link rel="stylesheet" th:href="@{/css/reset.css}"/>
+    <script defer th:src="@{js/yourLife/yourLife.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 </head>
@@ -40,10 +42,10 @@
                             <div class="flwers-left">
 
                                 <a th:href="@{/yourLife/userpage/{userId}(userId=${follow.followerId})}">
+                                    <!-- 담 작업중 --- -->
+                                    <input type="hidden" id="followerId" name="followerId" th:value="${follow.followerId}">
                                     <div class="flwers-img-box">
-                                        <img th:src="${follow.userFileProfileSource}" alt=""/>
-
-
+<!--                                        <img th:src="${follow.userFileProfileSource}" alt=""/>-->
                                     </div>
                                     <div class="flwers-nick-count-box">
                                         <div>
@@ -77,23 +79,22 @@
                         <div class="title">팔로잉</div>
                         <!--  ☆★☆★☆★☆★ 이 박스가 한 개 ☆★☆★☆★☆★-->
                         <!--  팔로잉은 내가 그사람을 팔로우 했을때 값이 증가한다-->
-                        <div class="flwers-box" th:each=" following : ${followings}">
-<!--                            2-1-1. 왼쪽-->
+                        <div class="flwing-box" th:each=" following : ${followings}">
+                            <!--                            2-1-1. 왼쪽-->
                             <div class="flwers-left">
 
                                 <a th:href="@{/yourLife/userpage/{userId}(userId=${following.followerId})}">
-
-                                    <div class="flwers-img-box">
-                                        <img th:src="@{${following.userFileProfileSource}}" alt=""/>
-
+                                    <input type="hidden" id="followingId" name="followingId" th:value="${following.followerId}">
+                                    <div class="flwing-img-box">
+                                        <!-- 이미지 들어가는 위치 -->
                                     </div>
                                     <div class="flwers-nick-count-box">
-<!--                                        <span class="nickname" th:text="${following.userNickname}">nickname</span>-->
-<!--                                        <div class="count-box" th:each=" board : ${boards}">-->
-<!--&lt;!&ndash;                                            <span>일기</span><span class="life-count bold" th:text="${board.boardCount}">25</span><span>팔로워</span>&ndash;&gt;-->
-<!--                                        <span class="follower-count bold"-->
-<!--                                               th:text="${following.followerCount}">105</span>-->
-<!--                                        </div>-->
+                                        <!--                                        <span class="nickname" th:text="${following.userNickname}">nickname</span>-->
+                                        <!--                                        <div class="count-box" th:each=" board : ${boards}">-->
+                                        <!--&lt;!&ndash;                                            <span>일기</span><span class="life-count bold" th:text="${board.boardCount}">25</span><span>팔로워</span>&ndash;&gt;-->
+                                        <!--                                        <span class="follower-count bold"-->
+                                        <!--                                               th:text="${following.followerCount}">105</span>-->
+                                        <!--                                        </div>-->
                                         <div>
                                             <span class="nickname" th:text="${following.userNickname}">nickname</span>
                                         </div>
@@ -119,15 +120,15 @@
                         <!-- ☆★☆★☆★☆★☆★☆★ -->
 
                     </div>
-                    </div>
-
-
                 </div>
-                <!-- ======================================================= -->
-                <!--           3. 페이지네이션-->
 
-                <!--          -->
+
             </div>
+            <!-- ======================================================= -->
+            <!--           3. 페이지네이션-->
+
+            <!--          -->
+        </div>
     </main>
     <!--      <div class="page-container">-->
     <!--        <ul class="page-box">-->

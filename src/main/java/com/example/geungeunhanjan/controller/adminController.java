@@ -3,6 +3,7 @@ package com.example.geungeunhanjan.controller;
 import com.example.geungeunhanjan.domain.dto.NoticePage.NoticeCriteria;
 import com.example.geungeunhanjan.domain.dto.NoticePage.NoticePage;
 import com.example.geungeunhanjan.domain.dto.board.BoardDTO;
+import com.example.geungeunhanjan.domain.dto.board.LifeUserInfoDTO;
 import com.example.geungeunhanjan.domain.dto.community.InquiryDTO;
 import com.example.geungeunhanjan.domain.dto.community.InquiryPagingDTO;
 import com.example.geungeunhanjan.domain.dto.community.MemberDTO;

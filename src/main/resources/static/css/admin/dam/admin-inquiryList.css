@@ -22,7 +22,7 @@ main,
 a,
 select,
 option {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'pretendard';
 }
 
 /* #cadb36  #594096 #1c191a*/
@@ -439,7 +439,7 @@ a:hover {
 .admin-response-before{
   display: block;
   white-space: nowrap;
-  padding: 4px 13px;
+  padding: 6px 9px;
   background-color: rgb(181, 244, 181);
   color: #24325f;
   font-size: 11px;
@@ -450,7 +450,7 @@ a:hover {
 .admin-response-after{
   display: block;
   white-space: nowrap;
-  padding: 4px 8px;
+  padding: 6px 9px;
   background-color: rgb(177, 177, 177);
   color: white;
   font-size: 11px;

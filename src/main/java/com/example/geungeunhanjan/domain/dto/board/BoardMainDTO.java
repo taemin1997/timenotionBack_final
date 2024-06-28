@@ -20,8 +20,11 @@ public class BoardMainDTO {
     private int boardYear;
     private Long userId;
     private String userFileProfileSource;
+    private String userFileProfileName;
+    private String userFileProfileUuid;
     private String boardFileSourceName;
     private String boardFileName;
+    private String boardFileUuid;
     private String userNickname;
     private int boardRank;
 }
