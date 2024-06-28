@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1:1 문의</title>
+    <link rel="stylesheet" href="/css/notion.css" />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/admin/dam/admin-inquiryDetail.css" />
+</head>
+<body>
+<div id="wrapper">
+    <header>
+        <div class="logo-boxContainer">
+            <div class="logo-box">
+                <a th:href="@{/main}">
+                    <img th:src="@{/img/main/timeNotion3.png}"/>
+                </a>
+            </div>
+
+            <div class="logo-boxTitle">관리자 페이지</div>
+        </div>
+    </header>
+    <main>
+        <div class="admin-container">
+            <!-- 왼쪽 카테고링 -->
+            <div class="container-nav">
+                <!-- 관리자 계정 -->
+                <div class="admin_login_status">
+
+                    <div class="admin_login_status-img">
+                        <img src="/img/myLife/jyg-profile_img_20240512_163410241.jpg" alt="관리자 프사">
+                    </div>
+                    <div class="admin_login_status-name">
+                        <p class="admin-text">Admin</p>
+                        <p class="admin-index">관리자 계정</p>
+                    </div>
+                </div>
+
+                <!-- 대시보드~ 1:1문의  -->
+                <div class="admin-nav-box">
+                    <a th:href="@{/admin}"><button id="dashboard"><p>대시보드</p></button></a>
+                    <a th:href="@{/admin/boardList}"><button id="post"><p>게시판 관리</p></button></a>
+                    <a th:href="@{/admin/memberList}"><button id="user"><p>회원 관리</p></button></a>
+                    <a th:href="@{/admin/reportList}"><button id="declaration"><p>신고 관리</p></button></a>
+                    <a th:href="@{/admin/noticeList}"><button id="notification"><p>공지사항</p></button></a>
+                    <a th:href="@{/admin/inquiryList}"><button id="inquiry"><p>1:1 문의</p></button></a>
+                </div>
+            </div>
+            <!-- 오른쪽 -->
+            <div class="container-content">
+                <!-- 1. 게시판 이름 -->
+                <div class="admin-title-box"><span>1:1 문의</span></div>
+                <div class="admin-detail-box">
+                    <div class="detail-title-box">
+                        <h2 class="detail-title" th:text="${inquiryDetail.inquiryTitle}"></h2>
+                        <p th:if="${inquiryDetail.inquiryPublic == 'O'}" th:text="'공개'"></p>
+                        <p th:if="${inquiryDetail.inquiryPublic == 'X'}" th:text="'비공개'"></p>
+                    </div>
+                    <hr>
+                    <p class="detail-contents" th:text="${inquiryDetail.inquiryContent}"></p>
+                    <p class="detail-response">
+                        <span> 답변 : </span>
+                        <span th:text="${inquiryDetail.inquiryResponse}"></span>
+                    </p>
+                    <form th:action="@{/admin/inquiry/detail/response}" method="post">
+                        <div class="admin-write-box">
+                            <textarea class="admin-response" name="inquiryResponse"></textarea>
+                            <input type="hidden" name="inquiryId" th:value="${inquiryDetail.inquiryId}">
+                            <button type="submit" class="write-button">답변등록</button>
+                        </div>
+                    </form>
+                </div>
+
+                <p class="list-button">
+                    <a th:href="@{/admin/inquiryList}">목록으로</a>
+                    <img src="/img/admin/admin_tm/icon_return.png">
+                </p>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>
