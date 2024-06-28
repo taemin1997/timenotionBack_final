@@ -3,10 +3,11 @@
 *{
     color: #251F1F;
 }
+body{     background-color: #fcfaf7;}
 .everyLife-container{
     margin: 0 auto;
     padding: 0 40px;
-    height: 1350px;
+    /*height: 1350px;*/
     width: 100%;
 } 
 .everyLife-wrap1{
@@ -184,14 +185,17 @@ li, ul, ol{
     white-space: normal;
 }
 .everyLife-paging{
-    margin: 60px auto 0 auto;
+
+    margin: 60px auto 30px auto;
     display: flex;
     width: 160px;
-    /* border: 1px solid black; */
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
 }
 .everyLife-paging a{
     color: black;
+    padding: 0px 12px;
 }
 .paging-backward{
     display: none;
@@ -199,3 +203,5 @@ li, ul, ol{
 .paging-forward{
     display: block;
 }
+
+

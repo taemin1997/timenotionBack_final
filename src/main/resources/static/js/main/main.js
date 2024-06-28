@@ -69,3 +69,180 @@ function moveFirst(){
       location.href = '/everyLife?keyword=' + encodeURIComponent(keyword);
     });
   }
+
+
+
+  /* 메인배너 사진 불러오기  --------------------------------------------------------------*/
+/* - 왼쪽 메인배너 불러오기 (단일) ------------  */
+let leftBanner = document.querySelector('#leftBanner').value;
+let leftUserId = document.querySelector('#leftUserId').value;
+
+
+
+AjaxOfUserFile(leftBanner, leftUserId);
+
+function AjaxOfUserFile(boardId, userId) {
+    // 1. 메인배너 패치
+  fetch(`/v1/leftBanner/${boardId}/files`, { method: 'GET' })
+      .then(res => res.json()) // 응답을 JSON으로 변환
+      .then(data => { // 변환된 데이터를 data 변수에 저장
+        /* 파일 경로 조합 */
+          let bannerFileName = encodeURIComponent(data.boardFileSourceName + '/' + data.boardFileUuid + '_' + data.boardFileName); // ☆★☆★☆★ 파일 경로를 URL 인코딩
+          let bannerTag = '';
+
+        if (data.boardFileSourceName) {
+            bannerTag = `
+                    <img src="/v1/user-files?fileName=${bannerFileName}" alt="왼쪽 배너사진" class="img-profile-img">
+                `;
+        } else {
+            bannerTag = `
+                    <img src="/img/main/basic-profile.png" alt="기본 프로필 사진" class="img-profile-img">
+                `;
+        }
+
+        let $bannerBox = document.querySelector('.leftBanner-box');
+        $bannerBox.innerHTML = bannerTag;
+      });
+
+
+    // 2. 프로필사진 패치
+    fetch(`/v1/leftBanner/profile/${userId}/files`, { method: 'GET' })
+        .then(res => res.json()) // 응답을 JSON으로 변환
+        .then(data => { // 변환된 데이터를 data 변수에 저장
+            let profileFileName = encodeURIComponent(data.userFileProfileSource + '/' + data.userFileProfileUuid + '_' + data.userFileProfileName); // ☆★☆★☆★ 파일 경로를 URL 인코딩
+            let profileTag = '';
+            if (data.userFileProfileSource) {
+                profileTag = `
+                    <img src="/v1/user-files?fileName=${profileFileName}" alt="왼쪽 배너사진" class="img-profile-img">
+                `;
+            } else {
+                profileTag = `
+                    <img src="/img/main/basic-profile.png" alt="기본 프로필 사진" class="img-profile-img">
+                `;
+            }
+
+            $profileBox = document.querySelector('.banner-profile-img');
+            $profileBox.innerHTML = profileTag;
+
+        });
+
+}
+
+
+
+
+/* - 오른쪽 메인배너 불러오기 (리스트) ------------  ----------------------   */
+/* - 오른쪽 메인배너 불러오기 (리스트) ------------  ----------------------   */
+/* - 오른쪽 메인배너 불러오기 (리스트) ------------  ----------------------   */
+
+document.querySelectorAll('.main-top-box').forEach(box => {
+    let rightBanner = box.querySelector('#rightBanner').value;
+    let rightUserId = box.querySelector('#rightUserId').value;
+    console.log("오른쪽 배너 보드 아이디 : " + rightBanner + "// 오른쪽 배너 유저 아이디 : " + rightUserId);
+
+    let rightBannerBox = box.querySelector('.rightBanner-box');
+    let profileBox = box.querySelector('.right-banner-profile-img');
+
+    AjaxOfRightBanner(rightBanner, rightUserId, rightBannerBox, profileBox);
+});
+
+function AjaxOfRightBanner(boardId, userId, bannerBox, profileBox) {
+    console.log("넘어온 오른쪽 유저 아이디 : " + userId);
+
+    // 1. 메인배너 패치 (오른쪽)
+    fetch(`/v1/rightBanner/${boardId}/files`, { method: 'GET' })
+        .then(res => res.json())
+        .then(data => {
+            let bannerTag = '';
+            data.forEach(item => {
+                let bannerFileName = encodeURIComponent(item.boardFileSourceName + '/' + item.boardFileUuid + '_' + item.boardFileName);
+                console.log("RRR 파일 이름 : " + bannerFileName)
+                if (item.boardFileSourceName) {
+                    bannerTag = `
+                        <img src="/v1/user-files?fileName=${bannerFileName}" alt="오른쪽 배너 사진"/>
+                    `;
+                } else {
+                    bannerTag = `
+                        <img src="/img/main/basic-profile.png" alt="기본 이미지">
+                    `;
+                }
+            });
+            bannerBox.innerHTML = bannerTag;
+        })
+        .catch(error => console.error('Error:', error));
+
+    // 프로필사진 패치
+    fetch(`/v1/rightBanner/profile/${userId}/files`, { method: 'GET' })
+        .then(res => res.json())
+        .then(data => {
+            let profileTags = '';
+            if (data.length > 0) { // 데이터가 있는지 확인
+                data.forEach(item => {
+                    let profileFileName = encodeURIComponent(item.userFileProfileSource + '/' + item.userFileProfileUuid + '_' + item.userFileProfileName);
+                    console.log("ㄱRRR 파일 이름 : " + profileFileName)
+                    if (item.userFileProfileSource) {
+                        profileTags = `
+                        <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진"/>
+                    `;
+                    }
+                });
+            } else { // 데이터가 없으면 기본 이미지 사용
+                profileTags = `
+                <img src="/img/main/basic-profile.png" alt="기본 이미지">
+            `;
+            }
+            profileBox.innerHTML = profileTags; // 기존 내용을 덮어씁니다.
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+
+/* 인기 컨텐츠 프로필사진 ------------------------------------------------------------------------------------  */
+
+
+
+document.querySelectorAll('.wrap-pop-main').forEach(box => {
+    let popUserId = box.querySelector('#popUserId').value;
+    let profileBox = box.querySelector('.box-profile-img');
+    console.log("인기컨텐츠 아이ㅏ디 " + popUserId );
+
+    AjaxOfPopProfile(popUserId, profileBox);
+});
+
+function AjaxOfPopProfile(userId, profileBox) {
+
+    // 프로필사진 패치
+    fetch(`/v1/rightBanner/profile/${userId}/files`, { method: 'GET' })
+        .then(res => res.json())
+        .then(data => {
+            let profileTags = '';
+            if (data.length > 0) { // 데이터가 있는지 확인
+                data.forEach(item => {
+                    let profileFileName = encodeURIComponent(item.userFileProfileSource + '/' + item.userFileProfileUuid + '_' + item.userFileProfileName);
+                    console.log("ㄱRRR 파일 이름 : " + profileFileName)
+                    if (item.userFileProfileSource) {
+                        profileTags = `
+                        <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진"/>
+                    `;
+                    }
+                });
+            } else { // 데이터가 없으면 기본 이미지 사용
+                profileTags = `
+                <img src="/img/main/basic-profile.png" alt="기본 이미지">
+            `;
+            }
+            profileBox.innerHTML = profileTags; // 기존 내용을 덮어씁니다.
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+
+
+
+
+
+
+
+
+
+

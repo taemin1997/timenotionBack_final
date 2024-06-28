@@ -417,8 +417,10 @@ public class MyPageController {
         }
 
         /* 팔로워 팔로잉 수*/
+        LifeUserInfoDTO userInfo = myPageService.selectAllInfo(uniId);
         int followerCnt = myPageService.countFollower(uniId);
         int followingCnt = myPageService.countFollowing(uniId);
+        model.addAttribute("userInfo", userInfo);
         model.addAttribute("followerCnt", followerCnt);
         model.addAttribute("followingCnt", followingCnt);
         return "/myLife/myPageNotification";
