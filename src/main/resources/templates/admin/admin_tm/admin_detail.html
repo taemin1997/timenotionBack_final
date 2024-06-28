@@ -12,45 +12,44 @@
 </head>
 <body>
 <div class="container">
-    <!--        <input type="hidden" id="uniId" th:value="${session.uniId}">-->
+<!--            <input type="hidden" id="uniId" th:value="${session.uniId}">-->
+            <!--1. 상단 날짜 / 수정 삭제 버튼 ----------------->
+            <div class="wrapper-date-etc">
+                <div class="box-date-left" th:text="${boards.boardCreatedDate != null ? '작성일 :  ' + #temporals.format(boards.boardCreatedDate, 'yy년 MM월 dd일') : '날짜 없음'}">
+                </div>
+                <input type="hidden" id="boardId" th:value="${boards.boardId}">
+                <div class="box-date-right">
+                    <th:block th:if="${boards.userId == session.uniId}">
+                        <button class="btn-modify" th:data-id="${boards.boardId}">수정</button>
+                        <button type="button" class="btn-remove" th:data-id="${boards.boardId}">삭제</button>
+                    </th:block>
+                </div>
+            </div>
 
-    <!--        &lt;!&ndash;1. 상단 날짜 / 수정 삭제 버튼 -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-    <!--        <div class="wrapper-date-etc">-->
-    <!--            <div class="box-date-left" th:text="${boards.boardCreatedDate != null ? '작성일 :  ' + #temporals.format(boards.boardCreatedDate, 'yy년 MM월 dd일') : '날짜 없음'}">-->
-    <!--            </div>-->
-    <!--            <input type="hidden" id="boardId" th:value="${boards.boardId}">-->
-    <!--            <div class="box-date-right">-->
-    <!--                <th:block th:if="${boards.userId == session.uniId}">-->
-    <!--                    <button class="btn-modify" th:data-id="${boards.boardId}">수정</button>-->
-    <!--                    <button type="button" class="btn-remove" th:data-id="${boards.boardId}">삭제</button>-->
-    <!--                </th:block>-->
-    <!--            </div>-->
-    <!--        </div>-->
+            <!--2. 타이틀 ----------------->
+            <div class="wrapper-title" th:text="${boards.boardTitle}"></div>
 
-    <!--        &lt;!&ndash;2. 타이틀 -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-    <!--        <div class="wrapper-title" th:text="${boards.boardTitle}"></div>-->
+            <!--3. 프로필 영역 / 하트 / 공개  ----------------->
+            <div class="wrapper-profile">
+                <div class="box-profile-img"><a th:href="@{/yourLife/userpage/{userId}(userId=${boards.userId})}"><img
+                        th:src="@{/img/myLife/sas detail_comment1.jpg}" alt=""></a></div>
+                <div class="box-profile-nickname"><a th:text="${userNickname}">닉네임</a></div>
+                <p id="user-lifecycle-check" style="display: none" th:text="${boards.boardLifeCycle}"></p>
 
-    <!--        &lt;!&ndash;3. 프로필 영역 / 하트 / 공개  -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-    <!--        <div class="wrapper-profile">-->
-    <!--            <div class="box-profile-img"><a th:href="@{/yourLife/userpage/{userId}(userId=${boards.userId})}"><img-->
-    <!--                    th:src="@{/img/myLife/sas detail_comment1.jpg}" alt=""></a></div>-->
-    <!--            <div class="box-profile-nickname"><a th:text="${userNickname}">닉네임</a></div>-->
-    <!--            <p id="user-lifecycle-check" style="display: none" th:text="${boards.boardLifeCycle}"></p>-->
+                <div><img th:src="@{/img/myLife/sas detail_heart.png}" alt="하트" class="box-profile-heart"
+                          id="heartImage"></div>
+            </div>
+            <div class="bold-underline"></div>
 
-    <!--            <div><img th:src="@{/img/myLife/sas detail_heart.png}" alt="하트" class="box-profile-heart"-->
-    <!--                      id="heartImage"></div>-->
-    <!--        </div>-->
-    <!--        <div class="bold-underline"></div>-->
-
-    <!--        &lt;!&ndash;4. 컨텐츠 영역  -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-    <!--        <div class="wrapper-content">-->
-    <!--            <div class="post-content" th:text="${boards.boardContent}"></div>-->
-    <!--            <div class="post-images">-->
-    <!--                &lt;!&ndash; 이미지 예시 &ndash;&gt;-->
-    <!--                &lt;!&ndash; /이미지 예시 &ndash;&gt;-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--        <div class="bold-underline"></div>-->
+            <!--4. 컨텐츠 영역  ----------------->
+            <div class="wrapper-content">
+                <div class="post-content" th:text="${boards.boardContent}"></div>
+                <div class="post-images">
+                    <!-- 이미지 예시 -->
+                    <!-- /이미지 예시 -->
+                </div>
+            </div>
+            <div class="bold-underline"></div>
 
     <!-- 00. 댓글영역 (까먹고 나중에 추가함;;) -->
     <div class="wrapper-reply-write">

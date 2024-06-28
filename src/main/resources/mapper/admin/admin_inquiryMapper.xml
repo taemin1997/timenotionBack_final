@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.geungeunhanjan.mapper.admin.admin_inquiryMapper">
+    <select id="selectAdminInquiryPage" parameterType="InquiryCriteria" resultType="InquiryPagingDTO">
+    <![CDATA[
+        SELECT INQUIRY_ID, INQUIRY_TITLE, NICKNAME, INQUIRY_CREATED_DATE, user_id, INQUIRY_PUblIC, inquiry_response
+        FROM (
+                 SELECT ROWNUM AS RNUM, INQUIRY_ID, INQUIRY_TITLE, NICKNAME, INQUIRY_CREATED_DATE, user_id, inquiry_public, inquiry_response
+                 FROM (
+                          SELECT I.INQUIRY_ID, I.INQUIRY_TITLE,
+                                 CASE
+                                     WHEN U.USER_ID IS NOT NULL THEN U.USER_NICKNAME
+                                     ELSE K.NAME
+                                     END AS NICKNAME,
+                                 I.INQUIRY_CREATED_DATE,
+                                 i.user_id,
+                                 i.inquiry_public,
+                                 i.inquiry_response
+                          FROM GGHJ_INQUIRY I
+                                   LEFT JOIN GGHJ_UNI UNI ON I.USER_ID = UNI.UNI_ID
+                                   LEFT JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID
+                                   LEFT JOIN GGHJ_KAKAO K ON UNI.KAKAO_ID = K.KAKAO_ID
+                          ORDER BY I.INQUIRY_ID DESC
+                      )
+                 WHERE ROWNUM <= #{inquiryPage} * #{inquiryAmount}
+             )
+        WHERE RNUM > (#{inquiryPage} - 1) * #{inquiryAmount}
+        ]]>
+    </select>
+
+    <select id="selectAdminInquiryTotal" resultType="int">
+        select count(inquiry_id) from gghj_inquiry
+    </select>
+
+    <select id="selectAdminInquiryDetail" resultType="InquiryDTO">
+        SELECT
+            I.INQUIRY_ID,
+            I.INQUIRY_TITLE,
+            I.INQUIRY_CONTENT,
+            I.INQUIRY_RESPONSE,
+            I.INQUIRY_PUBLIC,
+            I.USER_ID
+        FROM
+            GGHJ_INQUIRY I
+                JOIN
+            GGHJ_UNI U ON I.USER_ID = U.UNI_ID
+        WHERE
+            I.INQUIRY_ID = #{inquiryId}
+    </select>
+
+    <update id="writeAdminResponse">
+        UPDATE GGHJ_INQUIRY
+        SET INQUIRY_RESPONSE = #{inquiryResponse}
+        WHERE INQUIRY_ID = #{inquiryId}
+    </update>
+
+</mapper>
