@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/css/notion.css" />
   <link rel="stylesheet" href="/css/reset.css" />
   <link rel="stylesheet" href="/css/admin/dam/admin-noticeList.css" />
+  <script defer th:src="@{/js/admin/admin_notice.js}"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -51,16 +52,18 @@
       <!-- 오른쪽 -->
       <div class="container-content">
         <!-- 1. 게시판 이름 -->
+        <div>
         <div class="admin-title-box"><span>공지사항</span></div>
         <!-- 2. 검색 -->
         <div class="admin-search-box">
-          <div class="admin-search-left">
-            <input type="text" name="" id="" placeholder="검색어를 입력하세요" />
-            <div class="admin-box-dodbogi">
+          <form class="admin-search-left" action="/admin/noticeList" method="get">
+            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요" th:value="${searchKeyword}" />
+            <button type="submit" class="admin-box-dodbogi">
               <img src="/img/main/돋보기.png" alt="" />
-            </div>
-          </div>
-          <div class="admin-search-right"><button>공지글 작성하기</button></div>
+            </button>
+          </form>
+
+          <div class="admin-search-right"><button type="button"  th:onclick="|location.href='@{/community/notification/notification-detail}'|">공지글 작성하기</button></div>
         </div>
         <!-- 3. 리스트 -->
         <div class="admin-list-wrapper">
@@ -83,29 +86,44 @@
             </ul>
           </div>
           <!-- 3-2. 리스트들 -->
-          <div class="box-admin-list">
+          <div class="box-admin-list"  th:each="notice : ${noticeLists}" >
             <ul>
               <!--☆☆☆☆☆☆☆-->
               <li>
                 <!-- 왼쪽 -->
                 <div class="admin-list-left">
-                  <div class="admin-one gap">1</div>
-                  <div class="admin-two gap"><a href="#">공지사항 제목</a></div>
+                  <div class="admin-one gap"  th:text="${notice.noticeId}">1</div>
+                  <div class="admin-two gap"><a href="#"  th:href="@{/community/notification/community_detail/{noticeId}(noticeId=${notice.noticeId})}" th:text="${notice.noticeTitle}">공지사항 제목</a></div>
                 </div>
                 <!-- 오른쪽 -->
                 <div class="admin-list-right">
-                  <div class="admin-three gap"><a href="#">닉네임</a></div>
-                  <div class="admin-four gap"><span>2024.05.05 13:07</span></div>
-                  <div class="admin-five"><button>삭제</button></div>
+                  <div class="admin-three gap"  th:text="${notice.userNickname}"><a href="#">닉네임</a></div>
+                  <div class="admin-four gap"><span  th:text="${#temporals.format(notice.noticeCreatedDate, 'yyyy.MM.dd')}">2024.05.05 13:07</span></div>
+                  <form class="admin-five"  th:action="@{/admin/noticeList/{noticeId}(noticeId=${notice.noticeId})}" method="post">
+                    <button id="admin-notice-delete">삭제</button>
+                  </form>
                 </div>
               </li>
             </ul>
           </div>
         </div>
-        <div class="wrapper-pagination">
-          <div class="chevron-left"><img src="/img/main/쉐브론.png" alt="" /></div>
-          1 2 3 4 5
-          <div class="chevron-right"><img src="/img/main/쉐브론.png" alt="" /></div>
+        </div>
+        <div class="page-container">
+          <ul class="page-box">
+            <a th:href="@{/admin/noticeList(page=${page.startPage - 1})}" class="page-a" th:if="${page.prev}">
+              <li class="page-num prev"> < </li>
+            </a>
+
+            <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
+              <a th:href="@{/admin/noticeList(page=${i})}" class="page-a">
+                <li class="page-num" th:classappend="${i == page.noticeCriteria.page ? 'active' : ''}" th:text="${i}"></li>
+              </a>
+            </th:block>
+
+            <a th:href="@{/admin/noticeList(page=${page.endPage + 1})}" class="page-a" th:if="${page.next}">
+              <li class="page-num next"> > </li>
+            </a>
+          </ul>
         </div>
       </div>
     </div>
