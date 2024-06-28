@@ -64,7 +64,7 @@
 <a href='https://ifh.cc/v-H9Fj40' target='_blank'><img  width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/a28d2e60-f0f5-4918-a3b0-4192572259c0></a>
 
 - 타임 노션이라는 웹사이트는 무조건 로그인을 해야 볼수있는 회원제 게시판입니다.
-- Session을 이용하여 로그인을 구현하였고, KAKAO API를 불러와 Oauth를 통해 카카로 로그인을 구현 하였습니다.
+- Session을 이용하여 로그인을 구현하였고, KAKAO API를 불러와 Oauth2를 통해 카카로 로그인을 구현 하였습니다.
 
 
 **<회원가입>**<br>
