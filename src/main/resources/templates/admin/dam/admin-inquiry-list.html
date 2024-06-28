@@ -88,34 +88,57 @@
           <!-- 3-2. 리스트들 -->
           <div class="box-admin-list">
             <ul>
-
               <!--☆☆☆☆☆☆☆-->
-              <li>
+              <li th:each="inquiry : ${inquiries}">
                 <!-- 왼쪽 -->
                 <div class="admin-list-left">
-                  <div class="admin-one gap">1</div>
+                  <div class="admin-one gap" th:text="${inquiry.inquiryId}">1</div>
                   <div class="admin-response gap">
-                    <span class="admin-response-before">답변전</span>
-                    <span class="admin-response-after">답변완료</span>
+                    <span th:if="${inquiry.inquiryResponse == null}" class="admin-response-before">답변전</span>
+                    <span th:if="${inquiry.inquiryResponse != null}" class="admin-response-after">답변완료</span>
                   </div>
-                  <div class="admin-two gap"><a href="#">문의 제목</a></div>
+                  <div class="admin-two gap">
+                    <a th:href="@{/admin/inquiry/detail(inquiryId=${inquiry.inquiryId})}"  th:text="${inquiry.inquiryTitle}"></a>
+                  </div>
                 </div>
                 <!-- 오른쪽 -->
                 <div class="admin-list-right">
-                  <div class="admin-three gap"><a href="#">닉네임</a></div>
-                  <div class="admin-four gap"><span>2024.05.05 13:07</span></div>
+                  <div class="admin-three gap"  th:text="${inquiry.nickname}">
+<!--                    <a href="#" ></a>-->
+                  </div>
+                  <div class="admin-four gap"><span th:text="${#temporals.format(inquiry.inquiryCreatedDate, 'yyyy.MM.dd')}">2024.05.05 13:07</span></div>
                   <div class="admin-five"><button>삭제</button></div>
                 </div>
               </li>
-
-
             </ul>
           </div>
         </div>
-        <div class="wrapper-pagination">
-          <div class="chevron-left"><img src="/img/main/쉐브론.png" alt="" /></div>
-          1 2 3 4 5
-          <div class="chevron-right"><img src="/img/main/쉐브론.png" alt="" /></div>
+<!--        <div class="wrapper-pagination">-->
+<!--          <div class="chevron-left"><img src="/img/main/쉐브론.png" alt="" /></div>-->
+<!--          1 2 3 4 5-->
+<!--          <div class="chevron-right"><img src="/img/main/쉐브론.png" alt="" /></div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+        <div class="inquiryPage-container">
+          <ul class="inquiryPage-box">
+            <a th:href="@{/admin/inquiryList(inquiryPage=${inquiryPage.startPage - 1})}" class="inquiryPage-a" th:if="${inquiryPage.prev}">
+              <li class="inquiryPage-num prev1">&lt</li>
+            </a>
+
+            <!--        th:block은 화면에 영향을 주지않는 가짜 태그
+                        타임리프 문법을 사용하기 위해 만들어 쓴다.
+            -->
+            <th:block th:each="i : ${#numbers.sequence(inquiryPage.startPage, inquiryPage.endPage)}">
+              <a th:href="@{/admin/inquiryList(inquiryPage=${i})}" class="inquiryPage-a">
+                <li class="inquiryPage-num" th:classappend="${i == inquiryPage.inquiryCriteria.inquiryPage ? 'active' : ''}" th:text="${i}"></li>
+              </a>
+            </th:block>
+
+            <a th:href="@{/admin/inquiryList(inquiryPage=${inquiryPage.endPage + 1})}" class="inquiryPage-a" th:if="${inquiryPage.next}">
+              <li class="inquiryPage-num next1">&gt</li>
+            </a>
+          </ul>
         </div>
       </div>
     </div>
