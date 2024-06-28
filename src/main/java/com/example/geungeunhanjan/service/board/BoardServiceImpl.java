@@ -160,8 +160,8 @@ public class BoardServiceImpl implements BoardService {
 
     //게시판을 작성한 사람의 생일 불러오기
     @Override
-    public LocalDateTime writerUserBirth(Long userId) {
-        return boardMapper.selectUserBirth(userId);
+    public LocalDateTime writerUserBirth(Long uniId) {
+        return boardMapper.selectUserBirth(uniId);
     }
 
     // Board의 리스트

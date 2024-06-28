@@ -109,6 +109,7 @@ public class MyPageController {
                                 RedirectAttributes redirectAttributes) {
         //현재 사용자가 누군지 정보 선언
         boardVO.setUserId(uniId);
+        System.out.println("uniId = " + uniId);
 
         // 데이터베이스에서 사용자의 생일을 가져옴
         LocalDateTime userBirthDateTime = boardService.writerUserBirth(uniId);
