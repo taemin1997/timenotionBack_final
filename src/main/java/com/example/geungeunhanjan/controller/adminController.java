@@ -13,7 +13,10 @@ import com.example.geungeunhanjan.domain.dto.inquiryPage.InquiryPage;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.dto.lifePage.Page;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
+<<<<<<< HEAD
 import com.example.geungeunhanjan.domain.vo.file.UserFileVO;
+=======
+>>>>>>> 67023f03acfcd7168352fa019e6bc07f6f0ac094
 import com.example.geungeunhanjan.service.MyPageService;
 import com.example.geungeunhanjan.service.admin.admin_boardListService;
 import com.example.geungeunhanjan.service.admin.admin_inquiryService;
@@ -29,7 +32,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +52,8 @@ public class adminController {
     private final NoticeService noticeService;
     private final admin_noticeListService adminNoticeListService;
     private final admin_memberListService adminMemberListService;
+    private final MyPageService myPageService;
+    BoardVO boardVO;
 
     // 메인 페이지
     @GetMapping()
@@ -54,10 +63,7 @@ public class adminController {
 
     // 게시판 관리
     @GetMapping("/boardList")
-    public String boardList(Model model, HttpSession session, Criteria criteria,
-                            @RequestParam(required = false, defaultValue = "latest") String sort) {
-
-
+    public String boardList(Model model, HttpSession session, Criteria criteria, @RequestParam(required = false, defaultValue = "latest") String sort) {
         // 페이징 처리를 위한 코드
         criteria.setAmount(12);
         List<BoardDTO> adminBoardLists = adminBoardListService.everyLifeFindPage(criteria);
@@ -69,6 +75,54 @@ public class adminController {
         model.addAttribute("sort", sort);
 
         return "admin/dam/admin-board-list"; // 페이지 이름 반환
+    }
+
+    // 관리자 디테일
+    @GetMapping("/detail")
+    public String detail(Model model, Long boardId, HttpSession session) {
+        Long uniId = (Long)session.getAttribute("uniId");
+        if (uniId == null) {
+            return "redirect:/user/login";
+        }
+        BoardVO boards = adminBoardListService.selectById(boardId);
+        adminBoardListService.boardIntViewCnt(boardId);
+        String userNickname = adminBoardListService.boardUserName(boardId);
+        // 유저 정보 모두
+        LifeUserInfoDTO userInfo = myPageService.selectAllInfo(uniId);
+        model.addAttribute("userInfo", userInfo);
+        model.addAttribute("boards", boards);
+        model.addAttribute("userNickname", userNickname);
+
+        return "admin/admin_tm/admin_detail";
+    }
+
+    // 게시글 수정
+    @GetMapping("/update")
+    public String update(Long boardId, Model model) {
+        BoardVO boards = adminBoardListService.selectById(boardId);
+        model.addAttribute("boards",boards);
+
+        return "admin/admin_tm/admin_update";
+    }
+
+    // 게시글 수정
+    @PostMapping("/update")
+    public String update(BoardVO boardVO, @RequestParam("boardFile") List<MultipartFile> files, RedirectAttributes redirectAttributes){
+        try{
+            adminBoardListService.modifyBoard(boardVO, files);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+
+        redirectAttributes.addAttribute("boardId", boardVO.getBoardId());
+        return "redirect:/admin/boardList";
+    }
+
+    //게시글 삭제
+    @GetMapping("/remove")
+    public RedirectView removeBoard(Long boardId){
+        adminBoardListService.removeBoard(boardId);
+        return new RedirectView("/admin/boardList");
     }
 
     // 회원 관리
@@ -192,9 +246,6 @@ public class adminController {
         return "redirect:/admin/noticeList";
     }
 
-
-
-
     // 1:1 문의
     @GetMapping("/inquiryList")
     public String inquiryList(InquiryCriteria inquiryCriteria, Model model) {
@@ -226,14 +277,5 @@ public class adminController {
         System.out.println("response:" + inquiryResponse);
         adminInquiryService.writeAdminResponse(inquiryResponse, inquiryId);
         return "redirect:/admin/inquiryList";
-    }
-
-    // 관리자 디테일
-    @GetMapping("/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Long boardId) {
-        BoardVO board = adminBoardListService.everyLifeDetail(boardId);
-        model.addAttribute("board", board);
-
-        return "/admin/admin_tm/admin_detail";
     }
 }
