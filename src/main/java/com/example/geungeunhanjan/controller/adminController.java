@@ -1,23 +1,35 @@
 package com.example.geungeunhanjan.controller;
 
+import com.example.geungeunhanjan.domain.dto.NoticePage.NoticeCriteria;
+import com.example.geungeunhanjan.domain.dto.NoticePage.NoticePage;
 import com.example.geungeunhanjan.domain.dto.board.BoardDTO;
 import com.example.geungeunhanjan.domain.dto.board.LifeUserInfoDTO;
+import com.example.geungeunhanjan.domain.dto.community.MemberDTO;
+import com.example.geungeunhanjan.domain.dto.community.NoticeDTO;
+import com.example.geungeunhanjan.domain.dto.community.NoticePageDTO;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.dto.lifePage.Page;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
 import com.example.geungeunhanjan.domain.vo.file.UserFileVO;
 import com.example.geungeunhanjan.service.MyPageService;
 import com.example.geungeunhanjan.service.admin.admin_boardListService;
+import com.example.geungeunhanjan.service.admin.admin_memberListService;
+import com.example.geungeunhanjan.service.admin.admin_noticeListService;
+import com.example.geungeunhanjan.service.community.NoticeService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -25,6 +37,9 @@ import java.util.List;
 public class adminController {
 
     private final admin_boardListService adminBoardListService;
+    private final NoticeService noticeService;
+    private final admin_noticeListService adminNoticeListService;
+    private final admin_memberListService adminMemberListService;
 
     // 메인 페이지
     @GetMapping()
@@ -53,8 +68,73 @@ public class adminController {
 
     // 회원 관리
     @GetMapping("/memberList")
-    public String MemberList() {
+    public String MemberList(Model model,
+                             NoticeCriteria noticeCriteria,
+                             HttpServletRequest request,
+                             @RequestParam(value = "searchKeyword" , required = false) String searchKeyword) {
+
+        List<MemberDTO> memberLists;
+        int total;
+
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("keyword", searchKeyword);
+        paramMap.put("page", noticeCriteria.getPage());
+        paramMap.put("amount", noticeCriteria.getAmount());
+
+        //검색 기능 추가
+        //검색기능 추가
+        if(searchKeyword != null && !searchKeyword.isEmpty()) {
+            //검색어가 있는경우 검색 결과를 가져옴
+            memberLists = adminMemberListService.adminSelectMember(paramMap);
+            System.out.println("memberLists = " + memberLists);
+            total = memberLists.size(); //검색결과의 총 개수
+        }else{
+            //검색어가 없는 경우 모든 공지사항을 가져옴
+            memberLists = adminMemberListService.selectAllPageMember(noticeCriteria);
+            System.out.println("memberLists = " + memberLists);
+            total = adminMemberListService.selectTotalMember();
+        }
+        //페이지 처리
+        NoticePage noticePage = new NoticePage(noticeCriteria, total);
+        System.out.println("noticePage = " + noticePage);
+        
+        //페이징 정보 가져오기
+        model.addAttribute("memberLists", memberLists);
+        model.addAttribute("page", noticePage);
+        model.addAttribute("searchKeyword", searchKeyword);
+
+
         return "/admin/dam/admin-member-list";
+    }
+
+    @PostMapping("/memberList")
+    @ResponseBody // JSON 응답을 위한 어노테이션
+    public ResponseEntity<String> memberList(
+            @RequestParam("statusStep") int statusStep,
+            @RequestParam("uniId") Long uniId) {
+
+        try {
+            // 각 상태에 따라 서비스 호출
+            switch (statusStep) {
+                case 1:
+                    adminMemberListService.updateStatusGeneral(uniId);
+                    break;
+                case 2:
+                    adminMemberListService.updateStatusSuspension(uniId);
+                    break;
+                case 3:
+                    adminMemberListService.updateStatuswithdrawal(uniId);
+                    break;
+            }
+
+            // 리다이렉트 URL 반환
+            // 여기서 리다이렉트 URL은 클라이언트 측에서 처리하므로 ResponseEntity로 JSON 응답을 반환합니다.
+            return ResponseEntity.ok().body("{\"redirectUrl\": \"/admin/memberList\"}");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\": \"서버 오류\"}");
+        }
     }
 
     // 신고 관리
@@ -65,9 +145,50 @@ public class adminController {
 
     // 공지사항 관리
     @GetMapping("/noticeList")
-    public String noticeList() {
-        return "/admin/dam/admin-notice-list";
+    public String noticeList(Model model,
+                             NoticeCriteria noticeCriteria,
+                             HttpServletRequest request,
+                             @RequestParam(value = "searchKeyword", required = false) String searchKeyword
+                             ) {
+        List<NoticePageDTO> noticeLists;
+        int total  ;
+
+
+        Map<String,Object> paramMap = new HashMap<>();
+        paramMap.put("keyword", searchKeyword);
+        paramMap.put("page", noticeCriteria.getPage());
+        paramMap.put("amount", noticeCriteria.getAmount());
+
+        //검색기능 추가
+        if(searchKeyword != null && !searchKeyword.isEmpty()) {
+            //검색어가 있는경우 검색 결과를 가져옴
+            noticeLists = adminNoticeListService.adminSelectNotice(paramMap);
+            total = noticeLists.size(); //검색결과의 총 개수
+        }else{
+            //검색어가 없는 경우 모든 공지사항을 가져옴
+            noticeLists = noticeService.selectAllPageNotice(noticeCriteria);
+            total = noticeService.selectTotalNotice();
+        }
+
+        //페이지 처리
+        NoticePage noticePage = new NoticePage(noticeCriteria, total);
+
+        //페이징 정보 가져오기
+        model.addAttribute("noticeLists", noticeLists);
+        model.addAttribute("page", noticePage);
+        model.addAttribute("searchKeyword", searchKeyword);
+
+        return "admin/dam/admin-notice-list";
     }
+    //공지 삭제시
+    @PostMapping("/noticeList/{noticeId}")
+    public String noticeList( @PathVariable("noticeId") long noticeId){
+        noticeService.deleteNotice(noticeId);
+        return "redirect:/admin/noticeList";
+    }
+
+
+
 
     // 1:1 문의
     @GetMapping("/inquiryList")
