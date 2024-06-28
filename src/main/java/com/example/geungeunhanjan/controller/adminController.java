@@ -1,35 +1,23 @@
 package com.example.geungeunhanjan.controller;
 
-import com.example.geungeunhanjan.domain.dto.NoticePage.NoticeCriteria;
-import com.example.geungeunhanjan.domain.dto.NoticePage.NoticePage;
 import com.example.geungeunhanjan.domain.dto.board.BoardDTO;
 import com.example.geungeunhanjan.domain.dto.board.LifeUserInfoDTO;
-import com.example.geungeunhanjan.domain.dto.community.MemberDTO;
-import com.example.geungeunhanjan.domain.dto.community.NoticeDTO;
-import com.example.geungeunhanjan.domain.dto.community.NoticePageDTO;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.dto.lifePage.Page;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
 import com.example.geungeunhanjan.domain.vo.file.UserFileVO;
 import com.example.geungeunhanjan.service.MyPageService;
 import com.example.geungeunhanjan.service.admin.admin_boardListService;
-import com.example.geungeunhanjan.service.admin.admin_memberListService;
-import com.example.geungeunhanjan.service.admin.admin_noticeListService;
-import com.example.geungeunhanjan.service.community.NoticeService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.net.URI;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -37,6 +25,7 @@ import java.util.Map;
 public class adminController {
 
     private final admin_boardListService adminBoardListService;
+    private final admin_inquiryService adminInquiryService;
     private final NoticeService noticeService;
     private final admin_noticeListService adminNoticeListService;
     private final admin_memberListService adminMemberListService;
@@ -97,7 +86,7 @@ public class adminController {
         //페이지 처리
         NoticePage noticePage = new NoticePage(noticeCriteria, total);
         System.out.println("noticePage = " + noticePage);
-        
+
         //페이징 정보 가져오기
         model.addAttribute("memberLists", memberLists);
         model.addAttribute("page", noticePage);
@@ -192,8 +181,35 @@ public class adminController {
 
     // 1:1 문의
     @GetMapping("/inquiryList")
-    public String inquiryList() {
+    public String inquiryList(InquiryCriteria inquiryCriteria, Model model) {
+
+        List<InquiryPagingDTO> inquiries = adminInquiryService.selectAdminInquiryPage(inquiryCriteria);
+
+        int total = adminInquiryService.selectAdminInquiryTotal();
+
+        InquiryPage inquiryPage = new InquiryPage(inquiryCriteria, total);
+
+        model.addAttribute("inquiries", inquiries);
+        model.addAttribute("inquiryPage", inquiryPage);
         return "/admin/dam/admin-inquiry-list";
+    }
+
+    //1:1문의 상세
+    @GetMapping("/inquiry/detail")
+    public String inquiryDetail(Long inquiryId, Model model){
+        InquiryDTO inquiryDetail = adminInquiryService.selectAdminInquiryDetail(inquiryId);
+
+        System.out.println(inquiryDetail.getInquiryId());
+        model.addAttribute("inquiryDetail", inquiryDetail);
+        return "/admin/admin_tm/admin-inquiry-detail";
+    }
+
+    @PostMapping("/inquiry/detail/response")
+    public String inquiryDetail(@RequestParam("inquiryId") Long inquiryId, @RequestParam("inquiryResponse") String inquiryResponse){
+        System.out.println("id:" + inquiryId);
+        System.out.println("response:" + inquiryResponse);
+        adminInquiryService.writeAdminResponse(inquiryResponse, inquiryId);
+        return "redirect:/admin/inquiryList";
     }
 
     // 관리자 디테일
