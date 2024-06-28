@@ -1,23 +1,37 @@
 package com.example.geungeunhanjan.controller;
 
+import com.example.geungeunhanjan.domain.dto.NoticePage.NoticeCriteria;
+import com.example.geungeunhanjan.domain.dto.NoticePage.NoticePage;
 import com.example.geungeunhanjan.domain.dto.board.BoardDTO;
 import com.example.geungeunhanjan.domain.dto.board.LifeUserInfoDTO;
+import com.example.geungeunhanjan.domain.dto.community.InquiryDTO;
+import com.example.geungeunhanjan.domain.dto.community.InquiryPagingDTO;
+import com.example.geungeunhanjan.domain.dto.community.MemberDTO;
+import com.example.geungeunhanjan.domain.dto.community.NoticePageDTO;
+import com.example.geungeunhanjan.domain.dto.inquiryPage.InquiryCriteria;
+import com.example.geungeunhanjan.domain.dto.inquiryPage.InquiryPage;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.dto.lifePage.Page;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
 import com.example.geungeunhanjan.domain.vo.file.UserFileVO;
 import com.example.geungeunhanjan.service.MyPageService;
 import com.example.geungeunhanjan.service.admin.admin_boardListService;
+import com.example.geungeunhanjan.service.admin.admin_inquiryService;
+import com.example.geungeunhanjan.service.admin.admin_memberListService;
+import com.example.geungeunhanjan.service.admin.admin_noticeListService;
+import com.example.geungeunhanjan.service.community.NoticeService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
