@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 public interface admin_inquiryService {
     List<InquiryPagingDTO> selectAdminInquiryPage(InquiryCriteria inquiryCriteria);
 
