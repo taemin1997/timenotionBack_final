@@ -191,3 +191,5 @@ function displayImgAjax() {
         $postImgs.innerHTML = tags; //생성된 html 태그를 삽입
       });
 }
+
+
