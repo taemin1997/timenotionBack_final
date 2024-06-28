@@ -8,6 +8,8 @@
               <link rel="stylesheet" th:href="@{/css/notion.css}" />
               <link rel="stylesheet" th:href="@{/css/reset.css}"/>
               <link rel="stylesheet" th:href="@{/css/myLife/mypageNotification.css}">
+              <script defer th:src="@{/js/myLife/life-profile-back.js}"></script>
+
 
             </head>
             <body>
@@ -18,17 +20,22 @@
               <div id="wrapper">
 
                 <main>
+                  <input type="hidden" id="uniId" th:value="${userInfo.uniId}">
                   <div class="container">
                     <!-- 상단배너  -->
                     <div class="banner">
                       <div class="first-container">
                         <div class="profile-background">
                           <div class="profile-background-dark"></div>
-                          <div class="profile-bg-img-box"> <img src="./../../img/myLife/jyg-background.png" alt=""></div>
+                          <div class="profile-bg-img-box">
+                            <!-- 이미지 들어가는 곳 -->
+                          </div>
                           <div class="profile">
-                            <img src="./../../img/myLife/jyg-profile_img_20240512_163410241.jpg" alt="">
+                            <div class="profile-img-box">
+                              <!-- 이미지 들어가는 곳 -->
+                            </div>
                             <div class="profile-detail">
-                              <p>수지배</p>
+                              <p id="profile-nickname" th:text="${userInfo.nickname}">장윤근</p>
                               <p>
                                 <span class="follower-number" th:text="${followerCnt}">36</span>
                                 <span class="follower">팔로워</span>
@@ -43,29 +50,25 @@
                         </div>
                         <div class="profile-text">
                           <div class="profile-introduce">
-                            <p>안녕하세요! 저는 창의적인 해결책을 찾는 열정을 가진 디자이저 장윤근입니다.
-                              예술과 미술이 만나는 곳에서 영감을 받아 사용자 친화적인 디자인을 만드는 것을 사랑합니다.ㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                            </p>
-                          </div>
-                          <div class="write-button">
-                            <button><a href="/main/detail_writingMode">글쓰기</a></button>
+                            <p th:text="${userInfo.uniAbout}">자기소개</p>
                           </div>
                         </div>
                       </div>
                       <div class="second-container">
-                        <div class="second-container-comment">
-                          <a href="/myLife/mypageCommentList">내가 쓴 댓글</a>
-                        </div>
-                        <div class="second-container-like">
-                          <a href="/myLife/mypageLike">좋아요</a>
-                        </div>
-                        <div class="second-container-user">
-                          <a href="/myLife/mypageEditMemberInformation">회원 정보 수정</a>
-                        </div>
-                        <div class="second-container-alarm">
-                          <a href="/myLife/mypageNotification">알림</a>
-                        </div>
+                        <a class="btn-second second-first" th:href="@{/myLife/mypageCommentList}">
+                          <p>내가 쓴 댓글</p>
+                        </a>
+                        <a class="btn-second second-etc" th:href="@{/myLife/mypageLike}">
+                          <p>좋아요</p>
+                        </a>
+                        <a class="btn-second second-etc" th:href="@{/myLife/mypageEditMemberInformation}">
+                          <p>회원 정보 수정</p>
+                        </a>
+                        <a class="btn-second second-etc" th:href="@{/myLife/mypageNotification}">
+                          <p>알림</p>
+                        </a>
                       </div>
+
                       <hr>
                     </div>
           
@@ -229,17 +232,21 @@
           </div>
 
 
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
+
+
+                  <!-- 글쓰기 버튼 -->
+                    <div class="six-container">
+                      <a class="another--btn" th:href="@{/myLife/detail_writingMode}">
+                        <img th:src="@{/img/main/write-white.png}" alt="">
+                      </a>
+                    </div>
           
                   </div>
                 </main>

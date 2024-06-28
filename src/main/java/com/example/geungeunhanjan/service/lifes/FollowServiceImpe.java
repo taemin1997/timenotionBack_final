@@ -2,6 +2,7 @@ package com.example.geungeunhanjan.service.lifes;
 
 
 import com.example.geungeunhanjan.domain.dto.FollowPage.FollowCriteria;
+import com.example.geungeunhanjan.domain.dto.FollowPage.FollowFileList;
 import com.example.geungeunhanjan.domain.dto.file.FollowDTO;
 import com.example.geungeunhanjan.domain.dto.file.FollowHeartDTO;
 import com.example.geungeunhanjan.domain.vo.lifes.FollowVO;
@@ -82,5 +83,10 @@ public class FollowServiceImpe implements FollowService {
     @Override
     public int selectTotalFollow() {
         return followMapper.selectTotalFollow();
+    }
+
+    @Override
+    public List<FollowFileList> getFollowFileList(Long followId) {
+        return followMapper.getFollowFileList(followId);
     }
 }

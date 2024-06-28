@@ -69,6 +69,33 @@
     <main>
         <div class="container">
             <input type="hidden" id="uniId" th:value="${session.uniId}">
+
+
+            <!--수정 ==== 담 근데 어째서인지 안먹어서 중단된 공사,,, ===================================================== -->
+            <!--수정 ========================================================= -->
+
+       <!--     <div class="inner-container">
+                <div class="left-wrapper">
+                    <div class="post-images">&lt;!&ndash; 이미지 예시 &ndash;&gt;</div>
+                </div>
+
+                <div class="right-wrapper">
+                    <div class="content-one"><div class="wrapper-title" th:text="${boards.boardTitle}"></div></div>
+                    <div class="content-two">
+                        <div class="year-box"><div th:text="${boards.year}"></div></div>
+                        <div class="date-box"><div th:text="${boards.boardCreatedDate != null ? '작성일 :  ' + #temporals.format(boards.boardCreatedDate, 'yy - MM - dd') : '날짜 없음'}"></div></div>
+                    </div>
+                    <div class="content-three"><div class="post-content" th:text="${boards.boardContent}"></div></div>
+                    <div class="content-four"></div>
+                </div>
+            </div>
+            <hr>
+-->
+
+            <!--수정 ========================================================= -->
+            <!--수정 ========================================================= -->
+
+
             <!--1. 상단 날짜 / 수정 삭제 버튼 ----------------->
             <div class="wrapper-date-etc">
                 <div class="box-date-left" th:text="${boards.boardCreatedDate != null ? '작성일 :  ' + #temporals.format(boards.boardCreatedDate, 'yy년 MM월 dd일') : '날짜 없음'}">
@@ -111,6 +138,8 @@
                     <!-- /이미지 예시 -->
                 </div>
             </div>
+
+
             <div class="bold-underline"></div>
             <!-- 00. 댓글영역 (까먹고 나중에 추가함;;) -->
             <div class="wrapper-reply-write">
@@ -121,9 +150,13 @@
                     <div class="box-btn-reply-btn"><button class="btn-reply-btn">입력</button></div>
                 </div>
 
-
             </div>
-            <!--5. 댓글영역   ----------------->
+
+
+
+            <!--5. 댓글영역   --------------- ------------------------------- ----------------------------- -->
+            <!--5. 댓글영역   --------------- ------------------------------- ----------------------------- -->
+            <!--5. 댓글영역   --------------- ------------------------------- ----------------------------- -->
             <div class="wrapper-reply">
 
             </div> <!--댓글영역 닫는 태그 -->

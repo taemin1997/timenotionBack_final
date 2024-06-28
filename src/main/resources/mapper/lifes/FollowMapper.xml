@@ -153,4 +153,14 @@
         SELECT COUNT(UNI_ID) FROM GGHJ_UNI
     </select>
 
+
+    <!-- 팔로워 프사 가져오기 -->
+    <select id="getFollowFileList" resultType="FollowFileList">
+        SELECT u.UNI_ID AS FOLLOW_ID , u.NICKNAME , uf.USER_FILE_PROFILE_NAME , uf.USER_FILE_PROFILE_SOURCE , uf.USER_FILE_PROFILE_UUID
+        FROM GGHJ_UNI u
+                 LEFT JOIN GGHJ_USER gu ON u.USER_ID = gu.USER_ID
+                 LEFT JOIN GGHJ_KAKAO gk ON u.KAKAO_ID = gk.KAKAO_ID
+                 LEFT JOIN GGHJ_USER_FILE uf ON u.UNI_ID = uf.USER_ID
+        WHERE U.UNI_ID = #{followId}
+    </select>
 </mapper>
