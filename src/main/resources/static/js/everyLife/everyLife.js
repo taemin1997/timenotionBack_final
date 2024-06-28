@@ -279,6 +279,9 @@ function fetchFiles(uniId, profileBox) {
             data.forEach(item => {
                 let profileFileName = encodeURIComponent(item.userFileProfileSource + '/' + item.userFileProfileUuid + '_' + item.userFileProfileName);
                 console.log("파일 이름 : " + profileFileName)
+                console.log("소스: "+ item.userFileProfileSource);
+                console.log("name: "+ item.userFileProfileName);
+                console.log("uuid: "+ item.userFileProfileUuid);
                 if (item.userFileProfileSource) {
                     profileTags = `
                         <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진">
