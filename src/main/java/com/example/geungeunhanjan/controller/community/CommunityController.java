@@ -209,7 +209,8 @@ public class CommunityController {
         //최종으로 insert시키기
         noticeService.insertNotice(noticeVO);
 
-        return "redirect:/community/notification";
+        //관리자페이지로 이동가능하게 수정 0624
+        return "redirect:/admin/noticeList";
     }
 
 }
