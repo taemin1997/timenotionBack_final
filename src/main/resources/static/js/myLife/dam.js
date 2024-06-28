@@ -10,7 +10,7 @@ console.log("uniId:", uniId);
  <input type="hidden" id="boardId" th:value="${boards.boardId}"> 이런식으로 아무데나 갖다놔야함 */
 let boardId = document.querySelector('#boardId').value;
 let $replyListWrap = document.querySelector('.wrapper-reply');
-
+console.log("boardId : " + boardId);
 
 
 $replyListWrap.addEventListener('click', function (e) {
@@ -31,12 +31,89 @@ $replyListWrap.addEventListener('click', function (e) {
             });
         });
     }
+
 });
 
 
 
+/* 하.. 신고기능 다시만들어야됨 ~... ----------------------------------------------------------------------------------- */
+/* 하.. 신고기능 다시만들어야됨 ~... ----------------------------------------------------------------------------------- */
+/* 하.. 신고기능 다시만들어야됨 ~... ----------------------------------------------------------------------------------- */
+/* 하.. 신고기능 다시만들어야됨 ~... ----------------------------------------------------------------------------------- */
+/* 하.. 신고기능 다시만들어야됨 ~... ----------------------------------------------------------------------------------- */
+// 한 번만 이벤트 리스너 등록
+$replyListWrap.addEventListener('click', function (e) {
+    let $target = e.target;
 
+    // '점점점' 누르면 버튼 나오게
+    if ($target.classList.contains('dotdotdot')) {
+        $('.box-mini-report').css('display', 'none');
+        $($target).next('.box-mini-report').css('display', 'flex'); // 누른거만 나오게
+    }
 
+    // '신고하기' 누르면 '신고모달' 뜸
+    if ($target.classList.contains('mini-button')) {
+        $('.box-mini-report').css('display', 'none');
+        $('.report').css('display', 'flex');
+
+        // 신고 모달에 데이터 설정
+        const commentId = $target.closest('.comment-id-tag').dataset.id;
+        const userId = $target.closest('.wrapper-main-reply').querySelector('.user-id-tag').dataset.id;
+        const reportForm = document.querySelector('.report');
+
+        reportForm.querySelector('input[name="commentId"]').value = commentId;
+        reportForm.querySelector('input[name="userId"]').value = userId;
+
+        console.log("신고할 댓글 ID: " + commentId);
+        console.log("신고할 유저 ID: " + userId);
+    }
+
+    // '닫기' 누르면 닫히게
+    if ($target.classList.contains('report-btn-close')) {
+        $('.report').css('display', 'none');
+    }
+
+    // 바깥 클릭 -> 모달 숨기기
+    if (!$(e.target).closest('.dotdotdot, .box-mini-report, .report').length) {
+        $('.box-mini-report').css('display', 'none');
+        $('.report').css('display', 'none');
+    }
+});
+
+// '신고하기' 버튼 클릭 시 처리할 함수
+function handleReportSubmit(e) {
+    e.preventDefault(); // 기본 동작 막기
+
+    const reportForm = document.querySelector('.report');
+    const formData = new FormData(reportForm);
+
+    const userId = formData.get('userId');
+    const commentId = formData.get('commentId');
+
+    fetch(`/v1/${boardId}/submitReport`, {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log("여긴 들어왔나? ");
+            if (data.success) {
+                alert('신고가 성공적으로 접수되었습니다.');
+                // 모달 닫기
+                $('.report').css('display', 'none');
+            } else {
+                alert('신고 접수에 실패했습니다. 다시 시도해주세요.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('신고 처리 중 오류가 발생했습니다.');
+        });
+}
+
+// '신고하기' 버튼 클릭 이벤트 리스너 등록
+const reportBtn = document.querySelector('.report-btn-report');
+reportBtn.addEventListener('click', handleReportSubmit, { once: true });
 /* 2. 댓글 등록 ----------------------------------------*/
 {
     //  댓글 작성 완료 버튼 //
@@ -52,7 +129,7 @@ $replyListWrap.addEventListener('click', function (e) {
         }
         // ♡♡  댓글 아이디, 컨텐츠 정보 담는 변수 선언
         /* 여기 이름이 내 DTO의 필드명이랑 일치해야함 */
-        let replyInfo = {boardId: boardId, commentContent: content}; // content 변수를 사용하여 수정
+        let replyInfo = {boardId: boardId, commentContent: content, uniId : uniId}; // content 변수를 사용하여 수정
 
         /* 2 ) 댓글 등록 함수 호출
             댓 입력창 초기화 / 페이지 초기화 / 댓 리스트 뿌려줌
@@ -88,7 +165,6 @@ $replyListWrap.addEventListener('click', function (e) {
         console.log("scrollHeight(전체 문서의 높이) : ", scrollHeight);
         console.log("clientHeight(클라이언트[웹브라우저]의 화면 높이) : ", clientHeight);*/
         if (clientHeight + scrollTop >= scrollHeight - 5) {
-            console.log("바닥~~!!");
             page++;
             /* 여기 찾아봐야함 ☆☆☆☆☆☆ */
             reply.getList2(boardId, page, function (data) {
@@ -98,6 +174,8 @@ $replyListWrap.addEventListener('click', function (e) {
         }
     });
 
+
+
 } // 2.close
 
 /* 3. 기존 댓글 지우고 새로운 댓글 목록 씌우는 함수 -----------------------------------------------------
@@ -106,18 +184,31 @@ $replyListWrap.addEventListener('click', function (e) {
 function displayComment(commentList) {
     let $commentWrap = document.querySelector('.wrapper-reply');
     let tags = '';
+    let profileTags = '';
     commentList.forEach(r => {
+        let profileFileName = encodeURIComponent(r.userFileProfileSource + '/' + r.userFileProfileUuid + '_' + r.userFileProfileName); // ☆★☆★☆★ 파일 경로를 URL 인코딩
+       console.log(profileFileName + "조합된 프로필 파일 이름 ");
+        if (r.userFileProfileSource) {
+            profileTags = `
+                    <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진" class="img-profile-img">
+                `;
+        } else {
+            profileTags = `
+                    <img src="/img/main/basic-profile.png" alt="기본 프로필 사진" class="img-profile-img">
+                `;
+        }
         tags += `
-<div class="wrapper-main-reply comment-id-tag" data-id="${r.commentId}">
-    <div class="box-main-reply-top">
+        <div class="wrapper-main-reply comment-id-tag" name="commentId" data-id="${r.commentId}">
+        <div class="user-id-tag" data-id="${r.userId}" name="userId"></div>
+        <div class="box-main-reply-top">
         <a href="#" class="reply-top-left">
-            <div class="box-profile"><img src="./../../img/main/봉준호 (8).jpg" alt=""/></div>
+            <div class="box-profile">${profileTags}</div>
             <div><span class="nickname">${r.nickname}</span></div>
- 
         </a>
         <div class="reply-top-right">
             <div class="delete-btn">
-                <button id="delete" class="real-delete-btn">삭제</button>
+                 ${r.userId == uniId ? ' <button id="delete" class="real-delete-btn">삭제</button>' : ''}
+
             </div>
             <div class="date">${reply.timeForToday(r.commentCreatedDate)}</div>
             <div class="dotdotdot">...</div>
@@ -144,19 +235,30 @@ function displayComment(commentList) {
 function appendReply(commentList) {
     let $commentWrap = document.querySelector('.wrapper-reply');
     let tags = '';
-    console.log("댓글 추가중?");
+    let profileTags = '';
     commentList.forEach(r => {
+        let profileFileName = encodeURIComponent(r.userFileProfileSource + '/' + r.userFileProfileUuid + '_' + r.userFileProfileName); // ☆★☆★☆★ 파일 경로를 URL 인코딩
+        console.log(profileFileName + "조합된 프로필 파일 이름 ");
+        if (r.userFileProfileSource) {
+            profileTags = `
+                    <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진" class="img-profile-img">
+                `;
+        } else {
+            profileTags = `
+                    <img src="/img/main/basic-profile.png" alt="기본 프로필 사진" class="img-profile-img">
+                `;
+        }
         tags += `
-<div class="wrapper-main-reply comment-id-tag" data-id="${r.commentId}">
-    <div class="box-main-reply-top">
+        <div class="wrapper-main-reply comment-id-tag" name="commentId" data-id="${r.commentId}">
+        <div class="user-id-tag" data-id="${r.userId}" name="userId"></div>
+        <div class="box-main-reply-top">
         <a href="#" class="reply-top-left">
-            <div class="box-profile"><img src="./../../img/main/봉준호 (8).jpg" alt=""/></div>
+            <div class="box-profile">${profileTags}</div>
             <div><span class="nickname">${r.nickname}</span></div>
- 
         </a>
         <div class="reply-top-right">
             <div class="delete-btn">
-                <button id="delete" class="real-delete-btn">삭제</button>
+ ${r.userId == uniId ? ' <button id="delete" class="real-delete-btn">삭제</button>' : ''}
             </div>
             <div class="date">${reply.timeForToday(r.commentCreatedDate)}</div>
             <div class="dotdotdot">...</div>
@@ -179,6 +281,12 @@ function appendReply(commentList) {
 } // 4.close
 
 /*
+??
+<div class="wrapper-main-reply comment-id-tag" data-id="${r.commentId}">
+<div class="wrapper-main-reply user-id-tag" data-id="${r.userId}">
+ 이건 그냥 잠깐 넣어둔 것
+??
+
 
 <div className="wrapper-main-reply comment-id-tag" data-id="${r.commentId}">
     <div className="box-main-reply-top">
@@ -220,7 +328,8 @@ function appendReply(commentList) {
 
 
 
-
+/*          ${r.userId == boardUserId ? '   <div className="tag">일기주인</div>' : ''}
+*/
 
 
 

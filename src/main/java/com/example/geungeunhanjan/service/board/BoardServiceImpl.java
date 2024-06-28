@@ -276,6 +276,8 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.getProfile(userId);
     }
 
+
+
 }
 
 

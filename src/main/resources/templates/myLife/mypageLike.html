@@ -5,9 +5,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
-  <link rel="stylesheet" th:href="@{/css/notion.css}" />
   <link rel="stylesheet" th:href="@{/css/reset.css}" />
   <link rel="stylesheet" th:href="@{/css/myLife/mypageLike.css}">
+    <script defer th:src="@{/js/myLife/life-profile-back.js}"></script>
+
 </head>
 <body>
 
@@ -16,6 +17,7 @@
 
 
   <main>
+      <input type="hidden" id="uniId" th:value="${userInfo.uniId}">
     <div class="container">
       <!-- 상단 배너 -->
       <div class="banner">

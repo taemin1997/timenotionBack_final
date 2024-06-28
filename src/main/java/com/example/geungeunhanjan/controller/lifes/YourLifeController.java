@@ -1,11 +1,13 @@
 package com.example.geungeunhanjan.controller.lifes;
 
 
+import com.example.geungeunhanjan.domain.dto.board.LifeUserInfoDTO;
 import com.example.geungeunhanjan.domain.dto.file.FollowDTO;
 import com.example.geungeunhanjan.domain.dto.file.FollowHeartDTO;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
 import com.example.geungeunhanjan.domain.vo.lifes.FollowVO;
 import com.example.geungeunhanjan.domain.vo.user.UniVO;
+import com.example.geungeunhanjan.service.MyPageService;
 import com.example.geungeunhanjan.service.board.BoardService;
 import com.example.geungeunhanjan.service.lifes.FollowService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +27,7 @@ public class YourLifeController {
 
     private final FollowService followService;
     private final BoardService boardService;
+    private final MyPageService myPageService;
 
 
     //너의 일대기 클릭시
@@ -35,13 +38,14 @@ public class YourLifeController {
         if (uniId == null) {
             return "redirect:/user/login";
         }
-
-
+        // 유저 정보 (프로필쪽)
+        LifeUserInfoDTO userInfo = myPageService.selectAllInfo(uniId);
+        model.addAttribute("userInfo", userInfo);
 
         //팔로워 리스트 조회
         List<FollowDTO> followers = followService.selectFollower(uniId);
         model.addAttribute("followers", followers);
-        System.out.println(followers);
+        System.out.println("팔로워 목록 " + followers);
         //팔로잉 리스트 조회
         List<FollowDTO> followings = followService.selectFollowing(uniId);
         model.addAttribute("followings", followings);
@@ -80,6 +84,11 @@ public class YourLifeController {
         if(about != null) {
             model.addAttribute("about",about);
         }
+
+
+        // 유저 정보 (프로필쪽)
+        LifeUserInfoDTO userInfo = myPageService.selectAllInfo(userId);
+        model.addAttribute("userInfo", userInfo);
 
         FollowHeartDTO followHeartDTO = new FollowHeartDTO();
         // 현재 사용자의 userId를 세션에서 가져오기

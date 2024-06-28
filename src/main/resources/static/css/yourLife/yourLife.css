@@ -98,7 +98,7 @@ footer {
   flex-direction: column;
 }
 
-.flwers-box {
+.flwers-box, .flwing-box {
   width: 457px;
   height: 50px;
   background-color: rgba(128, 128, 128, 0.125);
@@ -119,13 +119,13 @@ footer {
   text-decoration: none;
 }
 /* 프로필사진 */
-.flwers-img-box {
+.flwers-img-box, .flwing-img-box {
   width: 30px;
   height: 30px;
   border-radius: 100%;
   overflow: hidden;
 }
-.flwers-img-box img {
+.flwers-img-box img, .flwing-img-box img {
   width: 100%;
   height: 100%;
   object-fit: cover;

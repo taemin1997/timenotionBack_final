@@ -2,6 +2,7 @@
 
 
     import com.example.geungeunhanjan.domain.dto.FollowPage.FollowCriteria;
+    import com.example.geungeunhanjan.domain.dto.FollowPage.FollowFileList;
     import com.example.geungeunhanjan.domain.dto.file.FollowDTO;
     import com.example.geungeunhanjan.domain.dto.file.FollowHeartDTO;
     import com.example.geungeunhanjan.domain.vo.lifes.FollowVO;
@@ -38,4 +39,7 @@
         List<FollowDTO> selectAllPageFollow(FollowCriteria followCriteria);
         //페이지 총 수 조회하기
         int selectTotalFollow();
+
+        // 팔로워 프사 가져오기
+        List<FollowFileList> getFollowFileList(Long followId);
     }

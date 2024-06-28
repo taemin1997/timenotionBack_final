@@ -118,7 +118,7 @@ img {
   align-items: center;
 }
 
-.banner-profile-img { /* 공통 */
+.banner-profile-img, .right-banner-profile-img { /* 공통 */
   width: 16px;
   height: 16px;
   border-radius: 100%;
@@ -136,7 +136,7 @@ img {
 
 /* 오른쪽 메인배너  =------*/
 .main-right-wrapper {
-  width: 318px;
+  width: 310px;
   height: 100%;
   display: flex;
   flex-direction: column;

@@ -89,6 +89,8 @@ public interface BoardMapper {
 
     List<BoardDTO> getProfile(Long userId);
 
+
+
 }
 
 
