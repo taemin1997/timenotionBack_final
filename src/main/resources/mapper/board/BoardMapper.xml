@@ -52,6 +52,114 @@
             b.BOARD_LIFE_CYCLE = #{boardLifeCycle}
     </select>
 
+    <!--  모두의 일대기 최신순 조회 -->
+    <select id="selectEveryLatest" resultType="BoardDTO">
+       <![CDATA[
+        SELECT BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+               NICKNAME, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID,
+               BOARD_ID, USER_ID
+        FROM (
+                 SELECT RNUM, BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+                        NICKNAME, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID,
+                        BOARD_ID, USER_ID
+                 FROM (
+                          SELECT ROWNUM AS RNUM, BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+                                 NICKNAME, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID,
+                                 BOARD_ID, USER_ID
+                          FROM (
+                                   SELECT BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+                                          COALESCE(U.USER_NICKNAME, K.NAME) AS NICKNAME,
+                                          F.USER_FILE_PROFILE_NAME,
+                                          F.USER_FILE_PROFILE_SOURCE,
+                                          F.USER_FILE_PROFILE_UUID,
+                                          B.BOARD_ID,
+                                          B.USER_ID
+                                   FROM GGHJ_BOARD B
+                                            JOIN GGHJ_UNI UNI ON B.USER_ID = UNI.UNI_ID
+                                            LEFT JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID
+                                            LEFT JOIN GGHJ_KAKAO K ON UNI.KAKAO_ID = K.KAKAO_ID
+                                            LEFT JOIN GGHJ_USER_FILE F ON U.USER_ID = F.USER_ID
+                                   ORDER BY B.BOARD_CREATED_DATE DESC
+                               )
+                          WHERE ROWNUM <= #{page} * #{amount}
+                      )
+                 WHERE RNUM > (#{page} - 1) * #{amount}
+             )
+        ]]>
+    </select>
+
+    <!--  모두의 인기순  조회 -->
+    <select id="selectEveryPopular" resultType="BoardDTO">
+       <![CDATA[
+        SELECT BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+               NICKNAME, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID,
+               BOARD_ID, USER_ID
+        FROM (
+                 SELECT RNUM, BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+                        NICKNAME, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID,
+                        BOARD_ID, USER_ID
+                 FROM (
+                          SELECT ROWNUM AS RNUM, BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+                                 NICKNAME, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID,
+                                 BOARD_ID, USER_ID
+                          FROM (
+                                   SELECT BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+                                          COALESCE(U.USER_NICKNAME, K.NAME) AS NICKNAME,
+                                          F.USER_FILE_PROFILE_NAME,
+                                          F.USER_FILE_PROFILE_SOURCE,
+                                          F.USER_FILE_PROFILE_UUID,
+                                          B.BOARD_ID,
+                                          B.USER_ID
+                                   FROM GGHJ_BOARD B
+                                            JOIN GGHJ_UNI UNI ON B.USER_ID = UNI.UNI_ID
+                                            LEFT JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID
+                                            LEFT JOIN GGHJ_KAKAO K ON UNI.KAKAO_ID = K.KAKAO_ID
+                                            LEFT JOIN GGHJ_USER_FILE F ON U.USER_ID = F.USER_ID
+                                   ORDER BY B.BOARD_LIKE_COUNT DESC
+                               )
+                          WHERE ROWNUM <= #{page} * #{amount}
+                      )
+                 WHERE RNUM > (#{page} - 1) * #{amount}
+             )
+        ]]>
+    </select>
+
+    <!--  모두의 일대기 조회순 조회 -->
+    <select id="selectEveryView" resultType="BoardDTO">
+        <![CDATA[
+        SELECT BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+               NICKNAME, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID,
+               BOARD_ID, USER_ID
+        FROM (
+                 SELECT RNUM, BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+                        NICKNAME, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID,
+                        BOARD_ID, USER_ID
+                 FROM (
+                          SELECT ROWNUM AS RNUM, BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+                                 NICKNAME, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID,
+                                 BOARD_ID, USER_ID
+                          FROM (
+                                   SELECT BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
+                                          COALESCE(U.USER_NICKNAME, K.NAME) AS NICKNAME,
+                                          F.USER_FILE_PROFILE_NAME,
+                                          F.USER_FILE_PROFILE_SOURCE,
+                                          F.USER_FILE_PROFILE_UUID,
+                                          B.BOARD_ID,
+                                          B.USER_ID
+                                   FROM GGHJ_BOARD B
+                                            JOIN GGHJ_UNI UNI ON B.USER_ID = UNI.UNI_ID
+                                            LEFT JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID
+                                            LEFT JOIN GGHJ_KAKAO K ON UNI.KAKAO_ID = K.KAKAO_ID
+                                            LEFT JOIN GGHJ_USER_FILE F ON U.USER_ID = F.USER_ID
+                                   ORDER BY B.BOARD_VIEW_COUNT DESC
+                               )
+                          WHERE ROWNUM <= #{page} * #{amount}
+                      )
+                 WHERE RNUM > (#{page} - 1) * #{amount}
+             )
+        ]]>
+    </select>
+
     <!--    검색기능 구현-->
     <select id="searchBoards" resultType="BoardDTO" parameterType="String">
         SELECT
@@ -82,41 +190,6 @@
             (b.BOARD_TITLE LIKE '%' || #{keyword} || '%'
                 OR b.BOARD_CONTENT LIKE '%' || #{keyword} || '%')
     </select>
-
-
-
-
-    <!-- 조회수순으로 정렬된 게시물 목록 조회 -->
-    <select id="selectByViewsDescending" resultType="BoardDTO">
-        SELECT
-            b.BOARD_ID,
-            b.BOARD_TITLE,
-            b.BOARD_CONTENT,
-            b.BOARD_PUBLIC,
-            b.BOARD_CREATED_DATE,
-            b.BOARD_UPDATED_DATE,
-            b.BOARD_VIEW_COUNT,
-            b.BOARD_LIFE_CYCLE,
-            b.BOARD_LIKE_COUNT,
-            b.BOARD_YEAR,
-            b.USER_ID,
-            COALESCE(u2.USER_NICKNAME, k.NAME) AS NICKNAME,
-            k.PROFILE_PIC,
-            k.PROVIDER,
-            f.USER_FILE_PROFILE_NAME,
-            f.USER_FILE_PROFILE_SOURCE,
-            f.USER_FILE_PROFILE_UUID
-        FROM
-            GGHJ_BOARD b
-                JOIN GGHJ_UNI u ON b.USER_ID = u.UNI_ID
-                LEFT JOIN GGHJ_USER u2 ON u.USER_ID = u2.USER_ID
-                LEFT JOIN GGHJ_KAKAO k ON u.KAKAO_ID = k.KAKAO_ID
-                LEFT JOIN GGHJ_USER_FILE f ON u2.USER_ID = f.USER_ID
-        ORDER BY
-            b.BOARD_VIEW_COUNT DESC
-    </select>
-
-
 
 
     <!--    내가 쓴 게시물의 상세페이지로 들어가기-->
@@ -387,7 +460,7 @@
         ORDER BY BOARD_CREATED_DATE DESC
     </select>
 
-    <!-- 일단 냅둠 누구껀지 모르겠음 -->
+    <!-- 일대기 별 게시판 조회 -->
     <select id="selectbyLifeCycle" resultType="BoardVO">
         SELECT * FROM GGHJ_BOARD WHERE BOARD_LIFE_CYCLE = #{boardLifeCycle}
     </select>
@@ -449,38 +522,38 @@
         WHERE BOARD_LIFE_CYCLE = #{boardLifeCycle}
     </select>
 
-    <!--    조회수 게시판 정렬 -->
-    <select id="postarrayviews" resultType="BoardDTO">
-        SELECT
-            *
-        FROM
-            GGHJ_BOARD b JOIN GGHJ_USER u
-                              ON u.user_id = b.USER_ID
-        ORDER BY
-            b.BOARD_VIEW_COUNT DESC
-    </select>
+<!--    &lt;!&ndash;    조회수 게시판 정렬 &ndash;&gt;-->
+<!--    <select id="postarrayviews" resultType="BoardDTO">-->
+<!--        SELECT-->
+<!--            *-->
+<!--        FROM-->
+<!--            GGHJ_BOARD b JOIN GGHJ_USER u-->
+<!--                              ON u.user_id = b.USER_ID-->
+<!--        ORDER BY-->
+<!--            b.BOARD_VIEW_COUNT DESC-->
+<!--    </select>-->
 
-    <!--     최신 게시판 정렬 -->
-    <select id="postarrayLatest" resultType="BoardDTO">
-        SELECT
-            *
-        FROM
-            GGHJ_BOARD b JOIN GGHJ_USER u
-                              ON u.user_id = b.USER_ID
-        ORDER BY
-            b.BOARD_CREATED_DATE DESC
-    </select>
+<!--    &lt;!&ndash;     최신 게시판 정렬 &ndash;&gt;-->
+<!--    <select id="postarrayLatest" resultType="BoardDTO">-->
+<!--        SELECT-->
+<!--            *-->
+<!--        FROM-->
+<!--            GGHJ_BOARD b JOIN GGHJ_USER u-->
+<!--                              ON u.user_id = b.USER_ID-->
+<!--        ORDER BY-->
+<!--            b.BOARD_CREATED_DATE DESC-->
+<!--    </select>-->
 
-    <!--     인기 게시판 정렬 -->
-    <select id="postarrayPopularity" resultType="BoardDTO">
-        SELECT
-            *
-        FROM
-            GGHJ_BOARD b JOIN GGHJ_USER u
-                              ON u.user_id = b.USER_ID
-        ORDER BY
-            b.BOARD_LIKE_COUNT DESC
-    </select>
+<!--    &lt;!&ndash;     인기 게시판 정렬 &ndash;&gt;-->
+<!--    <select id="postarrayPopularity" resultType="BoardDTO">-->
+<!--        SELECT-->
+<!--            *-->
+<!--        FROM-->
+<!--            GGHJ_BOARD b JOIN GGHJ_USER u-->
+<!--                              ON u.user_id = b.USER_ID-->
+<!--        ORDER BY-->
+<!--            b.BOARD_LIKE_COUNT DESC-->
+<!--    </select>-->
 
     <!-- 모두의 일대기 -> 상세페이지 이동 -->
     <select id="everyLifeDetail" resultType="BoardVO">

@@ -139,14 +139,7 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.selectEveryLifeCycle(boardLifeCycle);
     }
 
-    //조회수 순으로 정렬
-    @Override
-    public List<BoardDTO> everyViewsDescending(String boardViewCount) {
-        return boardMapper.selectByViewsDescending(boardViewCount);
-    }
-    /* ---------------------------------------- */
-
-
+    //특정게시물 조회수 +1
     @Override
     public void boardIntViewCnt(Long boardId) {
         boardMapper.incViewCnt(boardId);
@@ -236,20 +229,20 @@ public class BoardServiceImpl implements BoardService {
 
     //모두의 일대기 -> 조회수 게시판 정렬
     @Override
-    public List<BoardDTO> getPostsSortedByViews() {
-        return boardMapper.postarrayviews();
+    public List<BoardDTO> getSelectEveryView(Criteria criteria) {
+        return boardMapper.selectEveryView(criteria);
     }
 
     //모두의 일대기 -> 최신순 게시판 정렬
     @Override
-    public List<BoardDTO> getPostsSortedByLatest() {
-        return boardMapper.postarrayLatest();
+    public List<BoardDTO> getSelectEveryLatest(Criteria criteria) {
+        return boardMapper.selectEveryLatest(criteria);
     }
 
     //모두의 일대기 -> 인기순 게시판 정렬
     @Override
-    public List<BoardDTO> getPostsSortedByPopularity() {
-        return boardMapper.postarrayPopularity();
+    public List<BoardDTO> getSelectEveryPopular(Criteria criteria) {
+        return boardMapper.selectEveryPopular(criteria);
     }
 
 

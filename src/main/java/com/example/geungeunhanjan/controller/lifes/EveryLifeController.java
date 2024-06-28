@@ -46,21 +46,6 @@ public class EveryLifeController {
         }
 
 
-//       정렬 기준에 따라 게시물 목록 가져오기
-        List<BoardDTO> boardarray;
-        switch (sort) {
-            case "view":
-                boardarray = boardService.getPostsSortedByViews();
-                break;
-            case "popularity":
-                boardarray = boardService.getPostsSortedByPopularity();
-                break;
-            case "latest":
-            default:
-                boardarray = boardService.getPostsSortedByLatest();
-                break;
-        }
-
         // 페이징 처리를 위한 코드
         criteria.setAmount(12);
         List<BoardDTO> boardLists = boardService.everyLifeFindPage(criteria);
