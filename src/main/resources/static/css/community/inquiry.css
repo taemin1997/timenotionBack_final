@@ -358,7 +358,7 @@ button[type="button"]:hover{
     margin-bottom: 20px;
 }
 .inquiry-modal-answer-btns{
-    margin: 200px auto 0 auto;
+    margin: 100px auto 0 auto;
     width: 140px;
     /* border: 1px solid black; */
     display: flex;
