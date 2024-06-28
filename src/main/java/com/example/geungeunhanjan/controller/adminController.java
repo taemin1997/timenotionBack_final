@@ -3,7 +3,10 @@ package com.example.geungeunhanjan.controller;
 import com.example.geungeunhanjan.domain.dto.NoticePage.NoticeCriteria;
 import com.example.geungeunhanjan.domain.dto.NoticePage.NoticePage;
 import com.example.geungeunhanjan.domain.dto.board.BoardDTO;
+<<<<<<< HEAD
 import com.example.geungeunhanjan.domain.dto.board.LifeUserInfoDTO;
+=======
+>>>>>>> fb1a890c9641ef80b8c4560dac35f15fb16fb792
 import com.example.geungeunhanjan.domain.dto.community.InquiryDTO;
 import com.example.geungeunhanjan.domain.dto.community.InquiryPagingDTO;
 import com.example.geungeunhanjan.domain.dto.community.MemberDTO;
@@ -13,8 +16,6 @@ import com.example.geungeunhanjan.domain.dto.inquiryPage.InquiryPage;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.dto.lifePage.Page;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
-import com.example.geungeunhanjan.domain.vo.file.UserFileVO;
-import com.example.geungeunhanjan.service.MyPageService;
 import com.example.geungeunhanjan.service.admin.admin_boardListService;
 import com.example.geungeunhanjan.service.admin.admin_inquiryService;
 import com.example.geungeunhanjan.service.admin.admin_memberListService;
@@ -23,6 +24,10 @@ import com.example.geungeunhanjan.service.community.NoticeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+<<<<<<< HEAD
+=======
+import org.springframework.beans.factory.annotation.Qualifier;
+>>>>>>> fb1a890c9641ef80b8c4560dac35f15fb16fb792
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
