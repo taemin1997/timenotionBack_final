@@ -46,8 +46,6 @@ hr {
 }
 
 
-
-
 .bold-underline {
   border-bottom: 1px solid rgb(213, 213, 213);
   margin-bottom: 15px;
@@ -84,6 +82,10 @@ hr {
   cursor: pointer;
 }
 .box-date-right button:first-child {
+  margin-right: 10px;
+}
+
+.admin-remove {
   margin-right: 10px;
 }
 
@@ -447,33 +449,3 @@ hr {
   width: 100%;
   height: 100%;
 }
-
-/* =============새 디자인 ============================*/
-/* =============새 디자인 ============================*/
-/* =============새 디자인 ============================*/
-/* =============새 디자인 ============================*/
-
-.inner-container{
-  display: flex;
-}
-
-/* 1. 왼쪽 래퍼 -------------------------------------------------------- ㅇ*/
-.left-wrapper{
-  width: 50%;
-  margin-right: 45px;
-}
-/* 2. 오른쪽 래퍼 -------------------------------------------------------- ㅇ*/
-.right-wrapper{
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-}
-
-/* content-one : 타이틀 */
-
-/* content-two : 날짜  */
-.content-two{
-  display: flex;
-}
-/* content-three */
-/* content-four */
