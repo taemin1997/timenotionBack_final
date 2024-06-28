@@ -69,6 +69,33 @@
     <main>
         <div class="container">
             <input type="hidden" id="uniId" th:value="${session.uniId}">
+
+
+            <!--수정 ==== 담 근데 어째서인지 안먹어서 중단된 공사,,, ===================================================== -->
+            <!--수정 ========================================================= -->
+
+       <!--     <div class="inner-container">
+                <div class="left-wrapper">
+                    <div class="post-images">&lt;!&ndash; 이미지 예시 &ndash;&gt;</div>
+                </div>
+
+                <div class="right-wrapper">
+                    <div class="content-one"><div class="wrapper-title" th:text="${boards.boardTitle}"></div></div>
+                    <div class="content-two">
+                        <div class="year-box"><div th:text="${boards.year}"></div></div>
+                        <div class="date-box"><div th:text="${boards.boardCreatedDate != null ? '작성일 :  ' + #temporals.format(boards.boardCreatedDate, 'yy - MM - dd') : '날짜 없음'}"></div></div>
+                    </div>
+                    <div class="content-three"><div class="post-content" th:text="${boards.boardContent}"></div></div>
+                    <div class="content-four"></div>
+                </div>
+            </div>
+            <hr>
+-->
+
+            <!--수정 ========================================================= -->
+            <!--수정 ========================================================= -->
+
+
             <!--1. 상단 날짜 / 수정 삭제 버튼 ----------------->
             <div class="wrapper-date-etc">
                 <div class="box-date-left" th:text="${boards.boardCreatedDate != null ? '작성일 :  ' + #temporals.format(boards.boardCreatedDate, 'yy년 MM월 dd일') : '날짜 없음'}">
@@ -84,25 +111,23 @@
 
             </div>
             <!--2. 타이틀 ----------------->
-            <div class="wrapper-title" th:text="${boards.boardTitle}">
-
+            <div class="wrapper-title" th:text="${boards.boardTitle}"
+            >
             </div>
             <!--3. 프로필 영역 / 하트 / 공개  ----------------->
             <div class="wrapper-profile">
-                <input type="hidden" th:value="${boards.userId}" id="uniIdForFile">
                 <div class="box-profile-img">
-                    <a class="box-profile-img-a" th:href="@{/yourLife/userpage/{userId}(userId=${boards.userId})}">
+                    <a th:href="@{/yourLife/userpage/{userId}(userId=${boards.userId})}">
+                        <img th:src="@{/img/myLife/sas detail_comment1.jpg}" alt="">
                     </a>
                 </div>
-                <div class="box-profile-nickname"><a id="get-user-like-id" th:text="${userNickname}">닉네임</a></div>
+                <div class="box-profile-nickname">
+                    <a th:text="${userNickname}">닉네임</a>
+                </div>
                 <p id="user-lifecycle-check" style="display: none" th:text="${boards.boardLifeCycle}"></p>
 
                 <div><img th:src="@{/img/myLife/sas detail_heart.png}" alt="하트" class="box-profile-heart"
                           id="heartImage"></div>
-
-                    <!--    좋아요 상태 체크하는 p태그 -->
-                <p id="get-user-like-status" th:text="${likeStatus}"></p>
-
             </div>
             <div class="bold-underline"></div>
             <!--4. 컨텐츠 영역  ----------------->
@@ -113,6 +138,8 @@
                     <!-- /이미지 예시 -->
                 </div>
             </div>
+
+
             <div class="bold-underline"></div>
             <!-- 00. 댓글영역 (까먹고 나중에 추가함;;) -->
             <div class="wrapper-reply-write">
@@ -123,9 +150,13 @@
                     <div class="box-btn-reply-btn"><button class="btn-reply-btn">입력</button></div>
                 </div>
 
-
             </div>
-            <!--5. 댓글영역   ----------------->
+
+
+
+            <!--5. 댓글영역   --------------- ------------------------------- ----------------------------- -->
+            <!--5. 댓글영역   --------------- ------------------------------- ----------------------------- -->
+            <!--5. 댓글영역   --------------- ------------------------------- ----------------------------- -->
             <div class="wrapper-reply">
 
             </div> <!--댓글영역 닫는 태그 -->
@@ -134,19 +165,26 @@
             <!-- 메인 신고 모달 -->
             <article class="wrapper-report">
                 <form class="report">
-                    <input type="hidden" name="commentId" value="">
-                    <input type="hidden" name="userId" value="">
-
                     <div class="box-report-input">
                         <div class="report-title-r">신고하기</div>
-                        <label for="a"><input type="radio" name="reportReason" value="욕설" id="a"/>욕설 및 비방</label>
+                        <label for="a"><input type="radio" name="reportReason" value="욕설" id="a"/>욕설 및 비방</label
+                        >
                         <label for="b"><input type="radio" name="reportReason" value="스팸" id="b"/>스팸</label>
                         <label for="c"><input type="radio" name="reportReason" value="음란물" id="c"/>음란물</label>
-                        <label for="d"><input type="radio" name="reportReason" value="중복글" id="d"/>중복 게시물 도배</label>
-                        <label for="e"><input type="radio" name="reportReason" value="부정확정보" id="e"/>부정확한 정보</label>
+                        <label for="d"><input type="radio" name="reportReason" value="중복글" id="d"/>중복 게시물 도배</label
+                        >
+                        <label for="e"
+                        ><input type="radio" name="report-reason" value="" id="e"/>부정확한 정보</label
+                        >
                         <label for="f"><input type="radio" name="reportReason" value="도용" id="f"/>도용</label>
                         <label for="g"><input type="radio" name="reportReason" value="기타" id="g"/>기타
-                            <input type="text" name="reportReason" class="report-reason" maxlength="100" placeholder="기타 사유를 적어주세요.">
+                            <input
+                                    type="text"
+                                    name="reportReason"
+                                    class="report-reason"
+                                    maxlength="100"
+                                    placeholder="기타 사유를 적어주세요."
+                            />
                         </label>
                         <div class="report-btn-box">
                             <button type="submit" class="report-btn-report">신고하기</button>

@@ -15,6 +15,13 @@ public class FollowDTO {
 //  팔로워 수
     private int followerCount;
     private int boardCount;// 일기 수
-    private String userFileProfileSource;//파일 소스 추가필드
-    private String userFileBackSource;//파일 배경 소스 추가 필드
+    // 수정 -- 담 24.06.21
+    // 프사
+    private String userFileProfileName;
+    private String userFileProfileSource;
+    private String userFileProfileUuid;
+    // 배사
+    private String userFileBackName;
+    private String userFileBackSource;
+    private String userFileBackUuid;
 }
