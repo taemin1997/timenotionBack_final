@@ -97,7 +97,6 @@ $(document).ready(function() {
 
         data.forEach(function(board) {
             let profileFileName = encodeURIComponent(board.userFileProfileSource + '/' + board.userFileProfileUuid + '_' + board.userFileProfileName); // ☆★☆★☆★ 파일 경로를 URL 인코딩
-            console.log(profileFileName + "조합된 프로필 파일 이름 ");
             if (board.userFileProfileSource) {
                 profileTags = `
                     <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진" class="img-profile-img">
@@ -202,7 +201,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 
-//최신순 인기순 조회순으로 조회
+//최신순 인기순 조회순으로 조회 ==================================
 function sortByViews() {
     var selectBox = document.querySelector('.box-select');
     var selectedValue = selectBox.value;
@@ -212,8 +211,20 @@ function sortByViews() {
         .then(data => {
             var contentWrap = document.getElementById('everyLifeContentWrap');
             contentWrap.innerHTML = '';
+            let profileTags = '';
+
 
             data.forEach(board => {
+                let profileFileName = encodeURIComponent(board.userFileProfileSource + '/' + board.userFileProfileUuid + '_' + board.userFileProfileName); // ☆★☆★☆★ 파일 경로를 URL 인코딩
+                if (board.userFileProfileSource) {
+                    profileTags = `
+                    <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진" class="img-profile-img">
+                `;
+                } else {
+                    profileTags = `
+                    <img src="/img/main/basic-profile.png" alt="기본 프로필 사진" class="img-profile-img">
+                `;
+                }
                 var boardContent = `
                     <div class="everyLife-content-box">
                         <input type="hidden" name="uniId" value="${board.userId}" id="uniId">
@@ -224,7 +235,7 @@ function sortByViews() {
                                 <div class="everyLife-content-views">조회수 : ${board.boardViewCount}</div>
                                 <div class="everyLife-content-writer">
                                     <div class="everyLife-writer-profile">
-                                        <!-- Profile Image Placeholder -->
+                                         ${profileTags}
                                     </div>
                                     <span class="everyLife-writer-nickname">${board.nickname}</span>
                                 </div>
