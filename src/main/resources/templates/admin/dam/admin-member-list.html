@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/css/notion.css" />
   <link rel="stylesheet" href="/css/reset.css" />
   <link rel="stylesheet" href="/css/admin/dam/admin-memberList.css" />
+  <script defer th:src="@{/js/admin/admin_member.js}"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -50,16 +51,17 @@
       </div>
       <!-- 오른쪽 -->
       <div class="container-content">
+        <div>
         <!-- 1. 게시판 이름 -->
         <div class="admin-title-box"><span>회원 관리</span></div>
         <!-- 2. 검색 -->
         <div class="admin-search-box">
-          <div class="admin-search-left">
-            <input type="text" name="" id="" placeholder="검색어를 입력하세요" />
-            <div class="admin-box-dodbogi">
+          <form class="admin-search-left" action="/admin/memberList" method="get">
+            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요" th:value="${searchKeyword}" />
+            <button type="submit" class="admin-box-dodbogi">
               <img src="/img/main/돋보기.png" alt="" />
-            </div>
-          </div>
+            </button>
+          </form>
           <div class="admin-search-right" style="display: none;"><button>공지글 작성하기</button></div>
         </div>
         <!-- 3. 리스트 -->
@@ -78,36 +80,66 @@
                 <div class="admin-list-right-top">
                   <div class="admin-three-top gap">이메일</div>
                   <div class="admin-four-top gap">생년월일</div>
-                  <div class="admin-five-top">상태</div>
+                  <div class="admin-five-top">상태/변경</div>
                 </div>
               </li>
             </ul>
           </div>
           <!-- 3-2. 리스트들 -->
-          <div class="box-admin-list">
+          <div class="box-admin-list"  th:each="member : ${memberLists}" >
             <ul>
               <!--☆☆☆☆☆☆☆-->
               <li>
                 <!-- 왼쪽 -->
                 <div class="admin-list-left">
-                  <div class="admin-one gap">1</div>
-                  <div class="admin-name gap"><a href="#">닉네임</a></div>
-                  <div class="admin-name gap"><a href="#"></a>이름</div>
+                  <div class="admin-one gap" id="member-uniId"  th:text="${member.uniId}">1</div>
+                  <div class="admin-name gap"><a href="#"  th:text="${member.nickname}">닉네임</a></div>
+                  <div class="admin-name gap"><a href="#"  th:text="${member.name}"></a></div>
                 </div>
                 <!-- 오른쪽 -->
                 <div class="admin-list-right">
-                  <div class="admin-three gap"><a href="#">geun99@naver.com</a></div>
-                  <div class="admin-four gap"><span>2024.05.05 13:07</span></div>
-                  <div class="admin-five"><button>제재</button></div>
+                  <div class="admin-three gap"><a href="#"  th:text="${member.email}">geun99@naver.com</a></div>
+                  <div class="admin-four gap">
+                    <span th:if="${member.birth != null}" th:text="${#dates.format(member.birth, 'yyyy.MM.dd')}">2024.05.05</span>
+                    <span th:if="${member.birth == null}">-</span>
+                  </div>
+                  <div class="admin-five" id="member-status" th:text="${member.status}">상태</div>
+                  <div class="admin-six"><button id="change-status">변경</button></div>
                 </div>
               </li>
             </ul>
           </div>
+
+          <!-- 상태 변경 모달 추가 -->
+          <div id="myModal" class="modal">
+            <div class="modal-content">
+              <h2>상태 변경</h2>
+              <p>해당 유저의 상태를 변경하세요:</p>
+              <button onclick="changeStatus('일반')" id="general">일반</button>
+              <button onclick="changeStatus('정지')" id="suspension">정지</button>
+              <button onclick="changeStatus('탈퇴')" id="withdrawal">탈퇴</button>
+              <button id="status-cancel">취소</button>
+            </div>
+          </div>
+
         </div>
-        <div class="wrapper-pagination">
-          <div class="chevron-left"><img src="/img/main/쉐브론.png" alt="" /></div>
-          1 2 3 4 5
-          <div class="chevron-right"><img src="/img/main/쉐브론.png" alt="" /></div>
+        </div>
+        <div class="page-container">
+          <ul class="page-box">
+            <a th:href="@{/admin/memberList(page=${page.startPage - 1})}" class="page-a" th:if="${page.prev}">
+              <li class="page-num prev"> < </li>
+            </a>
+
+            <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
+              <a th:href="@{/admin/memberList(page=${i})}" class="page-a">
+                <li class="page-num" th:classappend="${i == page.noticeCriteria.page ? 'active' : ''}" th:text="${i}"></li>
+              </a>
+            </th:block>
+
+            <a th:href="@{/admin/memberList(page=${page.endPage + 1})}" class="page-a" th:if="${page.next}">
+              <li class="page-num next"> > </li>
+            </a>
+          </ul>
         </div>
       </div>
     </div>
