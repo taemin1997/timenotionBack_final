@@ -63,7 +63,7 @@
         <!-- 최신순 / 인기순 정렬  -->
         <div class="everyLife-select-sequence">
             <form action="#">
-                <select name="" class="box-select" onchange="sortByViews()" >
+                <select name="" class="box-select" onchange="sortByViews()">
                     <option id="latestview" value="latest">최신순</option>
                     <option id="popularityview" value="popularity">인기순</option>
                     <option id="viewscount" value="views">조회순</option>
@@ -71,7 +71,7 @@
             </form>
         </div>
         <!-- 메인 컨텐츠들 감싸는 div -->
-        <div class="everyLife-content-wrap">
+        <div class="everyLife-content-wrap" id="everyLifeContentWrap">
             <div class="everyLife-content-box" th:each="board: ${boardLists}">
                 <input type="hidden" name="uniId" th:value="${board.userId}" id="uniId">
                 <a th:href="@{/myLife/detail-my(boardId=${board.boardId})}">
@@ -83,9 +83,9 @@
                         </div>
                         <div class="everyLife-content-views" th:text="|조회수 : ${board.boardViewCount}|">조회수</div>
                         <div class="everyLife-content-writer">
-                                <div class="everyLife-writer-profile">
-<!--                                    <img src="./../../img/everyLife/everyLife_profile.png" alt="">-->
-                                </div>
+                            <div class="everyLife-writer-profile">
+                                <!--                                    <img src="./../../img/everyLife/everyLife_profile.png" alt="">-->
+                            </div>
                             <span class="everyLife-writer-nickname" th:text="${board.nickname}">닉네임</span>
                         </div>
                         <div class="everyLife-content-detail" th:text="${board.boardContent}">내용</div>

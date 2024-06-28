@@ -78,7 +78,7 @@
         WHERE BOARD_ID = #{boardId} AND USER_ID = #{userId}
     </delete>
 
-
+    
     <!--2. 내가 쓴 댓글 목록 페이징 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  -->
     <select id="selectPageMyComment" resultType="CommentDTO">
         <![CDATA[
