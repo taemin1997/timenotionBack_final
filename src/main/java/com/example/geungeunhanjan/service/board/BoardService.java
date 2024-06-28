@@ -48,7 +48,7 @@ public interface BoardService {
     BoardFileVO saveFile(MultipartFile files) throws IOException;
 
     //특정 회원의 생일 불러오기
-    LocalDateTime writerUserBirth(Long userId);
+    LocalDateTime writerUserBirth(Long uniId);
 
     //특정 회원의 게시글 보기(마이페이지)
     List<BoardVO> selectBoard(Long userId);
