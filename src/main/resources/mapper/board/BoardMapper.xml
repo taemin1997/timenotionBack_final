@@ -240,7 +240,7 @@
                               bf.board_file_source_name,
                               bf.board_file_name,
                               COALESCE(u.user_nickname, k.name) AS user_nickname,
-                              RANK() OVER (ORDER BY b.board_view_count DESC) AS board_rank,
+                              DENSE_RANK() OVER (ORDER BY b.board_view_count DESC) AS board_rank,
                                   FIRST_VALUE(COALESCE(k.PROFILE_PIC, uf.USER_FILE_PROFILE_SOURCE)) OVER (PARTITION BY b.board_id ORDER BY b.board_id) AS USER_FILE_PROFILE_SOURCE,
                                   b.board_created_date,
                               b.board_view_count
@@ -385,22 +385,15 @@
     </insert>
 
     <!-- 게시판 작성자의 생일 가져오기  -->
-    <select id="selectUserBirth" resultType="java.time.LocalDateTime">
+    <select id="selectUserBirth" resultType="java.time.LocalDateTime" parameterType="Long">
         SELECT
-            CASE
-                WHEN u.USER_ID IS NOT NULL THEN u.USER_BIRTH
-                --                 WHEN k.KAKAO_ID IS NOT NULL THEN k.KAKAO_BIRTH
---                 ELSE NULL -- 유저 또는 카카오 회원이 없을 경우
-                END AS BIRTHDAY
+            BIRTH as BIRTHDAY
         FROM
-            GGHJ_UNI uni
-                LEFT JOIN
-            GGHJ_USER u ON uni.USER_ID = u.USER_ID
-        --                 LEFT JOIN
---             GGHJ_KAKAO k ON uni.KAKAO_ID = k.KAKAO_ID
+            GGHJ_UNI
         WHERE
-            uni.UNI_ID = #{uniId}
+            UNI_ID = #{uniId}
     </select>
+
 
 
     <!-- 게시판 작성자의 생일 가져오기  -->
@@ -419,6 +412,7 @@
 <!--            GGHJ_KAKAO k ON uni.KAKAO_ID = k.KAKAO_ID-->
 <!--        WHERE-->
 <!--            uni.UNI_ID = #{uniId}-->
+
 <!--    </select>-->
 
     <!-- 나의 일대기 게시글 수정 -->

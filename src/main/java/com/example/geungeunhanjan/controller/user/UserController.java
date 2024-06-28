@@ -57,6 +57,7 @@ public class UserController {
 
         UniVO uniVO = new UniVO();
         uniVO.setUserId(userVO.getUserId());
+        uniVO.setUserBirth(birthDate.atStartOfDay());
 
         userService.userUniJoin(uniVO);
 

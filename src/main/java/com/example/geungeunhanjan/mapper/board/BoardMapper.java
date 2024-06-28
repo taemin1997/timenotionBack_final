@@ -38,7 +38,7 @@ public interface BoardMapper {
     int incViewCnt(Long boardId);
 
     //특정 회원의 생일 불러오기
-    LocalDateTime selectUserBirth(Long userId);
+    LocalDateTime selectUserBirth(Long uniId);
 
     //특정 회원의 게시글 보기(마이페이지)
     List<BoardVO> selectBoard(Long userId);
