@@ -74,6 +74,7 @@
                 <div class="box-date-left" th:text="${boards.boardCreatedDate != null ? '작성일 :  ' + #temporals.format(boards.boardCreatedDate, 'yy년 MM월 dd일') : '날짜 없음'}">
                 </div>
                 <input type="hidden" id="boardId" th:value="${boards.boardId}">
+                <input type="hidden" id="boardUserId" th:value="${boards.userId}">
                 <div class="box-date-right">
                     <th:block th:if="${boards.userId == session.uniId}">
                         <button class="btn-modify" th:data-id="${boards.boardId}">수정</button>
