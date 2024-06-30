@@ -38,10 +38,6 @@ public interface BoardService {
     //모두의 일대기 별 게시판 조회
     List<BoardDTO> everyLifeCycle(String boardLifeCycle);
 
-    //조회수 순으로 정렬
-    List<BoardDTO> everyViewsDescending(String boardViewCount);
-
-
     //특정 게시긓 조회수 +1
     void boardIntViewCnt(Long boardId);
 
@@ -52,7 +48,7 @@ public interface BoardService {
     BoardFileVO saveFile(MultipartFile files) throws IOException;
 
     //특정 회원의 생일 불러오기
-    LocalDateTime writerUserBirth(Long userId);
+    LocalDateTime writerUserBirth(Long uniId);
 
     //특정 회원의 게시글 보기(마이페이지)
     List<BoardVO> selectBoard(Long userId);
@@ -75,18 +71,20 @@ public interface BoardService {
 
 //    String everyLifeFindTotal(); //주석처리
 
-//    //    조회수, 인기수 , 최신순 게시판 정렬
+//    //    조회수, 인기순 , 최신순 게시판 정렬
     List<BoardDTO> getBoards(String orderBy);
 
     // 모두의 일대기 -> 상세페이지 넘어가기
      BoardVO everyLifeDetail(Long UserId);
 
+    // 1) 조회수 게시판 정렬
+    List<BoardDTO> getSelectEveryView(Criteria criteria);
 
-    List<BoardDTO> getPostsSortedByViews();
+    // 2) 최신순 게시판 정렬
+    List<BoardDTO> getSelectEveryLatest(Criteria criteria);
 
-    List<BoardDTO> getPostsSortedByLatest();
-
-    List<BoardDTO> getPostsSortedByPopularity();
+    // 3) 인기순 게시판 정렬
+    List<BoardDTO> getSelectEveryPopular(Criteria criteria);
 
 
     // 메인 배너 왼쪽

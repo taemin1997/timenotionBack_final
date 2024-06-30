@@ -90,8 +90,8 @@
         <selectKey keyProperty="uniId" resultType="Long" order="BEFORE">
             select seq_uni.nextval from dual
         </selectKey>
-        INSERT INTO GGHJ_UNI (UNI_ID, UNI_STATUS, UNI_ABOUT, USER_ID, KAKAO_ID)
-        VALUES (#{uniId}, '일반', null, #{userId}, #{kakaoId})
+        INSERT INTO GGHJ_UNI (UNI_ID, UNI_STATUS, UNI_ABOUT, USER_ID, KAKAO_ID, BIRTH)
+        VALUES (#{uniId}, '일반', null, #{userId}, #{kakaoId}, #{userBirth})
     </insert>
 
     <select id="uniUserIdNickname" resultType="UserSessionDTO" parameterType="Long">

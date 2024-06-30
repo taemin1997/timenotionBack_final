@@ -90,11 +90,11 @@
                 <!-- 왼쪽 -->
                 <div class="admin-list-left">
                   <div class="admin-one gap" th:text="${boardList.boardId}">1</div>
-                  <div class="admin-two gap"><a th:text="${boardList.boardTitle}" th:href="@{/admin/detail}">게시글 제목</a></div>
+                  <div class="admin-two gap"><a th:text="${boardList.boardTitle}" th:href="@{/admin/detail(boardId=${boardList.boardId})}">게시글 제목</a></div>
                 </div>
                 <!-- 오른쪽 -->
                 <div class="admin-list-right">
-                  <div class="admin-three gap"><a th:text="${boardList.nickname}" th:href="@{/admin/detail}">닉네임</a></div>
+                  <div class="admin-three gap"><a th:text="${boardList.nickname}" th:href="@{/admin/detail(boardId=${boardList.boardId})}">닉네임</a></div>
                   <div class="admin-four gap"><span th:text="${#temporals.format(boardList.boardCreatedDate, 'yyyy년 MM월 dd일')}">작성일</span></div>
                   <div class="admin-five"><button>삭제</button></div>
                 </div>

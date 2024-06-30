@@ -97,7 +97,6 @@ $(document).ready(function() {
 
         data.forEach(function(board) {
             let profileFileName = encodeURIComponent(board.userFileProfileSource + '/' + board.userFileProfileUuid + '_' + board.userFileProfileName); // ☆★☆★☆★ 파일 경로를 URL 인코딩
-            console.log(profileFileName + "조합된 프로필 파일 이름 ");
             if (board.userFileProfileSource) {
                 profileTags = `
                     <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진" class="img-profile-img">
@@ -202,44 +201,54 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 
+//최신순 인기순 조회순으로 조회 ==================================
+function sortByViews() {
+    var selectBox = document.querySelector('.box-select');
+    var selectedValue = selectBox.value;
+
+    fetch(`/everyLife/orderBy/${selectedValue}`)
+        .then(response => response.json())
+        .then(data => {
+            var contentWrap = document.getElementById('everyLifeContentWrap');
+            contentWrap.innerHTML = '';
+            let profileTags = '';
 
 
-
-
-
-
-
-//
-// // 조회순 정렬을 위한 함수
-// function sortByViews() {
-//     // 선택한 값 가져오기
-//     var selectedOption = document.querySelector('.box-select').value;
-//
-//     // 선택한 값이 'views'인 경우에만 실행
-//     if (selectedOption === 'views') {
-//         // Ajax 요청을 통해 서버에 데이터 요청
-//         $.ajax({
-//             url: '/everyLife/viewsDescending', // 요청할 URL 설정
-//             type: 'GET', // GET 방식 요청
-//             data: { boardViewCount: boardViewCount },
-//             success: function (data) {
-//                 // 데이터를 받아와서 처리하는 부분
-//                 // 받아온 데이터를 이용하여 화면에 표시하거나 다른 작업을 수행할 수 있음
-//                 console.log(data); // 받아온 데이터를 콘솔에 출력 (개발 단계에서 확인용)
-//                 // 화면에 받아온 데이터를 표시하는 작업을 수행할 수 있음
-//             },
-//             error: function (error) {
-//                 console.error('Error fetching data:', error); // 오류가 발생했을 때 콘솔에 오류 메시지 출력
-//             }
-//         });
-//     }
-// }
-//
-// // 페이지가 로드될 때 실행
-// document.addEventListener('DOMContentLoaded', function () {
-//     // select 요소의 변경을 감지하여 함수 호출
-//     document.querySelector('.box-select').addEventListener('change', sortByViews);
-// });
+            data.forEach(board => {
+                let profileFileName = encodeURIComponent(board.userFileProfileSource + '/' + board.userFileProfileUuid + '_' + board.userFileProfileName); // ☆★☆★☆★ 파일 경로를 URL 인코딩
+                if (board.userFileProfileSource) {
+                    profileTags = `
+                    <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진" class="img-profile-img">
+                `;
+                } else {
+                    profileTags = `
+                    <img src="/img/main/basic-profile.png" alt="기본 프로필 사진" class="img-profile-img">
+                `;
+                }
+                var boardContent = `
+                    <div class="everyLife-content-box">
+                        <input type="hidden" name="uniId" value="${board.userId}" id="uniId">
+                        <a href="/myLife/detail-my?boardId=${board.boardId}">
+                            <div class="everyLife-contents">
+                                <div class="everyLife-content-title">${board.boardTitle}</div>
+                                <div class="everyLife-content-date">작성일 : ${new Date(board.boardCreatedDate).toLocaleDateString()}</div>
+                                <div class="everyLife-content-views">조회수 : ${board.boardViewCount}</div>
+                                <div class="everyLife-content-writer">
+                                    <div class="everyLife-writer-profile">
+                                         ${profileTags}
+                                    </div>
+                                    <span class="everyLife-writer-nickname">${board.nickname}</span>
+                                </div>
+                                <div class="everyLife-content-detail">${board.boardContent}</div>
+                            </div>
+                        </a>
+                    </div>
+                `;
+                contentWrap.innerHTML += boardContent;
+            });
+        })
+        .catch(error => console.error('Error:', error));
+}
 
 
 /* ---------- 프로필사진 파일 처리 ---------------------------------------------------- */

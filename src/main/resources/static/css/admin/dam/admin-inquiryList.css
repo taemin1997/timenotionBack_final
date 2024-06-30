@@ -22,7 +22,7 @@ main,
 a,
 select,
 option {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'pretendard';
 }
 
 /* #cadb36  #594096 #1c191a*/
@@ -372,6 +372,7 @@ a:hover {
 .admin-response-top{
   width: 50px;
   justify-content: center;
+  margin-right: 20px;
 }
 
 /* 리스트 - 하얀색- ---------------- */
@@ -420,7 +421,7 @@ a:hover {
 }
 
 .admin-response{
-  width: 50px;
+  width: 56px;
   cursor: pointer;
 }
 
@@ -438,7 +439,7 @@ a:hover {
 .admin-response-before{
   display: block;
   white-space: nowrap;
-  padding: 4px 8px;
+  padding: 6px 9px;
   background-color: rgb(181, 244, 181);
   color: #24325f;
   font-size: 11px;
@@ -447,9 +448,9 @@ a:hover {
 }
 /* 답변 완료 */
 .admin-response-after{
-  display: none;
+  display: block;
   white-space: nowrap;
-  padding: 4px 8px;
+  padding: 6px 9px;
   background-color: rgb(177, 177, 177);
   color: white;
   font-size: 11px;

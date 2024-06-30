@@ -57,4 +57,5 @@ public interface MyPageService {
 
     // 8. 신고
     void insertReport(ReportVO reportVO);
+
 }

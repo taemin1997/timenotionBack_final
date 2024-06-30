@@ -34,14 +34,11 @@ public interface BoardMapper {
     //모두의 일대기 검색 결과 조회
     List<BoardDTO> searchBoards(@Param("keyword") String keyword);
 
-    //조회수 순으로 정렬
-    List<BoardDTO> selectByViewsDescending(String boardViewCount);
-
     //특정 게시판 조회수 +1
     int incViewCnt(Long boardId);
 
     //특정 회원의 생일 불러오기
-    LocalDateTime selectUserBirth(Long userId);
+    LocalDateTime selectUserBirth(Long uniId);
 
     //특정 회원의 게시글 보기(마이페이지)
     List<BoardVO> selectBoard(Long userId);
@@ -65,13 +62,13 @@ public interface BoardMapper {
 
 //     최신순, 인기순 , 좋아요 순 게시판 정렬
     // 1) 조회수 게시판 정렬
-    List<BoardDTO> postarrayviews();
+    List<BoardDTO> selectEveryView(Criteria criteria);
 
     // 2) 최신순 게시판 정렬
-    List<BoardDTO> postarrayLatest();
+    List<BoardDTO> selectEveryLatest(Criteria criteria);
 
     // 3) 인기순 게시판 정렬
-    List<BoardDTO> postarrayPopularity();
+    List<BoardDTO> selectEveryPopular(Criteria criteria);
 
     // 그 main 4칸 짜리 게시물
     List<BoardMainDTO> mainBoardbyViews();

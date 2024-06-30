@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 public class ReportApi {
@@ -18,25 +21,41 @@ public class ReportApi {
 
 
     /* 신고 등록 */
-    @PostMapping("/v1/{boardId}/submitReport")
+    @PostMapping("/v1/submitReport")
     @Transactional
-    public ResponseEntity<String> registReport(
-            @PathVariable Long boardId,
-            @RequestParam Long commentId,
-            @RequestParam Long userId,
-            @RequestParam String reportReason) {
-
+    public  Map<String, Object> registReport(@RequestParam Long commentId,
+                                                @RequestParam Long userId,
+                                                @RequestParam String reportReason) {
+        // 신고사유가 서버에서 오면서 콤마들어가서 지워줌
+        reportReason = reportReason.replace(",", "").trim();
+        // 넘겨받은 값 세팅
         ReportVO reportVO = new ReportVO();
         reportVO.setCommentId(commentId);
         reportVO.setUserId(userId);
         reportVO.setReportReason(reportReason);
 
+
+        // 확인
+        Map<String, Object> response  = new HashMap<>();
         try {
+            System.out.println("전달받은 신고 VO ------------- " + reportVO);
+            response.put("success", true);
+            response.put("message", "신고가 성공적으로 등록되었습니다.");
             myPageService.insertReport(reportVO);
-            return ResponseEntity.ok("신고가 성공적으로 등록되었습니다.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("신고 등록 중 오류가 발생했습니다.");
+        } catch (Exception e){
+            e.printStackTrace();
+            response.put("success", false);
+            response.put("message", "신고 등록 중 오류가 발생했습니다.");
         }
+        return response;
     }
-}
+
+
+
+
+} // 괄호
+
+
+
+/*
+@PathVariable Long boardId*/
