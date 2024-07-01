@@ -294,10 +294,12 @@ hr {
   justify-content: center;
   align-items: center;
   height: 100px;
+  margin-top: 50px;
+
 }
 .notification-paragraph p{
-  font-size: 25px;
-  font-weight: bolder;
+  font-size: 22px;
+  font-weight: 700;
 }
 .notification-list-article{
   /* background-color: lightcyan; */
@@ -306,18 +308,11 @@ hr {
   height: 660px;
 }
 .notification-contents{
-  background-color: #F2F3F2;
   border-radius: 6px;
-  width: 920px;
+  width: 100%;
   height: 580px;
 }
-.notification-lists-complaint {
-  display: flex;
-  /* background-color: rgb(218, 246, 177); */
-  height: 56px;
-  justify-content: space-between;
-  align-items: center;
-}
+
 .notification-lists-complaint img{
   height: 30px;
   width: 30px;
@@ -340,15 +335,35 @@ hr {
 .notification-follow-nickname a{
   color:black;
 }
+
+/* 리스트 감싸는 박스 : hr이랑 나누기 위해서 */
+.box-lists{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background-color: #eaeaea6e;
+  width: 100%;
+}
+
 .notification-list-left{
   justify-content: space-between;
   align-items: center;
   display: flex;
 }
-.notification-list-left p , .notification-list-left img{
+
+/* 리스트 글 (컨텐츠) */
+.notification-list-left p{
   margin-left: 10px;
   margin-right: 10px;
+  font-size: 14px;
 }
+.notification-list-left img {
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+
 .notification-list-left span{
   margin-left: 10px;
   margin-right: 5px;
@@ -360,10 +375,16 @@ hr {
   width: 20px;
   height: 20px;
 }
+/* 날짜 */
 .notification-list-right{
   margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 20px;
 }
+.notification-list-right p{
+  font-size: 12px;
+}
+
+
 .notification-pagination-buttons{
   /* background-color: lightcoral; */
   height: 150px;

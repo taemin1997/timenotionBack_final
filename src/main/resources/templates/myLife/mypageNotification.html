@@ -84,133 +84,35 @@
             <!-- 내 알림 리스트 목록  10개 -->
             <article class="notification-list-article">
               <ul class="notification-contents">
-                <li class="notification-lists-complaint">
-                  <div class="notification-list-left">
-                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
-                    <p>회원님의 댓글은 다음의 사유로 신고/삭제 되었습니다.</p>
-                    <p class="notification-list-left-why">욕설 및 모욕적인 말투</p>
+
+                <li class="notification-lists-complaint" th:each="report : ${reports}">
+                  <div class="box-lists">
+                    <div class="notification-list-left">
+                      <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
+                      <p>회원님의 댓글은 다음의 사유로 신고/삭제 되었습니다.</p>
+                      <p class="notification-list-left-why" th:text="${report.reportReason}">욕설 및 모욕적인 말투</p>
+                    </div>
+                    <div class="notification-list-right">
+                      <p th:text="${#temporals.format(report.reportCreatedDate, 'yyyy.MM.dd')}">2024.05.12</p>
+                    </div>
                   </div>
-                  <div class="notification-list-right">
-                    <p>2024.05.12</p>
-                  </div>
+                  <hr>
                 </li>
 
-                <hr>
 
-                <li class="notification-lists-follow">
-                  <div class="notification-list-left">
-                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
-                    <span class="notification-follow-nickname"><a href="/yourLife/userpage">닉네임</a></span>
-                    <span>님이 회원님을 팔로우했습니다.</span>
-                  </div>
-                  <div class="notification-list-right">
-                    <p>2024.05.12</p>
-                  </div>
-                </li>
+<!--                <li class="notification-lists-follow">-->
+<!--                  <div class="notification-list-left">-->
+<!--                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">-->
+<!--                    <span class="notification-follow-nickname"><a href="/yourLife/userpage">닉네임</a></span>-->
+<!--                    <span>님이 회원님을 팔로우했습니다.</span>-->
+<!--                  </div>-->
+<!--                  <div class="notification-list-right">-->
+<!--                    <p>2024.05.12</p>-->
+<!--                  </div>-->
+<!--                </li>-->
 
-                <hr>
 
-                <li class="notification-lists-complaint">
-                  <div class="notification-list-left">
-                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
-                    <p>회원님의 댓글은 다음의 사유로 신고/삭제 되었습니다.</p>
-                    <p class="notification-list-left-why">욕설 및 모욕적인 말투</p>
-                  </div>
-                  <div class="notification-list-right">
-                    <p>2024.05.12</p>
-                  </div>
-                </li>
 
-                <hr>
-
-                <li class="notification-lists-follow">
-                  <div class="notification-list-left">
-                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
-                    <span class="notification-follow-nickname"><a href="/yourLife/userpage">닉네임</a></span>
-                    <span>님이 회원님을 팔로우했습니다.</span>
-                  </div>
-                  <div class="notification-list-right">
-                    <p>2024.05.12</p>
-                  </div>
-                </li>
-
-                <hr>
-
-                <li class="notification-lists-complaint">
-                  <div class="notification-list-left">
-                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
-                    <p>회원님의 댓글은 다음의 사유로 신고/삭제 되었습니다.</p>
-                    <p class="notification-list-left-why">욕설 및 모욕적인 말투</p>
-                  </div>
-                  <div class="notification-list-right">
-                    <p>2024.05.12</p>
-                  </div>
-                </li>
-
-                <hr>
-
-                <li class="notification-lists-follow">
-                  <div class="notification-list-left">
-                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
-                    <span class="notification-follow-nickname"><a href="/yourLife/userpage">닉네임</a></span>
-                    <span>님이 회원님을 팔로우했습니다.</span>
-                  </div>
-                  <div class="notification-list-right">
-                    <p>2024.05.12</p>
-                  </div>
-                </li>
-
-                <hr>
-
-                <li class="notification-lists-complaint">
-                  <div class="notification-list-left">
-                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
-                    <p>회원님의 댓글은 다음의 사유로 신고/삭제 되었습니다.</p>
-                    <p class="notification-list-left-why">욕설 및 모욕적인 말투</p>
-                  </div>
-                  <div class="notification-list-right">
-                    <p>2024.05.12</p>
-                  </div>
-                </li>
-
-                <hr>
-
-                <li class="notification-lists-follow">
-                  <div class="notification-list-left">
-                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
-                    <span class="notification-follow-nickname"><a href="/yourLife/userpage">닉네임</a></span>
-                    <span>님이 회원님을 팔로우했습니다.</span>
-                  </div>
-                  <div class="notification-list-right">
-                    <p>2024.05.12</p>
-                  </div>
-                </li>
-
-                <hr>
-
-                <li class="notification-lists-complaint">
-                  <div class="notification-list-left">
-                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
-                    <p>회원님의 댓글은 다음의 사유로 신고/삭제 되었습니다.</p>
-                    <p class="notification-list-left-why">욕설 및 모욕적인 말투</p>
-                  </div>
-                  <div class="notification-list-right">
-                    <p>2024.05.12</p>
-                  </div>
-                </li>
-
-                <hr>
-
-                <li class="notification-lists-follow">
-                  <div class="notification-list-left">
-                    <img src="./../../img/myLife/mdj-notification-icon.png" alt="종">
-                    <span class="notification-follow-nickname"><a href="/yourLife/userpage">닉네임</a></span>
-                    <span>님이 회원님을 팔로우했습니다.</span>
-                  </div>
-                  <div class="notification-list-right">
-                    <p>2024.05.12</p>
-                  </div>
-                </li>
 
                 
               </ul>

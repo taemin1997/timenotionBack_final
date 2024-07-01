@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.geungeunhanjan.mapper.admin.admin_reportMapper">
+
+    <!-- 내 알림 목록 + 페이징 -->
+    <select id="selectPageReportList" resultType="ReportListDTO">
+        <![CDATA[
+        SELECT REPORT_ID,
+               BOARD_ID,
+               USER_ID,
+               COMMENT_ID,
+               REPORT_REASON,
+               REPORT_CREATED_DATE,
+               REPORT_COUNT,
+               COMMENT_CONTENT,
+               COMMENT_CREATED_DATE,
+               UNI_STATUS,
+               NICKNAME
+        FROM (SELECT ROWNUM AS RNUM,
+                     REPORT_ID,
+                     BOARD_ID,
+                     USER_ID,
+                     COMMENT_ID,
+                     REPORT_REASON,
+                     REPORT_CREATED_DATE,
+                     REPORT_COUNT,
+                     COMMENT_CONTENT,
+                     COMMENT_CREATED_DATE,
+                     UNI_STATUS,
+                     NICKNAME
+              FROM (SELECT RR.REPORT_ID,
+                           C.BOARD_ID,
+                           RR.USER_ID,
+                           RR.COMMENT_ID,
+                           RR.REPORT_REASON,
+                           RR.REPORT_CREATED_DATE,
+                           RR.REPORT_COUNT,
+                           C.COMMENT_CONTENT,
+                           C.COMMENT_CREATED_DATE,
+                           UN.UNI_STATUS,
+                           UN.NICKNAME
+                    FROM GGHJ_REPORT RR
+                             LEFT JOIN GGHJ_COMMENT C ON RR.COMMENT_ID = C.COMMENT_ID
+                             LEFT JOIN GGHJ_UNI UN ON RR.USER_ID = UN.UNI_ID
+                    ORDER BY RR.REPORT_CREATED_DATE DESC)
+              WHERE ROWNUM <= #{criteria.page} * #{criteria.amount})
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+        ]]>
+    </select>
+
+    <!-- 내 알림 목록 총 개수 -->
+    <select id="reportTotal" resultType="int">
+        SELECT COUNT(REPORT_ID) FROM GGHJ_REPORT
+    </select>
+
+
+</mapper>

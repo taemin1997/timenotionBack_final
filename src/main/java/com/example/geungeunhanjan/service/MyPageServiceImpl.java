@@ -240,6 +240,16 @@ public class MyPageServiceImpl implements MyPageService {
         }
     }
 
+    // 9. 내 알림 목록 + 페이징
+    @Override
+    public List<ReportListDTO> selectPageMyNotification(Criteria criteria, Long userId) {
+        return myPageMapper.selectPageMyNotification(criteria, userId);
+    }
+
+    @Override
+    public int myNotificationTotal(Long userId) {
+        return myPageMapper.myNotificationTotal(userId);
+    }
 
 
 }

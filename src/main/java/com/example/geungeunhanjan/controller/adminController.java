@@ -4,6 +4,7 @@ import com.example.geungeunhanjan.domain.dto.NoticePage.NoticeCriteria;
 import com.example.geungeunhanjan.domain.dto.NoticePage.NoticePage;
 import com.example.geungeunhanjan.domain.dto.board.BoardDTO;
 import com.example.geungeunhanjan.domain.dto.board.LifeUserInfoDTO;
+import com.example.geungeunhanjan.domain.dto.board.ReportListDTO;
 import com.example.geungeunhanjan.domain.dto.community.InquiryDTO;
 import com.example.geungeunhanjan.domain.dto.community.InquiryPagingDTO;
 import com.example.geungeunhanjan.domain.dto.community.MemberDTO;
@@ -14,10 +15,7 @@ import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.dto.lifePage.Page;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
 import com.example.geungeunhanjan.service.MyPageService;
-import com.example.geungeunhanjan.service.admin.admin_boardListService;
-import com.example.geungeunhanjan.service.admin.admin_inquiryService;
-import com.example.geungeunhanjan.service.admin.admin_memberListService;
-import com.example.geungeunhanjan.service.admin.admin_noticeListService;
+import com.example.geungeunhanjan.service.admin.*;
 import com.example.geungeunhanjan.service.community.NoticeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -47,6 +45,7 @@ public class adminController {
     private final admin_noticeListService adminNoticeListService;
     private final admin_memberListService adminMemberListService;
     private final MyPageService myPageService;
+    private final admin_reportService adminReportService;
     BoardVO boardVO;
 
     // 메인 페이지
@@ -192,7 +191,18 @@ public class adminController {
 
     // 신고 관리
     @GetMapping("/reportList")
-    public String reportList() {
+    public String reportList(Model model, Criteria criteria) {
+        criteria.setAmount(10);
+        List<ReportListDTO> reports = adminReportService.reportPagingList(criteria);
+        int total = adminReportService.reportTotalCount();
+        Page page = new Page(criteria, total);
+
+
+        model.addAttribute("reports", reports);
+        model.addAttribute("page", page);
+
+
+
         return "/admin/dam/admin-report-list";
     }
 
