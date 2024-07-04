@@ -1,11 +1,15 @@
-let $adminRemove = document.querySelector('.admin-remove');
-
-//삭제버튼 처림
-$adminRemove?.addEventListener("click", function () {
-    let boardId = this.dataset.id; //클릭된 요소의 data-id 속성값을 가져와 boardId 변수에 저장
-    //this : 이벤트 핸들러 안에서 이벤트가 발생한 요소(클릭한 요소)
-    //dataset : dataset 객체는 요소의 모든 data-* 속성을 포함
-    //  ex) dataset.id ="123"
-    //id : data-id 속성의 값을 가져온다
-    location.href = `/admin/remove?boardId=${boardId}`;
+// 삭제 버튼 확인시 삭제 / 취소시 삭제 취소 되게 구현
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll("#admin-delete").forEach(function(button) {
+        button.addEventListener("click", function(event) {
+            var confirmDelete = confirm("정말로 삭제하시겠습니까?");
+            if (confirmDelete) {
+                // 부모 form을 찾아서 submit
+                button.closest("form").submit();
+            } else {
+                // 삭제 취소
+                event.preventDefault();
+            }
+        });
+    });
 });

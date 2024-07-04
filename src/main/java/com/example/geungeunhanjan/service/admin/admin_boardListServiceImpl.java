@@ -1,7 +1,8 @@
 package com.example.geungeunhanjan.service.admin;
 
+import com.example.geungeunhanjan.domain.dto.NoticePage.NoticeCriteria;
 import com.example.geungeunhanjan.domain.dto.board.BoardDTO;
-import com.example.geungeunhanjan.domain.dto.board.LifeUserInfoDTO;
+import com.example.geungeunhanjan.domain.dto.community.NoticePageDTO;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
 import com.example.geungeunhanjan.mapper.admin.admin_boardListMapper;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -46,6 +48,12 @@ public class admin_boardListServiceImpl implements admin_boardListService{
         adminBoardListMapper.deleteBoard(boardId);
     }
 
+    //좋아요 삭제하기
+    @Override
+    public void removeLike(Long likeId) {
+        adminBoardListMapper.deleteLike(likeId);
+    }
+
     // 모두의 일대기 게시물
     @Override
     public List<BoardVO> everyLifeBoardbyViews() {
@@ -55,8 +63,13 @@ public class admin_boardListServiceImpl implements admin_boardListService{
 
     //모두의 일대기 게시물 + 페이징 처리
     @Override
-    public List<BoardDTO> everyLifeFindPage(Criteria criteria) {
-        return adminBoardListMapper.everyLifeagepaging(criteria);
+    public List<BoardDTO> everyLifeFindPage(Criteria Criteria) {
+        return adminBoardListMapper.everyLifeagepaging(Criteria);
+    }
+
+    @Override
+    public List<BoardDTO> everyLifeFindPage(Map<String, Object> paramMap) {
+        return adminBoardListMapper.everyLifeagepaging(paramMap);
     }
 
     @Override
