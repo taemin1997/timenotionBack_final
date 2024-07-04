@@ -271,17 +271,35 @@ public class adminController {
 
     // 1:1 문의
     @GetMapping("/inquiryList")
-    public String inquiryList(InquiryCriteria inquiryCriteria, Model model) {
+    public String inquiryList(InquiryCriteria inquiryCriteria,
+                              Model model,
+                              @RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
 
-        List<InquiryPagingDTO> inquiries = adminInquiryService.selectAdminInquiryPage(inquiryCriteria);
+        // 검색어가 있을 경우 Criteria에 검색어 설정
+        if (searchKeyword != null && !searchKeyword.isEmpty()) {
+            inquiryCriteria.setKeyword(searchKeyword);
+        } else {
+            inquiryCriteria.setKeyword(null);
+        }
 
-        int total = adminInquiryService.selectAdminInquiryTotal();
+        // 페이징 및 검색 기능 처리
+        List<InquiryPagingDTO> adminInquiryLists = adminInquiryService.selectAdminInquiryPage(inquiryCriteria);
+        int total = adminInquiryService.selectAdminInquiryTotal(); // 전체 게시물 수를 가져오는 쿼리
 
         InquiryPage inquiryPage = new InquiryPage(inquiryCriteria, total);
 
-        model.addAttribute("inquiries", inquiries);
+        model.addAttribute("adminInquiryLists", adminInquiryLists);
         model.addAttribute("inquiryPage", inquiryPage);
+        model.addAttribute("searchKeyword", searchKeyword);
+
         return "/admin/dam/admin-inquiry-list";
+    }
+
+    //문의글 삭제시
+    @PostMapping("/inquiryList/{inquiryId}")
+    public String inquiryList( @PathVariable("inquiryId") long inquiryId){
+        adminInquiryService.removeInquiry(inquiryId);
+        return "redirect:/admin/inquiryList";
     }
 
     //1:1문의 상세

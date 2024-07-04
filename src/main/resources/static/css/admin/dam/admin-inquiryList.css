@@ -176,6 +176,7 @@ main {
   padding: 50px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 /* 1. 게시판 이름 */
@@ -214,6 +215,7 @@ main {
   height: 15px;
   overflow: hidden;
   cursor: pointer;
+  border: none;
 }
 .admin-box-dodbogi img {
   width: 100%;
@@ -503,4 +505,13 @@ a:hover {
 .chevron-right img{
   width: 100%;
   height: 100%;
+}
+
+/*페이지 네이션*/
+.inquiryPage-box{
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  align-items: center;
+  gap: 20px;
 }
