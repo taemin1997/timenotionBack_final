@@ -99,6 +99,12 @@ public interface BoardMapper {
     // board id 로 board_file 가져오기
     List<BoardFileVO> selectBoardFileByBoardId(Long boardId);
 
+//    나의 일대기 일대기별 페이지 네이션
+    List<BoardDTO> selectUserLifeCyclePaging(String boardLifeCycle, Long userId, Criteria criteria);
+
+    int MyAgePageMove(String boardLifeCycle, Long userId);
+
+
 
 }
 

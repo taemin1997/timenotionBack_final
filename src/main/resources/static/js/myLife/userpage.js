@@ -74,3 +74,9 @@ window.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+function filterByLifeCycle(boardLifeCycle) {
+
+    // 서버로 요청 보내기
+    window.location.href = `/yourLife/userpage/${uniId}/${boardLifeCycle}`;
+}
+

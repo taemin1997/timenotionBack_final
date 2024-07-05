@@ -72,25 +72,25 @@
     <div class="third-container">
       <div class="third-container-category">
         <div class="everyLife-btn-span">
-          <button id="infancyBtn" type="button" value="유아기">유아기</button>
+          <button id="infancyBtn" type="button" value="유아기" onclick="filterByLifeCycle('유아기')">유아기</button>
         </div>
         <div class="everyLife-btn-span">
-          <button id="childhoodBtn" type="button" value="유년기">유년기</button>
+          <button id="childhoodBtn" type="button" value="유년기" onclick="filterByLifeCycle('유년기')">유년기</button>
         </div>
         <div class="everyLife-btn-span">
-          <button id="juvenileBtn" type="button" value="아동기">아동기</button>
+          <button id="juvenileBtn" type="button" value="아동기" onclick="filterByLifeCycle('아동기')">아동기</button>
         </div>
         <div class="everyLife-btn-span">
-          <button id="teenBtn" type="button" value="청소년기">청소년기</button>
+          <button id="teenBtn" type="button" value="청소년기" onclick="filterByLifeCycle('청소년기')">청소년기</button>
         </div>
         <div class="everyLife-btn-span">
-          <button id="adultBtn" type="button" value="청년기">청년기</button>
+          <button id="adultBtn" type="button" value="청년기" onclick="filterByLifeCycle('청년기')">청년기</button>
         </div>
         <div class="everyLife-btn-span">
-          <button id="middleAgeBtn" type="button" value="중년기">중년기</button>
+          <button id="middleAgeBtn" type="button" value="중년기" onclick="filterByLifeCycle('중년기')">중년기</button>
         </div>
         <div class="everyLife-btn-span">
-          <button id="oldAgeBtn" type="button" value="노년기">노년기</button>
+          <button id="oldAgeBtn" type="button" value="노년기" onclick="filterByLifeCycle('노년기')">노년기</button>
         </div>
       </div>
     </div>
@@ -119,6 +119,7 @@
     </div>
 
     <!-- 페이징 처리 -->
+    <th:block th:if="${boardLifeCycle == null}">
     <div class="page-container">
       <ul class="page-box">
         <a th:href="@{/myLife/mypageCommentList(page=${page.startPage - 1})}" class="page-a" th:if="${page.prev}">
@@ -139,9 +140,26 @@
         </a>
       </ul>
     </div>
+    </th:block>
     <!-- /페이징 처리 -->
 
-    <div class="six-container">
+    <th:block th:if="${boardLifeCycle != null}">
+      <div class="everyLife-paging">
+        <ul class="paging-backward">
+          <a th:href="@{|/myLife/${boardLifeCycle}/${userId}?page=${page.startPage - 1}|}" class="page-a" th:if="${page.prev}">&lt;</a>
+        </ul>
+        <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
+          <a th:href="@{|/myLife/${boardLifeCycle}/${userId}?page=${i}|}" class="page-a">
+            <li class="page-num" th:classappend="${i == page.criteria.page ? 'active' : ''}" th:text="${i}"></li>
+          </a>
+        </th:block>
+        <a th:href="@{|/myLife/${boardLifeCycle}/${userId}?page=${page.endPage + 1}|}" class="page-a" th:if="${page.next}">
+          <li class="page-num next">&gt;</li>
+        </a>
+      </div>
+    </th:block>
+
+      <div class="six-container">
       <a class="another--btn" th:href="@{/myLife/detail_writingMode}">
         <img th:src="@{/img/main/write-white.png}" alt="">
       </a>
