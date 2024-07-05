@@ -119,6 +119,8 @@ textarea {
     align-items: center;
     font-size: 30px;
     font-weight: bold;
+    margin-bottom: 30px;
+    margin-top: 30px;
 }
 
 
@@ -168,7 +170,7 @@ textarea {
     height: 30px;
     width: 60px;
     border: none;
-    background-color: #ac8d71;
+    background-color: #9cd3e8;
     border-radius: 6px;
     font-size: 15px;
 }

@@ -33,6 +33,7 @@
         <div class="profile">
           <!-- 프로필 이미지 -->
           <div class="profile-img-box">
+
           </div>
           <div class="profile-detail">
 
@@ -57,7 +58,8 @@
       </div>
       <div class="profile-text">
         <div class="profile-introduce">
-          <p th:text="${about != null ? about.uniAbout : '-'}"></p>
+          <p th:text="${userInfo.uniAbout}"></p>
+<!--          <p th:text="${about != null ? about.uniAbout : '-'}"></p>-->
         </div>
       </div>
     </div>

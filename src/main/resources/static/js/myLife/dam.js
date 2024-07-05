@@ -3,7 +3,9 @@ import * as reply from "./module.js";
 let page = 1;
 let hasNext = true;
 let uniId = document.querySelector('#uniId').value;
-console.log("uniId:", uniId);
+let boardUserId = document.querySelector('#boardUserId').value;
+
+console.log("boardUserId : ---> ", boardUserId);
 
 
 /* boardId
@@ -64,8 +66,8 @@ $replyListWrap.addEventListener('click', function (e) {
         reportForm.querySelector('input[name="commentId"]').value = commentId;
         reportForm.querySelector('input[name="userId"]').value = userId;
 
-        console.log("신고할 댓글 ID: " + commentId);
-        console.log("신고할 유저 ID: " + userId);
+        // console.log("신고할 댓글 ID: " + commentId);
+        // console.log("신고할 유저 ID: " + userId);
     }
 
     // '닫기' 누르면 닫히게
@@ -80,23 +82,32 @@ $replyListWrap.addEventListener('click', function (e) {
     }
 });
 
-// '신고하기' 버튼 클릭 시 처리할 함수
+// '신고하기' 버튼 클릭 시 처리할 함수 =========================================
+// '신고하기' 버튼 클릭 시 처리할 함수 =========================================
+// '신고하기' 버튼 클릭 시 처리할 함수 =========================================
+
+
 function handleReportSubmit(e) {
     e.preventDefault(); // 기본 동작 막기
 
     const reportForm = document.querySelector('.report');
     const formData = new FormData(reportForm);
 
-    const userId = formData.get('userId');
-    const commentId = formData.get('commentId');
+    // console.log(" formData 댓글아이디 ::: "+formData.get('commentId'));
+    // console.log(" formData 유저아이디 ::: "+formData.get('userId'));
+    // console.log(" formData 신고사유 ::: "+formData.get('reportReason'));
 
-    fetch(`/v1/${boardId}/submitReport`, {
+    fetch(`/v1/submitReport`, {
         method: 'POST',
         body: formData,
     })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('dam.js // 네트워크 응답(response)이 이상혀요!! ++ ' + response.statusText);
+            }
+            return response.json();
+        })
         .then(data => {
-            console.log("여긴 들어왔나? ");
             if (data.success) {
                 alert('신고가 성공적으로 접수되었습니다.');
                 // 모달 닫기
@@ -113,7 +124,10 @@ function handleReportSubmit(e) {
 
 // '신고하기' 버튼 클릭 이벤트 리스너 등록
 const reportBtn = document.querySelector('.report-btn-report');
-reportBtn.addEventListener('click', handleReportSubmit, { once: true });
+reportBtn.addEventListener('click', handleReportSubmit);
+
+
+
 /* 2. 댓글 등록 ----------------------------------------*/
 {
     //  댓글 작성 완료 버튼 //
@@ -204,6 +218,7 @@ function displayComment(commentList) {
         <a href="#" class="reply-top-left">
             <div class="box-profile">${profileTags}</div>
             <div><span class="nickname">${r.nickname}</span></div>
+             ${r.userId == boardUserId ? '<div class="tag">일기주인</div>' : ''}
         </a>
         <div class="reply-top-right">
             <div class="delete-btn">
@@ -255,6 +270,7 @@ function appendReply(commentList) {
         <a href="#" class="reply-top-left">
             <div class="box-profile">${profileTags}</div>
             <div><span class="nickname">${r.nickname}</span></div>
+            ${r.userId == boardUserId ? '<div class="tag">일기주인</div>' : ''}
         </a>
         <div class="reply-top-right">
             <div class="delete-btn">

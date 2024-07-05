@@ -279,6 +279,10 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.getProfile(userId);
     }
 
+    @Override
+    public List<BoardFileVO> getBoardFile(Long boardId) {
+        return boardMapper.selectBoardFileByBoardId(boardId);
+    }
 //    <!--    나의 일대기 일대기별 페이지 네이션-->
     @Override
     public List<BoardDTO> userLifeCyclePaging(String boardLifeCycle, Long userId, Criteria criteria) {

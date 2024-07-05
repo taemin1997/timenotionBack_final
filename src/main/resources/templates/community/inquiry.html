@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>문의</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/notion.css}">
     <link rel="stylesheet" th:href="@{/css/community/inquiry.css}">
     <script defer th:src="@{/js/community/inquiry.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -69,7 +68,7 @@
         </div>
         <div class="inquiry-contents" th:each="inquiry : ${inquiries}">
             <div class="contents-prev-content">
-                <span class="contents-number" th:text="${inquiry.inquiryId}">7</span>
+                <span class="contents-number" th:text="${total - inquiryStat.index}">7</span>
                 <span class="contents-title">
             <button type="button" class="inquiry-content-button" th:data-inquiryid="${inquiry.inquiryId}" th:data-userid="${inquiry.userId}" th:data-public="${inquiry.inquiryPublic}"
                     th:data-uniid="${session.uniId}" th:text="${inquiry.inquiryTitle}">

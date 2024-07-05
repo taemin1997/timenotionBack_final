@@ -25,6 +25,7 @@ public class CustomErrorController implements ErrorController {
                 return "main/error400";
             }
         }
-        return "error/unknown"; // default error page
+        model.addAttribute("message", "Unexpected Error");
+        return "main/defaultError"; // default error page
     }
 }

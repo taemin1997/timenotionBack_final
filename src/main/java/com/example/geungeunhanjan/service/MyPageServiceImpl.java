@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -226,7 +227,28 @@ public class MyPageServiceImpl implements MyPageService {
     // 8. 신고
     @Override
     public void insertReport(ReportVO reportVO) {
-        reportMapper.insertReport(reportVO);
+        ReportVO isExistReport = reportMapper.selectReportByCommentId(reportVO.getCommentId());
+        if (isExistReport != null ) {
+            // 신고가 존재 : count, reason만 업데이트
+            isExistReport.setReportReason(reportVO.getReportReason());
+            reportMapper.incReportCnt(reportVO);
+            System.out.println("신고가 존재했고 신고 업데이트 처리했습니다. ");
+        }else{
+            // 신고 존재 x : 새로 insert
+            reportMapper.insertReport(reportVO);
+            System.out.println("신고가 존재하지 않았고 신고문을 새로 인서트했습니다.");
+        }
+    }
+
+    // 9. 내 알림 목록 + 페이징
+    @Override
+    public List<ReportListDTO> selectPageMyNotification(Criteria criteria, Long userId) {
+        return myPageMapper.selectPageMyNotification(criteria, userId);
+    }
+
+    @Override
+    public int myNotificationTotal(Long userId) {
+        return myPageMapper.myNotificationTotal(userId);
     }
 
 
