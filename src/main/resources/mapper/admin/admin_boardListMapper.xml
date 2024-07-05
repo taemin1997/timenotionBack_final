@@ -23,7 +23,14 @@
 
     <!--  delete  -->
 
-    <!-- 나의 일대기 게시글 삭제 -->
+    <!--  좋아요 삭제  -->
+    <delete id="deleteLike" parameterType="Long">
+        DELETE
+        FROM GGHJ_LIKE
+        WHERE LIKE_ID = #{likeId}
+    </delete>
+
+    <!-- 게시글 삭제 -->
     <delete id="deleteBoard" parameterType="Long">
         DELETE
         FROM GGHJ_BOARD
@@ -40,9 +47,8 @@
         ORDER BY BOARD_VIEW_COUNT DESC
     </select>
 
-
     <!--모두의 일대기 리스트 + 페이징 -->
-    <select id="everyLifeagepaging" resultType="BoardDTO" >
+    <select id="everyLifeagepaging" resultType="BoardDTO" parameterType="Criteria">
     <![CDATA[
         SELECT BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
                NICKNAME, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID,
@@ -68,7 +74,9 @@
                                             LEFT JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID
                                             LEFT JOIN GGHJ_KAKAO K ON UNI.KAKAO_ID = K.KAKAO_ID
                                             LEFT JOIN GGHJ_USER_FILE F ON U.USER_ID = F.USER_ID
-                                   ORDER BY B.BOARD_CREATED_DATE DESC
+                                   WHERE U.USER_NICKNAME LIKE '%' || #{keyword} || '%'
+                                      OR B.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+                                   ORDER BY BOARD_CREATED_DATE DESC
                                )
                           WHERE ROWNUM <= #{page} * #{amount}
                       )

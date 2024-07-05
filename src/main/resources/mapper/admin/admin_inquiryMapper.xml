@@ -20,6 +20,8 @@
                                    LEFT JOIN GGHJ_UNI UNI ON I.USER_ID = UNI.UNI_ID
                                    LEFT JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID
                                    LEFT JOIN GGHJ_KAKAO K ON UNI.KAKAO_ID = K.KAKAO_ID
+                          WHERE U.USER_NICKNAME LIKE '%' || #{keyword} || '%'
+                             OR I.INQUIRY_TITLE LIKE '%' || #{keyword} || '%'
                           ORDER BY I.INQUIRY_ID DESC
                       )
                  WHERE ROWNUM <= #{inquiryPage} * #{inquiryAmount}
@@ -53,5 +55,11 @@
         SET INQUIRY_RESPONSE = #{inquiryResponse}
         WHERE INQUIRY_ID = #{inquiryId}
     </update>
+
+    <delete id="deleteInquiry" parameterType="Long">
+        DELETE
+        FROM GGHJ_INQUIRY
+        WHERE INQUIRY_ID = #{inquiryId}
+    </delete>
 
 </mapper>

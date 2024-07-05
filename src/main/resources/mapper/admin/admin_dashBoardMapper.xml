@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.geungeunhanjan.mapper.admin.admin_dashBoardMapper">
+
+    <!-- 총 회원 수를 조회하는 쿼리 -->
+    <select id="getTotalMemberCount" resultType="int">
+        SELECT COUNT(*)
+        FROM GGHJ_UNI
+    </select>
+
+    <!-- 오늘 날짜를 조회하는 SQL 쿼리 -->
+    <select id="getTodayDate" resultType="java.sql.Date">
+        SELECT SYSDATE FROM dual
+    </select>
+
+    <!--  오늘 들어온 신고 횟수  -->
+    <select id="countReportsToday" resultType="int">
+        SELECT COUNT(*)
+        FROM GGHJ_REPORT
+        WHERE TRUNC(REPORT_CREATED_DATE) = TRUNC(SYSDATE)
+    </select>
+
+    <!--  오늘 들어온 문의 횟수  -->
+    <select id="countInquiryToday" resultType="int">
+        SELECT COUNT(*)
+        FROM GGHJ_INQUIRY
+        WHERE TRUNC(INQUIRY_CREATED_DATE) = TRUNC(SYSDATE)
+    </select>
+
+</mapper>
