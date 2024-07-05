@@ -21,4 +21,14 @@
         WHERE RNUM > (#{page} - 1) * #{amount}
         ]]>
     </select>
+
+    <select id="countSearchKeywordNotice" parameterType="String">
+        SELECT COUNT(*)
+        FROM (SELECT N.NOTICE_ID
+              FROM GGHJ_NOTICE N
+                       JOIN GGHJ_UNI UNI ON N.USER_ID = UNI.USER_ID
+                       JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID
+              WHERE U.USER_NICKNAME LIKE '%' || #{keyword} || '%'
+                 OR N.NOTICE_TITLE LIKE '%' || #{keyword} || '%')
+    </select>
 </mapper>
