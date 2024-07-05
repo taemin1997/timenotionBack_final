@@ -1,6 +1,8 @@
 package com.example.geungeunhanjan.service.admin;
 
+import com.example.geungeunhanjan.domain.dto.NoticePage.NoticeCriteria;
 import com.example.geungeunhanjan.domain.dto.board.BoardDTO;
+import com.example.geungeunhanjan.domain.dto.community.NoticePageDTO;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
 import org.springframework.web.multipart.MultipartFile;
@@ -8,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public interface admin_boardListService {
 
@@ -20,11 +23,17 @@ public interface admin_boardListService {
     //게시글 삭제하기
     void removeBoard(Long boardId);
 
+    //좋아요 삭제하기
+    void removeLike(Long likeId);
+
     // 모두의 일대기 게시물
     List<BoardVO> everyLifeBoardbyViews();
 
     //모두의 일대기 게시물 + 페이징 처리 //
-    List<BoardDTO> everyLifeFindPage(Criteria criteria);
+    List<BoardDTO> everyLifeFindPage(Criteria Criteria);
+
+    //모두의 일대기 검색 결과
+    List<BoardDTO> everyLifeFindPage(Map<String, Object> paramMap);
 
     int everyLifeFindTotal();
 
