@@ -191,6 +191,7 @@ public class adminController {
         return "/admin/dam/admin-member-list";
     }
 
+
     @PostMapping("/memberList")
     @ResponseBody // JSON 응답을 위한 어노테이션
     public ResponseEntity<String> memberList(
