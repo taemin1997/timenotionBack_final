@@ -18,7 +18,7 @@ import java.util.List;
 public class InquiryServiceImlpe implements InquiryService {
 
     //주입
-    private  final InquiryMapper inquiryMapper;
+    private final InquiryMapper inquiryMapper;
 
 
     // 문의 전부 다 뿌려주게 하기

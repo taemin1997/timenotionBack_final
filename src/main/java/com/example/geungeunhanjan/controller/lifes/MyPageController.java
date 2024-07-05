@@ -400,9 +400,6 @@ public class MyPageController {
         System.out.println("birthDate = " + birthDate);
         System.out.println(infoDTO);
         System.out.println(lifeUserUpdateDTO);
-//        if(infoDTO.getUserBirth() == null){
-//
-//        }
 
 
 

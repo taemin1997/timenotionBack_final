@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.geungeunhanjan.mapper.chat.ChatMapper">
+
+    <!-- 채팅방 생성 -->
+    <insert id="createChatRoom" parameterType="map">
+        <selectKey keyProperty="roomId" resultType="long" order="BEFORE">
+            SELECT SEQ_ROOM.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO GGHJ_CHATROOM (ROOM_ID, SENDER_ID, RECEIVER_ID)
+        VALUES (#{roomId}, #{senderId}, #{receiverId})
+    </insert>
+
+    <!-- 채팅 메시지 삽입 -->
+    <insert id="insertChatMessage" parameterType="map">
+        <selectKey keyProperty="messageId" resultType="long" order="BEFORE">
+            SELECT SEQ_MESSAGE.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO GGHJ_CHAT_MESSAGE (MESSAGE_ID, ROOM_ID, SENDER_ID, RECEIVER_ID, MESSAGE_CONTENT, SENT_AT)
+        VALUES (#{messageId}, #{roomId}, #{senderId}, #{receiverId}, #{messageContent}, CURRENT_TIMESTAMP)
+    </insert>
+
+    <!-- 특정 채팅방의 메시지 목록 조회 -->
+    <select id="getMessagesByRoomId" parameterType="long" resultType="ChatMessageDTO">
+        SELECT
+            cm.MESSAGE_ID,
+            cm.ROOM_ID,
+            cm.SENDER_ID,
+            cm.RECEIVER_ID,
+            cm.MESSAGE_CONTENT,
+            cm.SENT_AT,
+            COALESCE(u_receiver.NICKNAME, k_receiver.NAME) AS receiver_nickname,
+            COALESCE(uf_receiver.USER_FILE_PROFILE_SOURCE, 'default_receiver_profile_source.jpg') AS receiver_profile_source,
+            COALESCE(uf_receiver.USER_FILE_PROFILE_NAME, 'default_receiver_profile_name.jpg') AS receiver_profile_name,
+            COALESCE(u_sender.NICKNAME, k_sender.NAME) AS sender_nickname,
+            COALESCE(uf_sender.USER_FILE_PROFILE_SOURCE, 'default_sender_profile_source.jpg') AS sender_profile_source,
+            COALESCE(uf_sender.USER_FILE_PROFILE_NAME, 'default_sender_profile_name.jpg') AS sender_profile_name
+        FROM GGHJ_CHAT_MESSAGE cm
+                 LEFT JOIN GGHJ_UNI u_receiver ON cm.RECEIVER_ID = u_receiver.UNI_ID
+                 LEFT JOIN GGHJ_KAKAO k_receiver ON u_receiver.KAKAO_ID = k_receiver.KAKAO_ID
+                 LEFT JOIN GGHJ_USER_FILE uf_receiver ON u_receiver.UNI_ID = uf_receiver.USER_ID
+                 LEFT JOIN GGHJ_UNI u_sender ON cm.SENDER_ID = u_sender.UNI_ID
+                 LEFT JOIN GGHJ_KAKAO k_sender ON u_sender.KAKAO_ID = k_sender.KAKAO_ID
+                 LEFT JOIN GGHJ_USER_FILE uf_sender ON u_sender.UNI_ID = uf_sender.USER_ID
+        WHERE cm.ROOM_ID = #{roomId}
+        ORDER BY cm.SENT_AT ASC
+    </select>
+
+    <!-- 특정 유저와 관련된 채팅방 목록 조회 -->
+    <select id="getChatRoomsByUserId" parameterType="long" resultType="ChatRoomDTO">
+        <![CDATA[
+            SELECT
+                cm.ROOM_ID,
+                cm.SENDER_ID,
+                cm.RECEIVER_ID,
+                COALESCE(u_sender.NICKNAME, k_sender.NAME) AS sender_nickname,
+                COALESCE(uf_sender.USER_FILE_PROFILE_SOURCE, 'default_sender_profile_source.jpg') AS sender_profile_source,
+                COALESCE(uf_sender.USER_FILE_PROFILE_NAME, 'default_sender_profile_name.jpg') AS sender_profile_name,
+                COALESCE(u_receiver.NICKNAME, k_receiver.NAME) AS receiver_nickname,
+                COALESCE(uf_receiver.USER_FILE_PROFILE_SOURCE, 'default_receiver_profile_source.jpg') AS receiver_profile_source,
+                COALESCE(uf_receiver.USER_FILE_PROFILE_NAME, 'default_receiver_profile_name.jpg') AS receiver_profile_name
+            FROM
+                GGHJ_CHATROOM cm
+                    LEFT JOIN GGHJ_UNI u_sender ON cm.SENDER_ID = u_sender.UNI_ID
+                    LEFT JOIN GGHJ_KAKAO k_sender ON u_sender.KAKAO_ID = k_sender.KAKAO_ID
+                    LEFT JOIN GGHJ_USER_FILE uf_sender ON u_sender.UNI_ID = uf_sender.USER_ID
+                    LEFT JOIN GGHJ_UNI u_receiver ON cm.RECEIVER_ID = u_receiver.UNI_ID
+                    LEFT JOIN GGHJ_KAKAO k_receiver ON u_receiver.KAKAO_ID = k_receiver.KAKAO_ID
+                    LEFT JOIN GGHJ_USER_FILE uf_receiver ON u_receiver.UNI_ID = uf_receiver.USER_ID
+            WHERE
+                (cm.SENDER_ID = #{uniId} AND cm.RECEIVER_ID <> #{uniId})
+               OR (cm.RECEIVER_ID = #{uniId} AND cm.SENDER_ID <> #{uniId})
+            ORDER BY
+                cm.RECEIVER_ID ASC
+        ]]>
+    </select>
+
+    <!-- 채팅방 존재 여부 확인 -->
+    <select id="checkChatRoomExist" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM GGHJ_CHATROOM
+        WHERE (SENDER_ID = #{senderId} AND RECEIVER_ID = #{receiverId})
+           OR (SENDER_ID = #{receiverId} AND RECEIVER_ID = #{senderId})
+    </select>
+
+    <!-- 채팅방 ID 조회 -->
+    <select id="getExistingChatRoomId" resultType="long">
+        <![CDATA[
+        SELECT ROOM_ID
+        FROM (
+                 SELECT ROOM_ID
+                 FROM GGHJ_CHATROOM
+                 WHERE (SENDER_ID = #{senderId} AND RECEIVER_ID = #{receiverId})
+                    OR (SENDER_ID = #{receiverId} AND RECEIVER_ID = #{senderId})
+                 ORDER BY ROOM_ID
+             )
+        WHERE ROWNUM <= 1
+        ]]>
+    </select>
+
+    <select id="getChatRoomsByRoomId" parameterType="long" resultType="ChatRoomDTO">
+        SELECT ROOM_ID, SENDER_ID, RECEIVER_ID
+        FROM GGHJ_CHATROOM
+        WHERE ROOM_ID = #{roomId}
+    </select>
+
+</mapper>
