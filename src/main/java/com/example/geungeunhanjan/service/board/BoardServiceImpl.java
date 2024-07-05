@@ -133,10 +133,26 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.searchBoards(keyword);
     }
 
+    @Override
+    public List<BoardDTO> searchBoardsPaging(String keyword, Criteria criteria) {
+        return boardMapper.searchBoardsPaging(keyword, criteria);
+    }
+
+    @Override
+    public int countSearchEvery(String keyword) {
+        return boardMapper.countSearchEvery(keyword);
+    }
+
     //일대기별 생활 주기 설정 =================>모두의 일대기
     @Override
     public List<BoardDTO> everyLifeCycle(String boardLifeCycle) {
         return boardMapper.selectEveryLifeCycle(boardLifeCycle);
+    }
+
+    //모두의 일대기
+    @Override
+    public List<BoardDTO> everyLifeCyclePaging(String boardLifeCycle, Criteria criteria) {
+        return boardMapper.selectEveryLifeCyclePaging(boardLifeCycle, criteria);
     }
 
     //특정게시물 조회수 +1
@@ -208,17 +224,11 @@ public class BoardServiceImpl implements BoardService {
         return List.of();
     }
 
-
-
-//    @Override
-//    public List<BoardDTO> getBoards(String orderBy) {
-//        return List.of();
-//    }
-
-//    @Override
-//    public List<BoardDTO> getBoards(String orderBy) {
-//        return List.of();
-//    }
+    @Override
+    public int agePageMove(String boardLifeCycle) {
+        return boardMapper.agePageMove(boardLifeCycle);
+    }
+    
 
     // 모두의 일대기 -> 상세페이지 넘어가기
     @Override

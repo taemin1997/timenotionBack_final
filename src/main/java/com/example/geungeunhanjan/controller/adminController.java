@@ -14,6 +14,7 @@ import com.example.geungeunhanjan.domain.dto.inquiryPage.InquiryPage;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.dto.lifePage.Page;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
+import com.example.geungeunhanjan.domain.vo.file.UserFileVO;
 import com.example.geungeunhanjan.service.MyPageService;
 import com.example.geungeunhanjan.service.admin.*;
 import com.example.geungeunhanjan.service.community.NoticeService;
@@ -66,7 +67,7 @@ public class adminController {
         return "/admin/mdj/adminDashBoard";
     }
 
-
+    // 게시판 관리
     @GetMapping("/boardList")
     public String boardList(Model model,
                             Criteria criteria,
@@ -82,11 +83,10 @@ public class adminController {
 
         // 페이징 및 검색 기능 처리
         List<BoardDTO> adminBoardLists = adminBoardListService.everyLifeFindPage(criteria);
-        int total = adminBoardListService.everyLifeFindTotal(); // 전체 게시물 수를 가져오는 쿼리
 
+        int total = adminBoardListService.everyLifeFindTotal();
         Page page = new Page(criteria, total);
-
-        model.addAttribute("adminBoardLists", adminBoardLists);
+        model.addAttribute("adminBoardLists", adminBoardLists); // 실제로 가져온 게시물 리스트를 모델에 추가
         model.addAttribute("page", page);
         model.addAttribute("sort", sort);
         model.addAttribute("searchKeyword", searchKeyword);
@@ -192,6 +192,7 @@ public class adminController {
 
         return "/admin/dam/admin-member-list";
     }
+
 
     @PostMapping("/memberList")
     @ResponseBody // JSON 응답을 위한 어노테이션
@@ -343,5 +344,14 @@ public class adminController {
         System.out.println("response:" + inquiryResponse);
         adminInquiryService.writeAdminResponse(inquiryResponse, inquiryId);
         return "redirect:/admin/inquiryList";
+    }
+
+    // 관리자 디테일
+    @GetMapping("/detail/{id}")
+    public String detail(Model model, @PathVariable("id") Long boardId) {
+        BoardVO board = adminBoardListService.everyLifeDetail(boardId);
+        model.addAttribute("board", board);
+
+        return "/admin/admin_tm/admin_detail";
     }
 }

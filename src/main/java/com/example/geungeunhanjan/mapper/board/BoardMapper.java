@@ -32,8 +32,17 @@ public interface BoardMapper {
     //모두의 일대기 별 게시판 조회
     List<BoardDTO> selectEveryLifeCycle(String boardLifeCycle);
 
+    //모두의 일대기 별 게시판 페이징 조회
+    List<BoardDTO> selectEveryLifeCyclePaging(String boardLifeCycle, Criteria criteria);
+
     //모두의 일대기 검색 결과 조회
     List<BoardDTO> searchBoards(@Param("keyword") String keyword);
+
+    //모두일대기 검색 페이징
+    List<BoardDTO> searchBoardsPaging(String keyword, Criteria criteria);
+
+    //모두일대기 검색 개수
+    int countSearchEvery(String keyword);
 
     //특정 게시판 조회수 +1
     int incViewCnt(Long boardId);
@@ -59,7 +68,7 @@ public interface BoardMapper {
     int everyLifeFindTotal(); //selectTotal
 
     // 유아기, 유년기, 아동기, 청소년기, 성인, 중년, 노년 클릭시 페이지 이동
-//    int agePageMove(String boardLifeCycle);
+    int agePageMove(String boardLifeCycle);
 
 //     최신순, 인기순 , 좋아요 순 게시판 정렬
     // 1) 조회수 게시판 정렬
