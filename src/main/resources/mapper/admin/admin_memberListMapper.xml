@@ -88,4 +88,25 @@
         SET UNI_STATUS = '탈퇴'
         WHERE UNI_ID = #{uni_id}
     </update>
+<!--    검색했을 때 리스트 개수 조회 -->
+    <select id="countSearchKeyword" parameterType="String">
+        SELECT COUNT(*)
+        FROM (SELECT u.UNI_ID,
+                     CASE WHEN u.USER_ID IS NOT NULL THEN usr.USER_NICKNAME ELSE k.NAME END     AS NICKNAME,
+                     CASE WHEN u.USER_ID IS NOT NULL THEN usr.USER_NAME ELSE k.NAME END         AS NAME,
+                     CASE WHEN u.USER_ID IS NOT NULL THEN usr.USER_EMAIL ELSE k.PROVIDER_ID END AS EMAIL,
+                     CASE WHEN u.USER_ID IS NOT NULL THEN usr.USER_BIRTH ELSE k.KAKAO_BIRTH END AS BIRTH,
+                     u.UNI_STATUS                                                               AS STATUS,
+                     ROW_NUMBER()                                                                  OVER (ORDER BY u.UNI_ID) AS RN
+              FROM GGHJ_UNI u
+                       LEFT JOIN
+                   GGHJ_USER usr ON u.USER_ID = usr.USER_ID
+                       LEFT JOIN
+                   GGHJ_KAKAO k ON u.KAKAO_ID = k.KAKAO_ID
+              WHERE u.UNI_ID LIKE '%' || #{keyword} || '%'
+                 OR (CASE WHEN u.USER_ID IS NOT NULL THEN usr.USER_NICKNAME ELSE k.NAME END) LIKE '%' || #{keyword} || '%'
+                 OR (CASE WHEN u.USER_ID IS NOT NULL THEN usr.USER_NAME ELSE k.NAME END) LIKE '%' || #{keyword} || '%'
+                 OR (CASE WHEN u.USER_ID IS NOT NULL THEN usr.USER_EMAIL ELSE k.PROVIDER_ID END) LIKE '%' || #{keyword} || '%'
+                 OR u.UNI_STATUS LIKE '%' || #{keyword} || '%')
+    </select>
 </mapper>

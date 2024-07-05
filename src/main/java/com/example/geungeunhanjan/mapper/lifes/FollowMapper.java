@@ -50,4 +50,7 @@ public interface FollowMapper {
 
     // 팔로워 프사 가져오기 : 담
     List<FollowFileList> getFollowFileList(Long followId);
+
+    //해당 userId, kakaoId에 대한 uniId가져오기
+    Long selectUniIdFollow(Long userId);
 }
