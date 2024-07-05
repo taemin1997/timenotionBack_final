@@ -1,12 +1,13 @@
 
 //유아기, 유년기, 아동기, 청소년기, 성인, 중년, 노년 클릭 시 페이지 넘어가기//
 $(document).ready(function() {
+
     // 버튼 클릭 이벤트 리스너
-    $('.everyLife-btn-span button').click(function() {
-        let boardLifeCycle = $(this).val();
-        fetchPostsByLifeStage(boardLifeCycle);
-        console.log(boardLifeCycle);
-    });
+    // $('.everyLife-btn-span button').click(function() {
+    //     let boardLifeCycle = $(this).val();
+    //     fetchPostsByLifeStage(boardLifeCycle);
+    //     console.log(boardLifeCycle);
+    // });
 
     function fetchPostsByLifeStage(boardLifeCycle) {
         // lifeStage에 따라 게시글을 가져오는 AJAX 호출
@@ -200,55 +201,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 });
 
-
-//최신순 인기순 조회순으로 조회 ==================================
-function sortByViews() {
-    var selectBox = document.querySelector('.box-select');
-    var selectedValue = selectBox.value;
-
-    fetch(`/everyLife/orderBy/${selectedValue}`)
-        .then(response => response.json())
-        .then(data => {
-            var contentWrap = document.getElementById('everyLifeContentWrap');
-            contentWrap.innerHTML = '';
-            let profileTags = '';
-
-
-            data.forEach(board => {
-                let profileFileName = encodeURIComponent(board.userFileProfileSource + '/' + board.userFileProfileUuid + '_' + board.userFileProfileName); // ☆★☆★☆★ 파일 경로를 URL 인코딩
-                if (board.userFileProfileSource) {
-                    profileTags = `
-                    <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진" class="img-profile-img">
-                `;
-                } else {
-                    profileTags = `
-                    <img src="/img/main/basic-profile.png" alt="기본 프로필 사진" class="img-profile-img">
-                `;
-                }
-                var boardContent = `
-                    <div class="everyLife-content-box">
-                        <input type="hidden" name="uniId" value="${board.userId}" id="uniId">
-                        <a href="/myLife/detail-my?boardId=${board.boardId}">
-                            <div class="everyLife-contents">
-                                <div class="everyLife-content-title">${board.boardTitle}</div>
-                                <div class="everyLife-content-date">작성일 : ${new Date(board.boardCreatedDate).toLocaleDateString()}</div>
-                                <div class="everyLife-content-views">조회수 : ${board.boardViewCount}</div>
-                                <div class="everyLife-content-writer">
-                                    <div class="everyLife-writer-profile">
-                                         ${profileTags}
-                                    </div>
-                                    <span class="everyLife-writer-nickname">${board.nickname}</span>
-                                </div>
-                                <div class="everyLife-content-detail">${board.boardContent}</div>
-                            </div>
-                        </a>
-                    </div>
-                `;
-                contentWrap.innerHTML += boardContent;
-            });
-        })
-        .catch(error => console.error('Error:', error));
+//----------------------------------------------------
+function filterByLifeCycle(boardLifeCycle) {
+    // 서버로 요청 보내기
+    window.location.href = `/everyLife/${boardLifeCycle}`;
 }
+
+function searchEveryLife(){
+
+    let keyword = document.querySelector('#keyword').value;
+
+    window.location.href = `/everyLife/search/${keyword}`;
+}
+
+
+
 
 
 /* ---------- 프로필사진 파일 처리 ---------------------------------------------------- */
