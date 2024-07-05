@@ -13,10 +13,6 @@ import com.example.geungeunhanjan.domain.dto.inquiryPage.InquiryPage;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.dto.lifePage.Page;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
-<<<<<<< HEAD
-import com.example.geungeunhanjan.domain.vo.file.UserFileVO;
-=======
->>>>>>> 67023f03acfcd7168352fa019e6bc07f6f0ac094
 import com.example.geungeunhanjan.service.MyPageService;
 import com.example.geungeunhanjan.service.admin.admin_boardListService;
 import com.example.geungeunhanjan.service.admin.admin_inquiryService;
@@ -140,13 +136,15 @@ public class adminController {
         paramMap.put("page", noticeCriteria.getPage());
         paramMap.put("amount", noticeCriteria.getAmount());
 
+
+
         //검색 기능 추가
-        //검색기능 추가
         if(searchKeyword != null && !searchKeyword.isEmpty()) {
             //검색어가 있는경우 검색 결과를 가져옴
             memberLists = adminMemberListService.adminSelectMember(paramMap);
             System.out.println("memberLists = " + memberLists);
-            total = memberLists.size(); //검색결과의 총 개수
+            total = adminMemberListService.countSearchKeyword(searchKeyword);
+            System.out.println("검색 단어 포함 total = " + total);
         }else{
             //검색어가 없는 경우 모든 공지사항을 가져옴
             memberLists = adminMemberListService.selectAllPageMember(noticeCriteria);
@@ -161,7 +159,6 @@ public class adminController {
         model.addAttribute("memberLists", memberLists);
         model.addAttribute("page", noticePage);
         model.addAttribute("searchKeyword", searchKeyword);
-
 
         return "/admin/dam/admin-member-list";
     }
@@ -196,6 +193,7 @@ public class adminController {
         }
     }
 
+
     // 신고 관리
     @GetMapping("/reportList")
     public String reportList() {
@@ -203,42 +201,42 @@ public class adminController {
     }
 
     // 공지사항 관리
+
     @GetMapping("/noticeList")
     public String noticeList(Model model,
                              NoticeCriteria noticeCriteria,
-                             HttpServletRequest request,
-                             @RequestParam(value = "searchKeyword", required = false) String searchKeyword
-                             ) {
+                             @RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
         List<NoticePageDTO> noticeLists;
-        int total  ;
+        int total;
 
-
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("keyword", searchKeyword);
         paramMap.put("page", noticeCriteria.getPage());
         paramMap.put("amount", noticeCriteria.getAmount());
 
-        //검색기능 추가
-        if(searchKeyword != null && !searchKeyword.isEmpty()) {
-            //검색어가 있는경우 검색 결과를 가져옴
+        // 검색 기능 추가
+        if (searchKeyword != null && !searchKeyword.isEmpty()) {
+            // 검색어가 있는 경우 검색 결과를 가져옴
             noticeLists = adminNoticeListService.adminSelectNotice(paramMap);
-            total = noticeLists.size(); //검색결과의 총 개수
-        }else{
-            //검색어가 없는 경우 모든 공지사항을 가져옴
+            // 검색 결과의 총 개수
+            total = adminNoticeListService.countSearchKeywordNotice(searchKeyword);
+        } else {
+            // 검색어가 없는 경우 모든 공지사항을 가져옴
             noticeLists = noticeService.selectAllPageNotice(noticeCriteria);
             total = noticeService.selectTotalNotice();
         }
 
-        //페이지 처리
+        // 페이지 처리
         NoticePage noticePage = new NoticePage(noticeCriteria, total);
 
-        //페이징 정보 가져오기
+        // 페이징 정보 가져오기
         model.addAttribute("noticeLists", noticeLists);
         model.addAttribute("page", noticePage);
         model.addAttribute("searchKeyword", searchKeyword);
 
         return "admin/dam/admin-notice-list";
     }
+
     //공지 삭제시
     @PostMapping("/noticeList/{noticeId}")
     public String noticeList( @PathVariable("noticeId") long noticeId){
