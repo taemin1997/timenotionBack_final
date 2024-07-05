@@ -17,7 +17,7 @@
                BOARD_YEAR, USER_ID
         FROM GGHJ_BOARD
         WHERE BOARD_LIFE_CYCLE = #{boardLifeCycle}
-        AND USER_ID = #{userId}
+        AND USER_ID = #{ㄹuserId}
     </select>
 
 
@@ -737,6 +737,11 @@
                  LEFT JOIN GGHJ_USER_FILE F ON UNI.UNI_ID = F.USER_ID
         WHERE B.USER_ID = #{userId}
         ORDER BY B.BOARD_CREATED_DATE DESC
+    </select>
+
+<!-- 보드 아이디로 보드 파일 가져오기 -->
+    <select id="selectBoardFileByBoardId" resultType="BoardFileVO">
+        SELECT * FROM GGHJ_BOARD_FILE WHERE BOARD_ID = #{boardId}
     </select>
 
 <!--    나의 일대기, 너의 일대기 일대기별 페이지 네이션-->

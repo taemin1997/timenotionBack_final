@@ -74,6 +74,7 @@
                 <div class="box-date-left" th:text="${boards.boardCreatedDate != null ? '작성일 :  ' + #temporals.format(boards.boardCreatedDate, 'yy년 MM월 dd일') : '날짜 없음'}">
                 </div>
                 <input type="hidden" id="boardId" th:value="${boards.boardId}">
+                <input type="hidden" id="boardUserId" th:value="${boards.userId}">
                 <div class="box-date-right">
                     <th:block th:if="${boards.userId == session.uniId}">
                         <button class="btn-modify" th:data-id="${boards.boardId}">수정</button>
@@ -85,7 +86,6 @@
             </div>
             <!--2. 타이틀 ----------------->
             <div class="wrapper-title" th:text="${boards.boardTitle}">
-
             </div>
             <!--3. 프로필 영역 / 하트 / 공개  ----------------->
             <div class="wrapper-profile">
@@ -95,6 +95,10 @@
                     </a>
                 </div>
                 <div class="box-profile-nickname"><a th:href="@{/yourLife/userpage/{userId}(userId=${boards.userId})}" id="get-user-like-id" th:text="${userNickname}">닉네임</a></div>
+<<<<<<< HEAD
+
+=======
+>>>>>>> 483d9c0ae762abc561d7458db3cf34c1c81b61ad
                 <p id="user-lifecycle-check" style="display: none" th:text="${boards.boardLifeCycle}"></p>
 
                 <div><img th:src="@{/img/myLife/sas detail_heart.png}" alt="하트" class="box-profile-heart"

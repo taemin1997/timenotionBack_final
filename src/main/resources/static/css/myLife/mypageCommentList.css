@@ -287,20 +287,30 @@ hr {
   /* background-color: aquamarine; */
   height: 860px;
 }
+
+/* 대빵 큰 제목글씨 -----------------------------*/
 .comment-paragraph{
   /* background-color: lightblue; */
   display: flex; 
   justify-content: center;
   align-items: center;
   height: 100px;
+  margin-top: 50px;
 }
 .comment-paragraph p{
-  font-size: 25px;
-  font-weight: bolder;
+  font-size: 22px;
+  font-weight: 700;
 
 }
 
-
+/* 리스트 감싸는 박스 : hr이랑 나누기 위해서 */
+.box-lists{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background-color: #eaeaea6e;
+}
 
 /* 댓글 목록 리스트  */
 
@@ -311,16 +321,11 @@ hr {
   height: 660px;
 }
 .comment-contents{
-  background-color: #eaeaea6e;
   border-radius: 6px;
   width: 960px;
 /*  height: 572px;*/
 }
 .comment-lists {
-  display: flex;
-  /* background-color: aqua; */
-  height: 60px;
-/*  justify-content: space-between;*/
   align-items: center;
 }
 
@@ -348,7 +353,7 @@ hr {
 
 .comment-list-right{
   margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 20px;
   font-size: 12px;
 }
 

@@ -5,6 +5,7 @@ import com.example.geungeunhanjan.domain.dto.board.BoardDTO;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.dto.board.BoardMainDTO;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
+import com.example.geungeunhanjan.domain.vo.file.BoardFileVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -94,6 +95,9 @@ public interface BoardMapper {
     String boardUserName(Long boardId);
 
     List<BoardDTO> getProfile(Long userId);
+
+    // board id 로 board_file 가져오기
+    List<BoardFileVO> selectBoardFileByBoardId(Long boardId);
 
 //    나의 일대기 일대기별 페이지 네이션
     List<BoardDTO> selectUserLifeCyclePaging(String boardLifeCycle, Long userId, Criteria criteria);

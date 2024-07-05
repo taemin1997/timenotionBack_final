@@ -6,6 +6,7 @@ import com.example.geungeunhanjan.domain.vo.board.BoardVO;
 import com.example.geungeunhanjan.domain.vo.board.LikeVO;
 import com.example.geungeunhanjan.domain.vo.board.ReportVO;
 import com.example.geungeunhanjan.domain.vo.file.UserFileVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.plaf.multi.MultiListUI;
@@ -57,4 +58,8 @@ public interface MyPageService {
 
     // 8. 신고
     void insertReport(ReportVO reportVO);
+
+    // 9. 내 알림 목록 + 페이징
+    List<ReportListDTO>selectPageMyNotification(Criteria criteria, Long userId);
+    int myNotificationTotal(Long userId);
 }

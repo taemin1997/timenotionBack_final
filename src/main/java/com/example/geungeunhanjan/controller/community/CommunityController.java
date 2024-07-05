@@ -58,7 +58,7 @@ public class CommunityController {
         model.addAttribute("inquiries", inquiries);
         model.addAttribute("inquiryPage", inquiryPage);
         model.addAttribute("loginUserId", loginUserId);
-
+        model.addAttribute("total", total);
 
 
 
@@ -110,6 +110,7 @@ public class CommunityController {
         //페이징 정보 가져오기
         model.addAttribute("noticeLists", noticeLists);
         model.addAttribute("page", noticePage);
+        model.addAttribute("total", total);
 
 
         return "community/notification";

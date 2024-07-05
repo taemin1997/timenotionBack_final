@@ -5,6 +5,9 @@ button[type="button"]{
 button[type="button"]:hover{
     cursor: pointer;
 }
+
+body{     background-color: #fcfaf7;}
+
 .notification-container{
     position: relative;
     margin: 0 auto;
@@ -31,7 +34,7 @@ button[type="button"]:hover{
 }
 .notification-title button{
     margin-right: 15px;
-    color: rgb(72, 100, 226);
+    color: #9cd3e8;
 }
 .inquiry-title{
     opacity: 0.5;
@@ -50,8 +53,8 @@ button[type="button"]:hover{
     justify-content: space-between;
     height: 64px;
     line-height: 64px;
-    background-color: white;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    align-items: center;
 }
 .contents-title a{
     color: black;
@@ -78,7 +81,7 @@ button[type="button"]:hover{
     justify-content: center;
     margin-top: 7px;
     height: 30px;
-    background-color: #87CEEB;
+    background-color: #9cd3e8;
     color: white;
     padding: 10px 20px;
     text-align: center;

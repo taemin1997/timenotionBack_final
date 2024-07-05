@@ -5,6 +5,8 @@
 button[type="button"]:hover{
     cursor: pointer;
 }
+body{     background-color: #fcfaf7;}
+
 .community-detail-container{
     margin: 0 auto;
     height: 1000px;
