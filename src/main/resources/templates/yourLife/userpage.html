@@ -9,6 +9,10 @@
   <link rel="stylesheet" th:href="@{/css/reset.css}">
   <script defer th:src="@{/js/myLife/userpage.js}"></script>
   <script defer th:src="@{/js/myLife/life-profile-back.js}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+  <script th:src="@{/js/chat/chat.js}"></script>
+  <script th:src="@{/js/chat/chat2.js}"></script>
 
 </head>
 
@@ -113,6 +117,11 @@
         <li><a href="">5</a></li>
         <li><a href="">&gt;</a></li>
       </ul>
+    </div>
+    <div class="six-container">
+      <button type="button" class="another--btn chat-btn" href="#">
+        <img th:src="@{/img/main/chat.png}" alt="">
+      </button>
     </div>
   </div>
 </main>
