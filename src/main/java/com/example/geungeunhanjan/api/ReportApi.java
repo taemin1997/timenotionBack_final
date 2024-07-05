@@ -1,6 +1,4 @@
 package com.example.geungeunhanjan.api;
-
-import com.example.geungeunhanjan.domain.dto.board.CommentDTO;
 import com.example.geungeunhanjan.domain.dto.comment.CommentListDTO;
 import com.example.geungeunhanjan.domain.vo.board.ReportVO;
 import com.example.geungeunhanjan.service.MyPageService;
