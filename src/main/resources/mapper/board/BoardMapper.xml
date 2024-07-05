@@ -17,7 +17,7 @@
                BOARD_YEAR, USER_ID
         FROM GGHJ_BOARD
         WHERE BOARD_LIFE_CYCLE = #{boardLifeCycle}
-        AND USER_ID = #{userId}
+        AND USER_ID = #{ㄹuserId}
     </select>
 
 
@@ -597,7 +597,10 @@
         WHERE B.USER_ID = #{userId}
         ORDER BY B.BOARD_CREATED_DATE DESC
     </select>
-
+<!-- 보드 아이디로 보드 파일 가져오기 -->
+    <select id="selectBoardFileByBoardId" resultType="BoardFileVO">
+        SELECT * FROM GGHJ_BOARD_FILE WHERE BOARD_ID = #{boardId}
+    </select>
 
 </mapper>
 

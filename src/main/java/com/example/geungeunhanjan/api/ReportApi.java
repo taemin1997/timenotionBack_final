@@ -4,11 +4,13 @@ import com.example.geungeunhanjan.domain.dto.board.CommentDTO;
 import com.example.geungeunhanjan.domain.dto.comment.CommentListDTO;
 import com.example.geungeunhanjan.domain.vo.board.ReportVO;
 import com.example.geungeunhanjan.service.MyPageService;
+import com.example.geungeunhanjan.service.admin.admin_reportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import retrofit2.http.Path;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,8 +18,10 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 public class ReportApi {
-    public final MyPageService myPageService;
+    private final MyPageService myPageService;
     private final CommentListDTO commentListDTO;
+    private final admin_reportService adminReportService;
+
 
 
     /* 신고 등록 */
@@ -51,6 +55,14 @@ public class ReportApi {
     }
 
 
+
+/*
+    @DeleteMapping("/report/delete/{commentId}")
+    public String deleteReport(@PathVariable Long commentId){
+        adminReportService.managementReport(commentId);
+        return "redirect:/"
+    }
+*/
 
 
 } // 괄호

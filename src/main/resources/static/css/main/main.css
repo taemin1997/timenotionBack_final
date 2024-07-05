@@ -231,7 +231,7 @@ img {
   width: 922px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
   white-space: nowrap;
 }
 .title {
@@ -259,14 +259,14 @@ img {
 }
 
 .wrap-pop-main {
-  background-color: #f7f4f2;
-  width: 224px;
-  height: 325px;
+  width: 213px;
+  height: 270px;
   overflow: hidden;
   padding: 30px;
   box-sizing: border-box;
   border-radius: 6px;
-  box-shadow: 2px 2px 5px 1px rgba(42, 42, 42, 0.078);
+  background-color: #f4f2ee9c;
+  box-shadow: 2px 2px 5px 1px rgb(42 42 42 / 7%);
 }
 .wrap-pop-main:hover{
   background-color: rgb(238, 239, 236);
@@ -280,29 +280,34 @@ img {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 20px;
+  color: #282626;
 }
 .pop-views {
   font-size: 10px;
   color: gray;
-  margin-bottom: 8px;
+  margin-bottom: 11px;
 }
 .pop-date {
   font-size: 10px;
   color: gray;
-  margin-bottom: 8px;
+  margin-bottom: 11px;
 }
 
 /* 프로필 */
 .pop-profile-wrap {
   display: flex;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 .box-profile-img {
   width: 16px;
   height: 16px;
   border-radius: 100%;
   overflow: hidden;
+}
+.box-profile-img img{
+  width: 100%; height: 100%;
+  object-fit: cover;
 }
 .box-profile-nickname {
   margin-left: 6px;
@@ -314,14 +319,14 @@ img {
 }
 /* 컨텐츠 */
 .pop-content {
-  font-size: 12px;
-  line-height: 24px;
+  font-size: 13px;
+  line-height: 25px;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
   white-space: normal; /* 줄넘어가게 */
   color: #050214;
-  height: 170px;
+  height: 100px;
 }
 
 /* 3. 인기 키워드 -------------------------------------------------------------------------- */

@@ -14,4 +14,9 @@ public interface ReportMapper {
 
     // 신고 조회
     ReportVO selectReportByCommentId(Long commentId);
+
+    // 신고 삭제
+    void deleteReport(Long commentId);
+    // 댓글 삭제
+    void deleteComment(Long commentId);
 }

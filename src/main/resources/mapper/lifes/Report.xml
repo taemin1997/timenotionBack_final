@@ -21,4 +21,13 @@
     <select id="selectReportByCommentId" parameterType="Long" resultType="ReportVO">
         SELECT * FROM GGHJ_REPORT WHERE COMMENT_ID = #{commentId}
     </select>
+
+    <!-- 신고 삭제 -->
+    <delete id="deleteReport" parameterType="Long">
+        DELETE FROM GGHJ_REPORT WHERE COMMENT_ID = #{commentId}
+    </delete>
+    <!-- 댓글 삭제 -->
+    <delete id="deleteComment" parameterType="Long">
+        DELETE FROM GGHJ_COMMENT WHERE COMMENT_ID = #{commentId}
+    </delete>
 </mapper>

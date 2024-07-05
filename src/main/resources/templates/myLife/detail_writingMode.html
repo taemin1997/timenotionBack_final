@@ -24,12 +24,13 @@
             <div class="container">
                 <!-- 1. 타이틀 -->
                 <div class="wrapper-title">
-                    제목 : <input class="title" type="text" name="boardTitle" required/>
+                    <div class="title-title">제목</div>
+                    <input class="title" type="text" name="boardTitle" required/>
                 </div>
                 <!-- 2. 년도 / 공개여부 셀렉트박스 -->
                 <div class="wrapper-select-box">
 
-                    <input id="select-year-detail" name="boardYear" type="text" placeholder="ex)1999"
+                    <input id="select-year-detail" name="boardYear" type="text" placeholder="ex) 1999"
                            oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="4"required>년
 
 
@@ -45,6 +46,7 @@
                     <!--                     3-1. 파일추가 -->
                     <div class="file-input-container">
                         <label for="file" class="file-input-label">
+                            파일찾기
                             <input type="file" id="file" name="boardFile" accept="image/*" multiple />
                         </label>
                         <div id="file-names"></div>

@@ -97,6 +97,9 @@ public interface BoardService {
 
     // 모두의 일대기 프사 불러오기 ------ 담.
     List<BoardDTO> getProfile(Long userId);
+
+    // 보드아이디로 board File 불러오기
+    List<BoardFileVO> getBoardFile(Long boardId);
 }
 
 

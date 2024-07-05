@@ -95,9 +95,12 @@ public class FileApi {
 
     // 메인페이지 오른쪽배너사진 가져오는 메소드
     @GetMapping("/v1/rightBanner/{boardId}/files")
-    public List<BoardMainDTO> getRightBanner(@PathVariable("boardId") Long boardId) {
+    public List<BoardFileVO> getRightBanner(@PathVariable("boardId") Long boardId) {
         System.out.println(boardId + "<--- 오른쪽 배너 보드 아이디 ");
-        return boardService.mainRightBannerSelect();
+        BoardFileVO file = new BoardFileVO();
+        file.setBoardId(boardId);
+        System.out.println("오른쪽 배너 파일 이름 : " +file.getBoardFileName()+file.getBoardFileSourceName());
+        return boardService.getBoardFile(boardId);
     }
     // 메인페이지 오른쪽배너 profile사진 가져오는 메소드
     @GetMapping("/v1/rightBanner/profile/{userId}/files")

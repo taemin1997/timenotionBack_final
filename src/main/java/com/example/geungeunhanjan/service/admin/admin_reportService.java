@@ -8,4 +8,6 @@ import java.util.List;
 public interface admin_reportService {
     List<ReportListDTO> reportPagingList(Criteria criteria);
     int reportTotalCount();
+
+    void managementReport(Long commentId);
 }

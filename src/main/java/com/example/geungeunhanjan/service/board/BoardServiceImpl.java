@@ -269,6 +269,10 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.getProfile(userId);
     }
 
+    @Override
+    public List<BoardFileVO> getBoardFile(Long boardId) {
+        return boardMapper.selectBoardFileByBoardId(boardId);
+    }
 
 
 }
