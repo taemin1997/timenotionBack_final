@@ -5,6 +5,8 @@ button[type="button"]{
 button[type="button"]:hover{
     cursor: pointer;
 }
+body{     background-color: #fcfaf7;}
+
 .notification-container{
     position: relative;
     margin: 0 auto;
@@ -33,7 +35,7 @@ button[type="button"]:hover{
 }
 .notification-title button{
     margin-right: 15px;
-    color: #95b95c;
+    color: #9cd3e8;
 }
 .inquiry-title{
     opacity: 0.5;
@@ -58,7 +60,7 @@ button[type="button"]:hover{
 }
 .contents-title a{
     color: black;
-    font-size: 16px;
+    font-size: 15px;
 }
 .contents-form{
     height: 48px;
@@ -73,7 +75,7 @@ button[type="button"]:hover{
 }
 .contents-writer{
     display: inline-block;
-    width: 100px;
+    width: 70px;
 }
 .contents-date{
     display: inline-block;
@@ -154,4 +156,15 @@ button[type="button"]:hover{
     position: relative;
     /* right: 1800px; */
     /* overflow: hidden; */
+}
+
+
+/* 삭제버튼 */
+#deleteForm button{
+    border: none;
+    background-color: #adb5b9;
+    border-radius: 8px;
+    padding: 4px 6px;
+    color: white;
+    font-size: 12px;
 }

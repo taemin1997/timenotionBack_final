@@ -8,7 +8,26 @@
         SELECT SEQ_REPORT.NEXTVAL FROM DUAL
     </selectKey>
     INSERT INTO GGHJ_REPORT (REPORT_ID, REPORT_REASON, REPORT_CREATED_DATE, REPORT_COUNT, USER_ID, REPLY_ID, COMMENT_ID)
-    VALUES (#{reportId}, #{reportReason}, SYSDATE, #{reportCount}, #{userId}, #{replyId}, #{commentId})
+    VALUES (#{reportId}, #{reportReason}, SYSDATE, 1, #{userId}, #{replyId}, #{commentId})
 </insert>
+    <!-- 특정 글 조회수 -->
+    <update id="incReportCnt" parameterType="ReportVO" flushCache="true" >
+        UPDATE GGHJ_REPORT
+        SET REPORT_COUNT = REPORT_COUNT + 1,
+            REPORT_REASON = #{reportReason}
+        WHERE COMMENT_ID = #{commentId}
+    </update>
+    <!-- 신고 조회 -->
+    <select id="selectReportByCommentId" parameterType="Long" resultType="ReportVO">
+        SELECT * FROM GGHJ_REPORT WHERE COMMENT_ID = #{commentId}
+    </select>
 
+    <!-- 신고 삭제 -->
+    <delete id="deleteReport" parameterType="Long">
+        DELETE FROM GGHJ_REPORT WHERE COMMENT_ID = #{commentId}
+    </delete>
+    <!-- 댓글 삭제 -->
+    <delete id="deleteComment" parameterType="Long">
+        DELETE FROM GGHJ_COMMENT WHERE COMMENT_ID = #{commentId}
+    </delete>
 </mapper>

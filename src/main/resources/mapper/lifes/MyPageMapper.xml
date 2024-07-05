@@ -60,25 +60,30 @@
 
     <!-- 0.  좋아요 다음 시퀀스    -->
     <select id="getLIkeSeqNext" resultType="Long">
-        SELECT SEQ_LIKE.nextval from dual
+        SELECT SEQ_LIKE.nextval
+        from dual
     </select>
     <!--  1. 해당 게시물 좋아요 상태  -->
     <select id="selectLikeStatus" parameterType="LikeHeartDTO" resultType="int">
-        SELECT count(*) FROM GGHJ_LIKE
-        WHERE BOARD_ID = #{boardId} AND USER_ID = #{userId}
+        SELECT count(*)
+        FROM GGHJ_LIKE
+        WHERE BOARD_ID = #{boardId}
+          AND USER_ID = #{userId}
     </select>
     <!--  2. 해당 글의 좋아요하기   -->
     <insert id="insertLike" parameterType="LikeVO">
-        INSERT INTO GGHJ_LIKE (LIKE_ID , BOARD_ID, USER_ID,LIKE_CREATED_DATE)
-        VALUES(#{likeId},#{boardId},#{userId},SYSDATE)
+        INSERT INTO GGHJ_LIKE (LIKE_ID, BOARD_ID, USER_ID, LIKE_CREATED_DATE)
+        VALUES (#{likeId}, #{boardId}, #{userId}, SYSDATE)
     </insert>
     <!--  3. 해당 글의 좋아요 취소하기   -->
     <delete id="deleteLike" parameterType="LikeHeartDTO">
-        DELETE FROM GGHJ_LIKE
-        WHERE BOARD_ID = #{boardId} AND USER_ID = #{userId}
+        DELETE
+        FROM GGHJ_LIKE
+        WHERE BOARD_ID = #{boardId}
+          AND USER_ID = #{userId}
     </delete>
 
-    
+
     <!--2. 내가 쓴 댓글 목록 페이징 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  -->
     <select id="selectPageMyComment" resultType="CommentDTO">
         <![CDATA[
@@ -147,23 +152,23 @@
     </insert>
     <select id="selectFileById" resultType="UserFileVO">
         SELECT *
-        FROM (
-                 SELECT USER_FILE_ID,
-                        USER_FILE_PROFILE_NAME,
-                        USER_FILE_PROFILE_SOURCE,
-                        USER_FILE_PROFILE_UUID,
-                        USER_FILE_BACK_NAME,
-                        USER_FILE_BACK_SOURCE,
-                        USER_FILE_BACK_UUID,
-                        USER_ID
-                 FROM GGHJ_USER_FILE
-                 WHERE USER_ID = #{userId}
-                 ORDER BY USER_FILE_ID DESC
-             )
+        FROM (SELECT USER_FILE_ID,
+                     USER_FILE_PROFILE_NAME,
+                     USER_FILE_PROFILE_SOURCE,
+                     USER_FILE_PROFILE_UUID,
+                     USER_FILE_BACK_NAME,
+                     USER_FILE_BACK_SOURCE,
+                     USER_FILE_BACK_UUID,
+                     USER_ID
+              FROM GGHJ_USER_FILE
+              WHERE USER_ID = #{userId}
+              ORDER BY USER_FILE_ID DESC)
         WHERE ROWNUM = 1
     </select>
     <delete id="deleteFile">
-        DELETE FROM GGHJ_USER_FILE WHERE USER_ID = #{userId}
+        DELETE
+        FROM GGHJ_USER_FILE
+        WHERE USER_ID = #{userId}
     </delete>
     <!--4-2. 회원정보 수정 -->
     <!--회원정보 수정 3트 -->
@@ -205,26 +210,24 @@
     </update>
     <!-- 회원정보 전체 셀렉 -->
     <select id="selectAllInfo" resultType="LifeUserInfoDTO">
-        SELECT * FROM (
-                          SELECT
-                              ROWNUM,
-                              UN.UNI_ID AS UNI_ID,
-                              COALESCE(K.NAME, U.USER_NICKNAME) AS NICKNAME,
-                              COALESCE(K.PROVIDER_ID, U.USER_EMAIL) AS EMAIL,
-                              U.USER_PASSWORD,
-                              U.USER_BIRTH,
-                              UN.UNI_ABOUT,
-                              F.USER_FILE_PROFILE_SOURCE,
-                              F.USER_FILE_BACK_SOURCE,
-                              U.USER_ID,
-                              K.KAKAO_ID
-                          FROM GGHJ_UNI UN
-                                   LEFT JOIN GGHJ_USER U ON U.USER_ID = UN.USER_ID
-                                   LEFT JOIN GGHJ_KAKAO K ON K.KAKAO_ID = UN.KAKAO_ID
-                                   LEFT JOIN GGHJ_USER_FILE F ON F.USER_ID = UN.UNI_ID
-                          WHERE UN.UNI_ID = #{userId}
-                          ORDER BY UNI_ID
-                      ) TEMP
+        SELECT *
+        FROM (SELECT ROWNUM,
+                     UN.UNI_ID                             AS UNI_ID,
+                     COALESCE(K.NAME, U.USER_NICKNAME)     AS NICKNAME,
+                     COALESCE(K.PROVIDER_ID, U.USER_EMAIL) AS EMAIL,
+                     U.USER_PASSWORD,
+                     U.USER_BIRTH,
+                     UN.UNI_ABOUT,
+                     F.USER_FILE_PROFILE_SOURCE,
+                     F.USER_FILE_BACK_SOURCE,
+                     U.USER_ID,
+                     K.KAKAO_ID
+              FROM GGHJ_UNI UN
+                       LEFT JOIN GGHJ_USER U ON U.USER_ID = UN.USER_ID
+                       LEFT JOIN GGHJ_KAKAO K ON K.KAKAO_ID = UN.KAKAO_ID
+                       LEFT JOIN GGHJ_USER_FILE F ON F.USER_ID = UN.UNI_ID
+              WHERE UN.UNI_ID = #{userId}
+              ORDER BY UNI_ID) TEMP
         WHERE ROWNUM = 1
     </select>
 
@@ -258,5 +261,57 @@
         SELECT COUNT(*)
         FROM GGHJ_FOLLOW
         WHERE FOLLOW_FROM_USER = #{userId}
+    </select>
+
+
+    <!-- 내 알림 목록 + 페이징 -->
+    <select id="selectPageMyNotification" resultType="ReportListDTO">
+        <![CDATA[
+        SELECT REPORT_ID,
+               BOARD_ID,
+               USER_ID,
+               COMMENT_ID,
+               REPORT_REASON,
+               REPORT_CREATED_DATE,
+               REPORT_COUNT,
+               COMMENT_CONTENT,
+               COMMENT_CREATED_DATE,
+               UNI_STATUS,
+               NICKNAME
+        FROM (SELECT ROWNUM AS RNUM,
+                     REPORT_ID,
+                     BOARD_ID,
+                     USER_ID,
+                     COMMENT_ID,
+                     REPORT_REASON,
+                     REPORT_CREATED_DATE,
+                     REPORT_COUNT,
+                     COMMENT_CONTENT,
+                     COMMENT_CREATED_DATE,
+                     UNI_STATUS,
+                     NICKNAME
+              FROM (SELECT RR.REPORT_ID,
+                           C.BOARD_ID,
+                           RR.USER_ID,
+                           RR.COMMENT_ID,
+                           RR.REPORT_REASON,
+                           RR.REPORT_CREATED_DATE,
+                           RR.REPORT_COUNT,
+                           C.COMMENT_CONTENT,
+                           C.COMMENT_CREATED_DATE,
+                           UN.UNI_STATUS,
+                           UN.NICKNAME
+                    FROM GGHJ_REPORT RR
+                             LEFT JOIN GGHJ_COMMENT C ON RR.COMMENT_ID = C.COMMENT_ID
+                             LEFT JOIN GGHJ_UNI UN ON RR.USER_ID = UN.UNI_ID
+                    ORDER BY RR.REPORT_CREATED_DATE DESC)
+              WHERE ROWNUM <= #{criteria.page} * #{criteria.amount})
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount} AND USER_ID = #{userId}
+        ]]>
+    </select>
+
+    <!-- 내 알림 목록 총 개수 -->
+    <select id="myNotificationTotal" resultType="int">
+        SELECT COUNT(REPORT_ID) FROM GGHJ_REPORT WHERE USER_ID = #{userId}
     </select>
 </mapper>

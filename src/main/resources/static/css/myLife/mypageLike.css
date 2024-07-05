@@ -296,10 +296,12 @@ hr {
   justify-content: center;
   align-items: center;
   height: 100px;
+  margin-top: 50px;
+
 }
 .like-paragraph p{
   font-size: 22px;
-  font-weight: bolder;
+  font-weight: 700;
 }
 
 /* 좋아요 박스  */
@@ -391,7 +393,7 @@ hr {
   white-space: nowrap;
 }
 .like-content-right-list p{
-  margin-right: 10px;
+  margin-right: 20px;
   font-size: 12px;
 }
 

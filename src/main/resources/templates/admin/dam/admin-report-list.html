@@ -5,9 +5,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>신고 관리</title>
-  <link rel="stylesheet" href="/css/notion.css" />
-  <link rel="stylesheet" href="/css/admin/dam/admin-reportList.css" />
-  <link rel="stylesheet" href="/css/reset.css" />
+  <link rel="stylesheet" th:href="@{/css/notion.css}" />
+  <link rel="stylesheet" th:href="@{/css/admin/dam/admin-reportList.css}" />
+  <link rel="stylesheet" th:href="@{/css/reset.css}" />
+  <script defer th:src="@{/js/admin/admin_dam/admin_report.js}"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -30,7 +31,7 @@
         <div class="admin_login_status">
 
           <div class="admin_login_status-img">
-            <img src="/img/myLife/jyg-profile_img_20240512_163410241.jpg" alt="관리자 프사">
+            <img th:src="@{/img/myLife/jyg-profile_img_20240512_163410241.jpg}" alt="관리자 프사">
           </div>
           <div class="admin_login_status-name">
             <p class="admin-text">Admin</p>
@@ -57,7 +58,7 @@
           <div class="admin-search-left">
             <input type="text" name="" id="" placeholder="검색어를 입력하세요" />
             <div class="admin-box-dodbogi">
-              <img src="/img/main/돋보기.png" alt="" />
+              <img th:src="@{/img/main/돋보기.png}" alt="" />
             </div>
           </div>
           <div class="admin-search-right" style="display: none;"><button>공지글 작성하기</button></div>
@@ -77,7 +78,7 @@
                 <div class="admin-list-right-top">
                   <div class="admin-three-top gap">작성자</div>
                   <div class="admin-four-top gap">작성일시</div>
-                  <div class="admin-five-top">삭제</div>
+                  <div class="admin-five-top" >삭제</div>
                 </div>
               </li>
             </ul>
@@ -86,43 +87,46 @@
           <div class="box-admin-list">
             <ul>
               <!--☆☆☆☆☆☆☆-->
-              <li>
+              <li class="report-list" th:each="report, reportState : ${reports}">
                 <!-- 왼쪽 -->
                 <div class="admin-list-left">
-                  <div class="admin-one gap">1</div>
-                  <div class="admin-two gap"><a href="#">이곳엔 신고받은 댓글 내용이 그대로 들어갑니다</a></div>
+                  <div th:text="${reportState.index} + 1"  class="admin-one gap">인덱스</div>
+                  <input type="hidden" id="reportCount" th:value="${report.reportCount}">
+                  <div  class="admin-two gap"><a th:href="@{/myLife/detail-my(boardId=${report.boardId})}" th:text="${report.commentContent} + '  (' + ${report.reportCount} + ')'">이곳엔 신고받은 댓글 내용이 그대로 들어갑니다</a></div>
                 </div>
                 <!-- 오른쪽 -->
                 <div class="admin-list-right">
-                  <div class="admin-three gap"><a href="#">닉네임</a></div>
-                  <div class="admin-four gap"><span>2024.05.05 13:07</span></div>
-                  <div class="admin-five"><button>삭제</button></div>
+                  <div class="admin-three gap"><a th:href="@{/yourLife/userpage/{userId}(userId=${report.userId})}"  th:text="${report.nickname}">닉네임</a></div>
+                  <div class="admin-four gap"><span th:text="${#temporals.format(report.commentCreatedDate, 'yyyy.MM.dd HH:mm')}">2024.05.05 13:07</span></div>
+                  <input type="hidden" th:value="${report.commentId}" id="commentId" class="commentId">
+                  <div class="admin-five"><button type="button" class="deleteBtn" id="deleteBtn">삭제</button></div>
                 </div>
               </li>
               <!--☆☆☆☆☆☆☆-->
-              <li>
-                <!-- 왼쪽 -->
-                <div class="admin-list-left">
-                  <div class="admin-one gap">1</div>
-                  <div class="admin-two gap"><a href="#">한 페이지당 리스트 10개</a></div>
-                </div>
-                <!-- 오른쪽 -->
-                <div class="admin-list-right">
-                  <div class="admin-three gap"><a href="#">닉네임</a></div>
-                  <div class="admin-four gap"><span>2024.05.05 13:07</span></div>
-                  <div class="admin-five"><button>삭제</button></div>
-                </div>
-              </li>
 
 
             </ul>
           </div>
         </div>
-        <div class="wrapper-pagination">
-          <div class="chevron-left"><img src="/img/main/쉐브론.png" alt="" /></div>
-          1 2 3 4 5
-          <div class="chevron-right"><img src="/img/main/쉐브론.png" alt="" /></div>
-        </div>
+      </div>
+
+      <!-- 페이징 ================================ -->
+      <div class="page-container">
+        <ul class="page-box">
+          <a th:href="@{/admin/memberList(page=${page.startPage - 1})}" class="page-a" th:if="${page.prev}">
+            <li class="page-num prev"> < </li>
+          </a>
+
+          <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
+            <a th:href="@{/admin/memberList(page=${i})}" class="page-a">
+              <li class="page-num" th:classappend="${i == page.criteria.page ? 'active' : ''}" th:text="${i}"></li>
+            </a>
+          </th:block>
+
+          <a th:href="@{/admin/memberList(page=${page.endPage + 1})}" class="page-a" th:if="${page.next}">
+            <li class="page-num next"> > </li>
+          </a>
+        </ul>
       </div>
     </div>
   </main>

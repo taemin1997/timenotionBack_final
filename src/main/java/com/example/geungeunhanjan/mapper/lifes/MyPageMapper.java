@@ -59,4 +59,7 @@ public interface MyPageMapper {
     int countFollower(Long userId);
     int countFollowing(Long userId);
 
+    // 8. 내 알림 목록 + 페이징
+    List<ReportListDTO>selectPageMyNotification(@Param("criteria") Criteria criteria , @Param("userId") Long userId);
+    int myNotificationTotal(Long userId);
 }

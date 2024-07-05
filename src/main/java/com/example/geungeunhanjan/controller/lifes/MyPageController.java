@@ -442,8 +442,18 @@ public class MyPageController {
             return "redirect:/login";
         }
 
-        /* 팔로워 팔로잉 수*/
+        // 리스트 및 페이징
+        List<ReportListDTO> reports = myPageService.selectPageMyNotification(criteria, uniId);
+        int total = myPageService.myNotificationTotal(uniId);
+        Page page = new Page(criteria, total);
+
+        // 회원 정보 모두
         LifeUserInfoDTO userInfo = myPageService.selectAllInfo(uniId);
+        model.addAttribute("userInfo", userInfo);
+        // 알림 리스트 / 페이지
+        model.addAttribute("reports", reports);
+        model.addAttribute("page", page);
+
         int followerCnt = myPageService.countFollower(uniId);
         int followingCnt = myPageService.countFollowing(uniId);
         model.addAttribute("userInfo", userInfo);
