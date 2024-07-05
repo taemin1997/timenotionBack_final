@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+    <link rel="stylesheet" th:href="@{/css/chat/chatDetail.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script th:src="@{/js/chat/chat.js}"></script>
+
+</head>
+<body>
+<div id="wrapper">
+    <div class="container">
+        <input type="hidden" id="roomId" th:value="${chatRoom.roomId}">
+        <input type="hidden" id="senderId" th:value="${chatRoom.senderId}">
+        <input type="hidden" id="receiverId" th:value="${chatRoom.receiverId}">
+        <input type="hidden" id="loginUser" th:value="${loginUser}">
+
+
+        <div class="main-container">
+            <div class="chat-detail-container">
+                <div class="chat-header">
+                    채팅방
+                </div>
+
+                <div id="chat-body" class="chat-body">
+                    <div th:each="message : ${chatMessageList}" class="chat-message"
+                         th:classappend="${message.senderId != loginUser ? 'others' : 'user'}">
+                        <div th:if="${message.senderId == loginUser}" class="sender"></div>
+                        <div th:if="${message.senderId != loginUser}" class="receiver">
+                            <span class="receiver-profile">
+                                <img th:src="${message.senderProfileSource}" alt="">
+                            </span>
+                            <span class="receiver-nickname" th:text="${message.senderNickname}"></span>
+                        </div>
+                        <div class="message-content" th:text="${message.messageContent}"></div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="chat-footer">
+                    <input type="text" id="text" placeholder="메세지를 입력하세요">
+                    <button onclick="sendMessage()">submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

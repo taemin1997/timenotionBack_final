@@ -59,7 +59,7 @@
 
     <!-- 내가 팔로우한 사람의 정보 조회 ; 팔로잉 -->
     <select id="selectFollowing" resultType="FollowDTO" parameterType="long">
-        SELECT u.USER_ID                                                                 AS followerId,
+       <!-- SELECT u.USER_ID                                                                 AS followerId,
                u.USER_NICKNAME                                                           AS userNickname,
                (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_FROM_USER = u.USER_ID) AS followingCount,
                (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_TO_USER = u.USER_ID)   AS followerCount,
@@ -80,6 +80,36 @@
                  JOIN GGHJ_UNI uni ON k.KAKAO_ID = uni.KAKAO_ID
                  JOIN GGHJ_FOLLOW fo ON uni.UNI_ID = fo.FOLLOW_FROM_USER
         WHERE fo.FOLLOW_TO_USER = #{userId}
+        -->
+        SELECT
+        CASE
+        WHEN u.USER_ID IS NOT NULL THEN u.USER_ID
+        WHEN k.KAKAO_ID IS NOT NULL THEN k.KAKAO_ID
+        END AS userId,
+        CASE
+        WHEN u.USER_ID IS NOT NULL THEN u.USER_NICKNAME
+        WHEN k.KAKAO_ID IS NOT NULL THEN k.NAME
+        END AS userNickname,
+        CASE
+        WHEN u.USER_ID IS NOT NULL THEN (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_FROM_USER = u.USER_ID)
+        WHEN k.KAKAO_ID IS NOT NULL THEN (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_FROM_USER = k.KAKAO_ID)
+        END AS followingCount,
+        CASE
+        WHEN u.USER_ID IS NOT NULL THEN (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_TO_USER = u.USER_ID)
+        WHEN k.KAKAO_ID IS NOT NULL THEN (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_TO_USER = k.KAKAO_ID)
+        END AS followerCount,
+        uf.USER_FILE_PROFILE_SOURCE,
+        uf.USER_FILE_BACK_SOURCE
+        FROM
+        GGHJ_UNI uni
+        LEFT JOIN
+        GGHJ_USER u ON uni.USER_ID = u.USER_ID
+        LEFT JOIN
+        GGHJ_KAKAO k ON uni.KAKAO_ID = k.KAKAO_ID
+        LEFT JOIN
+        GGHJ_USER_FILE uf ON uf.USER_ID = COALESCE(u.USER_ID, k.KAKAO_ID)
+        WHERE
+        uni.UNI_ID = #{uniId}
     </select>
 
 

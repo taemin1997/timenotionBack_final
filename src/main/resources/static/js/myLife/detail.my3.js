@@ -296,3 +296,35 @@ window.addEventListener("DOMContentLoaded", function() {
       break;
   }
 });
+
+/* 프로필사진 이미지 처리 ---------------------------------------------------------------------------------------------------------- */
+/* 프로필사진 이미지 처리 ---------------------------------------------------------------------------------------------------------- */
+
+
+let uniId = document.querySelector('#uniIdForFile').value; // 유저아이디 가져옴
+AjaxOfUserFile();
+
+function AjaxOfUserFile() {
+  fetch(`/v1/mylife/${uniId}/files`, { method: 'GET' })
+      .then(res => res.json()) // 응답을 JSON으로 변환
+      .then(data => { // 변환된 데이터를 data 변수에 저장
+        let profileTags = '';
+
+        /* 파일 경로 조합 */
+        let profileFileName = encodeURIComponent(data.userFileProfileSource + '/' + data.userFileProfileUuid + '_' + data.userFileProfileName); // ☆★☆★☆★ 파일 경로를 URL 인코딩
+        if (data.userFileProfileSource) {
+          profileTags = `
+                    <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진" class="img-profile-img">
+                `;
+        } else {
+          profileTags = `
+                    <img src="/img/main/basic-profile.png" alt="기본 프로필 사진" class="img-profile-img">
+                `;
+        }
+
+        let $profileBox = document.querySelector('.box-profile-img-a');
+
+        /* html에 만든 태그 넣기 */
+        $profileBox.innerHTML = profileTags;
+      });
+}

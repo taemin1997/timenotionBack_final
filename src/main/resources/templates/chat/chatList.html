@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채팅방</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/notion.css}">
+    <link rel="stylesheet" th:href="@{/css/chat/chatList.css}">
+    <script defer th:src="@{/js/community/inquiry.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script th:src="@{/js/chat/chat.js}"></script>
+</head>
+
+<body>
+<div th:replace="~{/fragment/header::header}"></div>
+<!-- 공지 전체 감싸는 div -->
+<div class="notification-container container">
+    <!-- 공지/문의 선택 버튼 감싸는 div -->
+    <div class="notification-wrap1">
+        <div class="notification-selector">
+            <span class="notification-title">
+                <button type="button">채팅목록</button>
+            </span>
+        </div>
+        <div class="notification-title-hr"><hr></div>
+    </div>
+    <!-- 채팅방 리스트 감싸는 div -->
+    <div class="notification-wrap2">
+        <div class="notification-contents contents-form">
+            <div class="contents-prev-content">
+                <span class="contents-number">No</span>
+                <span class="contents-nickname">수신자</span>
+            </div>
+            <div class="contents-next-content">
+<!--                <span class="contents-date">작성시간</span>-->
+            </div>
+        </div>
+        <!-- 각 채팅방 목록을 반복해서 출력 -->
+        <div th:each="room : ${chatRooms}" class="notification-contents">
+            <div class="contents-prev-content">
+                <span class="contents-number" th:text="${room.roomId}"></span>
+                <span class="contents-nickname" th:if="${session.uniId == room.senderId}" th:text="${room.receiverNickname}"></span>
+                <span class="contents-nickname" th:if="${session.uniId != room.senderId}" th:text="${room.senderNickname}"></span>
+            </div>
+            <div class="contents-next-content">
+                <a th:href="@{'/chat/room/' + ${room.roomId}}" class="contents-writer">채팅하기</a>
+<!--                <span class="contents-date" th:text="${#temporals.format(room.lastMessageSentAt, 'yyyy.MM.dd')}"></span>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{/fragment/footer::footer}"></div>
+</body>
+
+</html>
