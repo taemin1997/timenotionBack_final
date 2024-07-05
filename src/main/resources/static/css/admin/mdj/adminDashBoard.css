@@ -296,12 +296,13 @@ main {
 .calender-p-box{
   height: 190px;
   width: 220px;
+  line-height: 180px;
 
-  margin: 50px 0 0 70px;
+  margin: auto;
 }
 .calender-year{
-  font-size: 20px;
-
+  font-size: 30px;
+  font-weight: bold;
 }
 .calender-month-day{
   font-size: 32px;

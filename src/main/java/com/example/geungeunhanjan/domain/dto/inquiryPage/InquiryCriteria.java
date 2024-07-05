@@ -10,6 +10,7 @@ public class InquiryCriteria { // 페이징 파라미터 저장
     private int inquiryPage;
     // 한 페이지 당 게시물 수
     private int inquiryAmount;
+    private String keyword;
 
 
     // 기본 생성자 통해 기본값 설정
