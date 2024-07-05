@@ -35,8 +35,19 @@ public interface BoardService {
     //모두의 일대기 검색 결과
     List<BoardDTO> everySearchBoards(String keyword);
 
+    //모두일대기 검색 페이징
+    List<BoardDTO> searchBoardsPaging(String keyword, Criteria criteria);
+
+    //모두일대기 검색 개수
+    int countSearchEvery(String keyword);
+
+
     //모두의 일대기 별 게시판 조회
     List<BoardDTO> everyLifeCycle(String boardLifeCycle);
+
+    //모두의 일대기 별 페이지 게시판
+    List<BoardDTO> everyLifeCyclePaging(String boardLifeCycle, Criteria criteria);
+
 
     //특정 게시긓 조회수 +1
     void boardIntViewCnt(Long boardId);
@@ -73,6 +84,9 @@ public interface BoardService {
 
 //    //    조회수, 인기순 , 최신순 게시판 정렬
     List<BoardDTO> getBoards(String orderBy);
+
+
+    int agePageMove(String boardLifeCycle);
 
     // 모두의 일대기 -> 상세페이지 넘어가기
      BoardVO everyLifeDetail(Long UserId);

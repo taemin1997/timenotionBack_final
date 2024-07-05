@@ -20,10 +20,10 @@ public class EveryCycleApi {
     private final BoardService boardService;
     private final KeywordService keywordService;
 
-    @GetMapping("/everyLife/{boardLifeCycle}")
-    public List<BoardDTO> lifeCycle(@PathVariable("boardLifeCycle") String boardLifeCycle) {
-        return boardService.everyLifeCycle(boardLifeCycle);
-    }
+//    @GetMapping("/everyLife/{boardLifeCycle}")
+//    public List<BoardDTO> lifeCycle(@PathVariable("boardLifeCycle") String boardLifeCycle) {
+//        return boardService.everyLifeCycle(boardLifeCycle);
+//    }
 
     @GetMapping("/everyLife/search")
     public List<BoardDTO> searchEveryLife(@RequestParam("keyword") String keyword, KeywordVO keywordVO, KeywordDTO keywordDTO) {
