@@ -126,14 +126,14 @@
     <th:block th:if="${keyword != null && boardLifeCycle == null}">
         <div class="everyLife-paging">
             <ul class="paging-backward">
-                <a th:href="@{|/everyLife/${keyword}?page=${page.startPage - 1}|}" class="page-a" th:if="${page.prev}">&lt;</a>
+                <a th:href="@{|/everyLife/search/${keyword}?page=${page.startPage - 1}|}" class="page-a" th:if="${page.prev}">&lt;</a>
             </ul>
             <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
-                <a th:href="@{|/everyLife/${keyword}?page=${i}|}" class="page-a">
+                <a th:href="@{|/everyLife/search/${keyword}?page=${i}|}" class="page-a">
                     <li class="page-num" th:classappend="${i == page.criteria.page ? 'active' : ''}" th:text="${i}"></li>
                 </a>
             </th:block>
-            <a th:href="@{|/everyLife/${keyword}?page=${page.endPage + 1}|}" class="page-a" th:if="${page.next}">
+            <a th:href="@{|/everyLife/search/${keyword}?page=${page.endPage + 1}|}" class="page-a" th:if="${page.next}">
                 <li class="page-num next">&gt;</li>
             </a>
         </div>
