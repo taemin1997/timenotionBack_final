@@ -144,21 +144,6 @@ header {
   height: 20px;
   margin-top: 10px;
 }
-/* 빨간색 하트 이미지 스타일 */
-.detail_page_heart.red {
-  filter: brightness(100%) saturate(100%) invert(55%) sepia(96%) saturate(3286%) hue-rotate(336deg) brightness(103%) contrast(92%);
-}
-.detail_page_heart {
-  width: 25px;
-  height: 25px;
-  transition: all 0.2s linear;
-  cursor: pointer;
-  margin-top: 3px;
-}
-
-.detail_page_heart:hover {
-  transform: scale(1.2);
-}
 
 /* 빨간색 하트 이미지 스타일 */
 
@@ -519,31 +504,6 @@ hr{
   /* background-color: aqua; */
   padding-bottom: 50px;
 
-}
-
-
-.six-container{
-  min-height: 11vh;
-
-}
-
-.another--btn{
-  position: fixed;
-  bottom: 75px;
-  right: 100px;
-  width: 55px;
-  height: 55px;
-  background-color: #9cd3e8;
-  border-radius: 100%;
-  color: white;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.another--btn img{
-  width: 63%; height: 63%;
-  object-fit: cover;
 }
 
 .pagination{
