@@ -20,4 +20,6 @@ public interface admin_memberListMapper {
     void updateStatusGeneral(long uniId);
     void updateStatusSuspension(long uniId);
     void updateStatuswithdrawal(long uniId);
+    //검색 리스트 개수
+    int countSearchKeyword(String keyword);
 }

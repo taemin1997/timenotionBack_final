@@ -341,4 +341,3 @@ function AjaxOfUserFile() {
         $profileBox.innerHTML = profileTags;
       });
 }
-
