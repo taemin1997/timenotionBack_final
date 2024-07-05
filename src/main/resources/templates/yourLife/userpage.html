@@ -32,16 +32,20 @@
           </div>
           <div class="profile-detail">
 
-            <p style="display: none" id="get-user-id" th:text="${follow != null ? follow.followerId : ''}">ㄹㄹㄹ</p>
+            <p style="display: none" id="get-user-id" th:text="${follow != null ? follow.uniId : ''}">ㄹㄹㄹ</p>
             <p style="display: none" id="get-user-status" th:text="${followStatus}"></p>
+<<<<<<< HEAD
 
             <p id="profile-nickname" th:text="${follow != null ? follow.userNickname : ''}">장윤근</p>
+=======
+            <p id="profile-nickname" th:text="${follow != null ? follow.nickname : ''}">장윤근</p>
+>>>>>>> e6e9e737444c4a5345f9f3228c28a8f97bb2430d
             <p>
-              <span class="follower-number" th:text="${follow != null ? follow.followingCount : '0'}">36</span>
+              <span class="follower-number" th:text="${follwingCNT != null ? follwingCNT : '0'}">36</span>
               <span class="follower">팔로워</span>
             </p>
             <p>
-              <span class="follower-number" th:text="${follow != null ? follow.followerCount : '0'}">128</span>
+              <span class="follower-number" th:text="${followerCNT != null ? followerCNT : '0'}">128</span>
 
               <span class="follower">팔로잉</span>
             </p>

@@ -14,6 +14,7 @@ import com.example.geungeunhanjan.domain.vo.user.UniVO;
 import com.example.geungeunhanjan.service.MyPageService;
 import com.example.geungeunhanjan.service.board.BoardService;
 import com.example.geungeunhanjan.service.lifes.FollowService;
+import com.example.geungeunhanjan.service.user.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -32,6 +33,7 @@ public class YourLifeController {
     private final FollowService followService;
     private final BoardService boardService;
     private final MyPageService myPageService;
+    private final UserService userService;
 
 
     //너의 일대기 클릭시
@@ -81,8 +83,16 @@ public class YourLifeController {
 
     public String userPage(Model model, @PathVariable("uniId") long userId, HttpServletRequest request, Criteria criteria) {
 
+//        Long getUniId =  followService.selectUniIdFollow(userId);
 
-        FollowDTO follow = followService.selectFollowDetail(userId);
+//        FollowDTO follow = followService.selectFollowDetail(userId);
+//        System.out.println("follow = " + follow);
+        LifeUserInfoDTO follow = myPageService.selectAllInfo(userId);
+        int follwingCNT = myPageService.countFollowing(userId);
+        int followerCNT = myPageService.countFollower(userId);
+        model.addAttribute("follwingCNT", follwingCNT);
+        model.addAttribute("followerCNT", followerCNT);
+
         UniVO about = followService.selectFollowAbout(userId);
         List<BoardVO> boards = boardService.selectBoard(userId);
         if(about != null) {

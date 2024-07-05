@@ -89,4 +89,9 @@ public class FollowServiceImpe implements FollowService {
     public List<FollowFileList> getFollowFileList(Long followId) {
         return followMapper.getFollowFileList(followId);
     }
+
+    @Override
+    public Long selectUniIdFollow(Long userId) {
+        return followMapper.selectUniIdFollow(userId);
+    }
 }
