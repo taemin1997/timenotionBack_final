@@ -34,12 +34,8 @@
 
             <p style="display: none" id="get-user-id" th:text="${follow != null ? follow.uniId : ''}">ㄹㄹㄹ</p>
             <p style="display: none" id="get-user-status" th:text="${followStatus}"></p>
-<<<<<<< HEAD
 
-            <p id="profile-nickname" th:text="${follow != null ? follow.userNickname : ''}">장윤근</p>
-=======
             <p id="profile-nickname" th:text="${follow != null ? follow.nickname : ''}">장윤근</p>
->>>>>>> e6e9e737444c4a5345f9f3228c28a8f97bb2430d
             <p>
               <span class="follower-number" th:text="${follwingCNT != null ? follwingCNT : '0'}">36</span>
               <span class="follower">팔로워</span>
@@ -52,7 +48,6 @@
             <p class="profile-heart">
               <img src="/img/myLife/mdj-heart_negative.png" alt="하투" class="detail_page_heart" id="heart-image">
             </p>
-            <a th:href="@{/chat/chatRoom}">채팅하기</a>
           </div>
         </div>
       </div>
