@@ -51,14 +51,14 @@ public class EveryCycleApi {
         return orderByEveryLife;
     }
 
-    @GetMapping("/myLife/{boardLifeCycle}")
-    public List<BoardVO> mylifeCycle(@PathVariable("boardLifeCycle") String boardLifeCycle, HttpSession session) {
-        Long uniId = (Long) session.getAttribute("uniId");
-        System.out.println("Session uniId: " + uniId);
-        List<BoardVO> boardList = boardService.selectLifeCycle(boardLifeCycle, uniId);
-        System.out.println("Response data: " + boardList); // 로그에 데이터 출력
-        return boardList;
-    }
+//    @GetMapping("/myLife/{boardLifeCycle}")
+//    public List<BoardVO> mylifeCycle(@PathVariable("boardLifeCycle") String boardLifeCycle, HttpSession session) {
+//        Long uniId = (Long) session.getAttribute("uniId");
+//        System.out.println("Session uniId: " + uniId);
+//        List<BoardVO> boardList = boardService.selectLifeCycle(boardLifeCycle, uniId);
+//        System.out.println("Response data: " + boardList); // 로그에 데이터 출력
+//        return boardList;
+//    }
 
 
 }

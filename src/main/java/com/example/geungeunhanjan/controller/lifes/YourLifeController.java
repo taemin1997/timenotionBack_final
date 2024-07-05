@@ -1,10 +1,14 @@
 package com.example.geungeunhanjan.controller.lifes;
 
 
+import com.example.geungeunhanjan.domain.dto.board.BoardDTO;
 import com.example.geungeunhanjan.domain.dto.board.LifeUserInfoDTO;
 import com.example.geungeunhanjan.domain.dto.file.FollowDTO;
 import com.example.geungeunhanjan.domain.dto.file.FollowHeartDTO;
+import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
+import com.example.geungeunhanjan.domain.dto.lifePage.Page;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
+import com.example.geungeunhanjan.domain.vo.file.UserFileVO;
 import com.example.geungeunhanjan.domain.vo.lifes.FollowVO;
 import com.example.geungeunhanjan.domain.vo.user.UniVO;
 import com.example.geungeunhanjan.service.MyPageService;
@@ -75,7 +79,7 @@ public class YourLifeController {
     //★☆★☆★☆★☆★☆★☆★☆★☆★☆ myLife의 userpage ★☆★☆★☆★☆★☆★☆★☆★☆
     @GetMapping("/userpage/{uniId}")
 
-    public String userPage(Model model, @PathVariable("uniId") long userId, HttpServletRequest request) {
+    public String userPage(Model model, @PathVariable("uniId") long userId, HttpServletRequest request, Criteria criteria) {
 
 
         FollowDTO follow = followService.selectFollowDetail(userId);
@@ -84,6 +88,13 @@ public class YourLifeController {
         if(about != null) {
             model.addAttribute("about",about);
         }
+
+        /* 페이징 윤근님꺼  */
+        List<BoardVO> boardPaging = myPageService.selectMypagePaging(criteria, userId);
+        int total = myPageService.myPageTotal(userId);
+        Page page = new Page(criteria, total);
+        model.addAttribute("boardPage", boardPaging);
+        model.addAttribute("page", page);
 
 
         // 유저 정보 (프로필쪽)
@@ -156,6 +167,52 @@ public class YourLifeController {
 
         return "redirect:/yourLife/userpage/{uniId}";
     }
+
+    @GetMapping("/userpage/{uniId}/{boardLifeCycle}")
+    public String everyLifeCycle(Model model , HttpSession session, Criteria criteria, HttpServletRequest request,
+                                 @PathVariable String boardLifeCycle, @PathVariable("uniId") long userId){
+
+        LifeUserInfoDTO userInfo = myPageService.selectAllInfo(userId);
+        userInfo.setUniId(userId);
+        model.addAttribute("userInfo", userInfo);
+
+        FollowDTO follow = followService.selectFollowDetail(userId);
+        UniVO about = followService.selectFollowAbout(userId);
+        List<BoardVO> boards = boardService.selectBoard(userId);
+        if(about != null) {
+            model.addAttribute("about",about);
+        }
+
+        criteria.setAmount(9);
+        List<BoardDTO> boardPaging = boardService.userLifeCyclePaging(boardLifeCycle,userId,criteria);
+        model.addAttribute("boardPage", boardPaging);
+
+
+        FollowHeartDTO followHeartDTO = new FollowHeartDTO();
+        // 현재 사용자의 userId를 세션에서 가져오기
+        Long loginUserId = (Long) request.getSession().getAttribute("uniId");
+        followHeartDTO.setFollowToUser(loginUserId);
+        followHeartDTO.setFollowFromUser(userId);
+        int followStatus = followService.selectFollowStatus(followHeartDTO);
+        model.addAttribute("followStatus", followStatus);
+
+        model.addAttribute("boards", boards);
+        model.addAttribute("follow", follow);
+        System.out.println("dddddddddd");
+
+
+        int total = boardService.MyAgePageMove(boardLifeCycle, userId);
+        Page page = new Page(criteria, total);
+        model.addAttribute("page", page);
+        return "yourLife/userpage";
+    }
+
+
+
+
+
+
+
 
 
 

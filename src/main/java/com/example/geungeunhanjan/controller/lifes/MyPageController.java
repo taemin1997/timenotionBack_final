@@ -15,6 +15,7 @@ import com.example.geungeunhanjan.service.lifes.FollowService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -61,10 +62,10 @@ public class MyPageController {
         model.addAttribute("userInfo", userInfo);
 
         // 게시판 정보
-        System.out.println(lifeUserUpdateDTO);
-        List<BoardVO> boards = boardService.selectBoard(uniId);
-        model.addAttribute("boards", boards);
-        System.out.println(boards);
+//        System.out.println(lifeUserUpdateDTO);
+//        List<BoardVO> boards = boardService.selectBoard(uniId);
+//        model.addAttribute("boards", boards);
+//        System.out.println(boards);
 
         /* 페이징 윤근님꺼  */
         List<BoardVO> boardPaging = myPageService.selectMypagePaging(criteria, uniId);
@@ -83,8 +84,33 @@ public class MyPageController {
         return "myLife/mypage";
     }
 
+    @GetMapping("{boardLifeCycle}/{userId}")
+    public String myLifeCycle(Model model , HttpSession session, Criteria criteria,
+                              @PathVariable String boardLifeCycle, @PathVariable Long userId){
+
+        LifeUserInfoDTO userInfo = myPageService.selectAllInfo(userId);
+        userInfo.setUniId(userId);
+        model.addAttribute("userInfo", userInfo);
+
+        criteria.setAmount(9);
+        List<BoardDTO> boardPaging = boardService.userLifeCyclePaging(boardLifeCycle,userId,criteria);
+        model.addAttribute("boardPage", boardPaging);
+
+        /* 팔로워 팔로잉 수*/
+        int followerCnt = myPageService.countFollower(userId);
+        int followingCnt = myPageService.countFollowing(userId);
+        model.addAttribute("followerCnt", followerCnt);
+        model.addAttribute("followingCnt", followingCnt);
+        UserFileVO userFileVO = myPageService.getProfileBackFile(userId);
+        model.addAttribute("userFileVO", userFileVO);
 
 
+        int total = boardService.MyAgePageMove(boardLifeCycle, userId);
+        Page page = new Page(criteria, total);
+        model.addAttribute("page", page);
+
+        return "myLife/mypage";
+    }
 
 
 
@@ -105,8 +131,11 @@ public class MyPageController {
     //나의 일대기 게시판 작성하기 ★★★★★
     @PostMapping("/detail_writingMode")
     public String detailWriting(BoardVO boardVO, @SessionAttribute("uniId") Long uniId,
-                                @RequestParam("boardFile") List<MultipartFile> files,
+                                @RequestParam("boardFile") List<MultipartFile> files, Model model,
                                 RedirectAttributes redirectAttributes) {
+
+
+
         //현재 사용자가 누군지 정보 선언
         boardVO.setUserId(uniId);
         System.out.println("uniId = " + uniId);

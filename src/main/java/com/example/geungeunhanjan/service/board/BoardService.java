@@ -97,6 +97,11 @@ public interface BoardService {
 
     // 모두의 일대기 프사 불러오기 ------ 담.
     List<BoardDTO> getProfile(Long userId);
+
+    //나의 일대기 일대기별 페이지네이션
+    List<BoardDTO> userLifeCyclePaging(String boardLifeCycle, Long userId, Criteria criteria);
+
+    int MyAgePageMove(String boardLifeCycle, Long userId);
 }
 
 

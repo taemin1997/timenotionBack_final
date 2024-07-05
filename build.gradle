@@ -51,6 +51,8 @@ dependencies {
     //sms
     implementation 'net.nurigo:sdk:4.3.0'
 
+    //WEBSOCKET
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
 }
 
 tasks.named('test') {

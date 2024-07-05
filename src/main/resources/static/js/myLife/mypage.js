@@ -92,3 +92,9 @@ function AjaxOfUserFile() {
             $backBox.innerHTML = backTags;
         });
 }
+
+function filterByLifeCycle(boardLifeCycle) {
+    let userId = document.getElementById('uniId').value;
+    // 서버로 요청 보내기
+    window.location.href = `/myLife/${boardLifeCycle}/${userId}`;
+}

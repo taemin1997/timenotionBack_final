@@ -34,6 +34,7 @@
 
             <p style="display: none" id="get-user-id" th:text="${follow != null ? follow.followerId : ''}">ㄹㄹㄹ</p>
             <p style="display: none" id="get-user-status" th:text="${followStatus}"></p>
+
             <p id="profile-nickname" th:text="${follow != null ? follow.userNickname : ''}">장윤근</p>
             <p>
               <span class="follower-number" th:text="${follow != null ? follow.followingCount : '0'}">36</span>
@@ -47,6 +48,7 @@
             <p class="profile-heart">
               <img src="/img/myLife/mdj-heart_negative.png" alt="하투" class="detail_page_heart" id="heart-image">
             </p>
+            <a th:href="@{/chat/chatRoom}">채팅하기</a>
           </div>
         </div>
       </div>
@@ -60,32 +62,32 @@
     <!-- 유아기 유년기 아동기 청소년기 성인 중년 노년 -->
     <div class="third-container">
       <div class="third-container-category">
-        <div class="infancy">
-          <a href="">유아기</a>
+        <div class="everyLife-btn-span">
+          <button id="infancyBtn" type="button" value="유아기" onclick="filterByLifeCycle('유아기')">유아기</button>
         </div>
-        <div class="babyhood">
-          <a href="">유년기</a>
+        <div class="everyLife-btn-span">
+          <button id="childhoodBtn" type="button" value="유년기" onclick="filterByLifeCycle('유년기')">유년기</button>
         </div>
-        <div class="childhood">
-          <a href="">아동기</a>
+        <div class="everyLife-btn-span">
+          <button id="juvenileBtn" type="button" value="아동기" onclick="filterByLifeCycle('아동기')">아동기</button>
         </div>
-        <div class="adolescence">
-          <a href="">청소년기</a>
+        <div class="everyLife-btn-span">
+          <button id="teenBtn" type="button" value="청소년기" onclick="filterByLifeCycle('청소년기')">청소년기</button>
         </div>
-        <div class="adult">
-          <a href="">성인</a>
+        <div class="everyLife-btn-span">
+          <button id="adultBtn" type="button" value="청년기" onclick="filterByLifeCycle('청년기')">청년기</button>
         </div>
-        <div class="middle-age">
-          <a href="">중년</a>
+        <div class="everyLife-btn-span">
+          <button id="middleAgeBtn" type="button" value="중년기" onclick="filterByLifeCycle('중년기')">중년기</button>
         </div>
-        <div class="old-age">
-          <a href="">노년</a>
+        <div class="everyLife-btn-span">
+          <button id="oldAgeBtn" type="button" value="노년기" onclick="filterByLifeCycle('노년기')">노년기</button>
         </div>
       </div>
     </div>
     <div class="fourth-container">
       <div class="list">
-        <div th:each="board : ${boards}" class="list-one">
+        <div th:each="board : ${boardPage}" class="list-one">
           <a th:href="@{/myLife/detail-my(boardId=${board.boardId})}">
             <div class="list-one-detail">
               <div class="title">
@@ -103,17 +105,37 @@
         </div>
       </div>
     </div>
-    <div class="fifth-container">
-      <ul class="pagination">
-        <li><a href=""> &lt; </a></li>
-        <li><a href="">1</a></li>
-        <li><a href="">2</a></li>
-        <li><a href="">3</a></li>
-        <li><a href="">4</a></li>
-        <li><a href="">5</a></li>
-        <li><a href="">&gt;</a></li>
-      </ul>
+    <!-- 페이징 처리 -->
+    <th:block th:if="${boardLifeCycle == null}">
+    <div class="everyLife-paging">
+      <ul class="paging-backward">
+        <a th:href="@{|/yourLife/userpage/${uniId}?page=${page.startPage - 1}|}" class="page-a" th:if="${page.prev}">&lt;</a></ul>
+      <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
+        <a th:href="@{|/yourLife/userpage/${uniId}?page=${i}|}" class="page-a">
+          <li class="page-num" th:classappend="${i == page.criteria.page ? 'active' : ''}" th:text="${i}"></li>
+        </a>
+      </th:block>
+      <a th:href="@{|/yourLife/userpage/${uniId}?page=${page.endPage + 1}|}" class="page-a" th:if="${page.next}">
+        <li class="page-num next">&gt</li>
+      </a>
     </div>
+    </th:block>
+
+    <th:block th:if="${boardLifeCycle != null}">
+      <div class="everyLife-paging">
+        <ul class="paging-backward">
+          <a th:href="@{|/yourLife/userpage/${uniId}/${boardLifeCycle}?page=${page.startPage - 1}|}" class="page-a" th:if="${page.prev}">&lt;</a></ul>
+        <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
+          <a th:href="@{|/yourLife/userpage/${uniId}/${boardLifeCycle}?page=${i}|}" class="page-a">
+            <li class="page-num" th:classappend="${i == page.criteria.page ? 'active' : ''}" th:text="${i}"></li>
+          </a>
+        </th:block>
+        <a th:href="@{|/yourLife/userpage/${uniId}/${boardLifeCycle}?page=${page.endPage + 1}|}" class="page-a" th:if="${page.next}">
+          <li class="page-num next">&gt</li>
+        </a>
+      </div>
+    </th:block>
+    <!-- /페이징 처리 -->
   </div>
 </main>
 <div th:replace="~{/fragment/footer::footer}"></div>
