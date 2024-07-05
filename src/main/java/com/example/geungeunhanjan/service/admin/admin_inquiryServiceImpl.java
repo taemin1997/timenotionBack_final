@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -19,6 +20,11 @@ public class admin_inquiryServiceImpl implements admin_inquiryService{
     @Override
     public List<InquiryPagingDTO> selectAdminInquiryPage(InquiryCriteria inquiryCriteria) {
         return adminInquiryMapper.selectAdminInquiryPage(inquiryCriteria);
+    }
+
+    @Override
+    public List<InquiryPagingDTO> selectAdminInquiryPage(Map<String, Object> paramMap) {
+        return adminInquiryMapper.selectAdminInquiryPage(paramMap);
     }
 
     @Override
@@ -34,5 +40,10 @@ public class admin_inquiryServiceImpl implements admin_inquiryService{
     @Override
     public void writeAdminResponse(String inquiryResponse, Long inquiryId) {
         adminInquiryMapper.writeAdminResponse(inquiryResponse, inquiryId);
+    }
+
+    @Override
+    public void removeInquiry(Long inquiryId) {
+        adminInquiryMapper.deleteInquiry(inquiryId);
     }
 }

@@ -1,13 +1,15 @@
 package com.example.geungeunhanjan.mapper.admin;
 
+import com.example.geungeunhanjan.domain.dto.NoticePage.NoticeCriteria;
 import com.example.geungeunhanjan.domain.dto.board.BoardDTO;
+import com.example.geungeunhanjan.domain.dto.community.NoticePageDTO;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Mapper
@@ -22,11 +24,17 @@ public interface admin_boardListMapper {
     //게시글 삭제하기
     void deleteBoard(Long boardId);
 
+    //좋아요 삭제하기
+    void deleteLike(Long likeID);
+
     // 모두의 일대기 게시물
     List<BoardVO> everyLifeBoardbyViews();
 
     // 모두의 일대기 리스트 + 페이징
-    List<BoardDTO> everyLifeagepaging(Criteria criteria);
+    List<BoardDTO> everyLifeagepaging(Criteria Criteria);
+
+    //검색 결과 조회
+    List<BoardDTO> everyLifeagepaging(Map<String, Object> paramMap);
 
     int everyLifeFindTotal(); //selectTotal
 
