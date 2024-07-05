@@ -45,4 +45,9 @@ public class admin_memberListServiceImpl implements admin_memberListService{
     public void updateStatuswithdrawal(long uniId) {
         admin_memberListMapper.updateStatuswithdrawal(uniId);
     }
+    //검색 리스트 개수
+    @Override
+    public int countSearchKeyword(String keyword) {
+        return admin_memberListMapper.countSearchKeyword(keyword);
+    }
 }

@@ -20,5 +20,10 @@ public class admin_noticeListServiceImpl implements admin_noticeListService{
     public List<NoticePageDTO> adminSelectNotice(Map<String, Object> paramMap) {
         return admin_noticeListMapper.adminSelectNotice(paramMap);
     }
+
+    @Override
+    public int countSearchKeywordNotice(String keyword) {
+        return admin_noticeListMapper.countSearchKeywordNotice(keyword);
+    }
 }
 

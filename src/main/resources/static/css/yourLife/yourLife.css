@@ -79,7 +79,7 @@ footer {
 
 .wrapper-follows {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: 20px;
 }
 
@@ -96,6 +96,7 @@ footer {
 .flwers-wrapper {
   display: flex;
   flex-direction: column;
+  width: 457px;
 }
 
 .flwers-box, .flwing-box {
