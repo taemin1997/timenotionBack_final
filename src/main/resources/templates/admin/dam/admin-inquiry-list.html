@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/css/notion.css" />
   <link rel="stylesheet" href="/css/reset.css" />
   <link rel="stylesheet" href="/css/admin/dam/admin-inquiryList.css" />
+  <script defer th:src="@{/js/admin/admin_notice.js}"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -50,76 +51,70 @@
       </div>
       <!-- 오른쪽 -->
       <div class="container-content">
-        <!-- 1. 게시판 이름 -->
-        <div class="admin-title-box"><span>1:1 문의</span></div>
-        <!-- 2. 검색 -->
-        <div class="admin-search-box">
-          <div class="admin-search-left">
-            <input type="text" name="" id="" placeholder="검색어를 입력하세요" />
-            <div class="admin-box-dodbogi">
-              <img src="/img/main/돋보기.png" alt="" />
+        <div>
+          <!-- 1. 게시판 이름 -->
+          <div class="admin-title-box"><span>1:1 문의</span></div>
+          <!-- 2. 검색 -->
+          <div class="admin-search-box">
+            <form class="admin-search-left" action="/admin/inquiryList" method="get">
+              <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요" th:value="${searchKeyword}"/>
+              <button type="submit" class="admin-box-dodbogi">
+                <img src="/img/main/돋보기.png" alt="" />
+              </button>
+            </form>
+          </div>
+          <!-- 3. 리스트 -->
+          <div class="admin-list-wrapper">
+            <!-- 3-1. 리스트 요소 뭔지 써있는 맨 위 회색 , 제목라인 -->
+            <div class="box-admin-list-elemet">
+              <ul>
+                <li>
+                  <!-- 왼쪽 -->
+                  <div class="admin-list-left-top">
+                    <div class="admin-one-top gap">번호</div>
+                    <div class="admin-response-top gap">답변</div>
+                    <div class="admin-notice-content-top">문의내역</div>
+                  </div>
+                  <!-- 오른쪽 -->
+                  <div class="admin-list-right-top">
+                    <div class="admin-three-top gap">작성자</div>
+                    <div class="admin-four-top gap">작성일시</div>
+                    <div class="admin-five-top">삭제</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!-- 3-2. 리스트들 -->
+            <div class="box-admin-list">
+              <ul>
+                <!--☆☆☆☆☆☆☆-->
+                <li th:each="inquiry : ${adminInquiryLists}">
+                  <!-- 왼쪽 -->
+                  <div class="admin-list-left">
+                    <div class="admin-one gap" th:text="${inquiry.inquiryId}">1</div>
+                    <div class="admin-response gap">
+                      <span th:if="${inquiry.inquiryResponse == null}" class="admin-response-before">답변전</span>
+                      <span th:if="${inquiry.inquiryResponse != null}" class="admin-response-after">답변완료</span>
+                    </div>
+                    <div class="admin-two gap">
+                      <a th:href="@{/admin/inquiry/detail(inquiryId=${inquiry.inquiryId})}"  th:text="${inquiry.inquiryTitle}"></a>
+                    </div>
+                  </div>
+                  <!-- 오른쪽 -->
+                  <div class="admin-list-right">
+                    <div class="admin-three gap"  th:text="${inquiry.nickname}">
+  <!--                    <a href="#" ></a>-->
+                    </div>
+                    <div class="admin-four gap"><span th:text="${#temporals.format(inquiry.inquiryCreatedDate, 'yyyy.MM.dd')}">2024.05.05 13:07</span></div>
+                    <form class="admin-five"  th:action="@{/admin/inquiryList/{inquiryId}(inquiryId=${inquiry.inquiryId})}" method="post">
+                      <button id="admin-notice-delete">삭제</button>
+                    </form>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="admin-search-right" style="display: none">
-            <button>공지글 작성하기</button>
-          </div>
         </div>
-        <!-- 3. 리스트 -->
-        <div class="admin-list-wrapper">
-          <!-- 3-1. 리스트 요소 뭔지 써있는 맨 위 회색 , 제목라인 -->
-          <div class="box-admin-list-elemet">
-            <ul>
-              <li>
-                <!-- 왼쪽 -->
-                <div class="admin-list-left-top">
-                  <div class="admin-one-top gap">번호</div>
-                  <div class="admin-response-top gap">답변</div>
-                  <div class="admin-notice-content-top">문의내역</div>
-                </div>
-                <!-- 오른쪽 -->
-                <div class="admin-list-right-top">
-                  <div class="admin-three-top gap">작성자</div>
-                  <div class="admin-four-top gap">작성일시</div>
-                  <div class="admin-five-top">제재</div>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <!-- 3-2. 리스트들 -->
-          <div class="box-admin-list">
-            <ul>
-              <!--☆☆☆☆☆☆☆-->
-              <li th:each="inquiry : ${inquiries}">
-                <!-- 왼쪽 -->
-                <div class="admin-list-left">
-                  <div class="admin-one gap" th:text="${inquiry.inquiryId}">1</div>
-                  <div class="admin-response gap">
-                    <span th:if="${inquiry.inquiryResponse == null}" class="admin-response-before">답변전</span>
-                    <span th:if="${inquiry.inquiryResponse != null}" class="admin-response-after">답변완료</span>
-                  </div>
-                  <div class="admin-two gap">
-                    <a th:href="@{/admin/inquiry/detail(inquiryId=${inquiry.inquiryId})}"  th:text="${inquiry.inquiryTitle}"></a>
-                  </div>
-                </div>
-                <!-- 오른쪽 -->
-                <div class="admin-list-right">
-                  <div class="admin-three gap"  th:text="${inquiry.nickname}">
-<!--                    <a href="#" ></a>-->
-                  </div>
-                  <div class="admin-four gap"><span th:text="${#temporals.format(inquiry.inquiryCreatedDate, 'yyyy.MM.dd')}">2024.05.05 13:07</span></div>
-                  <div class="admin-five"><button>삭제</button></div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-<!--        <div class="wrapper-pagination">-->
-<!--          <div class="chevron-left"><img src="/img/main/쉐브론.png" alt="" /></div>-->
-<!--          1 2 3 4 5-->
-<!--          <div class="chevron-right"><img src="/img/main/쉐브론.png" alt="" /></div>-->
-<!--        </div>-->
-<!--      </div>-->
-
         <div class="inquiryPage-container">
           <ul class="inquiryPage-box">
             <a th:href="@{/admin/inquiryList(inquiryPage=${inquiryPage.startPage - 1})}" class="inquiryPage-a" th:if="${inquiryPage.prev}">

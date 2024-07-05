@@ -30,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,7 @@ import java.util.Map;
 public class adminController {
 
     private final admin_boardListService adminBoardListService;
+    private final admin_dashBoardService adminDashBoardService;
     private final admin_inquiryService adminInquiryService;
     private final NoticeService noticeService;
     private final admin_noticeListService adminNoticeListService;
@@ -50,24 +52,53 @@ public class adminController {
 
     // 메인 페이지
     @GetMapping()
-    public String admin() {
+    public String admin(Model model) {
+        int totalMembers = adminDashBoardService.getTotalMemberCount();
+        Date today = adminDashBoardService.getTodayDate();
+        int countReport = adminDashBoardService.countReportsToday();
+        int countInquiry = adminDashBoardService.countInquiryToday();
+        model.addAttribute("totalMembers", totalMembers);
+        model.addAttribute("today", today);
+        model.addAttribute("countReport", countReport);
+        model.addAttribute("countInquiry", countInquiry);
+
         return "/admin/mdj/adminDashBoard";
     }
 
-    // 게시판 관리
-    @GetMapping("/boardList")
-    public String boardList(Model model, HttpSession session, Criteria criteria, @RequestParam(required = false, defaultValue = "latest") String sort) {
-        // 페이징 처리를 위한 코드
-        criteria.setAmount(12);
-        List<BoardDTO> adminBoardLists = adminBoardListService.everyLifeFindPage(criteria);
 
-        int total = adminBoardListService.everyLifeFindTotal();
+    @GetMapping("/boardList")
+    public String boardList(Model model,
+                            Criteria criteria,
+                            HttpServletRequest request,
+                            @RequestParam(required = false, defaultValue = "latest") String sort,
+                            @RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
+        // 검색어가 있을 경우 Criteria에 검색어 설정
+        if (searchKeyword != null && !searchKeyword.isEmpty()) {
+            criteria.setKeyword(searchKeyword);
+        } else {
+            criteria.setKeyword(null);
+        }
+
+        // 페이징 및 검색 기능 처리
+        List<BoardDTO> adminBoardLists = adminBoardListService.everyLifeFindPage(criteria);
+        int total = adminBoardListService.everyLifeFindTotal(); // 전체 게시물 수를 가져오는 쿼리
+
         Page page = new Page(criteria, total);
-        model.addAttribute("adminBoardLists", adminBoardLists); // 실제로 가져온 게시물 리스트를 모델에 추가
+
+        model.addAttribute("adminBoardLists", adminBoardLists);
         model.addAttribute("page", page);
         model.addAttribute("sort", sort);
+        model.addAttribute("searchKeyword", searchKeyword);
 
         return "admin/dam/admin-board-list"; // 페이지 이름 반환
+    }
+
+
+    //게시글 삭제시
+    @PostMapping("/boardList/{boardId}")
+    public String boardList( @PathVariable("boardId") long boardId){
+        adminBoardListService.removeBoard(boardId);
+        return "redirect:/admin/boardList";
     }
 
     // 관리자 디테일
@@ -113,7 +144,8 @@ public class adminController {
 
     //게시글 삭제
     @GetMapping("/remove")
-    public RedirectView removeBoard(Long boardId){
+    public RedirectView removeBoard(Long boardId, Long likeId){
+        adminBoardListService.removeLike(likeId);
         adminBoardListService.removeBoard(boardId);
         return new RedirectView("/admin/boardList");
     }
@@ -261,17 +293,35 @@ public class adminController {
 
     // 1:1 문의
     @GetMapping("/inquiryList")
-    public String inquiryList(InquiryCriteria inquiryCriteria, Model model) {
+    public String inquiryList(InquiryCriteria inquiryCriteria,
+                              Model model,
+                              @RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
 
-        List<InquiryPagingDTO> inquiries = adminInquiryService.selectAdminInquiryPage(inquiryCriteria);
+        // 검색어가 있을 경우 Criteria에 검색어 설정
+        if (searchKeyword != null && !searchKeyword.isEmpty()) {
+            inquiryCriteria.setKeyword(searchKeyword);
+        } else {
+            inquiryCriteria.setKeyword(null);
+        }
 
-        int total = adminInquiryService.selectAdminInquiryTotal();
+        // 페이징 및 검색 기능 처리
+        List<InquiryPagingDTO> adminInquiryLists = adminInquiryService.selectAdminInquiryPage(inquiryCriteria);
+        int total = adminInquiryService.selectAdminInquiryTotal(); // 전체 게시물 수를 가져오는 쿼리
 
         InquiryPage inquiryPage = new InquiryPage(inquiryCriteria, total);
 
-        model.addAttribute("inquiries", inquiries);
+        model.addAttribute("adminInquiryLists", adminInquiryLists);
         model.addAttribute("inquiryPage", inquiryPage);
+        model.addAttribute("searchKeyword", searchKeyword);
+
         return "/admin/dam/admin-inquiry-list";
+    }
+
+    //문의글 삭제시
+    @PostMapping("/inquiryList/{inquiryId}")
+    public String inquiryList( @PathVariable("inquiryId") long inquiryId){
+        adminInquiryService.removeInquiry(inquiryId);
+        return "redirect:/admin/inquiryList";
     }
 
     //1:1문의 상세
