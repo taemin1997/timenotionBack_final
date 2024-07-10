@@ -58,19 +58,19 @@
 
 
     <!-- 내가 팔로우한 사람의 정보 조회 ; 팔로잉 -->
-    <select id="selectFollowing" resultType="FollowDTO" parameterType="long">
+        <select id="selectFollowing" resultType="FollowDTO" parameterType="long">
             SELECT u.UNI_ID AS followerId,
-                   NVL(gu.USER_NICKNAME, gk.name) AS userNickname,
-                   (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_FROM_USER = u.UNI_ID) AS followingCount,
-                   (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_TO_USER = u.UNI_ID) AS followerCount,
-                   uf.USER_FILE_PROFILE_SOURCE, uf.USER_FILE_PROFILE_NAME , uf.USER_FILE_PROFILE_UUID,
-                   uf.USER_FILE_BACK_SOURCE, uf.USER_FILE_BACK_NAME , uf.USER_FILE_BACK_UUID
+            NVL(gu.USER_NICKNAME, gk.name) AS userNickname,
+            (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_FROM_USER = u.UNI_ID) AS followingCount,
+            (SELECT COUNT(*) FROM GGHJ_FOLLOW f WHERE f.FOLLOW_TO_USER = u.UNI_ID) AS followerCount,
+            uf.USER_FILE_PROFILE_SOURCE, uf.USER_FILE_PROFILE_NAME , uf.USER_FILE_PROFILE_UUID,
+            uf.USER_FILE_BACK_SOURCE, uf.USER_FILE_BACK_NAME , uf.USER_FILE_BACK_UUID
             FROM GGHJ_UNI u
-                     LEFT JOIN GGHJ_USER gu ON u.USER_ID = gu.USER_ID
-                     LEFT JOIN GGHJ_KAKAO gk ON u.KAKAO_ID = gk.KAKAO_ID
-                     LEFT JOIN GGHJ_USER_FILE uf ON u.UNI_ID = uf.USER_ID
-            WHERE u.UNI_ID IN (SELECT FOLLOW_FROM_USER FROM GGHJ_FOLLOW WHERE FOLLOW_TO_USER = #{uniId})
-    </select>
+            LEFT JOIN GGHJ_USER gu ON u.USER_ID = gu.USER_ID
+            LEFT JOIN GGHJ_KAKAO gk ON u.KAKAO_ID = gk.KAKAO_ID
+            LEFT JOIN GGHJ_USER_FILE uf ON u.UNI_ID = uf.USER_ID
+            WHERE u.UNI_ID IN (SELECT FOLLOW_FROM_USER FROM GGHJ_FOLLOW WHERE FOLLOW_TO_USER = #{uniId})-->
+        </select>
 
 
 
@@ -103,41 +103,6 @@
         SELECT COUNT(*) FROM GGHJ_FOLLOW
         WHERE FOLLOW_TO_USER = #{followToUser} AND FOLLOW_FROM_USER = #{followFromUser}
     </select>
-
-
-    <!--  페이징 처리   미완성  -->
-    <!--    <select id="selectAllPageFollow" parameterType="FollowCriteria">-->
-    <!--        <![CDATA[-->
-    <!--        SELECT USER_FILE_PROFILE_SOURCE, FOLLOW_COUNT, USER_NICKNAME, BOARD_COUNT-->
-    <!--        FROM (-->
-    <!--                 SELECT-->
-    <!--                     ROWNUM AS RNUM,-->
-    <!--                     USER_FILE_PROFILE_SOURCE,-->
-    <!--                     FOLLOW_COUNT,-->
-    <!--                     USER_NICKNAME,-->
-    <!--                     BOARD_COUNT-->
-    <!--                 FROM (-->
-    <!--                          SELECT-->
-    <!--                              UF.USER_FILE_PROFILE_SOURCE,-->
-    <!--                              (SELECT COUNT(FOLLOW_TO_USER)-->
-    <!--                               FROM GGHJ_FOLLOW F-->
-    <!--                               WHERE F.FOLLOW_TO_USER = UNI.UNI_ID) AS FOLLOW_COUNT,-->
-    <!--                              U.USER_NICKNAME,-->
-    <!--                              (SELECT COUNT(*)-->
-    <!--                               FROM GGHJ_BOARD B-->
-    <!--                               WHERE B.USER_ID = UNI.USER_ID) AS BOARD_COUNT-->
-    <!--                          FROM-->
-    <!--                              GGHJ_USER_FILE UF-->
-    <!--                                  JOIN GGHJ_UNI UNI ON UF.USER_ID = UNI.UNI_ID-->
-    <!--                                  JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID-->
-    <!--                          ORDER BY-->
-    <!--                              UF.USER_FILE_PROFILE_SOURCE &#45;&#45; 또는 원하는 정렬 기준-->
-    <!--                      )-->
-    <!--                 WHERE ROWNUM <= #{page} * #{amount}-->
-    <!--             )-->
-    <!--        WHERE RNUM > (#{page} - 1) * #{amount}-->
-    <!--        ]]>-->
-    <!--    </select>-->
 
     <select id="selectTotalFollow" resultType="int">
         SELECT COUNT(UNI_ID) FROM GGHJ_UNI
