@@ -34,4 +34,14 @@ public class JoinApi {
         response.put("exists", exists);
         return response;
     }
+
+    @PostMapping("/api/checkPhone")
+    public Map<String, Boolean> checkPhoneDuplicate(@RequestBody Map<String, String> request) {
+        String phone = request.get("phone");
+        String result = userService.phoneDuplicateCheck(phone);
+        boolean exists = result != null;
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("exists", exists);
+        return response;
+    }
 }

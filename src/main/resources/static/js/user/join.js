@@ -717,6 +717,40 @@ document.getElementById('join-nickname-button').addEventListener('click', functi
 
 
 
+document.getElementById('phone-button').addEventListener('click', function() {
+  console.log('test');
+  const phone = document.getElementById('phone-input').value;
+  const resultParagraph = document.getElementById('phone-result');
+
+  if (!phone) {
+    resultParagraph.textContent = '번호를 입력해주세요.';
+    resultParagraph.style.color = 'rgb(255, 119, 119)';
+    return;
+  }
+
+  fetch('/api/checkPhone', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ phone: phone })
+  })
+      .then(response => response.json())
+      .then(data => {
+        if (data.exists) {
+          resultParagraph.textContent = '중복된 번호입니다.';
+          resultParagraph.style.color = 'rgb(255, 119, 119)';
+        } else {
+          resultParagraph.textContent = '사용 가능한 번호입니다.';
+          resultParagraph.style.color = '#9CE1F7'; //
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+});
+
+
 
 
 
