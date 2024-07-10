@@ -52,7 +52,7 @@
                     </a>
                     <!-- 2. 닉네임 / 컨텐츠 박스 / 시간 -->
                     <div class="content-box">
-                        <a class="nickname2" th:if="${session.uniId == room.senderId}" th:text="${room.receiverNickname}"
+                        <a class="nickname2"  th:text="${room.receiverNickname}"
                              th:href="@{/yourLife/userpage/{receiverId}(receiverId=${room.receiverId})}">닉네임</a>
                       <!--  <div class="conversation-box">
                             <span class="conversation" >ㅎㅎ</span>

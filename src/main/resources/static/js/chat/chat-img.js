@@ -84,8 +84,7 @@ function fetchFiles(uniId, profileBox) {
             if (!text) {
                 // 응답이 비어 있는 경우 기본 프로필 사진을 표시
                 console.log("응답이 비어서 기본 프로필 들어갔습니다.")
-                let $profileBox = document.querySelector('.box-profile-img-a');
-                $profileBox.innerHTML = `
+                profileBox.innerHTML = `
             <img src="/img/main/basic-profile.png" alt="기본 프로필 사진" class="img-profile-img">
           `;
                 return;
@@ -97,9 +96,9 @@ function fetchFiles(uniId, profileBox) {
             let number = 1;
             data.forEach(item => {
                 let profileFileName = encodeURIComponent(item.userFileProfileSource + '/' + item.userFileProfileUuid + '_' + item.userFileProfileName);
-
                 console.log(number++ + "번 회원의 파일");
-                console.log("파일 이름 : " + profileFileName)
+                console.log(uniId + "의 파일 이름 : " + profileFileName);
+                console.log(uniId + "의 파일 이름 name : " + item.userFileProfileName);
                 if (item.userFileProfileSource) {
                     profileTags = `
                         <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진">

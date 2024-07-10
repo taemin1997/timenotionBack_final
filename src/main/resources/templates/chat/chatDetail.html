@@ -25,7 +25,7 @@
             <div class="left-container">
                 <!-- 1. 상단 뒤로가기 버튼 -->
                 <div class="back-list-wrapper">
-                    <a class="back-icon-img-box" th:href="@{/chat/chatting}"></a>
+                    <a class="back-icon-img-box" th:href="@{/chat/chatting}"><img th:src="@{/img/main/chavronChat.png}" alt="Submit Button Image"></a>
                     <a class="back-icon-text" th:href="@{/chat/chatting}">목록으로 돌아가기</a>
                 </div>
                 <div class="bottom-underline"></div>
@@ -66,7 +66,7 @@
                 <div class="chat-footer">
                     <input type="text" id="text" placeholder="메세지를 입력하세요">
                     <!-- 전송 버튼 -->
-                    <button onclick="sendMessage()">submit</button>
+                    <button onclick="sendMessage()"> <img th:src="@{/img/main/submitButton.png}" alt="Submit Button Image"></button>
                 </div>
             </div>
         </div>
