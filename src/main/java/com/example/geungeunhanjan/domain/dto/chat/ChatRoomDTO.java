@@ -14,4 +14,12 @@ public class ChatRoomDTO {
     private String receiverNickname;
     private String senderNickname;
     private LocalDateTime lastMessageSentAt;
+
+    // 사진
+    private String senderProfileSource;
+    private String senderProfileName;
+    private String senderProfileUuid;
+    private String receiverProfileSource;
+    private String receiverProfileName;
+    private String receiverProfileUuid;
 }

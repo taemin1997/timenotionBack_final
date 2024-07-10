@@ -138,8 +138,6 @@ function AjaxOfUserFile(boardId, userId) {
 document.querySelectorAll('.main-top-box').forEach(box => {
     let rightBanner = box.querySelector('#rightBanner').value;
     let rightUserId = box.querySelector('#rightUserId').value;
-    console.log("오른쪽 배너 보드 아이디 : " + rightBanner + "// 오른쪽 배너 유저 아이디 : " + rightUserId);
-
     let rightBannerBox = box.querySelector('.rightBanner-box');
     let profileBox = box.querySelector('.right-banner-profile-img');
 
@@ -147,7 +145,6 @@ document.querySelectorAll('.main-top-box').forEach(box => {
 });
 
 function AjaxOfRightBanner(boardId, userId, bannerBox, profileBox) {
-    console.log("넘어온 오른쪽 유저 아이디 : " + userId);
 
     // 1. 메인배너 패치 (오른쪽)
     fetch(`/v1/rightBanner/${boardId}/files`, { method: 'GET' })
@@ -156,7 +153,6 @@ function AjaxOfRightBanner(boardId, userId, bannerBox, profileBox) {
             let bannerTag = '';
             data.forEach(item => {
                 let bannerFileName = encodeURIComponent(item.boardFileSourceName + '/' + item.boardFileUuid + '_' + item.boardFileName);
-                console.log("RRR 파일 이름 : " + bannerFileName)
                 if (item.boardFileSourceName) {
                     bannerTag = `
                         <img src="/v1/user-files?fileName=${bannerFileName}" alt="오른쪽 배너 사진"/>
@@ -179,11 +175,14 @@ function AjaxOfRightBanner(boardId, userId, bannerBox, profileBox) {
             if (data.length > 0) { // 데이터가 있는지 확인
                 data.forEach(item => {
                     let profileFileName = encodeURIComponent(item.userFileProfileSource + '/' + item.userFileProfileUuid + '_' + item.userFileProfileName);
-                    console.log("ㄱRRR 파일 이름 : " + profileFileName)
                     if (item.userFileProfileSource) {
                         profileTags = `
                         <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진"/>
                     `;
+                    } else{
+                        profileTags = `
+                                <img src="/img/main/basic-profile.png" alt="기본 이미지">
+                                        `;
                     }
                 });
             } else { // 데이터가 없으면 기본 이미지 사용
@@ -198,13 +197,15 @@ function AjaxOfRightBanner(boardId, userId, bannerBox, profileBox) {
 
 
 /* 인기 컨텐츠 프로필사진 ------------------------------------------------------------------------------------  */
+/* 인기 컨텐츠 프로필사진 ------------------------------------------------------------------------------------  */
+/* 인기 컨텐츠 프로필사진 ------------------------------------------------------------------------------------  */
 
 
 
 document.querySelectorAll('.wrap-pop-main').forEach(box => {
     let popUserId = box.querySelector('#popUserId').value;
     let profileBox = box.querySelector('.box-profile-img');
-    console.log("인기컨텐츠 아이ㅏ디 " + popUserId );
+    console.log("인기컨텐츠 유저 아이디 : " + popUserId );
 
     AjaxOfPopProfile(popUserId, profileBox);
 });
@@ -213,20 +214,43 @@ function AjaxOfPopProfile(userId, profileBox) {
 
     // 프로필사진 패치
     fetch(`/v1/rightBanner/profile/${userId}/files`, { method: 'GET' })
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return res.text(); // 먼저 응답을 텍스트로 변환
+        })
+        .then(text => {
+            if (!text) {
+                // 응답이 비어 있는 경우 기본 프로필 사진을 표시
+                console.log("응답이 비어서 기본 프로필 들어갔습니다.")
+                let $profileBox = document.querySelector('.box-profile-img-a');
+                $profileBox.innerHTML = `
+                <img src="/img/main/basic-profile.png" alt="기본 프로필 사진" >
+              `;
+
+                return;
+            }
+            return JSON.parse(text); // 텍스트가 비어있지 않으면 JSON으로 파싱
+        }) // ------------------------------------------------ 여기까지 복붙 0710
         .then(data => {
             let profileTags = '';
             if (data.length > 0) { // 데이터가 있는지 확인
                 data.forEach(item => {
-                    let profileFileName = encodeURIComponent(item.userFileProfileSource + '/' + item.userFileProfileUuid + '_' + item.userFileProfileName);
-                    console.log("ㄱRRR 파일 이름 : " + profileFileName)
-                    if (item.userFileProfileSource) {
-                        profileTags = `
-                        <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진"/>
-                    `;
-                    }
+                        let profileFileName = encodeURIComponent(item.userFileProfileSource + '/' + item.userFileProfileUuid + '_' + item.userFileProfileName);
+                        console.log(userId + "번 유저의 -- 파일 이름 : " + profileFileName);
+                            if (item.userFileProfileSource) {
+                                profileTags = `
+                                <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진"/>
+                            `;
+                            } else{
+                                profileTags = `
+                                <img src="/img/main/basic-profile.png" alt="기본 이미지">
+                                        `;
+                            }
                 });
             } else { // 데이터가 없으면 기본 이미지 사용
+                console.log("데이터가 없어서 기본이미지 사용");
                 profileTags = `
                 <img src="/img/main/basic-profile.png" alt="기본 이미지">
             `;

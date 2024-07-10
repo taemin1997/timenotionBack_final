@@ -95,10 +95,6 @@
                     </a>
                 </div>
                 <div class="box-profile-nickname"><a th:href="@{/yourLife/userpage/{userId}(userId=${boards.userId})}" id="get-user-like-id" th:text="${userNickname}">닉네임</a></div>
-<<<<<<< HEAD
-
-=======
->>>>>>> 483d9c0ae762abc561d7458db3cf34c1c81b61ad
                 <p id="user-lifecycle-check" style="display: none" th:text="${boards.boardLifeCycle}"></p>
 
                 <div><img th:src="@{/img/myLife/sas detail_heart.png}" alt="하트" class="box-profile-heart"
@@ -111,16 +107,17 @@
             <div class="bold-underline"></div>
             <!--4. 컨텐츠 영역  ----------------->
             <div class="wrapper-content">
-                <div class="post-content" th:text="${boards.boardContent}"></div>
                 <div class="post-images">
                     <!-- 이미지 예시 -->
                     <!-- /이미지 예시 -->
                 </div>
+                <div class="post-content" th:text="${boards.boardContent}"></div>
             </div>
             <div class="bold-underline"></div>
             <!-- 00. 댓글영역 (까먹고 나중에 추가함;;) -->
             <div class="wrapper-reply-write">
-                <div class="box-count-reply"><span>댓글</span><!--<span id="count-reply">(00)</span>-->
+                <div class="box-count-reply">
+                    <!--<span>댓글</span>--><!--<span id="count-reply">(00)</span>-->
                 </div>
                 <div class="box-reply-write">
                     <textarea name="" id="comment-content" cols="30" rows="10" placeholder="댓글을 입력하세요"></textarea>

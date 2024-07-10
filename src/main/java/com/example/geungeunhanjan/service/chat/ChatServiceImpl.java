@@ -2,6 +2,7 @@ package com.example.geungeunhanjan.service.chat;
 
 import com.example.geungeunhanjan.domain.dto.chat.ChatMessageDTO;
 import com.example.geungeunhanjan.domain.dto.chat.ChatRoomDTO;
+import com.example.geungeunhanjan.domain.vo.chat.ChatMessageVO;
 import com.example.geungeunhanjan.mapper.chat.ChatMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -61,5 +62,15 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public ChatRoomDTO getChatRoomsByRoomId(Long roomId) {
         return chatMapper.getChatRoomsByRoomId(roomId);
+    }
+
+    @Override
+    public ChatRoomDTO getChatIInfoByRoomId(Long roomId) {
+        return chatMapper.getChatIInfoByRoomId(roomId);
+    }
+
+    @Override
+    public ChatMessageVO getMessageMostRecent(Long roomId) {
+        return chatMapper.getMessageMostRecent(roomId);
     }
 }
