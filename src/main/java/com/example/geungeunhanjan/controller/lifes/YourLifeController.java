@@ -128,7 +128,6 @@ public class YourLifeController {
 
         return "yourLife/userpage";
     }
-
     // 유저 페이지 팔로우 기능 구현 컨트롤러 -하트클릭시
     @PostMapping("/userpage/{uniId}")
     public String userPage(
