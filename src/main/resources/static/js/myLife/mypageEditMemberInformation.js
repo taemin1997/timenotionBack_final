@@ -168,13 +168,14 @@ function editNicknameDuplicationClickFunction() {
   editNicknameInput.style.borderColor = 'gray';
   editNicknameParagraph.style.color = 'black';
   editNicknameResult.innerText = "사용가능한 닉네임입니다.";
-  editNicknameResult.style.color = '#9CE1F7';
+  editNicknameResult.style.color = '#9cd3e8';
 
   // 값이 없으면
   if (editNicknameInput.value === '') {
       editNicknameResult.innerText = "필수 입력 항목입니다.";
-      editNicknameResult.style.color = 'rgb(255, 119, 119)';
+      editNicknameResult.style.color = '#9cd3e8';
       editNicknameResult.style.fontSize = "12px";
+      editNicknameResult.style.marginTop = "8px";
       editNicknameInput.style.borderColor = 'rgb(255, 119, 119)';
       editNicknameInput.style.borderWidth = "1px";
       editNicknameInput.style.marginBottom = "5px";

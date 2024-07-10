@@ -80,3 +80,4 @@ function filterByLifeCycle(boardLifeCycle) {
     window.location.href = `/yourLife/userpage/${uniId}/${boardLifeCycle}`;
 }
 
+
