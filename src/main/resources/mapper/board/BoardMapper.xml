@@ -17,7 +17,7 @@
                BOARD_YEAR, USER_ID
         FROM GGHJ_BOARD
         WHERE BOARD_LIFE_CYCLE = #{boardLifeCycle}
-        AND USER_ID = #{ㄹuserId}
+          AND USER_ID = #{ㄹuserId}
     </select>
 
 
@@ -57,48 +57,48 @@
     <select id="selectEveryLifeCyclePaging" resultType="BoardDTO">
     <![CDATA[
         SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_PUBLIC, BOARD_CREATED_DATE,
-        BOARD_UPDATED_DATE, BOARD_VIEW_COUNT, BOARD_LIKE_COUNT, BOARD_YEAR, USER_ID, NICKNAME,
-        PROFILE_PIC, PROVIDER, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID
+               BOARD_UPDATED_DATE, BOARD_VIEW_COUNT, BOARD_LIKE_COUNT, BOARD_YEAR, USER_ID, NICKNAME,
+               PROFILE_PIC, PROVIDER, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID
         FROM(
-        SELECT RNUM, BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_PUBLIC, BOARD_CREATED_DATE,
-        BOARD_UPDATED_DATE, BOARD_VIEW_COUNT, BOARD_LIKE_COUNT, BOARD_YEAR, USER_ID, NICKNAME,
-        PROFILE_PIC, PROVIDER, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID
-        FROM(
-        SELECT ROWNUM AS RNUM, BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_PUBLIC, BOARD_CREATED_DATE,
-        BOARD_UPDATED_DATE, BOARD_VIEW_COUNT, BOARD_LIKE_COUNT, BOARD_YEAR, USER_ID, NICKNAME,
-        PROFILE_PIC, PROVIDER, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID
-        FROM(
-        SELECT
-        b.BOARD_ID,
-        b.BOARD_TITLE,
-        b.BOARD_CONTENT,
-        b.BOARD_PUBLIC,
-        b.BOARD_CREATED_DATE,
-        b.BOARD_UPDATED_DATE,
-        b.BOARD_VIEW_COUNT,
-        b.BOARD_LIFE_CYCLE,
-        b.BOARD_LIKE_COUNT,
-        b.BOARD_YEAR,
-        b.USER_ID,
-        COALESCE(u2.USER_NICKNAME, k.NAME) AS NICKNAME,  -- 사용자 닉네임 (우선순위: GGHJ_USER -> GGHJ_KAKAO)
-        k.PROFILE_PIC,
-        k.PROVIDER,
-        f.USER_FILE_PROFILE_NAME,
-        f.USER_FILE_PROFILE_SOURCE,
-        f.USER_FILE_PROFILE_UUID
-        FROM
-        GGHJ_BOARD b
-        JOIN GGHJ_UNI u ON b.USER_ID = u.UNI_ID
-        LEFT JOIN GGHJ_USER u2 ON u.USER_ID = u2.USER_ID
-        LEFT JOIN GGHJ_KAKAO k ON u.KAKAO_ID = k.KAKAO_ID
-        LEFT JOIN GGHJ_USER_FILE f ON u2.USER_ID = f.USER_ID
-        WHERE
-        b.BOARD_LIFE_CYCLE = #{boardLifeCycle}
-        )
-        WHERE ROWNUM <= #{criteria.page} * #{criteria.amount}
-        )
-        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
-        )
+                SELECT RNUM, BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_PUBLIC, BOARD_CREATED_DATE,
+                       BOARD_UPDATED_DATE, BOARD_VIEW_COUNT, BOARD_LIKE_COUNT, BOARD_YEAR, USER_ID, NICKNAME,
+                       PROFILE_PIC, PROVIDER, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID
+                FROM(
+                        SELECT ROWNUM AS RNUM, BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_PUBLIC, BOARD_CREATED_DATE,
+                               BOARD_UPDATED_DATE, BOARD_VIEW_COUNT, BOARD_LIKE_COUNT, BOARD_YEAR, USER_ID, NICKNAME,
+                               PROFILE_PIC, PROVIDER, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID
+                        FROM(
+                                SELECT
+                                    b.BOARD_ID,
+                                    b.BOARD_TITLE,
+                                    b.BOARD_CONTENT,
+                                    b.BOARD_PUBLIC,
+                                    b.BOARD_CREATED_DATE,
+                                    b.BOARD_UPDATED_DATE,
+                                    b.BOARD_VIEW_COUNT,
+                                    b.BOARD_LIFE_CYCLE,
+                                    b.BOARD_LIKE_COUNT,
+                                    b.BOARD_YEAR,
+                                    b.USER_ID,
+                                    COALESCE(u2.USER_NICKNAME, k.NAME) AS NICKNAME,  -- 사용자 닉네임 (우선순위: GGHJ_USER -> GGHJ_KAKAO)
+                                    k.PROFILE_PIC,
+                                    k.PROVIDER,
+                                    f.USER_FILE_PROFILE_NAME,
+                                    f.USER_FILE_PROFILE_SOURCE,
+                                    f.USER_FILE_PROFILE_UUID
+                                FROM
+                                    GGHJ_BOARD b
+                                        JOIN GGHJ_UNI u ON b.USER_ID = u.UNI_ID
+                                        LEFT JOIN GGHJ_USER u2 ON u.USER_ID = u2.USER_ID
+                                        LEFT JOIN GGHJ_KAKAO k ON u.KAKAO_ID = k.KAKAO_ID
+                                        LEFT JOIN GGHJ_USER_FILE f ON u2.USER_ID = f.USER_ID
+                                WHERE
+                                    b.BOARD_LIFE_CYCLE = #{boardLifeCycle}
+                            )
+                        WHERE ROWNUM <= #{criteria.page} * #{criteria.amount}
+                    )
+                WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+            )
         ]]>
     </select>
 
@@ -248,50 +248,50 @@
     <select id="searchBoardsPaging" resultType="BoardDTO">
 <![CDATA[
         SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_PUBLIC, BOARD_CREATED_DATE,
-        BOARD_UPDATED_DATE, BOARD_VIEW_COUNT, BOARD_LIKE_COUNT, BOARD_YEAR, USER_ID, NICKNAME,
-        PROFILE_PIC, PROVIDER, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID
+               BOARD_UPDATED_DATE, BOARD_VIEW_COUNT, BOARD_LIKE_COUNT, BOARD_YEAR, USER_ID, NICKNAME,
+               PROFILE_PIC, PROVIDER, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID
         FROM(
-        SELECT RNUM, BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_PUBLIC, BOARD_CREATED_DATE,
-        BOARD_UPDATED_DATE, BOARD_VIEW_COUNT, BOARD_LIKE_COUNT, BOARD_YEAR, USER_ID, NICKNAME,
-        PROFILE_PIC, PROVIDER, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID
-        FROM(
-        SELECT ROWNUM AS RNUM, BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_PUBLIC, BOARD_CREATED_DATE,
-        BOARD_UPDATED_DATE, BOARD_VIEW_COUNT, BOARD_LIKE_COUNT, BOARD_YEAR, USER_ID, NICKNAME,
-        PROFILE_PIC, PROVIDER, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID
-        FROM(
-        SELECT
-        b.BOARD_ID,
-        b.BOARD_TITLE,
-        b.BOARD_CONTENT,
-        b.BOARD_PUBLIC,
-        b.BOARD_CREATED_DATE,
-        b.BOARD_UPDATED_DATE,
-        b.BOARD_VIEW_COUNT,
-        b.BOARD_LIFE_CYCLE,
-        b.BOARD_LIKE_COUNT,
-        b.BOARD_YEAR,
-        b.USER_ID,
-        COALESCE(u2.USER_NICKNAME, k.NAME) AS NICKNAME, -- 사용자 닉네임 (우선순위: GGHJ_USER -> GGHJ_KAKAO)
-        k.PROFILE_PIC,
-        k.PROVIDER,
-        f.USER_FILE_PROFILE_NAME,
-        f.USER_FILE_PROFILE_SOURCE,
-        f.USER_FILE_PROFILE_UUID
-        FROM
-        GGHJ_BOARD b
-        JOIN GGHJ_UNI u ON b.USER_ID = u.UNI_ID
-        LEFT JOIN GGHJ_USER u2 ON u.USER_ID = u2.USER_ID
-        LEFT JOIN GGHJ_KAKAO k ON u.KAKAO_ID = k.KAKAO_ID
-        LEFT JOIN GGHJ_USER_FILE f ON u2.USER_ID = f.USER_ID
-        WHERE
-        (b.BOARD_TITLE LIKE '%' || #{keyword} || '%'
-        OR b.BOARD_CONTENT LIKE '%' || #{keyword} || '%'
-        OR NICKNAME LIKE '%' || #{keyword} || '%')
-        )
-        WHERE ROWNUM <= #{criteria.page} * #{criteria.amount}
-        )
-        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
-        )
+                SELECT RNUM, BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_PUBLIC, BOARD_CREATED_DATE,
+                       BOARD_UPDATED_DATE, BOARD_VIEW_COUNT, BOARD_LIKE_COUNT, BOARD_YEAR, USER_ID, NICKNAME,
+                       PROFILE_PIC, PROVIDER, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID
+                FROM(
+                        SELECT ROWNUM AS RNUM, BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_PUBLIC, BOARD_CREATED_DATE,
+                               BOARD_UPDATED_DATE, BOARD_VIEW_COUNT, BOARD_LIKE_COUNT, BOARD_YEAR, USER_ID, NICKNAME,
+                               PROFILE_PIC, PROVIDER, USER_FILE_PROFILE_NAME, USER_FILE_PROFILE_SOURCE, USER_FILE_PROFILE_UUID
+                        FROM(
+                                SELECT
+                                    b.BOARD_ID,
+                                    b.BOARD_TITLE,
+                                    b.BOARD_CONTENT,
+                                    b.BOARD_PUBLIC,
+                                    b.BOARD_CREATED_DATE,
+                                    b.BOARD_UPDATED_DATE,
+                                    b.BOARD_VIEW_COUNT,
+                                    b.BOARD_LIFE_CYCLE,
+                                    b.BOARD_LIKE_COUNT,
+                                    b.BOARD_YEAR,
+                                    b.USER_ID,
+                                    COALESCE(u2.USER_NICKNAME, k.NAME) AS NICKNAME, -- 사용자 닉네임 (우선순위: GGHJ_USER -> GGHJ_KAKAO)
+                                    k.PROFILE_PIC,
+                                    k.PROVIDER,
+                                    f.USER_FILE_PROFILE_NAME,
+                                    f.USER_FILE_PROFILE_SOURCE,
+                                    f.USER_FILE_PROFILE_UUID
+                                FROM
+                                    GGHJ_BOARD b
+                                        JOIN GGHJ_UNI u ON b.USER_ID = u.UNI_ID
+                                        LEFT JOIN GGHJ_USER u2 ON u.USER_ID = u2.USER_ID
+                                        LEFT JOIN GGHJ_KAKAO k ON u.KAKAO_ID = k.KAKAO_ID
+                                        LEFT JOIN GGHJ_USER_FILE f ON u2.USER_ID = f.USER_ID
+                                WHERE
+                                    (b.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+                                        OR b.BOARD_CONTENT LIKE '%' || #{keyword} || '%'
+                                        OR NICKNAME LIKE '%' || #{keyword} || '%')
+                            )
+                        WHERE ROWNUM <= #{criteria.page} * #{criteria.amount}
+                    )
+                WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+            )
         ]]>
     </select>
 
@@ -456,51 +456,6 @@
                  LEFT JOIN gghj_user_file uf ON gu.uni_id = uf.user_id
         WHERE  rb.board_rank = 1
         ORDER BY rb.board_rank
-<<<<<<< HEAD
-</select>
-
-    <!--    메인 오른쪽 배너 2개-->
-    <!-- mainRightBannerSelect.xml (SQL 매퍼 파일) -->
-    <select id="mainRightBannerSelect" resultType="BoardMainDTO">
-        SELECT
-            b.board_id,
-            b.board_title,
-            b.board_content,
-            b.board_created_date,
-            b.board_view_count,
-            b.board_like_count,
-            b.user_id,
-            bf.board_file_name,
-            bf.board_file_source_name,
-            bf.board_file_uuid,
-            COALESCE(gu.nickname, u.user_nickname, k.name) AS user_nickname,
-            uf.user_file_profile_name,
-            uf.user_file_profile_source,
-            uf.user_file_profile_uuid,
-            COALESCE(k.profile_pic, uf.user_file_profile_source) AS user_profile_pic,
-            rb.board_rank
-        FROM (
-                 SELECT
-                     b1.board_id,
-                     ROW_NUMBER() OVER (ORDER BY board_like_count DESC) AS board_rank
-                 FROM
-                     gghj_board b1
-                         JOIN GGHJ_BOARD_FILE f ON b1.board_id = f.board_id
-                 WHERE f.board_file_name IS NOT NULL OR
-                     f.board_file_source_name IS NOT NULL OR
-                     f.board_file_uuid IS NOT NULL
-             ) rb
-                 JOIN gghj_board b ON rb.board_id = b.board_id
-                 LEFT JOIN gghj_board_file bf ON b.board_id = bf.board_id
-                 LEFT JOIN gghj_uni gu ON b.user_id = gu.uni_id
-                 LEFT JOIN gghj_user u ON gu.user_id = u.user_id
-                 LEFT JOIN gghj_kakao k ON gu.kakao_id = k.kakao_id
-                 LEFT JOIN gghj_user_file uf ON gu.uni_id = uf.user_id
-        WHERE  rb.board_rank BETWEEN 2 AND 3
-        ORDER BY rb.board_rank
-    </select>
-
-=======
     </select>
 
     <!--    메인 오른쪽 배너 2개-->
@@ -543,7 +498,6 @@
         WHERE  rb.board_rank BETWEEN 2 AND 3
         ORDER BY rb.board_rank
     </select>
->>>>>>> main
 
 
     <!-- 나의 일대기 게시판 데이터 입력하기 -->
@@ -570,23 +524,23 @@
 
 
     <!-- 게시판 작성자의 생일 가져오기  -->
-<!--    <select id="selectUserBirth" resultType="java.time.LocalDateTime">-->
-<!--        SELECT-->
-<!--            CASE-->
-<!--                WHEN u.USER_ID IS NOT NULL THEN u.USER_BIRTH-->
-<!--                WHEN k.KAKAO_ID IS NOT NULL THEN k.KAKAO_BIRTH-->
-<!--                ELSE NULL &#45;&#45; 유저 또는 카카오 회원이 없을 경우-->
-<!--                END AS BIRTHDAY-->
-<!--        FROM-->
-<!--            GGHJ_UNI uni-->
-<!--                LEFT JOIN-->
-<!--            GGHJ_USER u ON uni.USER_ID = u.USER_ID-->
-<!--                LEFT JOIN-->
-<!--            GGHJ_KAKAO k ON uni.KAKAO_ID = k.KAKAO_ID-->
-<!--        WHERE-->
-<!--            uni.UNI_ID = #{uniId}-->
+    <!--    <select id="selectUserBirth" resultType="java.time.LocalDateTime">-->
+    <!--        SELECT-->
+    <!--            CASE-->
+    <!--                WHEN u.USER_ID IS NOT NULL THEN u.USER_BIRTH-->
+    <!--                WHEN k.KAKAO_ID IS NOT NULL THEN k.KAKAO_BIRTH-->
+    <!--                ELSE NULL &#45;&#45; 유저 또는 카카오 회원이 없을 경우-->
+    <!--                END AS BIRTHDAY-->
+    <!--        FROM-->
+    <!--            GGHJ_UNI uni-->
+    <!--                LEFT JOIN-->
+    <!--            GGHJ_USER u ON uni.USER_ID = u.USER_ID-->
+    <!--                LEFT JOIN-->
+    <!--            GGHJ_KAKAO k ON uni.KAKAO_ID = k.KAKAO_ID-->
+    <!--        WHERE-->
+    <!--            uni.UNI_ID = #{uniId}-->
 
-<!--    </select>-->
+    <!--    </select>-->
 
     <!-- 나의 일대기 게시글 수정 -->
     <update id="updateBoard" parameterType="BoardVO">
@@ -689,38 +643,38 @@
         WHERE BOARD_LIFE_CYCLE = #{boardLifeCycle}
     </select>
 
-<!--    &lt;!&ndash;    조회수 게시판 정렬 &ndash;&gt;-->
-<!--    <select id="postarrayviews" resultType="BoardDTO">-->
-<!--        SELECT-->
-<!--            *-->
-<!--        FROM-->
-<!--            GGHJ_BOARD b JOIN GGHJ_USER u-->
-<!--                              ON u.user_id = b.USER_ID-->
-<!--        ORDER BY-->
-<!--            b.BOARD_VIEW_COUNT DESC-->
-<!--    </select>-->
+    <!--    &lt;!&ndash;    조회수 게시판 정렬 &ndash;&gt;-->
+    <!--    <select id="postarrayviews" resultType="BoardDTO">-->
+    <!--        SELECT-->
+    <!--            *-->
+    <!--        FROM-->
+    <!--            GGHJ_BOARD b JOIN GGHJ_USER u-->
+    <!--                              ON u.user_id = b.USER_ID-->
+    <!--        ORDER BY-->
+    <!--            b.BOARD_VIEW_COUNT DESC-->
+    <!--    </select>-->
 
-<!--    &lt;!&ndash;     최신 게시판 정렬 &ndash;&gt;-->
-<!--    <select id="postarrayLatest" resultType="BoardDTO">-->
-<!--        SELECT-->
-<!--            *-->
-<!--        FROM-->
-<!--            GGHJ_BOARD b JOIN GGHJ_USER u-->
-<!--                              ON u.user_id = b.USER_ID-->
-<!--        ORDER BY-->
-<!--            b.BOARD_CREATED_DATE DESC-->
-<!--    </select>-->
+    <!--    &lt;!&ndash;     최신 게시판 정렬 &ndash;&gt;-->
+    <!--    <select id="postarrayLatest" resultType="BoardDTO">-->
+    <!--        SELECT-->
+    <!--            *-->
+    <!--        FROM-->
+    <!--            GGHJ_BOARD b JOIN GGHJ_USER u-->
+    <!--                              ON u.user_id = b.USER_ID-->
+    <!--        ORDER BY-->
+    <!--            b.BOARD_CREATED_DATE DESC-->
+    <!--    </select>-->
 
-<!--    &lt;!&ndash;     인기 게시판 정렬 &ndash;&gt;-->
-<!--    <select id="postarrayPopularity" resultType="BoardDTO">-->
-<!--        SELECT-->
-<!--            *-->
-<!--        FROM-->
-<!--            GGHJ_BOARD b JOIN GGHJ_USER u-->
-<!--                              ON u.user_id = b.USER_ID-->
-<!--        ORDER BY-->
-<!--            b.BOARD_LIKE_COUNT DESC-->
-<!--    </select>-->
+    <!--    &lt;!&ndash;     인기 게시판 정렬 &ndash;&gt;-->
+    <!--    <select id="postarrayPopularity" resultType="BoardDTO">-->
+    <!--        SELECT-->
+    <!--            *-->
+    <!--        FROM-->
+    <!--            GGHJ_BOARD b JOIN GGHJ_USER u-->
+    <!--                              ON u.user_id = b.USER_ID-->
+    <!--        ORDER BY-->
+    <!--            b.BOARD_LIKE_COUNT DESC-->
+    <!--    </select>-->
 
     <!-- 모두의 일대기 -> 상세페이지 이동 -->
     <select id="everyLifeDetail" resultType="BoardVO">
@@ -760,7 +714,7 @@
     </select>
 
 
-<!-- 프사 가져오는 매퍼 - 윤 . 담 -->
+    <!-- 프사 가져오는 매퍼 - 윤 . 담 -->
     <select id="getProfile" resultType="BoardDTO">
         SELECT BOARD_TITLE, BOARD_CREATED_DATE, BOARD_VIEW_COUNT, BOARD_CONTENT,
                COALESCE(U.USER_NICKNAME, K.NAME) AS NICKNAME,
@@ -778,12 +732,12 @@
         ORDER BY B.BOARD_CREATED_DATE DESC
     </select>
 
-<!-- 보드 아이디로 보드 파일 가져오기 -->
+    <!-- 보드 아이디로 보드 파일 가져오기 -->
     <select id="selectBoardFileByBoardId" resultType="BoardFileVO">
         SELECT * FROM GGHJ_BOARD_FILE WHERE BOARD_ID = #{boardId}
     </select>
 
-<!--    나의 일대기, 너의 일대기 일대기별 페이지 네이션-->
+    <!--    나의 일대기, 너의 일대기 일대기별 페이지 네이션-->
     <select id="selectUserLifeCyclePaging" resultType="BoardDTO">
 <![CDATA[
         SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_PUBLIC, BOARD_CREATED_DATE,
@@ -838,7 +792,7 @@
         SELECT COUNT(*) AS TOTAL_COUNT
         FROM GGHJ_BOARD
         WHERE BOARD_LIFE_CYCLE = #{boardLifeCycle}
-        AND USER_ID = #{userId}
+          AND USER_ID = #{userId}
     </select>
 
 </mapper>
