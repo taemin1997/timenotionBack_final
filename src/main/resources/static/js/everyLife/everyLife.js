@@ -207,6 +207,14 @@ function filterByLifeCycle(boardLifeCycle) {
     window.location.href = `/everyLife/${boardLifeCycle}`;
 }
 
+
+document.getElementById("keyword").addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        document.getElementById("searchButton").click();
+    }
+});
+
+
 function searchEveryLife(){
 
     let keyword = document.querySelector('#keyword').value;

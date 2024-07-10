@@ -6,9 +6,11 @@ import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
 import com.example.geungeunhanjan.domain.dto.lifePage.Page;
 import com.example.geungeunhanjan.domain.dto.user.UserDTO;
 import com.example.geungeunhanjan.domain.vo.board.BoardVO;
+import com.example.geungeunhanjan.domain.vo.board.KeywordVO;
 import com.example.geungeunhanjan.domain.vo.user.UserVO;
 import com.example.geungeunhanjan.mapper.board.BoardMapper;
 import com.example.geungeunhanjan.service.board.BoardService;
+import com.example.geungeunhanjan.service.board.KeywordService;
 import com.example.geungeunhanjan.service.user.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -35,6 +37,7 @@ public class EveryLifeController {
     private final BoardVO boardVO;
     private final BoardMapper boardMapper;
     private final InquiryCriteria inquiryCriteria;
+    private final KeywordService keywordService;
 
     @GetMapping()
     public String everyLife(Model model, HttpSession session, Criteria criteria,
@@ -113,7 +116,7 @@ public class EveryLifeController {
 
     @GetMapping("search/{keyword}")
     public String everyLifeSearch(Model model , HttpSession session, Criteria criteria,
-                                  @PathVariable String keyword){
+                                  @PathVariable String keyword, KeywordVO keywordVO){
 
         criteria.setAmount(12);
         List<BoardDTO> boardLists = boardService.searchBoardsPaging(keyword, criteria);
@@ -123,6 +126,9 @@ public class EveryLifeController {
         int total = boardService.countSearchEvery(keyword);
         Page page = new Page(criteria, total);
         model.addAttribute("page", page);
+
+        keywordService.keywordIncreament(keywordVO, keyword);
+
 
         System.out.println("검색했을때 보드리스트 : "+ boardLists);
 

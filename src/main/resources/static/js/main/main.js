@@ -56,7 +56,7 @@ function moveFirst(){
   for (let i = 0; i < keywords.length; i++) {
     keywords[i].addEventListener('click', () => {
       let keyword = keywords[i].innerText;
-      location.href = '/everyLife?keyword=' + encodeURIComponent(keyword);
+      location.href = `/everyLife/search/${keyword}`;
     });
   }
 
@@ -66,7 +66,7 @@ function moveFirst(){
   for (let i = 0; i < keywords2.length; i++) {
     keywords2[i].addEventListener('click', () => {
       let keyword = keywords2[i].innerText;
-      location.href = '/everyLife?keyword=' + encodeURIComponent(keyword);
+      location.href = `/everyLife/search/${keyword}`;
     });
   }
 
