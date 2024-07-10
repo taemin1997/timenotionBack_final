@@ -188,6 +188,7 @@ public class MyPageController {
         BoardVO boards = boardService.selectById(boardId);
         boardService.boardIntViewCnt(boardId);
         String userNickname = boardService.boardUserName(boardId);
+
         // 유저 정보 모두
         LifeUserInfoDTO userInfo = myPageService.selectAllInfo(uniId);
         model.addAttribute("userInfo", userInfo);
@@ -231,6 +232,7 @@ public class MyPageController {
         // 좋아요 상태에 따라 처리
         if (getLikeStatusBoolean == 1) {
             myPageService.insertLike(likeVO);
+            boardService.boardViewLike(getBoardId);
         } else {
             myPageService.deleteLike(likeHeartDTO);
         }
