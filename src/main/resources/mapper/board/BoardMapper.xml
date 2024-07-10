@@ -387,11 +387,11 @@
                               b.board_view_count
                           FROM
                               gghj_board b
-                                  FULL OUTER JOIN gghj_board_file bf ON b.board_id = bf.board_id
-                                  FULL OUTER JOIN gghj_uni gu ON b.user_id = gu.user_id
-                                  FULL OUTER JOIN gghj_user u ON gu.user_id = u.user_id
+                                  LEFT JOIN gghj_board_file bf ON b.board_id = bf.board_id
+                                  LEFT JOIN gghj_uni gu ON b.user_id = gu.user_id
+                                  LEFT JOIN gghj_user u ON gu.user_id = u.user_id
                                   LEFT JOIN gghj_kakao k ON gu.kakao_id = k.kakao_id
-                                  FULL OUTER JOIN GGHJ_USER_FILE uf ON gu.uni_id = uf.USER_ID
+                                  LEFT JOIN GGHJ_USER_FILE uf ON gu.uni_id = uf.USER_ID
                       ) ranked_boards
                  WHERE board_id IN (
                      SELECT board_id
