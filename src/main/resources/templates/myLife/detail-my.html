@@ -95,6 +95,7 @@
                     </a>
                 </div>
                 <div class="box-profile-nickname"><a th:href="@{/yourLife/userpage/{userId}(userId=${boards.userId})}" id="get-user-like-id" th:text="${userNickname}">닉네임</a></div>
+
                 <p id="user-lifecycle-check" style="display: none" th:text="${boards.boardLifeCycle}"></p>
 
                 <div><img th:src="@{/img/myLife/sas detail_heart.png}" alt="하트" class="box-profile-heart"
