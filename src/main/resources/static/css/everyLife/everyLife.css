@@ -69,7 +69,7 @@ li, ul, ol{
 }
 .everyLife-select-bar input[type="text"]{
     background-color: transparent;
-    width: 100%;
+    width: 96%;
     height: 30px;
     padding-left: 15px;
     border-radius: 6px;
@@ -204,4 +204,6 @@ li, ul, ol{
     display: block;
 }
 
-
+.active{
+    font-weight: bold;
+}

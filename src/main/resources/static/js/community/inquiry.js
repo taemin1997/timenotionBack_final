@@ -86,7 +86,7 @@ $(document).ready(function() {
         // 가져온 데이터를 모달에 표시합니다.
         $('.inquiry-modal-answer-title').text(data.inquiryTitle);
         $('.inquiry-modal-answer-content').text(data.inquiryContent);
-        $('.inquiry-modal-answer-realAnswer').text("답변: " + data.inquiryResponse);
+        $('.inquiry-modal-answer-realAnswer').text("답변: " + (data.inquiryResponse ? data.inquiryResponse : ""));
         $('#inquiry-modal-answer').attr('data-inquiryid', inquiryId);
         $('#inquiry-modal-answer').attr('data-userid', userId);
         $('#inquiry-modal-answer').show();
