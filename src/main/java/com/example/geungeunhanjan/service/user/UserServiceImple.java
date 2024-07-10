@@ -143,6 +143,11 @@ public class UserServiceImple implements UserService{
     }
 
     @Override
+    public String phoneDuplicateCheck(String userPhone) {
+        return userMapper.phoneDuplicateCheck(userPhone);
+    }
+
+    @Override
     public String findKakaoBirth(Long uniId) {
         return userMapper.findKakaoBirth(uniId);
     }

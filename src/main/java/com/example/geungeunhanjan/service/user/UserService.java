@@ -59,6 +59,8 @@ public interface UserService {
 
     String nicknameDuplicateCheck(String userNickname);
 
+    String phoneDuplicateCheck(String userPhone);
+
     String findKakaoBirth(Long uniId);
 
     void insertOrUpdateCerti(String userEmail, String phoneNum, String certiNumber);
