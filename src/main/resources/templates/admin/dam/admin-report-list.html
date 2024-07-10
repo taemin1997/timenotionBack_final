@@ -113,17 +113,17 @@
       <!-- 페이징 ================================ -->
       <div class="page-container">
         <ul class="page-box">
-          <a th:href="@{/admin/memberList(page=${page.startPage - 1})}" class="page-a" th:if="${page.prev}">
+          <a th:href="@{/admin/reportList(page=${page.startPage - 1})}" class="page-a" th:if="${page.prev}">
             <li class="page-num prev"> < </li>
           </a>
 
           <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
-            <a th:href="@{/admin/memberList(page=${i})}" class="page-a">
+            <a th:href="@{/admin/reportList(page=${i})}" class="page-a">
               <li class="page-num" th:classappend="${i == page.criteria.page ? 'active' : ''}" th:text="${i}"></li>
             </a>
           </th:block>
 
-          <a th:href="@{/admin/memberList(page=${page.endPage + 1})}" class="page-a" th:if="${page.next}">
+          <a th:href="@{/admin/reportList(page=${page.endPage + 1})}" class="page-a" th:if="${page.next}">
             <li class="page-num next"> > </li>
           </a>
         </ul>
