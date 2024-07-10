@@ -40,6 +40,14 @@ public class CommunityController {
     @GetMapping("/inquiry")
     public String community (InquiryCriteria inquiryCriteria, Model model, HttpSession session){
 
+        // 로그인 여부 확인
+
+        Long uniId = (Long) session.getAttribute("uniId");
+        if (uniId == null) {
+
+            return "redirect:/user/login";
+        }
+
         List<InquiryPagingDTO> inquiries = inquiryService.selectAllInquiryPage(inquiryCriteria);
         Long loginUserId = (Long) session.getAttribute("uniId");
 
@@ -87,8 +95,15 @@ public class CommunityController {
 
     //공지버튼 클릭시
     @GetMapping("/notification")
-    public String notification (Model model, NoticeCriteria noticeCriteria, HttpServletRequest request){
+    public String notification (Model model, NoticeCriteria noticeCriteria, HttpServletRequest request, HttpSession session){
 
+        // 로그인 여부 확인
+
+        Long uniId = (Long) session.getAttribute("uniId");
+        if (uniId == null) {
+
+            return "redirect:/user/login";
+        }
         //로그인 한 유저의 userId 를 같이 보냄
         //userId = 1인 회원만 작성 삭제 가능
         Long loggedInUserId = (Long) request.getSession().getAttribute("uniId");

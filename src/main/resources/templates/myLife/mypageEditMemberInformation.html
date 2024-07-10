@@ -87,7 +87,7 @@
                   <p id="edit-birth-paragraph">생년월일</p>
                   <div>
                       <input class="edit-birth-year" type="text" name="year" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="4"
-                             th:value="${lifeUserUpdateDTO.userBirth?.year}">년
+                             th:value="${lifeUserUpdateDTO.userBirth?.year}" required>년
                       <select name="month" class="edit-birth-month">
                           <option value="1" th:selected="${lifeUserUpdateDTO.userBirth?.monthValue == 1}">1</option>
                           <option value="2" th:selected="${lifeUserUpdateDTO.userBirth?.monthValue == 2}">2</option>

@@ -13,6 +13,10 @@ main {
   align-items: center;
 }
 
+li, ul, ol{
+  list-style: none;
+}
+
 a {
   text-decoration: none;
 }
@@ -567,21 +571,26 @@ hr {
   padding-bottom: 50px;
 
 }
+.everyLife-paging{
 
-.pagination {
+  margin: 60px auto 30px auto;
   display: flex;
-  /* background-color: black; */
-  width: 200px;
-  margin: 0 auto;
-
+  width: 160px;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+.everyLife-paging a{
+  color: black;
+  padding: 0px 12px;
+}
+.paging-backward{
+  display: none;
+}
+.paging-forward{
+  display: block;
 }
 
-.pagination>li {
-  padding-right: 14px;
-  font-size: 20px;
-
-
-}
 
 footer {
   background-color: rgb(221, 222, 224);

@@ -27,7 +27,16 @@ public class ChatController {
 
     @GetMapping("/chatting")
     public String chatting(Model model, HttpSession session) {
+
+        // 로그인 여부 확인
+
         Long uniId = (Long) session.getAttribute("uniId");
+        if (uniId == null) {
+
+            return "redirect:/user/login";
+        }
+
+//        Long uniId = (Long) session.getAttribute("uniId");
         List<ChatRoomDTO> chatRooms = chatService.getChatRoomsByUserId(uniId);
         model.addAttribute("chatRooms", chatRooms);
         return "/chat/chatList";

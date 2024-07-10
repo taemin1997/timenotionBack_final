@@ -398,7 +398,7 @@
                      FROM (
                               SELECT
                                   board_id,
-                                  RANK() OVER (ORDER BY board_view_count DESC) AS board_rank
+                                  RANK() OVER (ORDER BY board_view_count DESC, board_created_date desc) AS board_rank
                               FROM
                                   gghj_board
                           ) ranked_boards
