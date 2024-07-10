@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.geungeunhanjan.mapper.admin.admin_inquiryMapper">
-    <select id="selectAdminInquiryPage" parameterType="InquiryCriteria" resultType="InquiryPagingDTO">
+    <select id="selectAdminInquiryPage" resultType="InquiryPagingDTO">
     <![CDATA[
         SELECT INQUIRY_ID, INQUIRY_TITLE, NICKNAME, INQUIRY_CREATED_DATE, user_id, INQUIRY_PUblIC, inquiry_response
         FROM (
@@ -61,5 +61,17 @@
         FROM GGHJ_INQUIRY
         WHERE INQUIRY_ID = #{inquiryId}
     </delete>
+
+    <select id="countInquiryKeyword" resultType="int" parameterType="String">
+        SELECT count(*)
+        FROM GGHJ_INQUIRY I
+                 LEFT JOIN GGHJ_UNI UNI ON I.USER_ID = UNI.UNI_ID
+                 LEFT JOIN GGHJ_USER U ON UNI.USER_ID = U.USER_ID
+                 LEFT JOIN GGHJ_KAKAO K ON UNI.KAKAO_ID = K.KAKAO_ID
+        WHERE U.USER_NICKNAME LIKE '%' || #{keyword} || '%'
+           OR I.INQUIRY_TITLE LIKE '%' || #{keyword} || '%'
+        ORDER BY I.INQUIRY_ID DESC
+    </select>
+
 
 </mapper>

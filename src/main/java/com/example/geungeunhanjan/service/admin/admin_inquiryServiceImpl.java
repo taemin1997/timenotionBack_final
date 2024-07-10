@@ -46,4 +46,9 @@ public class admin_inquiryServiceImpl implements admin_inquiryService{
     public void removeInquiry(Long inquiryId) {
         adminInquiryMapper.deleteInquiry(inquiryId);
     }
+
+    @Override
+    public int countInquiryKeyword(String keyword) {
+        return adminInquiryMapper.countInquiryKeyword(keyword);
+    }
 }

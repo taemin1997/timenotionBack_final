@@ -21,4 +21,6 @@ public interface admin_inquiryMapper {
     void writeAdminResponse(String inquiryResponse, Long inquiryId);
 
     void deleteInquiry(Long inquiryId);
+
+    int countInquiryKeyword(String keyword);
 }
