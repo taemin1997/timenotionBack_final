@@ -22,19 +22,22 @@
 
     <!-- 특정 채팅방의 메시지 목록 조회 -->
     <select id="getMessagesByRoomId" parameterType="long" resultType="ChatMessageDTO">
-        SELECT
-            cm.MESSAGE_ID,
-            cm.ROOM_ID,
-            cm.SENDER_ID,
-            cm.RECEIVER_ID,
-            cm.MESSAGE_CONTENT,
-            cm.SENT_AT,
-            COALESCE(u_receiver.NICKNAME, k_receiver.NAME) AS receiver_nickname,
-            COALESCE(uf_receiver.USER_FILE_PROFILE_SOURCE, 'default_receiver_profile_source.jpg') AS receiver_profile_source,
-            COALESCE(uf_receiver.USER_FILE_PROFILE_NAME, 'default_receiver_profile_name.jpg') AS receiver_profile_name,
-            COALESCE(u_sender.NICKNAME, k_sender.NAME) AS sender_nickname,
-            COALESCE(uf_sender.USER_FILE_PROFILE_SOURCE, 'default_sender_profile_source.jpg') AS sender_profile_source,
-            COALESCE(uf_sender.USER_FILE_PROFILE_NAME, 'default_sender_profile_name.jpg') AS sender_profile_name
+        SELECT cm.MESSAGE_ID,
+               cm.ROOM_ID,
+               cm.SENDER_ID,
+               cm.RECEIVER_ID,
+               cm.MESSAGE_CONTENT,
+               cm.SENT_AT,
+               COALESCE(u_receiver.NICKNAME, k_receiver.NAME)  AS receiver_nickname,
+               COALESCE(uf_receiver.USER_FILE_PROFILE_SOURCE,
+                        'default_receiver_profile_source.jpg') AS receiver_profile_source,
+               COALESCE(uf_receiver.USER_FILE_PROFILE_NAME,
+                        'default_receiver_profile_name.jpg')   AS receiver_profile_name,
+               COALESCE(u_sender.NICKNAME, k_sender.NAME)      AS sender_nickname,
+               COALESCE(uf_sender.USER_FILE_PROFILE_SOURCE,
+                        'default_sender_profile_source.jpg')   AS sender_profile_source,
+               COALESCE(uf_sender.USER_FILE_PROFILE_NAME,
+                        'default_sender_profile_name.jpg')     AS sender_profile_name
         FROM GGHJ_CHAT_MESSAGE cm
                  LEFT JOIN GGHJ_UNI u_receiver ON cm.RECEIVER_ID = u_receiver.UNI_ID
                  LEFT JOIN GGHJ_KAKAO k_receiver ON u_receiver.KAKAO_ID = k_receiver.KAKAO_ID
@@ -49,29 +52,29 @@
     <!-- 특정 유저와 관련된 채팅방 목록 조회 -->
     <select id="getChatRoomsByUserId" parameterType="long" resultType="ChatRoomDTO">
         <![CDATA[
-            SELECT
-                cm.ROOM_ID,
-                cm.SENDER_ID,
-                cm.RECEIVER_ID,
-                COALESCE(u_sender.NICKNAME, k_sender.NAME) AS sender_nickname,
-                COALESCE(uf_sender.USER_FILE_PROFILE_SOURCE, 'default_sender_profile_source.jpg') AS sender_profile_source,
-                COALESCE(uf_sender.USER_FILE_PROFILE_NAME, 'default_sender_profile_name.jpg') AS sender_profile_name,
-                COALESCE(u_receiver.NICKNAME, k_receiver.NAME) AS receiver_nickname,
-                COALESCE(uf_receiver.USER_FILE_PROFILE_SOURCE, 'default_receiver_profile_source.jpg') AS receiver_profile_source,
-                COALESCE(uf_receiver.USER_FILE_PROFILE_NAME, 'default_receiver_profile_name.jpg') AS receiver_profile_name
-            FROM
-                GGHJ_CHATROOM cm
-                    LEFT JOIN GGHJ_UNI u_sender ON cm.SENDER_ID = u_sender.UNI_ID
-                    LEFT JOIN GGHJ_KAKAO k_sender ON u_sender.KAKAO_ID = k_sender.KAKAO_ID
-                    LEFT JOIN GGHJ_USER_FILE uf_sender ON u_sender.UNI_ID = uf_sender.USER_ID
-                    LEFT JOIN GGHJ_UNI u_receiver ON cm.RECEIVER_ID = u_receiver.UNI_ID
-                    LEFT JOIN GGHJ_KAKAO k_receiver ON u_receiver.KAKAO_ID = k_receiver.KAKAO_ID
-                    LEFT JOIN GGHJ_USER_FILE uf_receiver ON u_receiver.UNI_ID = uf_receiver.USER_ID
-            WHERE
-                (cm.SENDER_ID = #{uniId} AND cm.RECEIVER_ID <> #{uniId})
-               OR (cm.RECEIVER_ID = #{uniId} AND cm.SENDER_ID <> #{uniId})
-            ORDER BY
-                cm.RECEIVER_ID ASC
+        SELECT cm.ROOM_ID,
+               cm.SENDER_ID,
+               cm.RECEIVER_ID,
+               COALESCE(u_sender.NICKNAME, k_sender.NAME)      AS sender_nickname,
+               COALESCE(uf_sender.USER_FILE_PROFILE_SOURCE,
+                        'default_sender_profile_source.jpg')   AS sender_profile_source,
+               COALESCE(uf_sender.USER_FILE_PROFILE_NAME,
+                        'default_sender_profile_name.jpg')     AS sender_profile_name,
+               COALESCE(u_receiver.NICKNAME, k_receiver.NAME)  AS receiver_nickname,
+               COALESCE(uf_receiver.USER_FILE_PROFILE_SOURCE,
+                        'default_receiver_profile_source.jpg') AS receiver_profile_source,
+               COALESCE(uf_receiver.USER_FILE_PROFILE_NAME,
+                        'default_receiver_profile_name.jpg')   AS receiver_profile_name
+        FROM GGHJ_CHATROOM cm
+                 LEFT JOIN GGHJ_UNI u_sender ON cm.SENDER_ID = u_sender.UNI_ID
+                 LEFT JOIN GGHJ_KAKAO k_sender ON u_sender.KAKAO_ID = k_sender.KAKAO_ID
+                 LEFT JOIN GGHJ_USER_FILE uf_sender ON u_sender.UNI_ID = uf_sender.USER_ID
+                 LEFT JOIN GGHJ_UNI u_receiver ON cm.RECEIVER_ID = u_receiver.UNI_ID
+                 LEFT JOIN GGHJ_KAKAO k_receiver ON u_receiver.KAKAO_ID = k_receiver.KAKAO_ID
+                 LEFT JOIN GGHJ_USER_FILE uf_receiver ON u_receiver.UNI_ID = uf_receiver.USER_ID
+        WHERE (cm.SENDER_ID = #{uniId} AND cm.RECEIVER_ID <> #{uniId})
+           OR (cm.RECEIVER_ID = #{uniId} AND cm.SENDER_ID <> #{uniId})
+        ORDER BY cm.RECEIVER_ID ASC
         ]]>
     </select>
 
@@ -87,13 +90,11 @@
     <select id="getExistingChatRoomId" resultType="long">
         <![CDATA[
         SELECT ROOM_ID
-        FROM (
-                 SELECT ROOM_ID
-                 FROM GGHJ_CHATROOM
-                 WHERE (SENDER_ID = #{senderId} AND RECEIVER_ID = #{receiverId})
-                    OR (SENDER_ID = #{receiverId} AND RECEIVER_ID = #{senderId})
-                 ORDER BY ROOM_ID
-             )
+        FROM (SELECT ROOM_ID
+              FROM GGHJ_CHATROOM
+              WHERE (SENDER_ID = #{senderId} AND RECEIVER_ID = #{receiverId})
+                 OR (SENDER_ID = #{receiverId} AND RECEIVER_ID = #{senderId})
+              ORDER BY ROOM_ID)
         WHERE ROWNUM <= 1
         ]]>
     </select>
@@ -103,5 +104,47 @@
         FROM GGHJ_CHATROOM
         WHERE ROOM_ID = #{roomId}
     </select>
+
+    <select id="getChatIInfoByRoomId" parameterType="Long">
+        SELECT cm.ROOM_ID,
+               cm.SENDER_ID,
+               cm.RECEIVER_ID,
+               COALESCE(u_sender.NICKNAME, k_sender.NAME)      AS sender_nickname,
+               COALESCE(uf_sender.USER_FILE_PROFILE_SOURCE,
+                        'default_sender_profile_source.jpg')   AS sender_profile_source,
+               COALESCE(uf_sender.USER_FILE_PROFILE_NAME,
+                        'default_sender_profile_name.jpg')     AS sender_profile_name,
+               COALESCE(uf_sender.USER_FILE_PROFILE_UUID,
+                        'default_sender_profile_uuid.jpg')     AS sender_profile_uuid,
+               COALESCE(u_receiver.NICKNAME, k_receiver.NAME)  AS receiver_nickname,
+               COALESCE(uf_receiver.USER_FILE_PROFILE_SOURCE,
+                        'default_receiver_profile_source.jpg') AS receiver_profile_source,
+               COALESCE(uf_receiver.USER_FILE_PROFILE_NAME,
+                        'default_receiver_profile_name.jpg')   AS receiver_profile_name,
+               COALESCE(uf_receiver.USER_FILE_PROFILE_UUID,
+                        'default_receiver_profile_uuid.jpg')   AS receiver_profile_uuid
+        FROM GGHJ_CHATROOM cm
+                 LEFT JOIN GGHJ_UNI u_sender ON cm.SENDER_ID = u_sender.UNI_ID
+                 LEFT JOIN GGHJ_KAKAO k_sender ON u_sender.KAKAO_ID = k_sender.KAKAO_ID
+                 LEFT JOIN GGHJ_USER_FILE uf_sender ON u_sender.UNI_ID = uf_sender.USER_ID
+                 LEFT JOIN GGHJ_UNI u_receiver ON cm.RECEIVER_ID = u_receiver.UNI_ID
+                 LEFT JOIN GGHJ_KAKAO k_receiver ON u_receiver.KAKAO_ID = k_receiver.KAKAO_ID
+                 LEFT JOIN GGHJ_USER_FILE uf_receiver ON u_receiver.UNI_ID = uf_receiver.USER_ID
+        WHERE CM.ROOM_ID = #{roomId}
+        ORDER BY cm.RECEIVER_ID ASC
+    </select>
+    
+<select id="getMessageMostRecent" parameterType="Long" resultType="ChatRoomVO">
+    <![CDATA[
+    SELECT *
+    FROM (
+    SELECT *
+    FROM GGHJ_CHAT_MESSAGE gcm
+    WHERE ROOM_ID = #{roomId}
+    ORDER BY gcm.SENT_AT DESC
+    )
+    WHERE ROWNUM <= 1
+    ]]>
+</select>
 
 </mapper>

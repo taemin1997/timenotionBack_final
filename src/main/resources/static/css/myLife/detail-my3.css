@@ -49,7 +49,7 @@ hr {
 
 .bold-underline {
   border-bottom: 1px solid rgb(213, 213, 213);
-  margin-bottom: 15px;
+  margin-bottom: 40px;
 }
 
 /* -------------------------------------------------------------------------------------- */
@@ -93,16 +93,15 @@ hr {
 /*2. 타이틀 ----------------------*/
 
 .wrapper-title {
-  height: 50px;
   display: flex;
   align-items: center;
   margin-bottom: 30px;
-
+  border-radius: 8px;
   background-color: darksalmon;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: bold;
-  padding-left: 30px;
   width: 40%;
+  padding: 14px 18px;
 }
 
 .wrapper-title h3 {
@@ -174,26 +173,26 @@ hr {
   height: 300px;
   resize: none;
   border-radius: 6px;
-  padding-bottom: 16px;
-  padding-left: 20px;
   outline: none;
   border: none;
-  padding: 20px;
   box-sizing: border-box;
   margin-bottom: 15px;
   line-height: 27px;
   font-size: 14px;
+  padding-left: 20px;
 }
 
 .post-images {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  margin-right: 20px;
+  max-width: 550px;
 }
 
 .post-images img {
   max-width: 100%;
-  border-radius: 5px;
+  border-radius: 8px;
   display: inline-block;
 }
 
@@ -202,6 +201,10 @@ hr {
   display: inline;
 }
 
+.wrapper-content{
+  display: flex;
+  margin-bottom: 40px;
+}
 /* 00. 댓글영역 (까먹고 나중에 추가함;;)  ----------------*/
 .box-count-reply {
   padding-top: 30px;
@@ -210,7 +213,7 @@ hr {
   font-weight: bolder;
 }
 .box-reply-write textarea {
-  background-color: rgb(224, 224, 224);
+  background-color: rgb(247 247 247);
   width: 960px;
   height: 98px;
   border-radius: 6px;
@@ -218,30 +221,30 @@ hr {
   padding: 20px;
   resize: none;
   color: rgb(24, 23, 23);
-  border: 1px solid #a4a4a4;
+  border: 1px solid #d6d6d6;
   outline: none;
 }
 .box-btn-reply-btn {
-  padding-top: 6px;
+  padding-top: 15px;
   margin-left: auto;
   text-align: right;
   font-weight: bolder;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
 }
 .btn-reply-btn {
   font-size: 15px;
   border-radius: 6px;
   border: none;
-  width: 90px;
+  width: 100%;
   text-align: center;
   font-weight: 700;
-  height: 40px;
+  height: 46px;
   cursor: pointer;
-  background-color: #3b487f;
-  color: white;
+  background-color: #dfdfdf;
+  color: #6e6565;
 }
 .btn-reply-btn:hover {
-  background-color: #476488;
+  background-color: #cacaca;
 }
 /*5. 댓글영역 ----------------------*/
 

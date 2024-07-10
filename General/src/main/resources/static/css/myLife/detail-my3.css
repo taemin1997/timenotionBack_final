@@ -188,6 +188,7 @@ hr {
   max-width: 100%;
   border-radius: 5px;
   display: inline-block;
+  object-fit: cover;
 }
 
 .post-images a{
@@ -232,6 +233,8 @@ hr {
   cursor: pointer;
   background-color: #3b487f;
   color: white;
+  transition-duration: 0.2s;
+
 }
 .btn-reply-btn:hover {
   background-color: #476488;
@@ -304,9 +307,9 @@ hr {
   border-radius: 15px;
   width: 65px;
   height: 23px;
-  border: 1px solid lightseagreen;
+  border: 1px solid #9cd3e8;
   font-size: 13px;
-  color: lightseagreen;
+  color: #9cd3e8;
   font-weight: bold;
 }
 

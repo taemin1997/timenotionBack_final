@@ -189,7 +189,7 @@ header {
 }
 
 /* 페이징 */
-.page-box{
+.page-box{ /*ul*/
   margin: 60px auto 30px auto;
   display: flex;
   width: 160px;

@@ -12,7 +12,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script th:src="@{/js/chat/chat.js}"></script>
+    <script defer th:src="@{/js/chat/chat.js}"></script>
+    <script defer th:src="@{/js/chat/chat-img.js}"></script>
 </head>
 
 <body>
@@ -40,16 +41,36 @@
             </div>
         </div>
         <!-- 각 채팅방 목록을 반복해서 출력 -->
-        <div th:each="room : ${chatRooms}" class="notification-contents">
-            <div class="contents-prev-content">
-                <span class="contents-number" th:text="${room.roomId}"></span>
-                <span class="contents-nickname" th:if="${session.uniId == room.senderId}" th:text="${room.receiverNickname}"></span>
-                <span class="contents-nickname" th:if="${session.uniId != room.senderId}" th:text="${room.senderNickname}"></span>
+        <div class="chat-wrapper"  th:each="room : ${chatRooms}">
+            <input type="hidden" th:value="${room.roomId}"  id="roomId">
+            <input type="hidden" th:value="${room.receiverId}" id="receiverId2">
+            <div class="chat-li-content">
+                <!-- 앞쪽 -->
+                <div class="prev-wrap">
+                    <!-- 1. 프로필 사진  -->
+                    <a class="profile-list-img-box" th:href="@{/yourLife/userpage/{receiverId}(receiverId=${room.receiverId})}">
+                    </a>
+                    <!-- 2. 닉네임 / 컨텐츠 박스 / 시간 -->
+                    <div class="content-box">
+                        <a class="nickname2" th:if="${session.uniId == room.senderId}" th:text="${room.receiverNickname}"
+                             th:href="@{/yourLife/userpage/{receiverId}(receiverId=${room.receiverId})}">닉네임</a>
+                      <!--  <div class="conversation-box">
+                            <span class="conversation" >ㅎㅎ</span>
+                            <span class="cv-time">12분 전</span>
+                        </div>-->
+                    </div>
+                </div>
+
+                <!-- 뒤쪽-->
+                <!-- 3. 버튼 -->
+                <a class="next-wrap" th:href="@{'/chat/room/' + ${room.roomId}}">
+                    <div class="submit-default">
+                        <img th:src="@{/img/main/submitButton.png}" alt="Submit Button Image">
+                    </div>
+                    <div class="hovers">채팅하기</div>
+                </a>
             </div>
-            <div class="contents-next-content">
-                <a th:href="@{'/chat/room/' + ${room.roomId}}" class="contents-writer">채팅하기</a>
-<!--                <span class="contents-date" th:text="${#temporals.format(room.lastMessageSentAt, 'yyyy.MM.dd')}"></span>-->
-            </div>
+            <hr class="chatList-hr">
         </div>
     </div>
 </div>
