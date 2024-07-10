@@ -82,8 +82,8 @@
             <div class="wrapper-profile">
                 <input type="hidden" th:value="${boards.userId}" id="uniIdForFile">
                 <div class="box-profile-img">
-                    <a class="box-profile-img-a" th:href="@{/yourLife/userpage/{userId}(userId=${boards.userId})}">
-                    </a>
+                    <a class="box-profile-img-a" th:if="${boards.userId == session.uniId}" th:href="@{/myLife}"></a>
+                    <a class="box-profile-img-a" th:unless="${boards.userId == session.uniId}" th:href="@{/yourLife/userpage/{userId}(userId=${boards.userId})}"></a>
                 </div>
                 <div class="box-profile-nickname"><a th:href="@{/yourLife/userpage/{userId}(userId=${boards.userId})}" id="get-user-like-id" th:text="${userNickname}">닉네임</a></div>
                 <p id="user-lifecycle-check" style="display: none" th:text="${boards.boardLifeCycle}"></p>

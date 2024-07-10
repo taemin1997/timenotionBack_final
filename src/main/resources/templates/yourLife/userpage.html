@@ -23,6 +23,8 @@
 
 <main>
   <input type="hidden" id="uniId" th:value="${userInfo.uniId}">
+<!--  추가 세션id와 해당 page id가 동일하면 하트 display none처리를 위한 input -->
+  <input type="hidden" id="sessionUser" th:value="${sessionUser}">
   <div class="container">
     <div class="first-container">
       <div class="profile-background">
@@ -50,7 +52,7 @@
 
               <span class="follower">팔로잉</span>
             </p>
-            <p class="profile-heart">
+            <p class="profile-heart" th:if="${userInfo.uniId != sessionUser}">
               <img src="/img/myLife/mdj-heart_negative.png" alt="하투" class="detail_page_heart" id="heart-image">
             </p>
           </div>
