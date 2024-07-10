@@ -22,4 +22,6 @@ public interface admin_inquiryService {
     void writeAdminResponse(String inquiryResponse, Long inquiryId);
 
     void removeInquiry(Long inquiryId);
+
+    int countInquiryKeyword(String keyword);
 }

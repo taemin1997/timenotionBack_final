@@ -301,19 +301,22 @@ public class adminController {
                               Model model,
                               @RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
 
+        int total;
+
         // 검색어가 있을 경우 Criteria에 검색어 설정
         if (searchKeyword != null && !searchKeyword.isEmpty()) {
             inquiryCriteria.setKeyword(searchKeyword);
+            total = adminInquiryService.countInquiryKeyword(searchKeyword);
+
         } else {
             inquiryCriteria.setKeyword(null);
+            total = adminInquiryService.selectAdminInquiryTotal(); // 전체 게시물 수를 가져오는 쿼리
         }
 
         // 페이징 및 검색 기능 처리
         List<InquiryPagingDTO> adminInquiryLists = adminInquiryService.selectAdminInquiryPage(inquiryCriteria);
-        int total = adminInquiryService.selectAdminInquiryTotal(); // 전체 게시물 수를 가져오는 쿼리
 
         InquiryPage inquiryPage = new InquiryPage(inquiryCriteria, total);
-
         model.addAttribute("adminInquiryLists", adminInquiryLists);
         model.addAttribute("inquiryPage", inquiryPage);
         model.addAttribute("searchKeyword", searchKeyword);

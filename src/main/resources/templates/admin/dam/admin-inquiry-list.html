@@ -117,7 +117,7 @@
         </div>
         <div class="inquiryPage-container">
           <ul class="inquiryPage-box">
-            <a th:href="@{/admin/inquiryList(inquiryPage=${inquiryPage.startPage - 1})}" class="inquiryPage-a" th:if="${inquiryPage.prev}">
+            <a th:href="@{/admin/inquiryList(inquiryPage=${inquiryPage.startPage - 1}, searchKeyword=${searchKeyword})}" class="inquiryPage-a" th:if="${inquiryPage.prev}">
               <li class="inquiryPage-num prev1">&lt</li>
             </a>
 
@@ -125,12 +125,12 @@
                         타임리프 문법을 사용하기 위해 만들어 쓴다.
             -->
             <th:block th:each="i : ${#numbers.sequence(inquiryPage.startPage, inquiryPage.endPage)}">
-              <a th:href="@{/admin/inquiryList(inquiryPage=${i})}" class="inquiryPage-a">
+              <a th:href="@{/admin/inquiryList(inquiryPage=${i}, searchKeyword=${searchKeyword})}" class="inquiryPage-a">
                 <li class="inquiryPage-num" th:classappend="${i == inquiryPage.inquiryCriteria.inquiryPage ? 'active' : ''}" th:text="${i}"></li>
               </a>
             </th:block>
 
-            <a th:href="@{/admin/inquiryList(inquiryPage=${inquiryPage.endPage + 1})}" class="inquiryPage-a" th:if="${inquiryPage.next}">
+            <a th:href="@{/admin/inquiryList(inquiryPage=${inquiryPage.endPage + 1}, searchKeyword=${searchKeyword})}" class="inquiryPage-a" th:if="${inquiryPage.next}">
               <li class="inquiryPage-num next1">&gt</li>
             </a>
           </ul>
