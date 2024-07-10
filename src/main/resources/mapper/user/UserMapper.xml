@@ -156,6 +156,10 @@
         select user_nickname from gghj_user where user_nickname = #{userNickname}
     </select>
 
+    <select id="phoneDuplicateCheck" parameterType="String" resultType="String">
+        select user_phone from gghj_user where user_phone = #{userPhone}
+    </select>
+
     <select id="findKakaoBirth" parameterType="Long" resultType="String">
     SELECT KAKAO_BIRTH
     FROM GGHJ_KAKAO k JOIN GGHJ_UNI u
