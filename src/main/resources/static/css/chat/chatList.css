@@ -200,7 +200,7 @@ body{     background-color: #fcfaf7;}
 .chatList-hr{
     border: 0;
     height: 1px;
-    background-color: #cfcfcf;
+    background-color: rgba(0, 0, 0, 0.07);
 }
 
 .submit-default{
