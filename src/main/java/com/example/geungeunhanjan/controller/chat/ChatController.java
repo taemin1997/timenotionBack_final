@@ -1,6 +1,11 @@
 package com.example.geungeunhanjan.controller.chat;
 
+import com.example.geungeunhanjan.domain.dto.board.BoardDTO;
+import com.example.geungeunhanjan.domain.dto.board.LifeUserInfoDTO;
 import com.example.geungeunhanjan.domain.dto.chat.ChatRoomDTO;
+import com.example.geungeunhanjan.domain.vo.chat.ChatMessageVO;
+import com.example.geungeunhanjan.mapper.chat.ChatMapper;
+import com.example.geungeunhanjan.service.MyPageService;
 import com.example.geungeunhanjan.service.chat.ChatService;
 import com.example.geungeunhanjan.domain.dto.chat.ChatMessageDTO;
 import jakarta.servlet.http.HttpSession;
@@ -31,12 +36,18 @@ public class ChatController {
         // 로그인 여부 확인
 
         Long uniId = (Long) session.getAttribute("uniId");
+<<<<<<< HEAD
         if (uniId == null) {
 
             return "redirect:/user/login";
         }
 
 //        Long uniId = (Long) session.getAttribute("uniId");
+=======
+        Long roomId = (Long) session.getAttribute("roomId");
+        ChatMessageVO chatMessage = chatService.getMessageMostRecent(roomId);
+        model.addAttribute("chatMessage", chatMessage);
+>>>>>>> 12df58f6f6e4ca357f0c18f1a8d3098bc8b72865
         List<ChatRoomDTO> chatRooms = chatService.getChatRoomsByUserId(uniId);
         model.addAttribute("chatRooms", chatRooms);
         return "/chat/chatList";
@@ -47,6 +58,10 @@ public class ChatController {
         ChatRoomDTO chatRoom = chatService.getChatRoomsByRoomId(roomId);
         List<ChatMessageDTO> chatMessageList = chatService.getMessagesByRoomId(roomId);
         Long loginUser = (Long) session.getAttribute("uniId");
+        /* ---- */
+        ChatRoomDTO chatInfo = chatService.getChatIInfoByRoomId(roomId);
+        model.addAttribute("chatInfo", chatInfo);
+        /* ---- */
         model.addAttribute("chatRoom", chatRoom);
         model.addAttribute("chatMessageList", chatMessageList);
         System.out.println("chatMessageList = " + chatMessageList);
@@ -119,4 +134,10 @@ public class ChatController {
     public void send(ChatMessageDTO message) {
         messagingTemplate.convertAndSend("/topic/messages", message);
     }
+
+
+
 }
+
+
+
