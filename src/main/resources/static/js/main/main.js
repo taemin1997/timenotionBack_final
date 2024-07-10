@@ -262,7 +262,16 @@ function AjaxOfPopProfile(userId, profileBox) {
 
 
 
-
+<!--  배너 클릭시 새로고침 방지 추가 0709-->
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('.sub-banner-box a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent the default behavior of the link
+            // Add your custom logic here
+            console.log('Banner link clicked but no refresh');
+        });
+    });
+});
 
 
 

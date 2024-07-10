@@ -83,10 +83,9 @@ public class YourLifeController {
 
     public String userPage(Model model, @PathVariable("uniId") long userId, HttpServletRequest request, Criteria criteria) {
 
-//        Long getUniId =  followService.selectUniIdFollow(userId);
 
-//        FollowDTO follow = followService.selectFollowDetail(userId);
-//        System.out.println("follow = " + follow);
+
+
         LifeUserInfoDTO follow = myPageService.selectAllInfo(userId);
         int follwingCNT = myPageService.countFollowing(userId);
         int followerCNT = myPageService.countFollower(userId);
@@ -117,6 +116,10 @@ public class YourLifeController {
         followHeartDTO.setFollowToUser(loginUserId);
         followHeartDTO.setFollowFromUser(userId);
         int followStatus = followService.selectFollowStatus(followHeartDTO);
+
+        // 세션에서 현재 사용자의 userId를 가져오기 추가 0709
+        model.addAttribute("sessionUser", loginUserId); // sessionUser 값을 모델에 추가
+
         model.addAttribute("followStatus", followStatus);
 
         model.addAttribute("boards", boards);
