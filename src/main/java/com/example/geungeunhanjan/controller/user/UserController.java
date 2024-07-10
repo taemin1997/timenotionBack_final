@@ -67,11 +67,10 @@ public class UserController {
 
     // 로그인 getMapping
     @GetMapping("/login")
-    public String login(HttpSession session) {
-        // 이미 로그인 된 상태인지 확인 후, 로그인 페이지로 리다이렉트
-//        if (session.getAttribute("userId") != null) {
-//            return "redirect:/main";
-//        }
+    public String login(HttpSession session, Model model) {
+        if (model.containsAttribute("loginError")) {
+            System.out.println("loginError: " + model.getAttribute("loginError"));
+        }
         return "/user/login";
     }
 
@@ -79,7 +78,8 @@ public class UserController {
     @PostMapping("/login")
     public String userLogin(@RequestParam("userEmail") String userEmail,
                             @RequestParam("userPassword") String userPassword,
-                            HttpSession session) {
+                            HttpSession session,
+                            Model model) {
 
         Long userId = userService.userLogin(userEmail, userPassword);
         boolean result = userId != null && userId > 0;
@@ -91,7 +91,8 @@ public class UserController {
             session.setAttribute("userNickname", userSessionDTO.getUserNickname());
             return "redirect:/main";
         } else {
-            return "redirect:/main/login?error";
+            model.addAttribute("loginError", "잘못된 정보입니다. 다시 로그인하세요.");
+            return "/user/login";
         }
     }
 
