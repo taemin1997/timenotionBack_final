@@ -1,6 +1,11 @@
 .container{
   height: 1850px;
 }
+.body{
+  background-color: #fcfaf7;
+}
+
+/* #5AB6D9 진한파랑 #9cd3e8 연한파랑*/
 *{
   color: #251F1F;
 }
@@ -69,7 +74,7 @@
   margin-left: 15px;
   border-radius: 6px;
   border: none;
-  background-color: #c4e1ec;
+  background-color: #9cd3e8; /* 연한파랑 */
   color: black;
   width: 80px;
   height: 30px;
@@ -129,7 +134,7 @@
 .edit-back-img-button-change{
   border-radius: 6px;
   border: none;
-  background-color: #c4e1ec;
+  background-color: #9cd3e8;
   color: black;
   width: 80px;
   height: 30px;
@@ -182,17 +187,24 @@
 
 /* 비밀번호 변경하기  */
 .edit-password-chnage-button{
-  background-color: #c4e1ec;
-  color: black;
+  background-color: #9cd3e8;
+  color: #212628;
   font-size: 16px;
   border-radius: 6px;
   border: none;
   height: 43px;
   width: 195px;
   cursor: pointer;
+  transition-duration: 0.25s;
+
+}
+.edit-password-chnage-button:hover{
+  background-color: #5AB6D9;
+/* 진한파랑 */
 }
 #edit-ori-password-paragraph{
   margin-bottom: 30px ;
+  color: white;
 }
 
 
@@ -342,19 +354,27 @@
   width: 475px;
   padding-left: 20px; 
 }
+
+/* 닉네임 버튼 */
 .edit-nickname-button{
-  background-color: #c4e1ec;
-  color: black;
+  background-color: #9cd3e8;
+  color: #212628;
   font-size: 14px;
-  font-weight: bolder;
   border-radius: 6px;
   border: none;
   height: 43px;
   width: 95px;
   cursor: pointer;
+  transition-duration: 0.25s;
 }
 .edit-nickname-button:hover{
-  background-color: #a9cedd;
+  background-color: #5AB6D9 ;
+}
+/* 닉네임 유효성검사 */
+.edit-nickname-result{
+  color: #5AB6D9;
+  font-size: 12px;
+  margin-top: 8px;
 }
 .edit-hr-nickname{
   width: 600px;

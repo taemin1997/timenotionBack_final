@@ -318,11 +318,42 @@ AjaxOfUserFile();
 
 function AjaxOfUserFile() {
   fetch(`/v1/mylife/${uniId}/files`, { method: 'GET' })
-      .then(res => res.json()) // 응답을 JSON으로 변환
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.text(); // 먼저 응답을 텍스트로 변환
+      })
+      .then(text => {
+        if (!text) {
+          // 응답이 비어 있는 경우 기본 프로필 사진을 표시
+          console.log("응답이 비어서 기본 프로필 들어갔습니다.")
+          let $profileBox = document.querySelector('.box-profile-img-a');
+          $profileBox.innerHTML = `
+            <img src="/img/main/basic-profile.png" alt="기본 프로필 사진" class="img-profile-img">
+          `;
+          return;
+        }
+        return JSON.parse(text); // 텍스트가 비어있지 않으면 JSON으로 파싱
+      }) // 응답을 JSON으로 변환 ------------------------------------------------ 여기까지 수정함 24.07.08
       .then(data => { // 변환된 데이터를 data 변수에 저장
         let profileTags = '';
 
+        if(data){ // data 존재여부 확인
+          let profileFileName = encodeURIComponent(data.userFileProfileSource + '/' + data.userFileProfileUuid + '_' + data.userFileProfileName); // ☆★☆★☆★ 파일 경로를 URL 인코딩
+          console.log("파일이름 : " + profileFileName);
+          if (data.userFileProfileSource) {
+            profileTags = `
+                    <img src="/v1/user-files?fileName=${profileFileName}" alt="프로필사진" class="img-profile-img">
+                `;
+          }
+        }else{
+          profileTags = `
+                    <img src="/img/main/basic-profile.png" alt="기본 프로필 사진" class="img-profile-img">
+                `;
+        }
         /* 파일 경로 조합 */
+        /*
         let profileFileName = encodeURIComponent(data.userFileProfileSource + '/' + data.userFileProfileUuid + '_' + data.userFileProfileName); // ☆★☆★☆★ 파일 경로를 URL 인코딩
         if (data.userFileProfileSource) {
           profileTags = `
@@ -333,7 +364,7 @@ function AjaxOfUserFile() {
                     <img src="/img/main/basic-profile.png" alt="기본 프로필 사진" class="img-profile-img">
                 `;
         }
-
+*/
         let $profileBox = document.querySelector('.box-profile-img-a');
 
         /* html에 만든 태그 넣기 */

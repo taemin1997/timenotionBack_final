@@ -31,6 +31,7 @@ body{     background-color: #fcfaf7;}
     height: 100%;
     font-size: 25px;
     font-weight: bold;
+    color: #56727d;
 }
 .notification-title button{
     margin-right: 15px;
@@ -118,5 +119,112 @@ body{     background-color: #fcfaf7;}
 .paging-forward{
     display: block;
 }
+
+
+/* 채팅 리스트 디자인 -------------------------------------------- 담 */
+.chat-wrapper{
+    width: 100%;
+}
+.chat-li-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: transparent;
+    box-sizing: border-box;
+    width: 100%;
+    height: 95px;
+    padding: 0px 20px;
+}
+
+.chat-li-content{
+    background-color: transparent;
+    border-radius: 6px;
+    transition-duration: 0.25s;
+
+}
+/* 앞쪽 컨텐츠 ---------------------- */
+.prev-wrap{
+    align-items: center;
+    display: flex;
+}
+/* 1. 프로필 사진 */
+.profile-list-img-box{
+    width: 65px;
+    height: 65px;
+    background-color: darkgray;
+    border-radius: 8px;
+    margin-right: 18px;
+}
+.profile-list-img-box img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+/* 2. 닉네임 / 컨텐츠 / 시간 */
+.content-box{
+    display: flex;
+    flex-direction: column;
+}
+.nickname2{
+    font-weight: bold;
+    font-size: 17px;
+    margin-bottom: 8px;
+    color: #251F1F;
+}
+/* 댓글 , 시간*/
+.conversation-box{
+    display: flex;
+    align-items: center;
+}
+.conversation{
+    margin-right: 18px;
+    font-size: 12px;
+}
+.cv-time{
+    font-size: 12px;
+    color: #828282;
+}
+/* 3. 버튼 */
+.next-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 40px;
+    background-color: #5AB6D9;
+    border-radius: 40px;
+}
+.chatList-hr{
+    border: 0;
+    height: 1px;
+    background-color: #cfcfcf;
+}
+
+.submit-default{
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.submit-default img{
+    width: 36%;
+    object-fit: cover;
+}
+.hovers{
+    display: none;
+    color: #5AB6D9;
+    font-weight: bold;
+    font-size: 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+
+
+
+
+
+
 
 

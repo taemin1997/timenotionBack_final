@@ -2,6 +2,7 @@ package com.example.geungeunhanjan.mapper.chat;
 
 import com.example.geungeunhanjan.domain.dto.chat.ChatMessageDTO;
 import com.example.geungeunhanjan.domain.dto.chat.ChatRoomDTO;
+import com.example.geungeunhanjan.domain.vo.chat.ChatMessageVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -23,5 +24,10 @@ public interface ChatMapper {
     Long getExistingChatRoomId(Map<String, Object> uniMap);
 
     ChatRoomDTO getChatRoomsByRoomId(Long roomId);
+
+    ChatRoomDTO getChatIInfoByRoomId(Long roomId); // 프사 uuid까지 가져오는애
+
+    ChatMessageVO getMessageMostRecent(Long roomId); //  최신순 대화 1개만 가져옴
+
 
 }
