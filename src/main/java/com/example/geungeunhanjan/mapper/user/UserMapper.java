@@ -55,6 +55,8 @@ public interface UserMapper {
 
     String nicknameDuplicateCheck(String userNickname);
 
+    String phoneDuplicateCheck(String userPhone);
+
     String findKakaoBirth(Long uniId);
 
     void updatePassword(String userPassword, String userEmail);
