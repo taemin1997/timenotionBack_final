@@ -116,14 +116,15 @@
     <th:block th:if="${boardLifeCycle == null}">
     <div class="everyLife-paging">
       <ul class="paging-backward">
-        <a th:href="@{|/yourLife/userpage/${uniId}?page=${page.startPage - 1}|}" class="page-a" th:if="${page.prev}">&lt;</a></ul>
+        <a th:href="@{|/yourLife/userpage/${uniId}?page=${page.startPage - 1}|}" class="page-a" th:if="${page.prev}">&lt</a>
+      </ul>
       <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
         <a th:href="@{|/yourLife/userpage/${uniId}?page=${i}|}" class="page-a">
           <li class="page-num" th:classappend="${i == page.criteria.page ? 'active' : ''}" th:text="${i}"></li>
         </a>
       </th:block>
       <a th:href="@{|/yourLife/userpage/${uniId}?page=${page.endPage + 1}|}" class="page-a" th:if="${page.next}">
-        <li class="page-num next">&gt</li>
+        <li class="page-num next"></li>
       </a>
     </div>
     </th:block>
@@ -131,14 +132,15 @@
     <th:block th:if="${boardLifeCycle != null}">
       <div class="everyLife-paging">
         <ul class="paging-backward">
-          <a th:href="@{|/yourLife/userpage/${uniId}/${boardLifeCycle}?page=${page.startPage - 1}|}" class="page-a" th:if="${page.prev}">&lt;</a></ul>
+          <a th:href="@{|/yourLife/userpage/${uniId}/${boardLifeCycle}?page=${page.startPage - 1}|}" class="page-a" th:if="${page.prev}">&lt</a>
+        </ul>
         <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
           <a th:href="@{|/yourLife/userpage/${uniId}/${boardLifeCycle}?page=${i}|}" class="page-a">
             <li class="page-num" th:classappend="${i == page.criteria.page ? 'active' : ''}" th:text="${i}"></li>
           </a>
         </th:block>
         <a th:href="@{|/yourLife/userpage/${uniId}/${boardLifeCycle}?page=${page.endPage + 1}|}" class="page-a" th:if="${page.next}">
-          <li class="page-num next">&gt</li>
+          <li class="page-num next"></li>
         </a>
       </div>
     </th:block>

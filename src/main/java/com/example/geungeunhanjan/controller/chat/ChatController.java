@@ -16,6 +16,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import retrofit2.http.HEAD;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +33,17 @@ public class ChatController {
 
     @GetMapping("/chatting")
     public String chatting(Model model, HttpSession session) {
+
+        // 로그인 여부 확인
+
         Long uniId = (Long) session.getAttribute("uniId");
+        if (uniId == null) {
+
+            return "redirect:/user/login";
+        }
+
+//        Long uniId = (Long) session.getAttribute("uniId");
+
         Long roomId = (Long) session.getAttribute("roomId");
         ChatMessageVO chatMessage = chatService.getMessageMostRecent(roomId);
         model.addAttribute("chatMessage", chatMessage);

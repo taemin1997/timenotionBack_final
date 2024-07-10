@@ -128,7 +128,6 @@ public class YourLifeController {
 
         return "yourLife/userpage";
     }
-
     // 유저 페이지 팔로우 기능 구현 컨트롤러 -하트클릭시
     @PostMapping("/userpage/{uniId}")
     public String userPage(
@@ -185,11 +184,15 @@ public class YourLifeController {
     public String everyLifeCycle(Model model , HttpSession session, Criteria criteria, HttpServletRequest request,
                                  @PathVariable String boardLifeCycle, @PathVariable("uniId") long userId){
 
-        LifeUserInfoDTO userInfo = myPageService.selectAllInfo(userId);
-        userInfo.setUniId(userId);
-        model.addAttribute("userInfo", userInfo);
+        LifeUserInfoDTO follow = myPageService.selectAllInfo(userId);
+        follow.setUniId(userId);
+        model.addAttribute("follow", follow);
 
-        FollowDTO follow = followService.selectFollowDetail(userId);
+        int follwingCNT = myPageService.countFollowing(userId);
+        int followerCNT = myPageService.countFollower(userId);
+        model.addAttribute("follwingCNT", follwingCNT);
+        model.addAttribute("followerCNT", followerCNT);
+
         UniVO about = followService.selectFollowAbout(userId);
         List<BoardVO> boards = boardService.selectBoard(userId);
         if(about != null) {
@@ -199,6 +202,10 @@ public class YourLifeController {
         criteria.setAmount(9);
         List<BoardDTO> boardPaging = boardService.userLifeCyclePaging(boardLifeCycle,userId,criteria);
         model.addAttribute("boardPage", boardPaging);
+
+        // 유저 정보 (프로필쪽)
+        LifeUserInfoDTO userInfo = myPageService.selectAllInfo(userId);
+        model.addAttribute("userInfo", userInfo);
 
 
         FollowHeartDTO followHeartDTO = new FollowHeartDTO();
@@ -210,7 +217,6 @@ public class YourLifeController {
         model.addAttribute("followStatus", followStatus);
 
         model.addAttribute("boards", boards);
-        model.addAttribute("follow", follow);
         System.out.println("dddddddddd");
 
 
@@ -219,13 +225,6 @@ public class YourLifeController {
         model.addAttribute("page", page);
         return "yourLife/userpage";
     }
-
-
-
-
-
-
-
 
 
 }

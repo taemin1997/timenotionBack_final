@@ -35,7 +35,7 @@
       <!-- 이름 -->
       <div class="name">
         <p id="name-paragraph">이름</p>
-          <input type="text" id="name-input" name="userName" placeholder="이름을 입력해주세요">
+          <input type="text" id="name-input" name="userName" placeholder="이름을 입력해주세요" required>
           <p id="name-result"></p>
       </div>
       <!-- 전화번호     -->
@@ -46,24 +46,25 @@
           <button type="button" id="phone-button">중복 확인</button>
         </div>
         <p id="phone-result"></p>
+
       </div>
       <!-- 비밀번호 -->
       <div class="password">
         <p id="join-password-paragraph">비밀번호</p>
-          <input id="join-password-input" name="userPassword" type="password" placeholder="영문,숫자포함 8자 이상으로 입력해주세요">
+          <input id="join-password-input" name="userPassword" type="password" placeholder="영문,숫자포함 8자 이상으로 입력해주세요" required>
         <p id="join-password-result"></p>
       </div>
       <!-- 비밀번호 확인 -->
       <div class="password">
         <p id="join-passwordcheck-paragraph">비밀번호 확인 </p>
-          <input id="join-passwordcheck-input" type="password" placeholder="영문,숫자포함 8자 이상으로 입력해주세요">
+          <input id="join-passwordcheck-input" type="password" placeholder="영문,숫자포함 8자 이상으로 입력해주세요" required>
         <p id="join-passwordcheck-result"></p>
       </div>
       <!-- 이메일 --> <!-- 아이디 -->
       <div class="email">
         <p id="email-paragraph">이메일</p>
         <div class="email-text">
-          <input id="email-input" name="userEmail" type="text" placeholder="아이디를 입력해주세요">
+          <input id="email-input" name="userEmail" type="text" placeholder="아이디를 입력해주세요" required>
           <button type="button" id="email-button">중복 확인</button>
         </div>
         <p id="email-result"></p>
@@ -72,7 +73,7 @@
       <div class="nickname">
         <p id="join-nickname-paragraph">닉네임</p>
         <div class="nickname-text">
-          <input id="join-nickname-input" name="userNickname" type="text" placeholder="아이디를 입력해주세요">
+          <input id="join-nickname-input" name="userNickname" type="text" placeholder="아이디를 입력해주세요" required>
           <button id="join-nickname-button" type="button">중복 확인</button>
         </div>
         <p id="join-nickname-result"></p>
@@ -152,8 +153,8 @@
         <div class="edit-birth-box">
           <p id="edit-birth-paragraph">생년월일</p>
           <div>
-            <input name="userBirth" class="edit-birth-year" type="text" placeholder="ex)1999" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="4">년
-            <select name="month" class="edit-birth-month">
+            <input name="userBirth" class="edit-birth-year" type="text" placeholder="ex)1999" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="4" required>년
+            <select name="month" class="edit-birth-month" required>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -200,6 +201,7 @@
               <option value="30">30</option>
               <option value="31">31</option>
             </select>일
+
           </div>
           <p id="edit-birth-result"></p>
         </div>

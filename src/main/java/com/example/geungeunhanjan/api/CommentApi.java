@@ -1,14 +1,22 @@
 package com.example.geungeunhanjan.api;
 
+import com.example.geungeunhanjan.domain.dto.board.BoardDTO;
 import com.example.geungeunhanjan.domain.dto.board.CommentDTO;
+import com.example.geungeunhanjan.domain.dto.board.LifeUserInfoDTO;
 import com.example.geungeunhanjan.domain.dto.comment.CommentListDTO;
 import com.example.geungeunhanjan.domain.dto.comment.CommentWriteDTO;
+import com.example.geungeunhanjan.domain.dto.file.FollowDTO;
+import com.example.geungeunhanjan.domain.dto.file.FollowHeartDTO;
 import com.example.geungeunhanjan.domain.dto.lifePage.Criteria;
+import com.example.geungeunhanjan.domain.dto.lifePage.Page;
 import com.example.geungeunhanjan.domain.dto.lifePage.Slice;
+import com.example.geungeunhanjan.domain.vo.board.BoardVO;
+import com.example.geungeunhanjan.domain.vo.user.UniVO;
 import com.example.geungeunhanjan.service.comment.CommentService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
