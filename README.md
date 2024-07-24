@@ -156,4 +156,6 @@
 <div>
   <img src="https://img.shields.io/badge/COOLSMS-0288D1?style=flat&logo=twilio&logoColor=white"/>
   <img src="https://img.shields.io/badge/KakaoLogin-FFCD00?style=flat&logo=kakao&logoColor=white"/>
+   <img alt="Static Badge" src="https://img.shields.io/badge/WebSocket-010101%3Fstyle%3Dflat%26logo%3DWebSocket%26logoColor%3Dwhite%22">
+
 </div>
