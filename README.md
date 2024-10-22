@@ -1,133 +1,335 @@
 # 근근한잔 (타임노션)
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/d9c6e0d6-f1af-403a-83a6-8c26445c0c51></a>
+<img width="500" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/d9c6e0d6-f1af-403a-83a6-8c26445c0c51>
 
 
 ## 📁 프로젝트 소개
-**근근한잔💪 (타임노션)**은 개인의 생애주기별 경험과 추억을 기록하고, 이를 공유함으로써 공감을 형성할 수 있는 플랫폼입니다. <br> 사용자는 자신의 삶을 일기 형식으로 기록하며, 이를 통해 유대감을 형성하고, 자기 표현의 장을 제공받아 일기 쓰기 습관을 형성할 수 있습니다.
+<Strong>**근근한잔💪 (타임노션)** </Strong>은 개인의 생애주기별 경험과 추억을 기록하고, 이를 다른 사람들과 공유함으로써 공감을 형성하고 팔로잉/팔로우를 통한 채팅도 할 수 있는 플랫폼입니다. 
+
 
 ## ⏱ 개발 기간
-24.05.03 - 24.05.31
+24.05.03 - 24.05.31 **"1차개발"** <br>
+24.06.03 - 24.06.28 **"채팅+관리자 페이지"**
+
+
 
 ## 주요 기능
 
 1. **시기별 일대기 공유**
-   - 사용자는 자신의 일생을 기록할 수 있습니다.<br>  특정 연도를 선택하여 자신의 일대기를 작성하고 게시글을 올리면, 리스트에서 시기별로 볼 수 있습니다.<br>  이를 통해 자신의 유년기, 청년기 등을 모아볼 수 있습니다.
+   - 사용자는 자신의 일생을 기록할 수 있습니다.<br>
+   - 특정 연도를 선택하여 자신의 일대기를 작성하고 게시글을 올리면, 리스트에서 시기별로 볼 수 있습니다.<br>
+     이를 통해 자신의 유년기,유아기,청소년기,청년기,중년기, 노년기 등을 모아볼 수 있습니다.
 
-2. **커뮤니티 형성**
+2. **채팅/커뮤니티 형성**
    - 공통 키워드를 통해 경험을 공유하며 사용자 간의 친밀함을 생성하고 새로운 만남을 도모할 수 있습니다.
+   - 게시글을 공유하고 서로의 생각을 이야기하며 마음이 가는 사람에게 채팅을 할 수 있습니다.
 
-3. **그룹화**
+3. **팔로잉/팔로우,게시물 좋아요**
+   - 내가 계속 보고싶은 게시물에 좋아요를 누를 수 있다.
+   - 자주 보고 싶은 사람을 팔로우해서 해당 인원의 게시물을 볼 수 있다.
+
+4. **그룹화**
    - 여러 사용자의 일대기를 모아 특정 시기나 집단을 중심으로 묶어냄으로써,<br>  그 시기나 집단의 역사적 기록을 체계적으로 보존하고 다양한 관점에서 재조명할 수 있습니다.<br>  이를 통해 한 개인이 자기계발의 계기를 마련할 수 있습니다.
 
-4. **키워드를 통한 공통사**
-   - 사이트의 키워드 기능을 통해 내 관심사를 검색하고 자신과 직종, 학교, 지역 등이 같은 다양한 사람들과 만날 수 있도록 합니다.<br>  댓글을 통해 다양한 경험을 공유하며 소통할 수 있습니다.
+5. **키워드를 통한 공통사**
+   - 사이트의 키워드 기능을 통해 내 관심사를 검색하고 자신과 직종, 학교, 지역 등이 같은 다양한 사람들과 만날 수 있도록 합니다.<br>  댓글,채팅을 통해 다양한 경험을 공유하며 소통할 수 있습니다.
+
+---
 
 ## 📖목차
 - [팀 구성](#팀-구성)
 - [ERD 구성](#erd-구성)
 - [Stacks](#-stacks)
 
-## 🔗팀 구성
-**Producer Git-hut Page 장윤근**
+## 🧑‍💻팀 구성
+**Producer Git-hub Page 장윤근**
 
-| 팀장  | 장윤근 |
+| 팀장  | [장윤근](https://github.com/jang1234567) |
 |:----:|:-----:|
-| 부팀장 | 윤담   |
-| 팀원  | 문동주 |
-| 팀원  | 고태민 |
-| 팀원  | 송아성 |
+| 부팀장 |  [윤담](https://github.com/dev-yoondam)   |
+| 팀원  |  [고태민](https://github.com/taemin1997) |
+| 팀원  |  [문동주](https://github.com/mdongjoo) |
+| 팀원  |  [김주선](https://github.com/joosun0823) |
+| 팀원  |  [양효준](https://github.com/HyoJun00) |
+
+---
+
+## 🔗서비스 흐름도
+
+<img width="800" src='https://github.com/user-attachments/assets/a4c56a5e-6be3-4959-8de8-c01ecfb6956c'>
+<br>
+<Strong><관리자></Strong><br>
+<img height="400" width="400" src='https://github.com/user-attachments/assets/178fccdf-a974-447c-a9de-1ca083921c87'>
+
+
 
 ## 💡ERD 구성
 
 <details open>
 <summary>ERD</summary>
   
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src='https://github.com/jang1234567/timenotionBack_final/assets/120088675/aab927f4-58cd-4040-945d-d78688755824'></a>
+<img width="800" src='https://github.com/user-attachments/assets/3cf36b83-0b8a-42d7-8d9a-e1e39a04ba79'>
 
 </details>
+
 
 ## 💻 기능 및 화면 소개
 
 **<메인화면>**<br>
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/73ea0508-944f-436e-b7e4-62b4e3eda60c></a>
+<table>
+  <tr>
+    <td align="center">
+      <strong><메인화면></strong><br>
+      <img width="400" src="https://github.com/jang1234567/timenotionBack_final/assets/120088675/73ea0508-944f-436e-b7e4-62b4e3eda60c">
+    </td>
+    <td align="center">
+      <strong><키워드/배너></strong><br>
+      <img width="400" src="https://github.com/jang1234567/timenotionBack_final/assets/120088675/1efd923a-b6f3-43be-9338-538940175b6f">
+    </td>
+  </tr>
+</table>
 
-- 메인 화면으로 관리자가 뽑는 게시물 베스트 탑3를 보여주고 있습니다.
-- 인기 컨텐츠는 게시물 좋아요를 받은 순서대로 탑4를 나타내어 보여주고 있습니다.
+- 게시글 좋아요,조회순으로 메인화면의 메인 게시글을 띄워줍니다.
+- 사용자들이 많이 검색하는 키워드를 보여줍니다.
 
-**<키워드/배너>**<br>
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/1efd923a-b6f3-43be-9338-538940175b6f></a>
+---
 
-- 인기키워드는 “모두의 일대기”페이지에서 게시물을 검색할 때 해당 키워드를 검색하면 그 키워드의 검색 횟수가 1씩 누적합 되도록 설정 되어있습니다.
-- 키워드 밑에는 배너로 2초가 지나면 자동으로 해당 배너 크기만큼 좌로 이동하여 다음 배너가 보이게 구현 하였습니다.
+**<about페이지>**<br>
+<table>
+  <tr>
+    <td align="center">
+      <strong><about페이지></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/fb0aca13-b469-4257-9b44-6814c8cc20ae">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img width="400" src="https://github.com/user-attachments/assets/582a8700-f682-4316-bf1f-bfa54261dc39">
+    </td>
+    <td align="center">
+      <img width="400" src="https://github.com/user-attachments/assets/892c2650-0cec-4085-bcea-6d8dba0b6713">
+    </td>
+  </tr>
+</table>
 
-**<로그인>**<br>
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img  width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/a28d2e60-f0f5-4918-a3b0-4192572259c0></a>
+- 타임노션 웹페이지에 대한 설명
 
-- 타임 노션이라는 웹사이트는 무조건 로그인을 해야 볼수있는 회원제 게시판입니다.
-- Session을 이용하여 로그인을 구현하였고, KAKAO API를 불러와 Oauth2를 통해 카카로 로그인을 구현 하였습니다.
+---
+
+**<로그인, 회원가입>**<br>
+<table>
+  <tr>
+    <td align="center">
+      <strong><로그인></strong><br>
+      <img width="400" src="https://github.com/jang1234567/timenotionBack_final/assets/120088675/a28d2e60-f0f5-4918-a3b0-4192572259c0">
+    </td>
+    <td style="width: 50px;"></td> <!-- 빈 셀을 추가하여 간격 확보 -->
+    <td align="center">
+      <strong><회원가입></strong><br>
+      <img height="400" width="200px" src="https://github.com/jang1234567/timenotionBack_final/assets/120088675/4b02463d-ed48-4fc5-bf9c-e2d84ba683e3">
+    </td>
+  </tr>
+</table>
+
+- 일반적인 로그인, 회원가입이 가능하고 카카오를 이용하여 로그인, 회원가입이 가능합니다.
+
+---
 
 
-**<회원가입>**<br>
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img height="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/4b02463d-ed48-4fc5-bf9c-e2d84ba683e3></a>
 
-- 우선 FRONT에서 JS를 가지고 유효성 검사를 진행하였고 이메일, 닉네임 중복검사는 DB에서 값을 가져와 JS의 VALUE값과 비교하여 중복 검사를 진행합니다.
-    ⇒ 모든 검사를 만족시킨 후에 다음 페이지로 넘어가게 됩니다.
 
+**<비밀번호 찾기>**<br>
+<table>
+  <tr>
+    <td align="center">
+      <strong><비밀번호 찾기></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/60b6520b-8099-48e3-a76e-2535879eb995">
+    </td>
+    <td align="center">
+      <img width="400" src="https://github.com/user-attachments/assets/6142854b-077f-4012-b8b0-e488ef405bb5">
+    </td>
+  </tr>
+</table>
+
+- 문자인증을 통하여 비밀번호 찾기 및 변경을 할 수 있습니다.
+
+
+---
 
 **<나의 일대기>**<br>
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/df6e89de-048a-477a-9008-d0d052b5b7c8></a>
+<table>
+  <tr>
+    <td align="center">
+      <strong><나의 일대기></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/a17da4fd-bd4b-4b8d-b28e-7ee8e00f4162">
+    </td>
+    <td align="center">
+      <strong><내가 좋아요한 게시글 목록></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/30cc1cf3-078a-4a1c-8f4f-bd20c4780be1">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <strong><내가 쓴 댓글 목록></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/965c1863-0604-409f-ad64-9db3fe124f87">
+    </td>
+    <td align="center">
+      <strong><회원 정보 수정></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/d97b0727-5e7c-4f8e-b95c-f63a7799245e">
+    </td>
+  </tr>
+</table>
 
-- 내가 쓴 게시물을 볼 수 있는 페이지입니다.
-- AJAX를 통해 RestController로 구현하여 일대기버튼을 클릭시 일대기별로  게시판을 정렬할 수 있도록 구현해 놓았습니다.
-- 이미지사진과 배경사진이 없을 경우에는 default인 기본 배경이미지로 구현하였고 회원정보 수정에가서 파일 수정 할 수 있습니다.
+- 마이페이지처럼 내가 직접 활동한 목록들을 수정하고 볼 수 있습니다.
 
-  **<게시글 작성>**<br>
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/84b29d08-cd1a-4859-8c7e-920af1714ea5></a>
+---
+
+**<게시글, 댓글 작성 밒 신고>**<br>
+<table>
+  <tr>
+    <td align="center">
+      <strong><게시글 작성></strong><br>
+      <img width="400" src="https://github.com/jang1234567/timenotionBack_final/assets/120088675/84b29d08-cd1a-4859-8c7e-920af1714ea5">
+    </td>
+    <td align="center">
+      <strong><댓글 작성></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/baccff61-901c-4b25-abb3-3dab3c20e57f">
+    </td>
+     <td align="center">
+      <strong><댓글 신고></strong><br>
+      <img width="200" src="https://github.com/user-attachments/assets/4f0bc4b9-0e04-41e4-a940-9be4299e4f09">
+      <img width="200" src="https://github.com/user-attachments/assets/c3a8d199-f2ea-4094-856d-071e6aaf9b81">
+    </td>
+  </tr>
+</table>
+
+-  댓글로 욕설이나 좋지 않은 언행을 한 특정인원을 신고하여 관리자에게 알림이 가도록 구현하였습니다.
 
 
-- 기본적인 게시판 작성과정이지만 여기서 특이점으로 사건이 발생했던 년도를 입력받아, <br> 함수를 만들어 자신의 생일과 해당 년도를 계산하여 어떤 일대기로(유아기,청소년기,중년기,노년기) 저장되는지 구현해 보았습니다.
-- 게시물을 수정할 때에는 파일은 자동적으로 삭제되게 만들었고 새롭게 추가할 수 있도록 구현하였습니다.
 
+
+
+---
 
 **<모두의 일대기>**<br>
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/4f3f5cf0-0d8c-4fb1-9a1c-7bd0bbc0b283></a>
+<table>
+  <tr>
+    <td align="center">
+      <strong><모두의 일대기></strong><br>
+      <img width="400" src="https://github.com/jang1234567/timenotionBack_final/assets/120088675/4f3f5cf0-0d8c-4fb1-9a1c-7bd0bbc0b283">
+    </td>
+    <td align="center">
+      <strong><상세페이지></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/6bfb7fd1-dfda-49c4-84c4-034073c5e88a">
+    </td>
+    <td align="center">
+      <strong><게시글 좋아요></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/64135823-c278-4b7f-9e43-52c77266dde8">
+    </td>
+  </tr>
+</table>
 
-- 모든 사람이 쓴 글을 볼 수 있는 페이지 입니다.
-- 검색창을 만들어 DB에서 검색란의 문자열 크기를 세글자 정도로 맞추었고 검색어와 제목과 내용이 일치하면 해당 검색어에 대한 게시물만 보일 수 있게 정렬 해 놓았습니다.
-- 마찬가지로 일대기별, 최신순, 인기순, 조회순으로도 정렬 할 수 있으며 모두 페이지 이동없는 비동기 방식 AJAX를 사용하여 해당 페이지를 구현 하였습니다.
+- 상세페이지에서 특정인원의 게시글이 마음에 들었을 경우, 게시글 좋아요 버튼을 누를수 있습니다.
+- 정렬된 상태로 게시글을 확인할 수 있습니다.
 
 
-**<상세페이지>**<br>
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/ff2644c3-714d-443b-80f3-934b6941dcf6></a>
 
-- 댓글을 작성시에는 해당 input 영역에 댓글을 작성하면 JS로 값을 받아와  RestController를 통해해당영역안에 댓글이 들어가게 구현 하였다.
-- 제목을 보면 배경색이 있는데, 게시물의 일대기 값을 받아 JS로 해당 게시물의 일대기별 제목 색상을 정해두었습니다.
-- 내가 쓴 게시물에서는 수정과 삭제버튼이 보이고 남이 쓴 게시물을 들어가면 수정, 삭제 버튼이 보이지 않습니다.
+---
 
-**<좋아요>**<br>
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/0899dfaf-be50-4c21-8137-253aa2aed810></a>
+**<너의 일대기>**<br>
+<table>
+  <tr>
+    <td align="center">
+      <strong><너의 일대기></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/a3b36d09-95f4-4c05-9275-ba469508e580">
+    </td>
+    <td align="center">
+      <strong><팔로우, 팔로잉></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/d97a452b-763c-49dd-905e-42a12a63f82d">
+    </td>
+  </tr>
+</table>
 
-- 게시물에 하트가 있는데 그 하트를 누르면 하트가 빨간색으로 바뀌고 게시물 좋아요 카운트하는 컬럼도 1씩 증가한다.
+- 마음에 드는 사용자의 페이지에 들어가서 해당 인원을 팔로잉 할 수 있습니다.
 
-**<팔로우,언팔로우>**<br>
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/1db2b380-ae39-40d9-94b9-c3785b5ec89d></a>
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/8406faad-6212-49fe-962e-e5f139481740></a>
 
-- 게시물 좋아요 기능과 마찬가지로 다른사람의 페이지!<br> 
-에서 하트를 누르면 팔로우가 가능하다.
-- 팔로우를 누르는 순간 팔로잉 목록에 해당 회원에 대한 정보가 같이 SELECT 된다.
+---
+
+**<채팅>**<br>
+<table>
+  <tr>
+    <td align="center">
+      <strong><채팅목록></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/ca14e2e4-57fb-4ecd-a05a-551d3780e802">
+    </td>
+    <td align="center">
+      <strong><채팅방></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/f8bafa24-4143-45d1-8c31-58ac5eb9ce26">
+    </td>
+  </tr>
+</table>
+
+- 마음에 드는 사용자의 페이지에 들어가서 해당 인원에게 채팅할 수 있습니다.
+
+
+---
+
+
+
 
   **<커뮤니티(공지,문의)>**<br>
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/efc10124-1ea0-46e9-b8c7-5679d727a254></a>
-<a href='https://ifh.cc/v-H9Fj40' target='_blank'><img width="400" src=https://github.com/jang1234567/timenotionBack_final/assets/120088675/ce615f9d-4c12-4e0c-bdda-70190b312668></a>
+<table>
+  <tr>
+    <td align="center">
+      <strong><공지></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/d86ba5f4-819a-4d9e-a3b6-7853c09ba031">
+    </td>
+    <td align="center">
+      <img width="400" src="https://github.com/user-attachments/assets/2dcc7a6a-29bf-4316-861a-d765aa67dcab">
+    </td>
+    <td align="center">
+      <strong><문의></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/d1c2f72d-0895-42c4-a269-55ca40480628">
+    </td>
+    <td align="center">
+      <img width="400" src="https://github.com/user-attachments/assets/193f0321-d462-4a6b-8f82-4bc6b08feb4d">
+    </td>
+  </tr>
+</table>
+
+- 공지는 관리자만 가능하며 관리자가 아닌 사람은 로그인하면 작성하기 버튼이 보이지 않는다.<br>
+- 문의는 모든 회원들이 할 수 있으며, 문의에 대한 답변은 관리자만 할 수 있다.
 
 
-- 공지는 관리자만 가능하며 관리자가 아닌사람이 로그인하면 작성하기 버튼이 보이지 않는다.<br>
-- 문의는 모든 회원들이 문의 할 수 있고 문의에 대한 답변은 관리자만 할 수 있다.
+---
+**<관리자 페이지>**
+<table>
+  <tr>
+    <td align="center">
+      <strong><대쉬보드></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/5994bf9f-c57c-4c5c-947c-b0780e7825fb">
+    </td>
+    <td align="center">
+      <strong><게시글 관리></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/9f8f01ca-76d6-4258-aca3-290032f5d4c3">
+    </td>
+    <td align="center">
+      <strong><공지관리></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/8d3ed4d0-50e3-420a-b4e1-d323d5c32cbf">
+    </td>
+    <td align="center">
+      <strong><문의관리></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/16966be5-9220-4683-b753-cbcc1c8b0edf">
+    </td>
+          <td align="center">
+      <strong><회원관리></strong><br>
+      <img width="400" src="https://github.com/user-attachments/assets/e6271070-8b1f-4a6d-acad-c6ae02824672">
+    </td>
+  </tr>
+</table>
 
+- 관리자는 모든 인원들의 상태를 확인하고 관리할 수 있어야 합니다.
 
-
-
+---
 
 ## ⚙ Stacks
 

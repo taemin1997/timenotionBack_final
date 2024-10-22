@@ -9,8 +9,8 @@
 const heartImage = document.getElementById('heartImage');
 
 // 클릭한 이미지의 부모 요소인 p 태그를 선택합니다.
-const getLikeUser = document.getElementById("get-user-like-id").textContent.trim();
-console.log("getLikeUser: ", getLikeUser);
+// const getLikeUser = document.getElementById("get-user-like-id").textContent.trim();
+// console.log("getLikeUser: ", getLikeUser);
 
 let getLikeStatusBoolean = parseInt(document.getElementById("get-user-like-status").textContent.trim());
 console.log("getLikeStatusBoolean:", getLikeStatusBoolean);
@@ -375,4 +375,3 @@ function AjaxOfUserFile() {
         $profileBox.innerHTML = profileTags;
       });
 }
-
